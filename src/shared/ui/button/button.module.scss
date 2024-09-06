@@ -1,0 +1,19 @@
+.button {
+  cursor: pointer;
+
+  padding: 6px 12px;
+  border-radius: var(--rounded);
+
+  transition: var(--transition-base);
+}
+
+.mode_primary {
+  background-color: var(--color-primary);
+  color: white;
+  box-shadow: var(--shadow);
+
+  &:hover {
+    background-color: var(--color-primary-dark);
+    box-shadow: var(--shadow-inner);
+  }
+}

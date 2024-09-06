@@ -1,0 +1,31 @@
+.landing_page {
+  background-color: #f7f8fa;
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    justify-content: center;
+
+    height: 100vh;
+    padding: 20px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: var(--text-8xl);
+  }
+
+  &__subtitle {
+    font-size: var(--text-4xl);
+  }
+
+  &__link {
+    max-width: fit-content;
+    font-size: var(--text-xl);
+  }
+}
