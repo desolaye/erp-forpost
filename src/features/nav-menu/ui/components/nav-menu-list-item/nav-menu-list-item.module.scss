@@ -1,0 +1,7 @@
+.list_item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-overflow: ellipsis;
+  border-bottom: 2px solid #e5e6eb;
+}

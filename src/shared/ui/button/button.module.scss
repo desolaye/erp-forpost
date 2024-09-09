@@ -17,3 +17,8 @@
     box-shadow: var(--shadow-inner);
   }
 }
+
+.disabled {
+  cursor: default;
+  opacity: 0.5;
+}

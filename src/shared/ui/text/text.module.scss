@@ -1,0 +1,88 @@
+.text {
+  cursor: default;
+  line-height: 1;
+  font-weight: var(--weigth-base);
+}
+
+.link {
+  cursor: pointer;
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/*
+ TEXT SIZES
+*/
+.size_sm {
+  font-size: var(--text-sm);
+}
+
+.size_base {
+  font-size: var(--text-base);
+}
+
+.size_lg {
+  font-size: var(--text-lg);
+}
+
+.size_xl {
+  font-size: var(--text-xl);
+}
+
+.size_2xl {
+  font-size: var(--text-2xl);
+}
+
+.size_3xl {
+  font-size: var(--text-3xl);
+}
+
+.size_4xl {
+  font-size: var(--text-4xl);
+}
+
+.size_5xl {
+  font-size: var(--text-5xl);
+}
+
+.size_6xl {
+  font-size: var(--text-6xl);
+}
+
+.size_7xl {
+  font-size: var(--text-7xl);
+}
+
+.size_8xl {
+  font-size: var(--text-8xl);
+}
+
+/*
+ TEXT WEIGHT
+*/
+.weigth_base {
+  font-weight: var(--weigth-base);
+}
+
+.weigth_normal {
+  font-weight: var(--weigth-normal);
+}
+
+.weigth_semi {
+  font-weight: var(--weigth-semi);
+}
+
+.weigth_bold {
+  font-weight: var(--weigth-bold);
+}
+
+/* 
+  TEXT COLORS
+*/
+.color_black {
+  color: black;
+}
+
+.color_error {
+  color: var(--color-error);
+}

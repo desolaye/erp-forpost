@@ -1,0 +1,43 @@
+.input {
+  min-width: 320px;
+
+  padding: 12px;
+
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  background-color: #f2f2f2;
+  color: #333333;
+  box-shadow: var(--shadow-inner);
+
+  transition: var(--transition-base);
+
+  &::placeholder {
+    color: #828282;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: #269ad4;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__helper {
+    color: #828282;
+  }
+}
+
+.error {
+  color: #eb5757;
+  border-color: #eb5757;
+
+  &:hover,
+  &:focus {
+    border-color: #eb5757;
+  }
+}

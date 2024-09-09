@@ -1,15 +1,17 @@
 import { useState } from 'react'
 
-import { BxArrowRightIcon } from '../icons/bx-arrow-right-icon'
-import cls from './sub-nav.module.scss'
-import { subNavRoutes } from '@/shared/lib/sub-nav-routes'
-import { SubNavListItem } from './sub-nav-list-item'
+import { BxArrowRightIcon } from '@/shared/ui/icons/bx-arrow-right-icon'
 
-export const SubNav = () => {
+import { navMenuRoutes } from '../lib/nav-menu-routes'
+import { NavMenuListItem } from './components/nav-menu-list-item'
+
+import cls from './nav-menu.module.scss'
+
+export const NavMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const routes = subNavRoutes.map((v) => (
-    <SubNavListItem
+  const routes = navMenuRoutes.map((v) => (
+    <NavMenuListItem
       icon={v.icon()}
       isOpen={isOpen}
       text={v.text}
@@ -20,17 +22,18 @@ export const SubNav = () => {
 
   return (
     <aside
-      className={cls.sub_nav}
+      className={cls.nav_menu}
       style={{
         width: isOpen ? '310px' : '42px',
         padding: isOpen ? '8px' : '8px 4px',
       }}
     >
       <main>
-        <ul className={cls.sub_nav__list}>{routes}</ul>
+        <ul className={cls.nav_menu__list}>{routes}</ul>
       </main>
-      <footer className={cls.sub_nav__footer}>
+      <footer className={cls.nav_menu__footer}>
         <BxArrowRightIcon
+          className={cls.nav_menu__footer__icon}
           onClick={() => setIsOpen((prev) => !prev)}
           width={32}
           height={32}

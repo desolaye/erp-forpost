@@ -4,6 +4,8 @@
   --color-primary-dark: #5546b7;
   --color-primary-light: #9886e2;
 
+  --color-error: #eb5757;
+
   // text sizes
   --text-sm: 14px;
   --text-base: 16px;
@@ -25,6 +27,15 @@
   --rounded-lg: 8px;
   --rounded-xl: 12px;
   --rounded-2xl: 16px;
+
+  // weigth
+  --weigth-base: 400;
+  --weigth-medium: 500;
+  --weigth-semi: 600;
+  --weigth-bold: 700;
+
+  // grid cols
+  --grid-cols-2: repeat(2, minmax(0, 1fr));
 
   // shadows
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 1);
