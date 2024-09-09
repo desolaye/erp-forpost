@@ -2,7 +2,9 @@ import { createRoute } from '@tanstack/react-router'
 
 import { routesPath } from '@/shared/config/routes-path.config'
 import { ErpLayout } from '@/widgets/layouts/erp-layout'
+
 import { ManualRootPage } from '@/pages/manuals/root'
+import { ManualAgentsPage } from '@/pages/manuals/agents'
 
 import { rootRoute } from './public-routes'
 
@@ -36,7 +38,7 @@ const erpManualsIndexRoute = createRoute({
 const erpManualsAgentsRoute = createRoute({
   path: routesPath.erp.manuals.agents(),
   getParentRoute: () => erpManualsRoute,
-  component: () => <div>Agents manual</div>,
+  component: ManualAgentsPage,
 })
 
 const erpManualsTechMapRoute = createRoute({

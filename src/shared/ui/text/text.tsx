@@ -4,7 +4,7 @@ import cn from 'classnames'
 
 type TextTag = 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'a'
 type TextWeight = 'base' | 'medium' | 'semi' | 'bold'
-type TextColor = 'black' | 'error'
+type TextColor = 'black' | 'primary' | 'error'
 type TextSize =
   | 'base'
   | 'sm'
@@ -21,6 +21,7 @@ type TextSize =
 const colorStyle: Record<TextColor, string> = {
   black: cls.color_black,
   error: cls.color_error,
+  primary: cls.color_primary,
 }
 
 const weightStyle: Record<TextWeight, string> = {
