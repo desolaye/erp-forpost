@@ -8,6 +8,7 @@
 }
 
 .mode_primary {
+  text-align: left;
   background-color: var(--color-primary);
   color: white;
   box-shadow: var(--shadow);
@@ -15,6 +16,20 @@
   &:hover {
     background-color: var(--color-primary-dark);
     box-shadow: var(--shadow-inner);
+  }
+}
+
+.mode_table {
+  border: 2px solid transparent;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+
+  transition: var(--transition-base);
+
+  &:hover {
+    border-color: var(--color-primary);
   }
 }
 

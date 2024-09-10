@@ -1,7 +1,6 @@
 .text {
   cursor: default;
   line-height: 1;
-  font-weight: var(--weigth-base);
 }
 
 .link {
@@ -60,20 +59,20 @@
 /*
  TEXT WEIGHT
 */
-.weigth_base {
-  font-weight: var(--weigth-base);
+.weight_base {
+  font-weight: var(--weight-base);
 }
 
-.weigth_normal {
-  font-weight: var(--weigth-normal);
+.weight_normal {
+  font-weight: var(--weight-normal);
 }
 
-.weigth_semi {
-  font-weight: var(--weigth-semi);
+.weight_semi {
+  font-weight: var(--weight-semi);
 }
 
-.weigth_bold {
-  font-weight: var(--weigth-bold);
+.weight_bold {
+  font-weight: var(--weight-bold);
 }
 
 /* 

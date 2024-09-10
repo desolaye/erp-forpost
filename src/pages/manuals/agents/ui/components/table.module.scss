@@ -1,0 +1,11 @@
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &__header {
+    background-color: #eee;
+    padding: 8px;
+    border-radius: 4px;
+  }
+}

@@ -3,10 +3,10 @@ import { Outlet, useNavigate } from '@tanstack/react-router'
 import Cookies from 'js-cookie'
 
 import { routesPath } from '@/shared/config/routes-path.config'
+import { publicApi } from '@/shared/api/public-api.config'
 import { NavMenu } from '@/features/nav-menu'
 
 import cls from './erp-layout.module.scss'
-import { publicApi } from '@/shared/api/public-api.config'
 
 export const ErpLayout = () => {
   const navigate = useNavigate()
