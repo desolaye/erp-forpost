@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import { CSSProperties, PropsWithChildren } from 'react'
 import cls from './text.module.scss'
 import cn from 'classnames'
 
@@ -52,6 +52,7 @@ interface ITextProps {
   color?: TextColor
   link?: boolean
   className?: string
+  style?: CSSProperties
 }
 
 export const Text = (props: PropsWithChildren<ITextProps>) => {
@@ -63,6 +64,7 @@ export const Text = (props: PropsWithChildren<ITextProps>) => {
     color = 'black',
     className,
     children,
+    style,
   } = props
 
   const classes = cn(
@@ -76,5 +78,9 @@ export const Text = (props: PropsWithChildren<ITextProps>) => {
     className,
   )
 
-  return <Tag className={classes}>{children}</Tag>
+  return (
+    <Tag className={classes} style={style}>
+      {children}
+    </Tag>
+  )
 }

@@ -5,6 +5,7 @@ import { ErpLayout } from '@/widgets/layouts/erp-layout'
 
 import { ManualRootPage } from '@/pages/manuals/root'
 import { ManualAgentsPage } from '@/pages/manuals/agents'
+import { ManualProductsPage } from '@/pages/manuals/products'
 
 import { rootRoute } from './public-routes'
 
@@ -62,11 +63,7 @@ const erpManualsWarehousesRoute = createRoute({
 const erpManualsProductsRoute = createRoute({
   path: routesPath.erp.manuals.products(),
   getParentRoute: () => erpManualsRoute,
-  component: () => (
-    <div>
-      <main>products manual</main>
-    </div>
-  ),
+  component: ManualProductsPage,
 })
 
 export const erpManuals = erpManualsRoute.addChildren([

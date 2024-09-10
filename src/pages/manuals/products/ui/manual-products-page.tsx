@@ -4,16 +4,16 @@ import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
 import { Table } from '@/shared/ui/table'
 
-import { AgentEditor, useAgentsPage } from '@/features/manuals/agents'
+import { ProductEditor, useProductsPage } from '@/features/manuals/products'
 import { ModalLayout } from '@/widgets/layouts/modal'
 
-export const ManualAgentsPage = () => {
-  const { values, handlers } = useAgentsPage()
+export const ManualProductsPage = () => {
+  const { values, handlers } = useProductsPage()
 
   return (
     <article style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
       <Text size="2xl" weight="semi">
-        Контрагенты
+        Продукты
       </Text>
 
       <Card style={{ flexDirection: 'row' }}>
@@ -28,27 +28,39 @@ export const ManualAgentsPage = () => {
           <Table
             body={
               <>
-                {values.agents?.map((v) => (
+                {values.products?.map((v) => (
                   <Button
                     key={v.id}
                     mode="table"
                     onClick={() => handlers.handleOpenModal(v.id)}
+                    style={{ display: 'flex', gap: 8 }}
                   >
-                    {v.name}
+                    <Text style={{ width: '500px', overflow: 'hidden' }}>{v.name}</Text>
+                    <Text>{v.version}</Text>
                   </Button>
                 ))}
               </>
             }
-            header={<Text weight="semi">Имя агента</Text>}
+            header={
+              <>
+                <Text weight="semi" style={{ width: '500px' }}>
+                  Название продукта
+                </Text>
+                <Text weight="semi">Версия</Text>
+              </>
+            }
           />
         )}
       </Card>
 
       <ModalLayout
-        isOpen={Boolean(values.agentId)}
+        isOpen={Boolean(values.productId)}
         onClose={() => handlers.handleOpenModal('')}
       >
-        <AgentEditor id={values.agentId} onClose={() => handlers.handleOpenModal('')} />
+        <ProductEditor
+          id={values.productId}
+          onClose={() => handlers.handleOpenModal('')}
+        />
       </ModalLayout>
     </article>
   )

@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { AgentValidatorType, postCreateAgent } from '@/entities/manuals'
-import { getAgentByid } from '@/entities/manuals/services/get-agent-by-id'
+import { AgentValidatorType, postCreateAgent, getAgentByid } from '@/entities/manuals'
 
 interface IAgentEditorProps {
   id: string

@@ -1,0 +1,5 @@
+export { deleteProductByid } from './delete-product-by-id'
+export { getProductById } from './get-product-by-id'
+export { getProductsManual } from './get-products-manual'
+export { postCreateProduct } from './post-create-product'
+export { putEditProduct } from './put-edit-product'

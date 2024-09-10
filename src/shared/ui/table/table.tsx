@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-
 import cls from './table.module.scss'
 
 interface ITableProps {

@@ -1,6 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
-import { getAgentsManual } from '@/entities/manuals'
 import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+
+import { getAgentsManual } from '@/entities/manuals'
 
 export const useAgentsPage = () => {
   const [agentId, setAgentId] = useState('')
