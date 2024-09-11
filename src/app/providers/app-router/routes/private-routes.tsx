@@ -6,8 +6,11 @@ import { ErpLayout } from '@/widgets/layouts/erp-layout'
 import { ManualRootPage } from '@/pages/manuals/root'
 import { ManualAgentsPage } from '@/pages/manuals/agents'
 import { ManualProductsPage } from '@/pages/manuals/products'
+import { ManualWarehousesPage } from '@/pages/manuals/warehouses'
 
 import { rootRoute } from './public-routes'
+import { ManualStaffPage } from '@/pages/manuals/staff'
+import { ManualTechcardsPage } from '@/pages/manuals/techcards'
 
 const erpLayoutRoute = createRoute({
   id: 'erp',
@@ -45,19 +48,19 @@ const erpManualsAgentsRoute = createRoute({
 const erpManualsTechMapRoute = createRoute({
   path: routesPath.erp.manuals.techMap(),
   getParentRoute: () => erpManualsRoute,
-  component: () => <div>TechMap manual</div>,
+  component: ManualTechcardsPage,
 })
 
 const erpManualsStaffRoute = createRoute({
   path: routesPath.erp.manuals.staff(),
   getParentRoute: () => erpManualsRoute,
-  component: () => <div>staff manual</div>,
+  component: ManualStaffPage,
 })
 
 const erpManualsWarehousesRoute = createRoute({
   path: routesPath.erp.manuals.warehouses(),
   getParentRoute: () => erpManualsRoute,
-  component: () => <div>warehouses manual</div>,
+  component: ManualWarehousesPage,
 })
 
 const erpManualsProductsRoute = createRoute({

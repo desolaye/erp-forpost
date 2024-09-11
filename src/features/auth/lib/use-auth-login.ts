@@ -6,6 +6,8 @@ import { useNavigate } from '@tanstack/react-router'
 import Cookies from 'js-cookie'
 
 import { routesPath } from '@/shared/config/routes-path.config'
+import { appConstants } from '@/shared/config/constants.config'
+
 import {
   AuthLoginType,
   postAuthLogin,
@@ -30,7 +32,7 @@ export const useAuthLogin = () => {
       if (sessionContext && sessionContext.setSession) {
         const { firstName, lastName } = getValues()
         sessionContext.setSession({ firstName, lastName })
-        Cookies.set('ACCESS_TOKEN', data.data, { expires: 7 })
+        Cookies.set(appConstants.TOKEN, data.data, { expires: 7 })
         navigate({ to: routesPath.erp.root() })
       }
     },
