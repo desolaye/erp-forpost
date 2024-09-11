@@ -9,7 +9,6 @@ export const ZProduct = z.object({
 
 export const ZProductValidator = z.object({
   name: z.string().min(3),
-  version: z.string().min(1),
 })
 
 export type ProductType = z.infer<typeof ZProduct>

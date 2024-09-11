@@ -28,13 +28,6 @@ export const ProductForm = (props: IProductFormProps) => {
         helper={errors.name?.message}
         {...register('name')}
       />
-      <Input
-        placeholder="Версия"
-        label="Версия"
-        isError={Boolean(errors.version)}
-        helper={errors.version?.message}
-        {...register('version')}
-      />
       <Button type="submit">Сохранить</Button>
       <Button type="reset">Отменить</Button>
     </form>

@@ -7,6 +7,9 @@ import { Table } from '@/shared/ui/table'
 import { ProductEditor, useProductsPage } from '@/features/manuals/products'
 import { ModalLayout } from '@/widgets/layouts/modal'
 
+import { ProductsTableBody } from './components/products-table-body'
+import { ProductsTableHead } from './components/products-table-head'
+
 export const ManualProductsPage = () => {
   const { values, handlers } = useProductsPage()
 
@@ -22,33 +25,16 @@ export const ManualProductsPage = () => {
       </Card>
 
       <Card>
-        {values.isPending ? (
-          <Text>Loading...</Text>
-        ) : (
+        {values.isPending && <Text>Loading...</Text>}
+        {!values.isPending && (
           <Table
             body={
-              <>
-                {values.products?.map((v) => (
-                  <Button
-                    key={v.id}
-                    mode="table"
-                    onClick={() => handlers.handleOpenModal(v.id)}
-                    style={{ display: 'flex', gap: 8 }}
-                  >
-                    <Text style={{ width: '500px', overflow: 'hidden' }}>{v.name}</Text>
-                    <Text>{v.version}</Text>
-                  </Button>
-                ))}
-              </>
+              <ProductsTableBody
+                data={values.products}
+                onModal={handlers.handleOpenModal}
+              />
             }
-            header={
-              <>
-                <Text weight="semi" style={{ width: '500px' }}>
-                  Название продукта
-                </Text>
-                <Text weight="semi">Версия</Text>
-              </>
-            }
+            header={<ProductsTableHead />}
           />
         )}
       </Card>
