@@ -33,18 +33,10 @@ export const ManualProductsPage = () => {
         }
         header={<ProductsTableHead />}
         isPending={values.isPending}
+        page={values.page}
+        setPage={handlers.setPage}
+        totalCount={values.totalCount}
       />
-
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        {values.totalCount && (
-          <Pagination
-            count={values.totalCount}
-            size="large"
-            page={values.page}
-            onChange={(_, b) => handlers.setPage(b)}
-          />
-        )}
-      </div>
 
       <ModalLayout
         isOpen={Boolean(values.productId)}

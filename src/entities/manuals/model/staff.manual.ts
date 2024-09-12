@@ -11,4 +11,10 @@ export const ZStaff = z.object({
   phoneNumber: z.string(),
 })
 
+export const ZStaffResponse = z.object({
+  employees: z.array(ZStaff),
+  totalCount: z.number(),
+})
+
 export type StaffType = z.infer<typeof ZStaff>
+export type StaffResponseType = z.infer<typeof ZStaffResponse>

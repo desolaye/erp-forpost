@@ -25,11 +25,19 @@ export {
   ZWarehouse,
   type WarehouseValidatorType,
   ZWarehouseValidator,
+  type WarehouseResponseType,
+  ZWarehouseResponse,
 } from './model/warehouse.schema'
 
 export * from './services/warehouses'
 
-export { type StaffType, ZStaff } from './model/staff.manual'
+export {
+  type StaffType,
+  ZStaff,
+  type StaffResponseType,
+  ZStaffResponse,
+} from './model/staff.manual'
+
 export * from './services/staff'
 
 export {

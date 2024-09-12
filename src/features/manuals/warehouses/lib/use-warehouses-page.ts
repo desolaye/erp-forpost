@@ -5,10 +5,15 @@ import { getWarehousesManual } from '@/entities/manuals'
 
 export const useWarehousesPage = () => {
   const [id, setId] = useState('')
+  const [page, setPage] = useState(1)
+  const ITEMS_PER_PAGE = 11
 
   const { data: warehouses, isPending } = useQuery({
-    queryFn: getWarehousesManual,
-    queryKey: ['warehouses_all'],
+    queryFn: () =>
+      getWarehousesManual({
+        params: { limit: ITEMS_PER_PAGE, skip: (page - 1) * ITEMS_PER_PAGE },
+      }),
+    queryKey: ['warehouses_all', page],
   })
 
   const handleOpenModal = (editId: string) => {
@@ -17,11 +22,14 @@ export const useWarehousesPage = () => {
 
   return {
     values: {
-      data: warehouses?.data,
+      data: warehouses?.data.storages,
       id,
+      totalCount: Math.ceil((warehouses?.data.totalCount || 0) / ITEMS_PER_PAGE),
+      page,
       isPending,
     },
     handlers: {
+      setPage,
       handleOpenModal,
     },
   }

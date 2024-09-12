@@ -7,30 +7,29 @@ import { Table } from '@/shared/ui/table'
 import { useStaffPage } from '@/features/manuals/staff'
 import { StaffTableHead } from './components/staff-table-head'
 import { StaffTableBody } from './components/staff-table-body'
+import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 export const ManualStaffPage = () => {
-  const { values } = useStaffPage()
+  const { values, handlers } = useStaffPage()
 
   return (
-    <article style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <PageWrapper>
       <Text size="2xl" weight="semi">
         Сотрудники
       </Text>
 
       <Card style={{ flexDirection: 'row' }}>
         <Input full placeholder="Поиск" />
-        {/* <Button onClick={() => handlers.handleOpenModal('new')}>Добавить</Button> */}
       </Card>
 
-      <Card>
-        {values.isPending && <Text>Loading...</Text>}
-        {!values.isPending && (
-          <Table
-            body={<StaffTableBody data={values.data} />}
-            header={<StaffTableHead />}
-          />
-        )}
-      </Card>
-    </article>
+      <Table
+        body={<StaffTableBody data={values.data} />}
+        header={<StaffTableHead />}
+        isPending={values.isPending}
+        page={values.page}
+        setPage={handlers.setPage}
+        totalCount={values.totalCount}
+      />
+    </PageWrapper>
   )
 }

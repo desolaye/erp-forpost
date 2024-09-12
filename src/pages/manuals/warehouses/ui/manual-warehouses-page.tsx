@@ -6,7 +6,7 @@ import { Table } from '@/shared/ui/table'
 
 import { WarehouseEditor, useWarehousesPage } from '@/features/manuals/warehouses'
 import { ModalLayout } from '@/widgets/layouts/modal'
-import { Loader } from '@/shared/ui/loader'
+
 import { WarehousesTableBody } from './components/warehouses-table-body'
 
 export const ManualWarehousesPage = () => {
@@ -23,20 +23,16 @@ export const ManualWarehousesPage = () => {
         <Button onClick={() => handlers.handleOpenModal('new')}>Добавить</Button>
       </Card>
 
-      <Card>
-        {values.isPending && <Loader />}
-        {!values.isPending && (
-          <Table
-            body={
-              <WarehousesTableBody
-                onModal={handlers.handleOpenModal}
-                data={values.data}
-              />
-            }
-            header={<Text weight="semi">Название склада</Text>}
-          />
-        )}
-      </Card>
+      <Table
+        body={
+          <WarehousesTableBody onModal={handlers.handleOpenModal} data={values.data} />
+        }
+        header={<Text weight="semi">Название склада</Text>}
+        isPending={values.isPending}
+        page={values.page}
+        setPage={handlers.setPage}
+        totalCount={values.totalCount}
+      />
 
       <ModalLayout
         isOpen={Boolean(values.id)}
