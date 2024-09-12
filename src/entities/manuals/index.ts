@@ -3,6 +3,8 @@ export {
   ZAgent,
   type AgentValidatorType,
   ZAgentValidator,
+  type AgentResponseType,
+  ZAgentResponse,
 } from './model/agent.schema'
 
 export * from './services/agents'
@@ -12,6 +14,8 @@ export {
   ZProduct,
   type ProductValidatorType,
   ZProductValidator,
+  type ProductResponseType,
+  ZProductResponse,
 } from './model/product.schema'
 
 export * from './services/products'

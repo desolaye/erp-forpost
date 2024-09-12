@@ -1,7 +1,16 @@
 import { publicApi } from '@/shared/api/public-api.config'
-import { ProductType } from '../../model/product.schema'
+import { ProductResponseType } from '../../model/product.schema'
 
-export const getProductsManual = async () => {
-  const response = await publicApi.get<ProductType[]>('v1/products')
+interface IGetProductsManual {
+  params: {
+    skip: number
+    limit: number
+  }
+}
+
+export const getProductsManual = async (props: IGetProductsManual) => {
+  const { params } = props
+
+  const response = await publicApi.get<ProductResponseType>('v1/products', { params })
   return response
 }

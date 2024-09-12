@@ -1,3 +1,5 @@
+import { Pagination } from '@mui/material'
+
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
@@ -6,12 +8,16 @@ import { Table } from '@/shared/ui/table'
 
 import { AgentEditor, useAgentsPage } from '@/features/manuals/agents'
 import { ModalLayout } from '@/widgets/layouts/modal'
+import { PageWrapper } from '@/widgets/layouts/page-wrapper'
+
+import { AgentsTableHead } from './components/agents-table-head'
+import { AgentsTableBody } from './components/agents-table-body'
 
 export const ManualAgentsPage = () => {
   const { values, handlers } = useAgentsPage()
 
   return (
-    <article style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <PageWrapper>
       <Text size="2xl" weight="semi">
         Контрагенты
       </Text>
@@ -21,28 +27,27 @@ export const ManualAgentsPage = () => {
         <Button onClick={() => handlers.handleOpenModal('new')}>Добавить</Button>
       </Card>
 
-      <Card>
-        {values.isPending ? (
-          <Text>Loading...</Text>
-        ) : (
-          <Table
-            body={
-              <>
-                {values.agents?.map((v) => (
-                  <Button
-                    key={v.id}
-                    mode="table"
-                    onClick={() => handlers.handleOpenModal(v.id)}
-                  >
-                    {v.name}
-                  </Button>
-                ))}
-              </>
-            }
-            header={<Text weight="semi">Имя агента</Text>}
+      <Table
+        body={
+          <AgentsTableBody
+            data={values.agents?.contractors}
+            onModal={handlers.handleOpenModal}
+          />
+        }
+        header={<AgentsTableHead />}
+        isPending={values.isPending}
+      />
+
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        {values.totalCount && (
+          <Pagination
+            count={values.totalCount}
+            size="large"
+            page={values.page}
+            onChange={(_, b) => handlers.setPage(b)}
           />
         )}
-      </Card>
+      </div>
 
       <ModalLayout
         isOpen={Boolean(values.agentId)}
@@ -50,6 +55,6 @@ export const ManualAgentsPage = () => {
       >
         <AgentEditor id={values.agentId} onClose={() => handlers.handleOpenModal('')} />
       </ModalLayout>
-    </article>
+    </PageWrapper>
   )
 }

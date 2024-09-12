@@ -6,6 +6,8 @@ import { Table } from '@/shared/ui/table'
 
 import { WarehouseEditor, useWarehousesPage } from '@/features/manuals/warehouses'
 import { ModalLayout } from '@/widgets/layouts/modal'
+import { Loader } from '@/shared/ui/loader'
+import { WarehousesTableBody } from './components/warehouses-table-body'
 
 export const ManualWarehousesPage = () => {
   const { values, handlers } = useWarehousesPage()
@@ -22,21 +24,14 @@ export const ManualWarehousesPage = () => {
       </Card>
 
       <Card>
-        {values.isPending && <Text>Loading...</Text>}
+        {values.isPending && <Loader />}
         {!values.isPending && (
           <Table
             body={
-              <>
-                {values.data?.map((v) => (
-                  <Button
-                    key={v.id}
-                    mode="table"
-                    onClick={() => handlers.handleOpenModal(v.id)}
-                  >
-                    {v.name}
-                  </Button>
-                ))}
-              </>
+              <WarehousesTableBody
+                onModal={handlers.handleOpenModal}
+                data={values.data}
+              />
             }
             header={<Text weight="semi">Название склада</Text>}
           />

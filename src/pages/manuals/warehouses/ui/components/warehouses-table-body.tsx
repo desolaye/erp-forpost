@@ -1,17 +1,17 @@
-import { ProductType } from '@/entities/manuals'
+import { WarehouseType } from '@/entities/manuals'
 import { Button } from '@/shared/ui/button'
 import { EmptyCard } from '@/shared/ui/empty-card'
 import { Text } from '@/shared/ui/text'
 
-interface IProductsTableBody {
-  data?: ProductType[]
+interface IWarehousesTableBody {
+  data?: WarehouseType[]
   onModal: (id: string) => void
 }
 
-export const ProductsTableBody = (props: IProductsTableBody) => {
+export const WarehousesTableBody = (props: IWarehousesTableBody) => {
   const { data, onModal } = props
 
-  if (!data || !data.length) return <EmptyCard />
+  if (!data) return <EmptyCard />
 
   return data.map((v) => (
     <Button

@@ -1,5 +1,6 @@
 import { Input } from '@/shared/ui/input'
 import { Button } from '@/shared/ui/button'
+import { Form } from '@/shared/ui/form'
 
 import { WarehouseValidatorType } from '@/entities/manuals'
 import { useWarehouseForm } from '../../lib/use-warehouse-form'
@@ -21,7 +22,7 @@ export const WarehouseForm = (props: IWarehouseFormProps) => {
   })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
+    <Form onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
       <Input
         placeholder="Название склада"
         label="Название склада"
@@ -29,10 +30,14 @@ export const WarehouseForm = (props: IWarehouseFormProps) => {
         helper={errors.name?.message}
         {...register('name')}
       />
-      <Button type="submit" disabled={id !== 'new'}>
-        Сохранить
-      </Button>
-      <Button type="reset">Отменить</Button>
-    </form>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Button type="submit" disabled={id !== 'new'} full>
+          Сохранить
+        </Button>
+        <Button type="reset" full mode="secondary">
+          Отменить
+        </Button>
+      </div>
+    </Form>
   )
 }

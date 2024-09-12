@@ -6,7 +6,7 @@
   border: 1px solid transparent;
   border-radius: 8px;
 
-  background-color: #f2f2f2;
+  background-color: var(--color-bg);
   color: #333333;
   box-shadow: var(--shadow-inner);
 
@@ -24,7 +24,7 @@
   &__wrapper {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
   }
 
   &__helper {
@@ -33,12 +33,12 @@
 }
 
 .error {
-  color: #eb5757;
-  border-color: #eb5757;
+  color: var(--color-primary-light);
+  border-color: var(--color-primary-light);
 
   &:hover,
   &:focus {
-    border-color: #eb5757;
+    border-color: var(--color-primary-light);
   }
 }
 

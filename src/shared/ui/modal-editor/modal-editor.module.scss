@@ -1,0 +1,9 @@
+.modal_editor {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__header {
+    padding: 8px 0;
+  }
+}

@@ -1,4 +1,6 @@
 import { Text } from '@/shared/ui/text'
+import { ModalEditor } from '@/shared/ui/modal-editor'
+import { Loader } from '@/shared/ui/loader'
 
 import { useProductEditor } from '../lib/use-product-editor'
 import { ProductForm } from './components/product-form'
@@ -13,23 +15,23 @@ export const ProductEditor = (props: IProductEditorProps) => {
   const { values, handlers } = useProductEditor(props)
 
   return (
-    <section>
-      <header>
-        <Text size="lg" weight="semi">
-          {id === 'new' ? 'Добавить' : 'Изменить'} продукт
-        </Text>
-      </header>
-
-      <main>
-        {values.isLoading && <Text>Loading...</Text>}
-        {!values.isLoading && (
+    <ModalEditor
+      body={
+        values.isLoading ? (
+          <Loader />
+        ) : (
           <ProductForm
             data={values.product}
             onClose={() => onClose?.()}
             onMutate={handlers.onMutate}
           />
-        )}
-      </main>
-    </section>
+        )
+      }
+      header={
+        <Text size="lg" weight="semi">
+          {id === 'new' ? 'Добавить' : 'Изменить'} продукт
+        </Text>
+      }
+    />
   )
 }

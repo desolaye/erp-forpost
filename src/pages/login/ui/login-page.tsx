@@ -2,6 +2,7 @@ import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
+import { Form } from '@/shared/ui/form'
 
 import { useAuthLogin } from '@/features/auth'
 
@@ -12,9 +13,11 @@ export const LoginPage = () => {
 
   return (
     <article className={cls.login_page}>
-      <Card style={{ maxWidth: '768px', margin: '0 auto' }}>
-        <h1 style={{ textAlign: 'center' }}>Вход в систему</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <Card style={{ minWidth: '768px', margin: '0 auto' }}>
+        <Text tag="h1" size="lg" weight="semi" style={{ textAlign: 'center' }}>
+          Вход в систему
+        </Text>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
             placeholder="Имя"
             label="Имя"
@@ -41,7 +44,7 @@ export const LoginPage = () => {
           <Button disabled={isPending} type="submit">
             К системе
           </Button>
-        </form>
+        </Form>
       </Card>
     </article>
   )
