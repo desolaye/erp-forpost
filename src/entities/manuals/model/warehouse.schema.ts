@@ -7,6 +7,10 @@ export const ZWarehouse = z.object({
 
 export const ZWarehouseValidator = z.object({
   name: z.string().min(3),
+  responsibleId: z.object({
+    value: z.string().uuid(),
+    label: z.string(),
+  }),
 })
 
 export const ZWarehouseResponse = z.object({

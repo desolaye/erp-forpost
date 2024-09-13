@@ -39,7 +39,7 @@ export const useStaffTable = () => {
       title: 'Пост',
     },
     role: {
-      size: '150px',
+      size: '0',
       title: 'Роль',
     },
   }

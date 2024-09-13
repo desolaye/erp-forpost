@@ -4,10 +4,12 @@ import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
 import { Table } from '@/shared/ui/table'
 
-import { useStaffPage } from '@/features/manuals/staff'
+import { StaffEditor, useStaffPage } from '@/features/manuals/staff'
+import { PageWrapper } from '@/widgets/layouts/page-wrapper'
+import { ModalLayout } from '@/widgets/layouts/modal'
+
 import { StaffTableHead } from './components/staff-table-head'
 import { StaffTableBody } from './components/staff-table-body'
-import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 export const ManualStaffPage = () => {
   const { values, handlers } = useStaffPage()
@@ -20,6 +22,9 @@ export const ManualStaffPage = () => {
 
       <Card style={{ flexDirection: 'row' }}>
         <Input full placeholder="Поиск" />
+        {values.user && values.user.role === 'Admin' && (
+          <Button onClick={() => handlers.handleOpenModal('new')}>Добавить</Button>
+        )}
       </Card>
 
       <Table
@@ -30,6 +35,13 @@ export const ManualStaffPage = () => {
         setPage={handlers.setPage}
         totalCount={values.totalCount}
       />
+
+      <ModalLayout
+        isOpen={Boolean(values.id)}
+        onClose={() => handlers.handleOpenModal('')}
+      >
+        <StaffEditor id={values.id} onClose={() => handlers.handleOpenModal('')} />
+      </ModalLayout>
     </PageWrapper>
   )
 }

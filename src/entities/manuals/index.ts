@@ -36,6 +36,8 @@ export {
   ZStaff,
   type StaffResponseType,
   ZStaffResponse,
+  type StaffValidatorType,
+  ZStaffValidator,
 } from './model/staff.manual'
 
 export * from './services/staff'
@@ -48,3 +50,7 @@ export {
 } from './model/techcard.schema'
 
 export * from './services/techcards'
+
+export { type RoleType, ZRole } from './model/role.schema'
+
+export * from './services/roles'

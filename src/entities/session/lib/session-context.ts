@@ -4,6 +4,7 @@ import { z } from 'zod'
 export const ZUser = z.object({
   firstName: z.string(),
   lastName: z.string(),
+  role: z.string(),
 })
 
 export type UserType = z.infer<typeof ZUser>

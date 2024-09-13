@@ -2,17 +2,17 @@ import { Text } from '@/shared/ui/text'
 import { ModalEditor } from '@/shared/ui/modal-editor'
 import { Loader } from '@/shared/ui/loader'
 
-import { useWarehouseEditor } from '../lib/use-warehouse-editor'
-import { WarehouseForm } from './components/warehouse-form'
+import { useStaffEditor } from '../lib/use-staff-editor'
+import { StaffForm } from './components/staff-form'
 
-interface IWarehouseEditorProps {
+interface IStaffEditorProps {
   id: string
   onClose?: () => void
 }
 
-export const WarehouseEditor = (props: IWarehouseEditorProps) => {
+export const StaffEditor = (props: IStaffEditorProps) => {
   const { id, onClose } = props
-  const { values, handlers } = useWarehouseEditor(props)
+  const { values, handlers } = useStaffEditor(props)
 
   return (
     <ModalEditor
@@ -20,10 +20,9 @@ export const WarehouseEditor = (props: IWarehouseEditorProps) => {
         values.isPending ? (
           <Loader />
         ) : (
-          <WarehouseForm
+          <StaffForm
             id={id}
-            staff={values.staff}
-            name={values.warehouse.name || ''}
+            roles={values.roles}
             onClose={() => onClose?.()}
             onMutate={handlers.onMutate}
           />
@@ -31,7 +30,7 @@ export const WarehouseEditor = (props: IWarehouseEditorProps) => {
       }
       header={
         <Text size="lg" weight="semi">
-          {id === 'new' ? 'Добавить' : 'Изменить'} склад
+          Добавить сотрудника
         </Text>
       }
     />

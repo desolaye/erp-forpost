@@ -1,6 +1,10 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { postCreateWarehouse, WarehouseValidatorType } from '@/entities/manuals'
+import {
+  getStaffManual,
+  postCreateWarehouse,
+  WarehouseValidatorType,
+} from '@/entities/manuals'
 
 interface IWarehouseEditorProps {
   id: string
@@ -27,12 +31,18 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
     },
   })
 
+  const { data: staff, isLoading: isLoadingStaff } = useQuery({
+    queryFn: () => getStaffManual({ params: { limit: 200, skip: 0 } }),
+    queryKey: ['staff_all'],
+  })
+
   return {
     values: {
       warehouse: { id, name: '' },
       error,
       isPending,
-      // isLoading,
+      isLoading: isLoadingStaff,
+      staff: staff?.data.employees,
     },
     handlers: {
       onMutate: mutateAsync,

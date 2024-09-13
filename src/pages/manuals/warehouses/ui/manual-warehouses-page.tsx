@@ -6,6 +6,7 @@ import { Table } from '@/shared/ui/table'
 
 import { WarehouseEditor, useWarehousesPage } from '@/features/manuals/warehouses'
 import { ModalLayout } from '@/widgets/layouts/modal'
+import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { WarehousesTableBody } from './components/warehouses-table-body'
 
@@ -13,7 +14,7 @@ export const ManualWarehousesPage = () => {
   const { values, handlers } = useWarehousesPage()
 
   return (
-    <article style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <PageWrapper>
       <Text size="2xl" weight="semi">
         Склады
       </Text>
@@ -40,6 +41,6 @@ export const ManualWarehousesPage = () => {
       >
         <WarehouseEditor id={values.id} onClose={() => handlers.handleOpenModal('')} />
       </ModalLayout>
-    </article>
+    </PageWrapper>
   )
 }

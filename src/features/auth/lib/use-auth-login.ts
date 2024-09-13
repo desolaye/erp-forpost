@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import Cookies from 'js-cookie'
+import { jwtDecode } from 'jwt-decode'
 
 import { routesPath } from '@/shared/config/routes-path.config'
 import { appConstants } from '@/shared/config/constants.config'
@@ -14,13 +15,13 @@ import {
   SessionContext,
   ZAuthLogin,
 } from '@/entities/session'
+import { getRoleById, StaffType } from '@/entities/manuals'
 
 export const useAuthLogin = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
   } = useForm<AuthLoginType>({ resolver: zodResolver(ZAuthLogin) })
 
   const sessionContext = useContext(SessionContext)
@@ -28,12 +29,15 @@ export const useAuthLogin = () => {
 
   const { mutateAsync, isPending, error } = useMutation({
     mutationFn: postAuthLogin,
-    onSuccess: (data) => {
+    onSuccess: ({ data: token }) => {
       if (sessionContext && sessionContext.setSession) {
-        const { firstName, lastName } = getValues()
-        sessionContext.setSession({ firstName, lastName })
-        Cookies.set(appConstants.TOKEN, data.data, { expires: 7 })
-        navigate({ to: routesPath.erp.root() })
+        const { firstName, lastName, role }: StaffType = jwtDecode(token)
+
+        getRoleById(role).then(({ data }) => {
+          sessionContext.setSession({ firstName, lastName, role: data.name })
+          Cookies.set(appConstants.TOKEN, token, { expires: 7 })
+          navigate({ to: routesPath.erp.root() })
+        })
       }
     },
   })
