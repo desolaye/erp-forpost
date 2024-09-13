@@ -45,8 +45,12 @@ export * from './services/staff'
 export {
   type TechcardFullType,
   type TechcardType,
+  type TechcardItemType,
+  type TechcardResponseType,
+  type TechcardStepType,
   ZTechcard,
   ZTechcardFull,
+  ZTechcardResponse,
 } from './model/techcard.schema'
 
 export * from './services/techcards'

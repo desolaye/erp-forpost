@@ -1,39 +1,46 @@
 import { Card } from '@/shared/ui/card'
+import { Loader } from '@/shared/ui/loader'
 import { Text } from '@/shared/ui/text'
 
 import { useSingleTechcard } from '@/features/manuals/techcards'
+import { PageWrapper } from '@/widgets/layouts/page-wrapper'
+import { Tab, Tabs } from '@mui/material'
+import {
+  TechcardGeneralInfo,
+  TechcardItemsInfo,
+  TechcardStepsInfo,
+} from '@/widgets/techcards'
 
 interface ISingleTechcard {
   id: string
 }
 
 export const SingleTechcard = (props: ISingleTechcard) => {
-  const { values } = useSingleTechcard(props.id)
+  const { values, handlers } = useSingleTechcard(props.id)
 
-  if (values.isPending || !values.data) return <Text>Loading...</Text>
+  if (values.isPending || !values.data) return <Loader />
 
   return (
-    <Card style={{ gridColumn: 'span 3 / span 3' }}>
-      <Text size="xl" weight="semi">
-        Номер: {values.data.number}
-      </Text>
-      <Text size="lg">Описание: {values.data.description || 'Отсутствует'}</Text>
+    <PageWrapper style={{ gridColumn: 'span 7 / span 7' }}>
+      <Tabs
+        value={values.tab}
+        onChange={(_, v) => handlers.setTab(v)}
+        aria-label="basic tabs example"
+      >
+        <Tab label="Общее" {...values.a11y[0]} />
+        <Tab label="Этапы" {...values.a11y[1]} />
+        <Tab label="Ресурсы" {...values.a11y[2]} />
+      </Tabs>
 
-      <Text size="xl" weight="semi">
-        Этапы
-      </Text>
+      <TechcardGeneralInfo
+        description={values.data.description}
+        index={0}
+        number={values.data.number}
+        tab={values.tab}
+      />
 
-      {values.data.steps.map((v) => (
-        <Text key={v.operationName}>{v.operationName}</Text>
-      ))}
-
-      <Text size="xl" weight="semi">
-        Продукты
-      </Text>
-
-      {values.data.items.map((v) => (
-        <Text key={v.productId}>{v.productName}</Text>
-      ))}
-    </Card>
+      <TechcardStepsInfo index={1} tab={values.tab} steps={values.data.steps} />
+      <TechcardItemsInfo index={2} tab={values.tab} items={values.data.items} />
+    </PageWrapper>
   )
 }

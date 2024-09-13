@@ -1,9 +1,17 @@
-import { PropsWithChildren } from 'react'
+import { CSSProperties, PropsWithChildren } from 'react'
 
 import cls from './page-wrapper.module.scss'
 
-export const PageWrapper = (props: PropsWithChildren) => {
-  const { children } = props
+interface IPageWrapperProps {
+  style?: CSSProperties
+}
 
-  return <article className={cls.page_wrapper}>{children}</article>
+export const PageWrapper = (props: PropsWithChildren<IPageWrapperProps>) => {
+  const { children, style } = props
+
+  return (
+    <article className={cls.page_wrapper} style={style}>
+      {children}
+    </article>
+  )
 }

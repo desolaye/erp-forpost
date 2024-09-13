@@ -1,7 +1,16 @@
 import { publicApi } from '@/shared/api/public-api.config'
-import { TechcardType } from '../../model/techcard.schema'
+import { TechcardResponseType } from '../../model/techcard.schema'
 
-export const getTechcardsManual = async () => {
-  const response = await publicApi.get<TechcardType[]>('v1/techcard')
+interface IGetTechcardsManual {
+  params: {
+    skip: number
+    limit: number
+  }
+}
+
+export const getTechcardsManual = async (props: IGetTechcardsManual) => {
+  const { params } = props
+
+  const response = await publicApi.get<TechcardResponseType>('v1/techcard', { params })
   return response
 }

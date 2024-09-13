@@ -1,34 +1,42 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
-import { getTechcardsManual, TechcardType } from '@/entities/manuals'
+import { getTechcardsManual } from '@/entities/manuals'
 
 export const useTechcardsPage = () => {
   const [id, setId] = useState('')
+  const [page, setPage] = useState(1)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const testCard: TechcardType = {
-    number: 'ТК-001',
-    description: null,
-    id: '9f44a641-b377-48a1-9988-e3cfcc653968',
-  }
+  const ITEMS_PER_PAGE = 11
 
   const { data: techcards, isPending } = useQuery({
-    queryFn: getTechcardsManual,
-    queryKey: ['techcards_all'],
+    queryFn: () =>
+      getTechcardsManual({
+        params: { limit: ITEMS_PER_PAGE, skip: (page - 1) * ITEMS_PER_PAGE },
+      }),
+    queryKey: ['techcards_all', page],
   })
 
-  const handleOpenCard = (cardId: string) => {
+  const openCard = (cardId: string) => {
     setId(cardId)
+  }
+
+  const openModal = () => {
+    setIsModalOpen((prev) => !prev)
   }
 
   return {
     values: {
-      data: techcards?.data || [testCard],
+      data: techcards?.data.techCards,
+      count: techcards?.data.totalCount,
       id,
       isPending,
+      isModalOpen,
     },
     handlers: {
-      handleOpenCard,
+      openCard,
+      openModal,
     },
   }
 }

@@ -4,8 +4,8 @@ import { useQuery } from '@tanstack/react-query'
 import { getProductsManual } from '@/entities/manuals'
 
 export const useProductsPage = () => {
-  const [page, setPage] = useState(1)
   const [productId, setProductId] = useState('')
+  const [page, setPage] = useState(1)
 
   const ITEMS_PER_PAGE = 11
 
