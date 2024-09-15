@@ -62,6 +62,16 @@ export const StaffForm = (props: IStaffFormProps) => {
         helper={errors.post?.message}
         {...register('post')}
       />
+
+      <Input
+        placeholder="Пароль сотрудника"
+        label="Пароль сотрудника"
+        isError={Boolean(errors.password)}
+        helper={errors.password?.message}
+        {...register('password')}
+      />
+
+      <Text>Выберите роль сотрудника</Text>
       <Controller
         name="role"
         control={control}
@@ -78,6 +88,7 @@ export const StaffForm = (props: IStaffFormProps) => {
           />
         )}
       />
+
       {errors.role && (
         <Text size="sm" color="error">
           Необходимо выбрать роль

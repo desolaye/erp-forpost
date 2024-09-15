@@ -29,14 +29,16 @@ export const useTechcardsPage = () => {
   return {
     values: {
       data: techcards?.data.techCards,
-      count: techcards?.data.totalCount,
+      count: Math.ceil((techcards?.data.totalCount || 1) / ITEMS_PER_PAGE),
       id,
       isPending,
       isModalOpen,
+      page,
     },
     handlers: {
       openCard,
       openModal,
+      setPage,
     },
   }
 }

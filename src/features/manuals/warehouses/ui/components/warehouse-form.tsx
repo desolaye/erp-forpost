@@ -37,6 +37,8 @@ export const WarehouseForm = (props: IWarehouseFormProps) => {
         helper={errors.name?.message}
         {...register('name')}
       />
+
+      <Text>Ответственный за склад</Text>
       <Controller
         name="responsibleId"
         control={control}

@@ -17,6 +17,7 @@ export const ZStaffValidator = z.object({
   firstName: z.string().min(3),
   lastName: z.string().min(3),
   post: z.string().min(3),
+  password: z.string().min(3),
   email: z.string().email(),
   phoneNumber: z.string().regex(phoneRegex),
 

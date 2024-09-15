@@ -1,3 +1,5 @@
+import { Pagination } from '@mui/material'
+
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
@@ -26,6 +28,17 @@ export const ManualTechcardsPage = () => {
       <section className={cls.techcards_page__layout}>
         <Card style={{ position: 'relative' }}>
           <Input full placeholder="Поиск по номеру" />
+
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            {values.count !== 0 && (
+              <Pagination
+                count={values.count}
+                size="large"
+                page={values.page}
+                onChange={(_, p) => handlers.setPage(p)}
+              />
+            )}
+          </div>
 
           {values.isPending && <Loader />}
           {!values.isPending && !values.data?.length && <EmptyCard />}

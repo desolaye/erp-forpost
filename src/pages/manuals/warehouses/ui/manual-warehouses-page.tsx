@@ -25,9 +25,7 @@ export const ManualWarehousesPage = () => {
       </Card>
 
       <Table
-        body={
-          <WarehousesTableBody onModal={handlers.handleOpenModal} data={values.data} />
-        }
+        body={<WarehousesTableBody onModal={() => {}} data={values.data} />}
         header={<Text weight="semi">Название склада</Text>}
         isPending={values.isPending}
         page={values.page}

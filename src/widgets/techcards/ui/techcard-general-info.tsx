@@ -1,6 +1,6 @@
 import { Card } from '@/shared/ui/card'
 import { Text } from '@/shared/ui/text'
-import { Button } from '@/shared/ui/button'
+// import { Button } from '@/shared/ui/button'
 
 import { TechcardFullType } from '@/entities/manuals'
 

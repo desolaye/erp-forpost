@@ -22,7 +22,10 @@ export const useWarehousesPage = () => {
 
   return {
     values: {
-      data: warehouses?.data.storages,
+      data: warehouses?.data.storages.slice(
+        (page - 1) * ITEMS_PER_PAGE,
+        page * ITEMS_PER_PAGE,
+      ),
       id,
       totalCount: Math.ceil((warehouses?.data.totalCount || 0) / ITEMS_PER_PAGE),
       page,
