@@ -9,8 +9,10 @@ export const SessionContextProvider = (props: PropsWithChildren) => {
   const [session, setSession] = useState(getLocalSession())
 
   const handleSaveSession = (user: UserType | null) => {
-    setSession(user)
-    setLocalSession(user)
+    if (user?.firstName) {
+      setSession(user)
+      setLocalSession(user)
+    }
   }
 
   return (

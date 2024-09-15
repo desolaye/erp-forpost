@@ -32,8 +32,19 @@ export const ZTechcardResponse = z.object({
   totalCount: z.number(),
 })
 
+export const ZTechcardValidator = z.object({
+  number: z.string(),
+  description: z.string().nullable(),
+
+  productId: z.object({
+    value: z.string().uuid(),
+    label: z.string(),
+  }),
+})
+
 export type TechcardType = z.infer<typeof ZTechcard>
 export type TechcardFullType = z.infer<typeof ZTechcardFull>
 export type TechcardResponseType = z.infer<typeof ZTechcardResponse>
 export type TechcardStepType = z.infer<typeof ZTechcardStep>
 export type TechcardItemType = z.infer<typeof ZTechcardItem>
+export type TechcardValidatorType = z.infer<typeof ZTechcardValidator>

@@ -15,13 +15,14 @@ import {
   SessionContext,
   ZAuthLogin,
 } from '@/entities/session'
-import { getRoleById, StaffType } from '@/entities/manuals'
+import { getRoleById } from '@/entities/manuals'
 
 export const useAuthLogin = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<AuthLoginType>({ resolver: zodResolver(ZAuthLogin) })
 
   const sessionContext = useContext(SessionContext)
@@ -31,10 +32,11 @@ export const useAuthLogin = () => {
     mutationFn: postAuthLogin,
     onSuccess: ({ data: token }) => {
       if (sessionContext && sessionContext.setSession) {
-        const { firstName, lastName, role }: StaffType = jwtDecode(token)
+        const { role, nameid }: { role: string; nameid: string } = jwtDecode(token)
+        const { firstName, lastName } = getValues()
 
         getRoleById(role).then(({ data }) => {
-          sessionContext.setSession({ firstName, lastName, role: data.name })
+          sessionContext.setSession({ firstName, lastName, role: data.name, id: nameid })
           Cookies.set(appConstants.TOKEN, token, { expires: 7 })
           navigate({ to: routesPath.erp.root() })
         })

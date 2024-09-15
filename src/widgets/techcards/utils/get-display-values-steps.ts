@@ -1,6 +1,6 @@
 import { TechcardStepType } from '@/entities/manuals'
 
-export const useStepsTable = () => {
+export const getDisplayValuesSteps = () => {
   type DisplayValues = [
     keyof TechcardStepType,
     {
@@ -42,5 +42,5 @@ export const useStepsTable = () => {
     ) as DisplayValues
   }
 
-  return { config, getDisplayValues }
+  return getDisplayValues()
 }

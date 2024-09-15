@@ -1,10 +1,9 @@
-import { Card } from '@/shared/ui/card'
-import { Loader } from '@/shared/ui/loader'
-import { Text } from '@/shared/ui/text'
+import { Tab, Tabs } from '@mui/material'
 
+import { Loader } from '@/shared/ui/loader'
 import { useSingleTechcard } from '@/features/manuals/techcards'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
-import { Tab, Tabs } from '@mui/material'
+
 import {
   TechcardGeneralInfo,
   TechcardItemsInfo,
@@ -16,7 +15,8 @@ interface ISingleTechcard {
 }
 
 export const SingleTechcard = (props: ISingleTechcard) => {
-  const { values, handlers } = useSingleTechcard(props.id)
+  const { id } = props
+  const { values, handlers } = useSingleTechcard(id)
 
   if (values.isPending || !values.data) return <Loader />
 
@@ -25,11 +25,11 @@ export const SingleTechcard = (props: ISingleTechcard) => {
       <Tabs
         value={values.tab}
         onChange={(_, v) => handlers.setTab(v)}
-        aria-label="basic tabs example"
+        aria-label="table-techcard"
       >
         <Tab label="Общее" {...values.a11y[0]} />
         <Tab label="Этапы" {...values.a11y[1]} />
-        <Tab label="Ресурсы" {...values.a11y[2]} />
+        <Tab label="Компоненты" {...values.a11y[2]} />
       </Tabs>
 
       <TechcardGeneralInfo
@@ -39,8 +39,8 @@ export const SingleTechcard = (props: ISingleTechcard) => {
         tab={values.tab}
       />
 
-      <TechcardStepsInfo index={1} tab={values.tab} steps={values.data.steps} />
-      <TechcardItemsInfo index={2} tab={values.tab} items={values.data.items} />
+      <TechcardStepsInfo id={id} index={1} tab={values.tab} steps={values.data.steps} />
+      <TechcardItemsInfo id={id} index={2} tab={values.tab} items={values.data.items} />
     </PageWrapper>
   )
 }

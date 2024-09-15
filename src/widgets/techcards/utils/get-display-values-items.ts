@@ -1,6 +1,6 @@
 import { TechcardItemType } from '@/entities/manuals'
 
-export const useItemsTable = () => {
+export const getDisplayValuesItems = () => {
   type DisplayValues = [
     keyof TechcardItemType,
     {
@@ -12,7 +12,7 @@ export const useItemsTable = () => {
   const config: Record<keyof TechcardItemType, { size: string; title: string }> = {
     productName: {
       size: '350px',
-      title: 'Название ресурса',
+      title: 'Название компонента',
     },
     quantity: {
       size: '100px',
@@ -28,11 +28,7 @@ export const useItemsTable = () => {
     },
   }
 
-  const getDisplayValues = () => {
-    return Object.entries(config).filter(
-      ([_, value]) => value.size !== '0',
-    ) as DisplayValues
-  }
-
-  return { config, getDisplayValues }
+  return Object.entries(config).filter(
+    ([_, value]) => value.size !== '0',
+  ) as DisplayValues
 }

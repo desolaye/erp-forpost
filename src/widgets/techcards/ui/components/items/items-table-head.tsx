@@ -1,10 +1,8 @@
 import { Text } from '@/shared/ui/text'
-import { useItemsTable } from '../../../lib/use-items-table'
+import { getDisplayValuesItems } from '../../../utils/get-display-values-items'
 
 export const ItemsTableHead = () => {
-  const { getDisplayValues } = useItemsTable()
-
-  return getDisplayValues().map(([key, value]) => (
+  return getDisplayValuesItems().map(([key, value]) => (
     <Text key={key} weight="semi" style={{ width: value.size }}>
       {value.title}
     </Text>

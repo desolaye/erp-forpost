@@ -1,10 +1,10 @@
 import { Text } from '@/shared/ui/text'
-import { useStepsTable } from '../../../lib/use-steps-table'
+import { getDisplayValuesSteps } from '../../../utils/get-display-values-steps'
 
 export const StepsTableHead = () => {
-  const { getDisplayValues } = useStepsTable()
+  const displayValues = getDisplayValuesSteps()
 
-  return getDisplayValues().map(([key, value]) => (
+  return displayValues.map(([key, value]) => (
     <Text key={key} weight="semi" style={{ width: value.size }}>
       {value.title}
     </Text>
