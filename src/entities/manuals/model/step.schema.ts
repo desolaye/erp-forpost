@@ -16,6 +16,7 @@ export const ZStepValidator = z.object({
   duration: z.string().regex(/[0-9][0-9]:[0-5][0-9]:[0-5][0-9]/gi),
   cost: z.string().regex(/[0-9]+/gi),
   unitOfMeasure: z.string().regex(/[0-9]+/gi),
+  number: z.string().regex(/[0-9]+/),
 
   operation: z.object({
     value: z.string().uuid(),

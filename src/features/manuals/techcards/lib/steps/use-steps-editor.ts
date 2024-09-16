@@ -22,9 +22,9 @@ export const useStepsEditor = (props: IUseStepsEditor) => {
   })
 
   const { mutateAsync, isPending: isPendingCreation } = useMutation({
-    mutationFn: (data: StepValidatorType) => {
-      return postCreateStep({ ...data, techCardId: id }).then((data) =>
-        postAddStepToCard({ stepId: data.data, techCardId: id }),
+    mutationFn: (step: StepValidatorType) => {
+      return postCreateStep({ ...step, techCardId: id }).then((data) =>
+        postAddStepToCard({ stepId: data.data, techCardId: id, number: step.number }),
       )
     },
     onSuccess: () => {

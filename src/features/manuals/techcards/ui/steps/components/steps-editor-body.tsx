@@ -76,6 +76,13 @@ export const StepsEditorBody = (props: IStepsEditorBodyProps) => {
         helper={errors.unitOfMeasure?.message}
         {...register('unitOfMeasure')}
       />
+      <Input
+        placeholder="Номер в очереди"
+        label="Номер в очереди"
+        isError={Boolean(errors.number)}
+        helper={errors.number?.message}
+        {...register('number')}
+      />
       <Button full mode="secondary">
         Создать этап
       </Button>
