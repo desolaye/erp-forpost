@@ -1,13 +1,11 @@
+import { useContext } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-
-import { useLocalSession } from '@/entities/session/lib/use-local-session'
 
 import {
   getProductsManual,
   postCreateTechcard,
   TechcardValidatorType,
 } from '@/entities/manuals'
-import { useContext } from 'react'
 import { SessionContext } from '@/entities/session'
 
 interface IUseTechcardCreator {

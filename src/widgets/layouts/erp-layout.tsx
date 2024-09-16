@@ -1,12 +1,11 @@
 import { Outlet, useNavigate } from '@tanstack/react-router'
 import Cookies from 'js-cookie'
 import { useContext } from 'react'
-import { jwtDecode } from 'jwt-decode'
 
 import { routesPath } from '@/shared/config/routes-path.config'
 import { publicApi } from '@/shared/api/public-api.config'
 
-import { getRoleById, StaffType } from '@/entities/manuals'
+import { useLocalSession } from '@/entities/session/lib/use-local-session'
 import { SessionContext } from '@/entities/session'
 import { NavMenu } from '@/features/nav-menu'
 
@@ -17,6 +16,7 @@ export const ErpLayout = () => {
 
   const cookie = Cookies.get('ACCESS_TOKEN')
   const sessionContext = useContext(SessionContext)
+  const { getLocalSession } = useLocalSession()
 
   if (!cookie) {
     navigate({ to: routesPath.login() })
@@ -26,12 +26,10 @@ export const ErpLayout = () => {
       return config
     })
 
-    const { firstName, lastName, role }: StaffType = jwtDecode(cookie)
+    const session = getLocalSession()
 
-    if (!sessionContext.session) {
-      getRoleById(role).then(({ data }) => {
-        sessionContext.setSession({ firstName, lastName, role: data.name })
-      })
+    if (!sessionContext.session && session) {
+      sessionContext.setSession({ ...session })
     }
   }
 
