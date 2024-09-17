@@ -22,13 +22,11 @@ export const ManualProductsPage = () => {
 
       <Card style={{ flexDirection: 'row' }}>
         <Input full placeholder="Поиск" />
-        <Button onClick={() => handlers.handleOpenModal('new')}>Добавить</Button>
+        <Button onClick={() => handlers.openModal('new')}>Добавить</Button>
       </Card>
 
       <Table
-        body={
-          <ProductsTableBody data={values.products} onModal={handlers.handleOpenModal} />
-        }
+        body={<ProductsTableBody data={values.products} onModal={handlers.openModal} />}
         header={<ProductsTableHead />}
         isPending={values.isPending}
         page={values.page}
@@ -36,14 +34,8 @@ export const ManualProductsPage = () => {
         totalCount={values.totalCount}
       />
 
-      <ModalLayout
-        isOpen={Boolean(values.productId)}
-        onClose={() => handlers.handleOpenModal('')}
-      >
-        <ProductEditor
-          id={values.productId}
-          onClose={() => handlers.handleOpenModal('')}
-        />
+      <ModalLayout isOpen={Boolean(values.productId)} onClose={handlers.openModal}>
+        <ProductEditor id={values.productId} onClose={handlers.openModal} />
       </ModalLayout>
     </PageWrapper>
   )

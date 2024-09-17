@@ -8,7 +8,7 @@ export const ZProduct = z.object({
 })
 
 export const ZProductValidator = z.object({
-  name: z.string().min(3),
+  name: z.string().min(3, 'Название продукта слишком короткое'),
 })
 
 export const ZProductResponse = z.object({

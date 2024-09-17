@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react'
+import cn from 'classnames'
 
 import cls from './card.module.scss'
-import cn from 'classnames'
 
 interface ICard extends HTMLAttributes<HTMLElement> {}
 

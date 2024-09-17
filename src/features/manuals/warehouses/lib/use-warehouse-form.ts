@@ -25,7 +25,12 @@ export const useWarehouseForm = (props: IUseWarehouseForm) => {
     formState: { errors },
     control,
   } = useForm<WarehouseValidatorType>({
-    resolver: zodResolver(ZWarehouseValidator),
+    resolver: zodResolver(
+      ZWarehouseValidator.transform((data) => ({
+        ...data,
+        responsibleId: data.responsibleId.value,
+      })),
+    ),
     defaultValues: { name },
   })
 

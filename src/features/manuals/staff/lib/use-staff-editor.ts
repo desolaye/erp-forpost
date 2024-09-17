@@ -13,12 +13,6 @@ export const useStaffEditor = (props: IStaffEditorProps) => {
 
   const queryClient = useQueryClient()
 
-  // const { data: staff, isLoading } = useQuery({
-  //   queryFn: () => getStaffById(id),
-  //   queryKey: ['staff_by_id', id],
-  //   enabled: id !== 'new',
-  // })
-
   const { mutateAsync, isPending, error } = useMutation({
     mutationFn: (data: StaffValidatorType) => postCreateStaff(data),
     onSuccess: () => {

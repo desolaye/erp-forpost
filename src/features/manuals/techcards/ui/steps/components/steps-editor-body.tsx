@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
-import { Button } from '@/shared/ui/button'
 
 import { OperationType, StepValidatorType, ZStepValidator } from '@/entities/manuals'
 
@@ -23,16 +22,21 @@ export const StepsEditorBody = (props: IStepsEditorBodyProps) => {
     formState: { errors },
     control,
   } = useForm<StepValidatorType>({
-    resolver: zodResolver(ZStepValidator),
+    resolver: zodResolver(
+      ZStepValidator.transform((data) => ({
+        ...data,
+        operationId: data.operationId.value,
+      })),
+    ),
   })
 
   const onSubmit: SubmitHandler<StepValidatorType> = onMutate
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} withButtons>
       <Text>Выберите этап</Text>
       <Controller
-        name="operation"
+        name="operationId"
         control={control}
         render={({ field }) => (
           <ReactSelect
@@ -41,13 +45,15 @@ export const StepsEditorBody = (props: IStepsEditorBodyProps) => {
             styles={{
               control: (baseStyles) => ({
                 ...baseStyles,
-                borderColor: !errors.operation ? 'grey' : '#830000',
+                borderColor: !errors.operationId ? 'grey' : '#830000',
               }),
             }}
           />
         )}
       />
-      {errors.operation && <Text color="error">Необходимо выбрать этап</Text>}
+
+      {errors.operationId && <Text color="error">Необходимо выбрать этап</Text>}
+
       <Input
         placeholder="Описание операции"
         label="Описание операции"
@@ -83,9 +89,6 @@ export const StepsEditorBody = (props: IStepsEditorBodyProps) => {
         helper={errors.number?.message}
         {...register('number')}
       />
-      <Button full mode="secondary">
-        Создать этап
-      </Button>
     </Form>
   )
 }

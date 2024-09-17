@@ -14,12 +14,12 @@ export const ZStaff = z.object({
 })
 
 export const ZStaffValidator = z.object({
-  firstName: z.string().min(3),
-  lastName: z.string().min(3),
+  firstName: z.string().min(3, 'Имя должно быть не менее 3 символов'),
+  lastName: z.string().min(3, 'Фамилия должна быть не менее 3 символов'),
+  password: z.string().min(3, 'Пароль слишком короткий'),
   post: z.string().min(3),
-  password: z.string().min(3),
-  email: z.string().email(),
-  phoneNumber: z.string().regex(phoneRegex),
+  email: z.string().email('Неверный формат почты'),
+  phoneNumber: z.string().regex(phoneRegex, 'Неверный формат телефона'),
 
   role: z.object({
     value: z.string().uuid(),

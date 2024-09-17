@@ -12,4 +12,9 @@
     display: flex;
     gap: 8px;
   }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+  }
 }

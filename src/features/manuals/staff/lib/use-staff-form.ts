@@ -18,7 +18,9 @@ export const useStaffForm = (props: IUseStaffForm) => {
     formState: { errors },
     control,
   } = useForm<StaffValidatorType>({
-    resolver: zodResolver(ZStaffValidator),
+    resolver: zodResolver(
+      ZStaffValidator.transform((data) => ({ ...data, role: data.role.label })),
+    ),
     defaultValues: createInitialStaff(),
   })
 

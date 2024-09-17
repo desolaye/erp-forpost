@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
+import { createPortal } from 'react-dom'
 
 import cls from './modal-layout.module.scss'
-import { createPortal } from 'react-dom'
 
 interface IModalLayoutProps {
   onClose?: () => void
@@ -14,7 +14,7 @@ export const ModalLayout = (props: PropsWithChildren<IModalLayoutProps>) => {
   if (!isOpen) return null
 
   return createPortal(
-    <article className={cls.modal_layout} onClick={onClose}>
+    <article className={cls.modal_layout} onClick={() => onClose?.()}>
       <section onClick={(e) => e.stopPropagation()} className={cls.modal_layout__body}>
         {children}
       </section>

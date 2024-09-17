@@ -22,14 +22,14 @@ export const ManualAgentsPage = () => {
 
       <Card style={{ flexDirection: 'row' }}>
         <Input full placeholder="Поиск" />
-        <Button onClick={() => handlers.handleOpenModal('new')}>Добавить</Button>
+        <Button onClick={() => handlers.openModal('new')}>Добавить</Button>
       </Card>
 
       <Table
         body={
           <AgentsTableBody
             data={values.agents?.contractors}
-            onModal={handlers.handleOpenModal}
+            onModal={handlers.openModal}
           />
         }
         header={<AgentsTableHead />}
@@ -39,11 +39,8 @@ export const ManualAgentsPage = () => {
         totalCount={values.totalCount}
       />
 
-      <ModalLayout
-        isOpen={Boolean(values.agentId)}
-        onClose={() => handlers.handleOpenModal('')}
-      >
-        <AgentEditor id={values.agentId} onClose={() => handlers.handleOpenModal('')} />
+      <ModalLayout isOpen={Boolean(values.agentId)} onClose={handlers.openModal}>
+        <AgentEditor id={values.agentId} onClose={handlers.openModal} />
       </ModalLayout>
     </PageWrapper>
   )

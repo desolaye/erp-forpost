@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { BxArrowRightIcon } from '@/shared/ui/icons/bx-arrow-right-icon'
+import { ArrowRightIcon } from '@/shared/ui/icons/arrow-right-icon'
 
 import { navMenuRoutes } from '../lib/nav-menu-routes'
 import { NavMenuListItem } from './components/nav-menu-list-item'
@@ -31,8 +31,9 @@ export const NavMenu = () => {
       <main>
         <ul className={cls.nav_menu__list}>{routes}</ul>
       </main>
+
       <footer className={cls.nav_menu__footer}>
-        <BxArrowRightIcon
+        <ArrowRightIcon
           className={cls.nav_menu__footer__icon}
           onClick={() => setIsOpen((prev) => !prev)}
           width={32}

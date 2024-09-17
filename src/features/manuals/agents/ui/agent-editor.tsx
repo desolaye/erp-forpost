@@ -22,7 +22,7 @@ export const AgentEditor = (props: IAgentEditorProps) => {
         ) : (
           <AgentForm
             id={id}
-            name={values.agent?.data.name || ''}
+            name={values.agent?.name || ''}
             onClose={() => onClose?.()}
             onMutate={handlers.onMutate}
           />

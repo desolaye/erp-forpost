@@ -1,6 +1,7 @@
-import { AgentValidatorType, ZAgentValidator } from '@/entities/manuals'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
+
+import { AgentValidatorType, ZAgentValidator } from '@/entities/manuals'
 
 interface IUseAgentForm {
   name: string
@@ -10,6 +11,7 @@ interface IUseAgentForm {
 
 export const useAgentForm = (props: IUseAgentForm) => {
   const { name, onMutate, onClose } = props
+
   const {
     register,
     handleSubmit,

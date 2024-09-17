@@ -6,7 +6,6 @@ type StepPost = StepValidatorType & { techCardId: string }
 export const postCreateStep = async (step: StepPost) => {
   const response = await publicApi.post<string>('v1/steps', {
     ...step,
-    operationId: step.operation.value,
     cost: Number(step.cost),
     unitOfMeasure: Number(step.unitOfMeasure),
   })

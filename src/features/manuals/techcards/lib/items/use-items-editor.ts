@@ -17,7 +17,7 @@ export const useItemsEditor = (props: IUseItemsEditor) => {
 
   const { data: items, isPending: isPendingItems } = useQuery({
     queryKey: ['items_all'],
-    queryFn: () => getProductsManual({ params: { limit: 100, skip: 0 } }),
+    queryFn: () => getProductsManual({ params: { limit: 1000, skip: 0 } }),
   })
 
   const { mutateAsync, isPending: isPendingCreation } = useMutation({

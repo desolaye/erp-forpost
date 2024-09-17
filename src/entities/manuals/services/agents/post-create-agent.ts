@@ -3,7 +3,7 @@ import { AgentValidatorType } from '../../model/agent.schema'
 
 export const postCreateAgent = async (agent: AgentValidatorType) => {
   const response = await publicApi.post('v1/contractors', {
-    name: agent.name,
+    ...agent,
   })
 
   return response

@@ -1,36 +1,35 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
+import { usePagination } from '@/shared/lib/use-pagination'
 import { getProductsManual } from '@/entities/manuals'
 
 export const useProductsPage = () => {
   const [productId, setProductId] = useState('')
-  const [page, setPage] = useState(1)
-
-  const ITEMS_PER_PAGE = 11
+  const { getTotalCount, page, params, setPage } = usePagination(11)
 
   const { data: products, isPending } = useQuery({
     queryFn: () =>
       getProductsManual({
-        params: { limit: ITEMS_PER_PAGE, skip: (page - 1) * ITEMS_PER_PAGE },
+        params,
       }),
     queryKey: ['products_all', page],
   })
 
-  const handleOpenModal = (id: string) => {
-    setProductId(id)
+  const openModal = (id?: string) => {
+    setProductId(id || '')
   }
 
   return {
     values: {
       products: products?.data.products,
-      totalCount: Math.ceil((products?.data.totalCount || 0) / ITEMS_PER_PAGE),
+      totalCount: getTotalCount(products?.data.totalCount),
       page,
       productId,
       isPending,
     },
     handlers: {
-      handleOpenModal,
+      openModal,
       setPage,
     },
   }

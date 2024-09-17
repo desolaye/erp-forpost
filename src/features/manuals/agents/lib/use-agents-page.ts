@@ -1,36 +1,35 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
+import { usePagination } from '@/shared/lib/use-pagination'
 import { getAgentsManual } from '@/entities/manuals'
 
 export const useAgentsPage = () => {
-  const [page, setPage] = useState(1)
   const [agentId, setAgentId] = useState('')
-
-  const ITEMS_PER_PAGE = 11
+  const { getTotalCount, page, params, setPage } = usePagination(11)
 
   const { data: agents, isPending } = useQuery({
     queryFn: () =>
       getAgentsManual({
-        params: { limit: ITEMS_PER_PAGE, skip: (page - 1) * ITEMS_PER_PAGE },
+        params,
       }),
     queryKey: ['agents_all', page],
   })
 
-  const handleOpenModal = (id: string) => {
-    setAgentId(id)
+  const openModal = (id?: string) => {
+    setAgentId(id || '')
   }
 
   return {
     values: {
       agents: agents?.data,
-      totalCount: Math.ceil((agents?.data.totalCount || 0) / ITEMS_PER_PAGE),
+      totalCount: getTotalCount(agents?.data.totalCount),
       page,
       agentId,
       isPending,
     },
     handlers: {
-      handleOpenModal,
+      openModal,
       setPage,
     },
   }

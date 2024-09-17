@@ -6,7 +6,7 @@ export const ZAgent = z.object({
 })
 
 export const ZAgentValidator = z.object({
-  name: z.string().min(3),
+  name: z.string().min(3, 'Имя контрагента слишком короткое'),
 })
 
 export const ZAgentResponse = z.object({

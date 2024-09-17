@@ -16,12 +16,6 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
 
   const queryClient = useQueryClient()
 
-  // const { data: warehouse, isLoading } = useQuery({
-  //   queryFn: () => getWarehouseById(id),
-  //   queryKey: ['warehouse_by_id', id],
-  //   enabled: id !== 'new',
-  // })
-
   const { mutateAsync, isPending, error } = useMutation({
     mutationFn: (data: WarehouseValidatorType) => postCreateWarehouse(data),
     onSuccess: () => {
@@ -32,7 +26,7 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
   })
 
   const { data: staff, isLoading: isLoadingStaff } = useQuery({
-    queryFn: () => getStaffManual({ params: { limit: 200, skip: 0 } }),
+    queryFn: () => getStaffManual({ params: { limit: 1000, skip: 0 } }),
     queryKey: ['staff_all'],
   })
 

@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
-import { Button } from '@/shared/ui/button'
 
 import { ItemValidatorType, ZItemValidator, ProductType } from '@/entities/manuals'
 
@@ -23,13 +22,15 @@ export const ItemsEditorBody = (props: IItemsEditorBodyProps) => {
     formState: { errors },
     control,
   } = useForm<ItemValidatorType>({
-    resolver: zodResolver(ZItemValidator),
+    resolver: zodResolver(
+      ZItemValidator.transform((data) => ({ ...data, productId: data.productId.value })),
+    ),
   })
 
   const onSubmit: SubmitHandler<ItemValidatorType> = onMutate
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} withButtons>
       <Text>Выберите компонент</Text>
       <Controller
         name="productId"
@@ -48,6 +49,7 @@ export const ItemsEditorBody = (props: IItemsEditorBodyProps) => {
         )}
       />
       {errors.productId && <Text color="error">Необходимо выбрать компонент</Text>}
+
       <Input
         placeholder="Количество компонентов"
         label="Количество компонентов"
@@ -55,9 +57,6 @@ export const ItemsEditorBody = (props: IItemsEditorBodyProps) => {
         helper={errors.quantity?.message}
         {...register('quantity')}
       />
-      <Button full mode="secondary">
-        Создать компонент
-      </Button>
     </Form>
   )
 }

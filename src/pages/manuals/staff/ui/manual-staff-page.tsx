@@ -23,7 +23,7 @@ export const ManualStaffPage = () => {
       <Card style={{ flexDirection: 'row' }}>
         <Input full placeholder="Поиск" />
         {values.user && values.user.role === 'Admin' && (
-          <Button onClick={() => handlers.handleOpenModal('new')}>Добавить</Button>
+          <Button onClick={() => handlers.openModal('new')}>Добавить</Button>
         )}
       </Card>
 
@@ -36,11 +36,8 @@ export const ManualStaffPage = () => {
         totalCount={values.totalCount}
       />
 
-      <ModalLayout
-        isOpen={Boolean(values.id)}
-        onClose={() => handlers.handleOpenModal('')}
-      >
-        <StaffEditor id={values.id} onClose={() => handlers.handleOpenModal('')} />
+      <ModalLayout isOpen={Boolean(values.id)} onClose={handlers.openModal}>
+        <StaffEditor id={values.id} onClose={handlers.openModal} />
       </ModalLayout>
     </PageWrapper>
   )

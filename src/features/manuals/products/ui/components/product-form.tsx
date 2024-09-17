@@ -1,5 +1,4 @@
 import { Input } from '@/shared/ui/input'
-import { Button } from '@/shared/ui/button'
 import { Form } from '@/shared/ui/form'
 
 import { ProductValidatorType } from '@/entities/manuals'
@@ -21,7 +20,7 @@ export const ProductForm = (props: IProductFormProps) => {
   })
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
+    <Form onSubmit={handleSubmit(onSubmit)} onReset={onReset} withButtons>
       <Input
         placeholder="Название продукта"
         label="Название продукта"
@@ -29,14 +28,6 @@ export const ProductForm = (props: IProductFormProps) => {
         helper={errors.name?.message}
         {...register('name')}
       />
-      <div style={{ display: 'flex', gap: 8 }}>
-        <Button type="submit" full>
-          Сохранить
-        </Button>
-        <Button type="reset" full mode="secondary">
-          Отменить
-        </Button>
-      </div>
     </Form>
   )
 }

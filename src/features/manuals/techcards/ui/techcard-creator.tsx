@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from '@/shared/ui/form'
 import { Text } from '@/shared/ui/text'
 import { Input } from '@/shared/ui/input'
-import { Button } from '@/shared/ui/button'
 
 import { TechcardValidatorType, ZTechcardValidator } from '@/entities/manuals'
 import { useTechcardCreator } from '../lib/use-techcard-creator'
@@ -24,7 +23,12 @@ export const TechcardCreator = (props: ITechcardCreatorProps) => {
     formState: { errors },
     control,
   } = useForm<TechcardValidatorType>({
-    resolver: zodResolver(ZTechcardValidator),
+    resolver: zodResolver(
+      ZTechcardValidator.transform((data) => ({
+        ...data,
+        productId: data.productId.value,
+      })),
+    ),
   })
 
   const onSubmit: SubmitHandler<TechcardValidatorType> = (data) => {
@@ -32,7 +36,7 @@ export const TechcardCreator = (props: ITechcardCreatorProps) => {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} withButtons onReset={onModal}>
       <Text>Выберите создаваемый продукт</Text>
 
       <Controller
@@ -68,10 +72,6 @@ export const TechcardCreator = (props: ITechcardCreatorProps) => {
         helper={errors.description?.message}
         {...register('description')}
       />
-
-      <Button full mode="secondary">
-        Создать карту
-      </Button>
     </Form>
   )
 }

@@ -12,7 +12,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef<HTMLInputElement, IInputProps>((props, ref) => {
-  const { isError, label, helper, className, full, ...rest } = props
+  const { isError, label, helper, className, full, autoComplete, ...rest } = props
 
   const classes = cn(cls.input, { [cls.error]: isError }, className)
   const helperClasses = cn(cls.input__helper, { [cls.error]: isError })
@@ -21,7 +21,12 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((props, ref) => {
   return (
     <div className={wrapperClasses}>
       {label && <Text>{label}</Text>}
-      <input className={classes} ref={ref} {...rest} />
+      <input
+        className={classes}
+        ref={ref}
+        autoComplete={autoComplete || 'off'}
+        {...rest}
+      />
       {helper && (
         <Text size="sm" className={helperClasses}>
           {helper}

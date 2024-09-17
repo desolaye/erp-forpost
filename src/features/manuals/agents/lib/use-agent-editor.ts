@@ -29,7 +29,7 @@ export const useAgentEditor = (props: IAgentEditorProps) => {
 
   return {
     values: {
-      agent,
+      agent: agent?.data,
       error,
       isPending,
       isLoading,

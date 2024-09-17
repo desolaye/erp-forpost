@@ -1,5 +1,4 @@
 import { Input } from '@/shared/ui/input'
-import { Button } from '@/shared/ui/button'
 import { Form } from '@/shared/ui/form'
 
 import { AgentValidatorType } from '@/entities/manuals'
@@ -22,7 +21,12 @@ export const AgentForm = (props: IAgentFormProps) => {
   })
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      onReset={onReset}
+      withButtons
+      saveDisabled={id !== 'new'}
+    >
       <Input
         placeholder="Имя агента"
         label="Имя агента"
@@ -30,14 +34,6 @@ export const AgentForm = (props: IAgentFormProps) => {
         helper={errors.name?.message}
         {...register('name')}
       />
-      <div style={{ display: 'flex', gap: 8 }}>
-        <Button type="submit" disabled={id !== 'new'} full>
-          Сохранить
-        </Button>
-        <Button type="reset" full mode="secondary">
-          Отменить
-        </Button>
-      </div>
     </Form>
   )
 }

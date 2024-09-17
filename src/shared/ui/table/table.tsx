@@ -9,9 +9,11 @@ import cls from './table.module.scss'
 interface ITableProps {
   header: ReactNode
   body: ReactNode
+
   totalCount: number
   page: number
   setPage: (page: number) => void
+
   isPending?: boolean
 }
 
@@ -28,7 +30,7 @@ export const Table = (props: ITableProps) => {
         </section>
       </Card>
 
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <footer className={cls.table__pagination}>
         {totalCount !== 0 && (
           <Pagination
             count={totalCount}
@@ -37,7 +39,7 @@ export const Table = (props: ITableProps) => {
             onChange={(_, p) => setPage(p)}
           />
         )}
-      </div>
+      </footer>
     </>
   )
 }

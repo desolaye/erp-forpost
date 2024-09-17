@@ -1,19 +1,18 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
+import { usePagination } from '@/shared/lib/use-pagination'
 import { getTechcardsManual } from '@/entities/manuals'
 
 export const useTechcardsPage = () => {
   const [id, setId] = useState('')
-  const [page, setPage] = useState(1)
   const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const ITEMS_PER_PAGE = 11
+  const { getTotalCount, page, params, setPage } = usePagination(11)
 
   const { data: techcards, isPending } = useQuery({
     queryFn: () =>
       getTechcardsManual({
-        params: { limit: ITEMS_PER_PAGE, skip: (page - 1) * ITEMS_PER_PAGE },
+        params,
       }),
     queryKey: ['techcards_all', page],
   })
@@ -29,7 +28,7 @@ export const useTechcardsPage = () => {
   return {
     values: {
       data: techcards?.data.techCards,
-      count: Math.ceil((techcards?.data.totalCount || 1) / ITEMS_PER_PAGE),
+      count: getTotalCount(techcards?.data.totalCount),
       id,
       isPending,
       isModalOpen,

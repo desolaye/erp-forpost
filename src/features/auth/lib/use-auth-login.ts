@@ -7,7 +7,7 @@ import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
 
 import { routesPath } from '@/shared/config/routes-path.config'
-import { appConstants } from '@/shared/config/constants.config'
+import { APP_VARS } from '@/shared/config/app-variables.config'
 
 import {
   AuthLoginType,
@@ -37,7 +37,7 @@ export const useAuthLogin = () => {
 
         getRoleById(role).then(({ data }) => {
           sessionContext.setSession({ firstName, lastName, role: data.name, id: nameid })
-          Cookies.set(appConstants.TOKEN, token, { expires: 7 })
+          Cookies.set(APP_VARS.TOKEN, token, { expires: 7 })
           navigate({ to: routesPath.erp.root() })
         })
       }
