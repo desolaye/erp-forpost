@@ -1,16 +1,22 @@
-import { routesPath } from '@/shared/config/routes-path.config'
-import { BookIcon } from '@/shared/ui/icons/book-icon'
-import { HomeIcon } from '@/shared/ui/icons/home-icon'
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+import ConstructionOutlinedIcon from '@mui/icons-material/ConstructionOutlined'
+import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined'
 
+import { routesPath } from '@/shared/config/routes-path.config'
 export const navMenuRoutes = [
   {
-    icon: () => <HomeIcon height={32} width={32} />,
+    icon: () => <HomeOutlinedIcon fontSize="large" />,
     to: routesPath.erp.root(),
     text: 'Главная',
   },
   {
-    icon: () => <BookIcon height={32} width={32} />,
+    icon: () => <MenuBookOutlinedIcon fontSize="large" />,
     to: routesPath.erp.manuals.root(),
     text: 'Справочники',
+  },
+  {
+    icon: () => <ConstructionOutlinedIcon fontSize="large" />,
+    to: routesPath.erp.manufacture.root(),
+    text: 'Панель производства',
   },
 ]

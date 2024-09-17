@@ -1,6 +1,6 @@
-import { StaffType } from '@/entities/manuals'
+import { StaffType } from '../model/staff.manual'
 
-export const getStaffOptions = (staff?: StaffType[]) => {
+export const staffToOptions = (staff?: StaffType[]) => {
   return !staff
     ? []
     : staff.map((v) => ({ label: `${v.lastName} ${v.firstName}`, value: v.id }))

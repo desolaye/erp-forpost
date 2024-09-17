@@ -20,6 +20,8 @@ export const ZTechcard = z.object({
   id: z.string(),
   number: z.string(),
   description: z.string().nullable(),
+  productId: z.string(),
+  productName: z.string(),
 })
 
 export const ZTechcardFull = ZTechcard.extend({

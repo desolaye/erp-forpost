@@ -9,6 +9,12 @@
   text-decoration: underline;
 }
 
+.hide_overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /*
  TEXT SIZES
 */

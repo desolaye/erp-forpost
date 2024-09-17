@@ -1,7 +1,6 @@
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
-import { Text } from '@/shared/ui/text'
 import { Table } from '@/shared/ui/table'
 
 import { AgentEditor, useAgentsPage } from '@/features/manuals/agents'
@@ -15,11 +14,7 @@ export const ManualAgentsPage = () => {
   const { values, handlers } = useAgentsPage()
 
   return (
-    <PageWrapper>
-      <Text size="2xl" weight="semi">
-        Контрагенты
-      </Text>
-
+    <PageWrapper title="Контрагенты">
       <Card style={{ flexDirection: 'row' }}>
         <Input full placeholder="Поиск" />
         <Button onClick={() => handlers.openModal('new')}>Добавить</Button>

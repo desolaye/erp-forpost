@@ -29,5 +29,11 @@ export const ZStepValidator = z.object({
   }),
 })
 
+export const ZStepResponse = z.object({
+  steps: z.array(ZStep),
+  totalCount: z.number(),
+})
+
 export type StepType = z.infer<typeof ZStep>
 export type StepValidatorType = z.infer<typeof ZStepValidator>
+export type StepResponseType = z.infer<typeof ZStepResponse>

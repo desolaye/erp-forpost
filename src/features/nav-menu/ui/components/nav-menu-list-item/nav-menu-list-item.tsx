@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { Link } from '@tanstack/react-router'
 
 import cls from './nav-menu-list-item.module.scss'
+import { Text } from '@/shared/ui/text'
 
 interface ISubNavListItemProps {
   icon: ReactNode
@@ -16,8 +17,8 @@ export const NavMenuListItem = (props: ISubNavListItemProps) => {
   return (
     <li>
       <Link to={to} className={cls.list_item}>
-        <span style={{ minWidth: 32, minHeight: 32 }}>{icon}</span>
-        {isOpen && text}
+        <span className={cls.list_item__icon}>{icon}</span>
+        {isOpen && <Text hideOverflow>{text}</Text>}
       </Link>
     </li>
   )

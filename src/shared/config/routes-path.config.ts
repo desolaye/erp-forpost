@@ -12,5 +12,9 @@ export const routesPath = {
       warehouses: (pre = '') => `${pre}/warehouses`,
       staff: (pre = '') => `${pre}/staff`,
     },
+    manufacture: {
+      root: () => '/manufacture',
+      processes: (pre = '') => `${pre}/processes`,
+    },
   },
 } as const

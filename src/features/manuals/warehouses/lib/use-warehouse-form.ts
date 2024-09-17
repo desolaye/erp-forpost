@@ -2,12 +2,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import {
+  staffToOptions,
   StaffType,
   WarehouseValidatorType,
   ZWarehouseValidator,
 } from '@/entities/manuals'
-
-import { getStaffOptions } from '../utils/get-staff-options'
 
 interface IUseWarehouseForm {
   name: string
@@ -44,6 +43,6 @@ export const useWarehouseForm = (props: IUseWarehouseForm) => {
     onReset,
     errors,
     control,
-    users: getStaffOptions(staff),
+    users: staffToOptions(staff),
   }
 }

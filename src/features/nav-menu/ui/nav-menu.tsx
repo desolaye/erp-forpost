@@ -1,6 +1,5 @@
 import { useState } from 'react'
-
-import { ArrowRightIcon } from '@/shared/ui/icons/arrow-right-icon'
+import VerticalAlignTopOutlinedIcon from '@mui/icons-material/VerticalAlignTopOutlined'
 
 import { navMenuRoutes } from '../lib/nav-menu-routes'
 import { NavMenuListItem } from './components/nav-menu-list-item'
@@ -24,7 +23,7 @@ export const NavMenu = () => {
     <aside
       className={cls.nav_menu}
       style={{
-        width: isOpen ? '310px' : '42px',
+        width: isOpen ? '310px' : '47px',
         padding: isOpen ? '8px' : '8px 4px',
       }}
     >
@@ -33,13 +32,12 @@ export const NavMenu = () => {
       </main>
 
       <footer className={cls.nav_menu__footer}>
-        <ArrowRightIcon
+        <VerticalAlignTopOutlinedIcon
           className={cls.nav_menu__footer__icon}
           onClick={() => setIsOpen((prev) => !prev)}
-          width={32}
-          height={32}
+          fontSize="large"
           style={{
-            transform: isOpen ? 'rotate(180deg)' : undefined,
+            transform: isOpen ? 'rotate(-90deg)' : 'rotate(90deg)',
             transition: '0.25s all ease',
           }}
         />

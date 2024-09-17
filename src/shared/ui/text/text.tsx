@@ -12,6 +12,7 @@ export const Text = (props: PropsWithChildren<ITextProps>) => {
     color = 'black',
     className,
     children,
+    hideOverflow,
     style,
   } = props
 
@@ -22,6 +23,7 @@ export const Text = (props: PropsWithChildren<ITextProps>) => {
     colorStyle[color],
     {
       [cls.link]: link,
+      [cls.hide_overflow]: hideOverflow,
     },
     className,
   )

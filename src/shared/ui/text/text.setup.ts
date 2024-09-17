@@ -49,9 +49,10 @@ interface ITextProps {
   weight?: TextWeight
   size?: TextSize
   color?: TextColor
+  style?: CSSProperties
+  hideOverflow?: boolean
   link?: boolean
   className?: string
-  style?: CSSProperties
 }
 
 export { type ITextProps, cls, sizeStyle, weightStyle, colorStyle }
