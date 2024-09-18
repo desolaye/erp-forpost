@@ -1,8 +1,9 @@
 import { Text } from '@/shared/ui/text'
-import { processesTableConfig } from '../../utils/processes-table.config'
 
-export const ProcessesTableHead = () => {
-  const config = processesTableConfig()
+import { issuesTableConfig } from '../../utils/issues-table.config'
+
+export const IssuesTableHead = () => {
+  const config = issuesTableConfig()
 
   return (
     <>

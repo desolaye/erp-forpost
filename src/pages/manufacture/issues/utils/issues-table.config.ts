@@ -1,34 +1,30 @@
-import { ProcessType } from '@/entities/manufacture'
+import { IssueInProcessType } from '@/entities/manufacture'
 
-export const processesTableConfig = () => {
+export const issuesTableConfig = () => {
   type DisplayValues = [
-    keyof ProcessType,
+    keyof IssueInProcessType,
     {
       size: string
       title: string
     },
   ][]
 
-  const config: Record<keyof ProcessType, { size: string; title: string }> = {
-    productName: {
+  const config: Record<keyof IssueInProcessType, { size: string; title: string }> = {
+    operationName: {
       size: '250px',
-      title: 'Продукт',
+      title: 'Название операции',
     },
-    techCardNumber: {
-      size: '150px',
-      title: 'Номер карты',
+    description: {
+      size: '250px',
+      title: 'Описание',
     },
-    batchNumber: {
-      size: '150px',
-      title: 'Номер партии',
+    issueNumber: {
+      size: '100px',
+      title: 'Номер',
     },
     currentQuantity: {
       size: '125px',
       title: 'Выполнено',
-    },
-    targetQuantity: {
-      size: '125px',
-      title: 'Требуется',
     },
     startTime: {
       size: '175px',
@@ -42,15 +38,19 @@ export const processesTableConfig = () => {
       size: '175px',
       title: 'Статус процесса',
     },
-    techCardId: {
+    executorId: {
       size: '0',
       title: '',
     },
-    productId: {
+    responsibleId: {
       size: '0',
       title: '',
     },
     id: {
+      size: '0',
+      title: '',
+    },
+    productCompositionFlag: {
       size: '0',
       title: '',
     },

@@ -1,10 +1,12 @@
 import { createRoute } from '@tanstack/react-router'
 
 import { routesPath } from '@/shared/config/routes-path.config'
+
 import { ManufactureRoot } from '@/pages/manufacture/root'
+import { ManufactureProcesses } from '@/pages/manufacture/processes'
+import { ManufactureIssues } from '@/pages/manufacture/issues'
 
 import { erpLayoutRoute } from '../private-routes'
-import { ManufactureProcesses } from '@/pages/manufacture/processes'
 
 const erpManufactureRoute = createRoute({
   path: routesPath.erp.manufacture.root(),
@@ -23,7 +25,14 @@ const erpProcessesRoute = createRoute({
   component: ManufactureProcesses,
 })
 
+const erpIssuesRoute = createRoute({
+  path: routesPath.erp.manufacture.issues(),
+  getParentRoute: () => erpManufactureRoute,
+  component: ManufactureIssues,
+})
+
 export const erpManufactures = erpManufactureRoute.addChildren([
   erpManualsIndexRoute,
   erpProcessesRoute,
+  erpIssuesRoute,
 ])

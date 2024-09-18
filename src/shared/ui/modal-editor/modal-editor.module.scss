@@ -3,6 +3,9 @@
   flex-direction: column;
   gap: 20px;
 
+  height: 100%;
+  overflow: auto;
+
   &__header {
     padding: 8px 0;
   }

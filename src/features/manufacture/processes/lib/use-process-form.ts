@@ -16,11 +16,10 @@ interface IUseProcessForm {
   steps: StepType[]
   techcards: TechcardType[]
   onMutate?: (data: ProcessValidatorType) => void
-  onClose?: () => void
 }
 
 export const useProcessForm = (props: IUseProcessForm) => {
-  const { staff, steps, techcards, onMutate, onClose } = props
+  const { staff, steps, techcards, onMutate } = props
 
   const {
     register,
@@ -36,6 +35,7 @@ export const useProcessForm = (props: IUseProcessForm) => {
           ...v,
           stepId: v.stepId.value,
           responsibleId: v.responsibleId.value,
+          productCompositionSettingFlag: true,
         })),
       })),
     ),
@@ -44,13 +44,14 @@ export const useProcessForm = (props: IUseProcessForm) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'issues',
+    rules: {
+      minLength: 1,
+    },
   })
 
   const onSubmit: SubmitHandler<ProcessValidatorType> = (data) => {
     onMutate?.(data)
   }
-
-  const onReset = onClose
 
   return {
     values: {
@@ -65,7 +66,6 @@ export const useProcessForm = (props: IUseProcessForm) => {
       register,
       handleSubmit,
       onSubmit,
-      onReset,
       append,
       remove,
     },

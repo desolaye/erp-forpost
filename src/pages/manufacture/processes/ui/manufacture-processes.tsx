@@ -20,8 +20,30 @@ export const ManufactureProcesses = () => {
         <Button onClick={() => handlers.openModal('new')}>Запланировать</Button>
       </Card>
 
+      <div style={{ display: 'flex', gap: 8, justifyContent: 'end' }}>
+        <Button
+          disabled={values.selectedIds.length === 0}
+          mode="secondary"
+          onClick={handlers.launchAll}
+        >
+          Запустить
+        </Button>
+        <Button
+          disabled={values.selectedIds.length === 0}
+          mode="secondary"
+          onClick={handlers.completeAll}
+        >
+          Завершить
+        </Button>
+      </div>
+
       <Table
-        body={<ProcessesTableBody data={values.processes?.manufacturingProcesses} />}
+        body={
+          <ProcessesTableBody
+            onCheck={handlers.selectId}
+            data={values.processes?.manufacturingProcesses}
+          />
+        }
         header={<ProcessesTableHead />}
         isPending={values.isPending}
         page={values.page}
