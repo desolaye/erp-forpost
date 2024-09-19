@@ -2,11 +2,13 @@ import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { Table } from '@/shared/ui/table'
+import { ToolMenu } from '@/shared/ui/tool-menu'
 
 import { ProcessCreator, useProcessesPage } from '@/features/manufacture/processes'
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
+import { processesToolMenu } from '../utils/processes-tool-menu'
 import { ProcessesTableHead } from './components/processes-table-head'
 import { ProcessesTableBody } from './components/processes-table-body'
 
@@ -20,22 +22,13 @@ export const ManufactureProcesses = () => {
         <Button onClick={() => handlers.openModal('new')}>Запланировать</Button>
       </Card>
 
-      <div style={{ display: 'flex', gap: 8, justifyContent: 'end' }}>
-        <Button
-          disabled={values.selectedIds.length === 0}
-          mode="secondary"
-          onClick={handlers.launchAll}
-        >
-          Запустить
-        </Button>
-        <Button
-          disabled={values.selectedIds.length === 0}
-          mode="secondary"
-          onClick={handlers.completeAll}
-        >
-          Завершить
-        </Button>
-      </div>
+      <ToolMenu
+        tools={processesToolMenu({
+          selectedLength: values.selectedIds.length,
+          onComplete: handlers.completeAll,
+          onLaunch: handlers.launchAll,
+        })}
+      />
 
       <Table
         body={

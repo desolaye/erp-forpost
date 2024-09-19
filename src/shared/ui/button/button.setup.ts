@@ -13,6 +13,7 @@ const modeStyle: Record<ButtonMode, string> = {
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   mode?: ButtonMode
+  circle?: boolean
   full?: boolean
 }
 

@@ -10,6 +10,7 @@ const ZTechcardStep = z.object({
 })
 
 const ZTechcardItem = z.object({
+  id: z.string(),
   productName: z.string(),
   techCardId: z.string(),
   productId: z.string(),

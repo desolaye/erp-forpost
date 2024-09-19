@@ -21,7 +21,7 @@ export const SingleTechcard = (props: ISingleTechcard) => {
   if (values.isPending || !values.data) return <Loader />
 
   return (
-    <PageWrapper style={{ gridColumn: 'span 7 / span 7' }}>
+    <PageWrapper style={{ gridColumn: 'span 3 / span 3' }}>
       <Tabs
         value={values.tab}
         onChange={(_, v) => handlers.setTab(v)}

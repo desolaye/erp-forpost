@@ -1,12 +1,14 @@
 import { useParams } from '@tanstack/react-router'
 
-import { Button } from '@/shared/ui/button'
 import { Table } from '@/shared/ui/table'
+import { ToolMenu } from '@/shared/ui/tool-menu'
+
+import { useIssuesPage } from '@/features/manufacture/issues'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
+import { issuesToolMenu } from '../utils/issues-tool-menu'
 import { IssuesTableHead } from './components/issues-table-head'
 import { IssuesTableBody } from './components/issues-table-body'
-import { useIssuesPage } from '@/features/manufacture/issues'
 
 export const ManufactureIssues = () => {
   const { uuid } = useParams({ strict: false }) as { uuid: string }
@@ -14,22 +16,13 @@ export const ManufactureIssues = () => {
 
   return (
     <PageWrapper title="Производственные задачи">
-      <div style={{ display: 'flex', gap: 8, justifyContent: 'end' }}>
-        <Button
-          disabled={values.selectedIds.length === 0}
-          mode="secondary"
-          onClick={handlers.launchAll}
-        >
-          Запустить
-        </Button>
-        <Button
-          disabled={values.selectedIds.length === 0}
-          mode="secondary"
-          onClick={handlers.closeAll}
-        >
-          Завершить
-        </Button>
-      </div>
+      <ToolMenu
+        tools={issuesToolMenu({
+          selectedLength: values.selectedIds.length,
+          onComplete: handlers.closeAll,
+          onLaunch: handlers.launchAll,
+        })}
+      />
 
       <Table
         body={<IssuesTableBody onCheck={handlers.selectId} data={values.issues} />}

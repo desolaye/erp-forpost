@@ -20,11 +20,7 @@ export const ManualTechcardsPage = () => {
   const { values, handlers } = useTechcardsPage()
 
   return (
-    <PageWrapper>
-      <Text size="2xl" weight="semi">
-        Технологические карты
-      </Text>
-
+    <PageWrapper title="Технологические карты">
       <section className={cls.techcards_page__layout}>
         <Card style={{ position: 'relative' }}>
           <Input full placeholder="Поиск по номеру" />
@@ -45,7 +41,9 @@ export const ManualTechcardsPage = () => {
 
           {values.data?.map((v) => (
             <Button key={v.id} mode="table" onClick={() => handlers.openCard(v.id)}>
-              {v.number}
+              <Text hideOverflow>
+                {v.number} - {v.productName}
+              </Text>
             </Button>
           ))}
 

@@ -15,9 +15,9 @@ export const ItemsTableBody = (props: IStaffTableBody) => {
   if (!data || !data.length) return <EmptyCard />
 
   return data.map((pr) => (
-    <Button key={pr.productId} mode="table" style={{ display: 'flex', gap: 8 }}>
+    <Button key={pr.id} mode="table" style={{ display: 'flex', gap: 8 }}>
       {getDisplayValuesItems().map(([key, value]) => (
-        <Text key={key} style={{ width: value.size, overflow: 'hidden' }}>
+        <Text key={key} style={{ width: value.size }} hideOverflow>
           {pr[key]}
         </Text>
       ))}
