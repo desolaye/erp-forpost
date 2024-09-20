@@ -4,9 +4,9 @@ import { useContext } from 'react'
 
 import { routesPath } from '@/shared/config/routes-path.config'
 import { publicApi } from '@/shared/api/public-api.config'
+import { APP_VARS } from '@/shared/config/app-variables.config'
 
-import { useLocalSession } from '@/entities/session/lib/use-local-session'
-import { SessionContext } from '@/entities/session'
+import { SessionContext, useLocalSession } from '@/entities/session'
 import { NavMenu } from '@/features/nav-menu'
 
 import cls from './erp-layout.module.scss'
@@ -14,12 +14,13 @@ import cls from './erp-layout.module.scss'
 export const ErpLayout = () => {
   const navigate = useNavigate()
 
-  const cookie = Cookies.get('ACCESS_TOKEN')
+  const cookie = Cookies.get(APP_VARS.TOKEN)
   const sessionContext = useContext(SessionContext)
-  const { getLocalSession } = useLocalSession()
+  const { getLocalSession, setLocalSession } = useLocalSession()
 
   if (!cookie) {
     navigate({ to: routesPath.login() })
+    setLocalSession(null)
   } else {
     publicApi.interceptors.request.use((config) => {
       config.headers.Authorization = `Bearer ${cookie}`

@@ -6,6 +6,7 @@ import { ManufactureRoot } from '@/pages/manufacture/root'
 import { ManufactureProcesses } from '@/pages/manufacture/processes'
 import { ManufactureIssues } from '@/pages/manufacture/issues'
 import { ProductDevelop } from '@/pages/manufacture/product-develop'
+import { MyIssues } from '@/pages/my-issues'
 
 import { erpLayoutRoute } from '../private-routes'
 
@@ -26,6 +27,12 @@ const erpProcessesRoute = createRoute({
   component: ManufactureProcesses,
 })
 
+const erpMyIssuesRoute = createRoute({
+  path: routesPath.erp.manufacture.issues('', 'my'),
+  getParentRoute: () => erpManufactureRoute,
+  component: MyIssues,
+})
+
 const erpIssuesRoute = createRoute({
   path: routesPath.erp.manufacture.issues(),
   getParentRoute: () => erpManufactureRoute,
@@ -41,6 +48,7 @@ const erpProductDevelopRoute = createRoute({
 export const erpManufactures = erpManufactureRoute.addChildren([
   erpManualsIndexRoute,
   erpProcessesRoute,
+  erpMyIssuesRoute,
   erpIssuesRoute,
   erpProductDevelopRoute,
 ])

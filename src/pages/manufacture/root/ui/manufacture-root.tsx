@@ -13,6 +13,7 @@ export const ManufactureRoot = () => {
         <Text size="xl" weight="medium">
           Панель производства:
         </Text>
+
         {manufactureRoutes.map((v) => (
           <Link to={v.route} key={v.route}>
             <Text link color="primary">
