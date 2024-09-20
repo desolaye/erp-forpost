@@ -26,6 +26,10 @@ export const getDisplayValuesItems = () => {
       size: '0',
       title: '',
     },
+    id: {
+      size: '0',
+      title: '',
+    },
   }
 
   return Object.entries(config).filter(

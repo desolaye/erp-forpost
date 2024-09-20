@@ -4,7 +4,7 @@ import { EmptyCard } from '@/shared/ui/empty-card'
 import { Button } from '@/shared/ui/button'
 import { Text } from '@/shared/ui/text'
 
-import { IssueInProcessType, statusToText } from '@/entities/manufacture'
+import { IssueInProcessType } from '@/entities/manufacture'
 import { issuesTableConfig } from '../../utils/issues-table.config'
 
 interface IIssuesTableBodyProps {
@@ -34,8 +34,7 @@ export const IssuesTableBody = (props: IIssuesTableBodyProps) => {
 
       {config.map(([key, value]) => (
         <Text key={key} style={{ width: value.size }} hideOverflow>
-          {key !== 'status' && issue[key]}
-          {key === 'status' && statusToText(issue[key])}
+          {issue[key]}
         </Text>
       ))}
     </Button>

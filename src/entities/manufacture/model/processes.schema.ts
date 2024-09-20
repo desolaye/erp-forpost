@@ -2,23 +2,29 @@ import { z } from 'zod'
 
 import { isoToTime } from '@/shared/utils/iso-to-time'
 import { ZIssueValidator } from './issues.schema'
+import { statusToText } from '@/shared/utils/status-to-text'
 
-export const ZProcess = z.object({
-  id: z.string().uuid(),
-  productId: z.string().uuid(),
-  techCardId: z.string().uuid(),
+export const ZProcess = z
+  .object({
+    id: z.string().uuid(),
+    productId: z.string().uuid(),
+    techCardId: z.string().uuid(),
 
-  productName: z.string(),
-  techCardNumber: z.string(),
-  batchNumber: z.string(),
+    productName: z.string(),
+    techCardNumber: z.string(),
+    batchNumber: z.string(),
 
-  currentQuantity: z.number(),
-  targetQuantity: z.number(),
+    currentQuantity: z.number(),
+    targetQuantity: z.number(),
 
-  startTime: z.string().nullable(),
-  endTime: z.string().nullable(),
-  status: z.number(),
-})
+    startTime: z.string().nullable(),
+    endTime: z.string().nullable(),
+    status: z.number(),
+  })
+  .transform((data) => ({
+    ...data,
+    status: statusToText(data.status),
+  }))
 
 export const ZProcessValidator = z.object({
   batchNumber: z.string(),

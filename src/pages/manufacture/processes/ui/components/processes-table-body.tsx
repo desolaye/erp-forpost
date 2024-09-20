@@ -1,13 +1,13 @@
+import { Link } from '@tanstack/react-router'
 import { Checkbox } from '@mui/material'
 
+import { routesPath } from '@/shared/config/routes-path.config'
 import { Button } from '@/shared/ui/button'
 import { Text } from '@/shared/ui/text'
 import { EmptyCard } from '@/shared/ui/empty-card'
 
-import { ProcessType, statusToText } from '@/entities/manufacture'
+import { ProcessType } from '@/entities/manufacture'
 import { processesTableConfig } from '../../utils/processes-table.config'
-import { Link } from '@tanstack/react-router'
-import { routesPath } from '@/shared/config/routes-path.config'
 
 interface IProcessesTableBody {
   data?: ProcessType[]
@@ -37,8 +37,7 @@ export const ProcessesTableBody = (props: IProcessesTableBody) => {
 
         {config.map(([key, value]) => (
           <Text key={key} style={{ width: value.size }} hideOverflow>
-            {key !== 'status' && process[key]}
-            {key === 'status' && statusToText(process[key])}
+            {process[key]}
           </Text>
         ))}
       </Button>

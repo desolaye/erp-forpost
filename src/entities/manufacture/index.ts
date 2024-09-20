@@ -4,4 +4,5 @@ export * from './services/issues'
 export * from './model/processes.schema'
 export * from './services/processes'
 
-export { statusToText } from './utils/status-to-text'
+export * from './model/product-develop.schema'
+export * from './services/product-develop'

@@ -1,4 +1,4 @@
-export const statusToText = (status: number) => {
+export const statusToText = (status?: number) => {
   if (status === 100) return 'В ожидании'
   if (status === 101) return 'На паузе'
   if (status === 200) return 'Запущен'

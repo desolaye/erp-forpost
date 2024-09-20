@@ -1,5 +1,7 @@
-import { isoToTime } from '@/shared/utils/iso-to-time'
 import { z } from 'zod'
+
+import { isoToTime } from '@/shared/utils/iso-to-time'
+import { statusToText } from '@/shared/utils/status-to-text'
 
 export const ZIssue = z.object({
   stepId: z.string().uuid(),
@@ -26,6 +28,7 @@ export const ZIssueInProcess = z
     ...data,
     startTime: isoToTime(data.startTime, true),
     endTime: isoToTime(data.endTime, true),
+    status: statusToText(data.status),
   }))
 
 export const ZIssueValidator = z.object({

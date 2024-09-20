@@ -16,6 +16,7 @@ export const routesPath = {
       root: () => '/manufacture',
       processes: (pre = '') => `${pre}/processes`,
       issues: (pre = '', post = '$uuid') => `${pre}/processes/${post}`,
+      proddev: (pre = '') => `${pre}/product-develop`,
     },
   },
 } as const
