@@ -1,6 +1,7 @@
 import { useParams } from '@tanstack/react-router'
 
 import { Table } from '@/shared/ui/table'
+import { Text } from '@/shared/ui/text'
 
 import { useIssuesPage } from '@/features/manufacture/issues'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
@@ -14,6 +15,9 @@ export const ManufactureIssues = () => {
 
   return (
     <PageWrapper title="Производственные задачи">
+      <Text size="lg">Продукт: {values.productName}</Text>
+      <Text size="lg">Номер партии: {values.batchNumber}</Text>
+
       <Table
         body={<IssuesTableBody data={values.issues} />}
         header={<IssuesTableHead />}
