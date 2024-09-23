@@ -35,6 +35,7 @@ export const useSelectExecutor = (props: IMyIssuesModalProps) => {
 
   const submit: SubmitHandler<IssueExecutorValidatorType> = (data) => {
     mutateAsync(data)
+    if (onClose) onClose()
   }
 
   return {
