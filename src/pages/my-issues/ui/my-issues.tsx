@@ -23,7 +23,9 @@ export const MyIssues = () => {
       </Tabs>
 
       <Table
-        body={<TableBody tab={values.tab} data={values.issues?.issues} />}
+        body={
+          <TableBody tab={values.tab} data={values.issues?.issues} staff={values.staff} />
+        }
         header={<TableHead tab={values.tab} />}
         page={values.page}
         setPage={handlers.setPage}

@@ -36,5 +36,13 @@ export const ZMyIssueResponse = z
     })),
   }))
 
+export const ZIssueExecutorValidator = z.object({
+  executorId: z.object({
+    value: z.string().uuid(),
+    label: z.string(),
+  }),
+})
+
 export type MyIssueType = z.infer<typeof ZMyIssue>
 export type MyIssueResponseType = z.infer<typeof ZMyIssueResponse>
+export type IssueExecutorValidatorType = z.infer<typeof ZIssueExecutorValidator>

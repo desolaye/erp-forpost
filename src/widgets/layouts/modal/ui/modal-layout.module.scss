@@ -5,6 +5,10 @@
   width: 100vw;
   height: 100vh;
 
+  display: flex;
+  justify-content: end;
+  padding: 10px;
+
   background-color: rgba($color: #000, $alpha: 0.3);
 
   animation: 0.5s fadein;
@@ -13,14 +17,17 @@
     background-color: white;
     padding: 16px;
     width: 1024px;
-    margin: 8px 8px 8px auto;
-    height: calc(100vh - 16px);
 
     border-radius: 8px;
     box-shadow: var(--shadow);
 
     animation: 0.5s fadein_content;
   }
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes fadein {
