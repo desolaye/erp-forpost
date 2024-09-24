@@ -2,17 +2,21 @@ import { CSSProperties, PropsWithChildren } from 'react'
 
 import { Text } from '@/shared/ui/text'
 import cls from './page-wrapper.module.scss'
+import cn from 'classnames'
 
 interface IPageWrapperProps {
   style?: CSSProperties
   title?: string
+  classNames?: string
 }
 
 export const PageWrapper = (props: PropsWithChildren<IPageWrapperProps>) => {
-  const { children, style, title } = props
+  const { children, style, title, classNames } = props
+
+  const classes = cn(cls.page_wrapper, classNames)
 
   return (
-    <article className={cls.page_wrapper} style={style}>
+    <article className={classes} style={style}>
       {title && (
         <Text size="2xl" weight="semi">
           {title}

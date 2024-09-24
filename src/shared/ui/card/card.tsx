@@ -3,9 +3,7 @@ import cn from 'classnames'
 
 import cls from './card.module.scss'
 
-interface ICard extends HTMLAttributes<HTMLElement> {}
-
-export const Card = (props: ICard) => {
+export const Card = (props: HTMLAttributes<HTMLElement>) => {
   const { children, className, ...rest } = props
 
   const classes = cn(cls.card, className)

@@ -43,14 +43,14 @@ export const useProductEditor = (props: IProductEditorProps) => {
     isPending: isPendingPut,
     error: errorPut,
   } = useMutation({
-    mutationFn: (data: ProductValidatorType) => {
-      return putEditProduct({ ...product!.data, ...data })
-    },
+    mutationFn: (data: ProductValidatorType) =>
+      putEditProduct({ ...product!.data, ...data }),
     onSuccess: handleSuccess,
   })
 
   const handleMutate = (data: ProductValidatorType) => {
-    id === 'new' ? mutateAsyncPost(data) : mutateAsyncPut(data)
+    if (id === 'new') return mutateAsyncPost(data)
+    return mutateAsyncPut(data)
   }
 
   return {
