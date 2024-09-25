@@ -1,47 +1,21 @@
-import { useState } from 'react'
-import VerticalAlignTopOutlinedIcon from '@mui/icons-material/VerticalAlignTopOutlined'
+import { Fragment } from 'react'
 
-import { navMenuRoutes } from '../lib/nav-menu-routes'
+import { navMenuRoutes } from '../utils/nav-menu-routes'
 import { NavMenuListItem } from './components/nav-menu-list-item'
 
 import cls from './nav-menu.module.scss'
 
 export const NavMenu = () => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const routes = navMenuRoutes.map((v) => (
-    <NavMenuListItem
-      icon={v.icon()}
-      isOpen={isOpen}
-      text={v.text}
-      to={v.to}
-      key={v.text}
-    />
+  const routes = navMenuRoutes().map((v) => (
+    <Fragment key={v.text}>
+      <NavMenuListItem childs={v.childs} icon={v.icon()} text={v.text} to={v.to} />
+      <div style={{ width: '100%', height: '2px', backgroundColor: '#e5e6eb' }} />
+    </Fragment>
   ))
 
   return (
-    <aside
-      className={cls.nav_menu}
-      style={{
-        width: isOpen ? '310px' : '47px',
-        padding: isOpen ? '8px' : '8px 4px',
-      }}
-    >
-      <main>
-        <ul className={cls.nav_menu__list}>{routes}</ul>
-      </main>
-
-      <footer className={cls.nav_menu__footer}>
-        <VerticalAlignTopOutlinedIcon
-          className={cls.nav_menu__footer__icon}
-          onClick={() => setIsOpen((prev) => !prev)}
-          fontSize="large"
-          style={{
-            transform: isOpen ? 'rotate(-90deg)' : 'rotate(90deg)',
-            transition: '0.25s all ease',
-          }}
-        />
-      </footer>
+    <aside className={cls.nav_menu}>
+      <main className={cls.nav_menu__list}>{routes}</main>
     </aside>
   )
 }

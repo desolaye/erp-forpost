@@ -5,11 +5,9 @@
   justify-content: space-between;
   height: 100%;
   border-right: 2px solid #e5e6eb;
-  padding-top: 80px;
+  padding: 8px 4px;
 
   background-color: white;
-
-  transition: var(--transition-base);
 
   &__list {
     overflow: hidden;
