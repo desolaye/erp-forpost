@@ -13,8 +13,10 @@ import { DevelopTableBody } from './components/develop-table-body'
 export const ProductDevelop = () => {
   const { handlers, values } = useProductDevelopPage()
 
+  console.log(values.isPending)
+
   return (
-    <PageWrapper title={`Продукт в разработке - ${values.issue?.productName}`}>
+    <PageWrapper title={values.title}>
       {!values.isPending && values.issueId && (
         <>
           <Text>Этап - {values.issue?.operationName}</Text>

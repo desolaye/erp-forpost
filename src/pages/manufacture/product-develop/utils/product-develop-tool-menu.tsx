@@ -1,4 +1,4 @@
-import PlayArrowIcon from '@mui/icons-material/PlayArrow'
+import SkipNextIcon from '@mui/icons-material/SkipNext'
 
 interface IProductDevelopToolMenu {
   selectedLength: number
@@ -11,7 +11,7 @@ export const productDevelopToolMenu = (props: IProductDevelopToolMenu) => {
   return [
     {
       disabled: selectedLength === 0,
-      icon: <PlayArrowIcon />,
+      icon: <SkipNextIcon />,
       onClick: onComplete,
       title: 'Перевести на следующий этап',
     },

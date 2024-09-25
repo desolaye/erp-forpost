@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { Checkbox } from '@mui/material'
 import { Link } from '@tanstack/react-router'
 
-import { isRenderable } from '@/shared/utils/is-renderable'
+import { isRenderable } from '../../utils/is-renderable'
 
 import { Button } from '../button'
 import { Text } from '../text'
+
+import cls from './table-row.module.scss'
 
 interface ITableRowProps<T> {
   data: T
@@ -18,10 +20,11 @@ interface ITableRowProps<T> {
   ][]
   to?: string
   onCheck?: () => void
+  actions?: ReactNode
 }
 
 export const TableRow = <T,>(props: ITableRowProps<T>) => {
-  const { config, to, data, onCheck } = props
+  const { config, to, data, actions, onCheck } = props
 
   const [checked, setChecked] = useState(false)
 
@@ -37,11 +40,11 @@ export const TableRow = <T,>(props: ITableRowProps<T>) => {
           onClick={(e) => e.stopPropagation()}
           checked={checked}
           onChange={handleClick}
-          style={{ padding: 0 }}
+          style={{ padding: 0, minWidth: 28 }}
         />
       )}
 
-      <Button mode="table" style={{ display: 'flex', gap: 8, width: '100%' }}>
+      <Button mode="table" className={cls.table_row}>
         {config.map(([key, value]) => (
           <Text key={String(key)} style={{ width: value.size }} hideOverflow>
             {isRenderable(data[key]) ? data[key] : ''}
@@ -53,14 +56,18 @@ export const TableRow = <T,>(props: ITableRowProps<T>) => {
 
   if (to)
     return (
-      <Link to={to} style={{ display: 'flex', gap: 8, width: '100%' }}>
-        <InnerTable />
-      </Link>
+      <div className={cls.table_row}>
+        <Link to={to} className={cls.table_row}>
+          <InnerTable />
+        </Link>
+        {actions}
+      </div>
     )
 
   return (
-    <li style={{ display: 'flex', gap: 8, width: '100%' }}>
+    <li className={cls.table_row}>
       <InnerTable />
+      {actions}
     </li>
   )
 }

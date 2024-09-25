@@ -26,7 +26,7 @@ export const useProductDevelopPage = () => {
     queryKey: ['product_develop_all', issueId],
   })
 
-  const { data: issue, isPending: IsPendingIssue } = useQuery({
+  const { data: issue, isFetching: IsPendingIssue } = useQuery({
     queryFn: () => getMyIssueById(issueId),
     queryKey: ['issue_by_id', issueId],
     enabled: Boolean(issueId),
@@ -45,6 +45,10 @@ export const useProductDevelopPage = () => {
     })
   }
 
+  const title = !issueId
+    ? 'Продукты в разработке'
+    : `Продукт в разработке - ${issue?.productName}`
+
   return {
     values: {
       products: data?.developments,
@@ -54,6 +58,7 @@ export const useProductDevelopPage = () => {
       issueId,
       issue,
       selectedIds,
+      title,
     },
     handlers: {
       setPage,

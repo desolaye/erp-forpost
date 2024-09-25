@@ -1,12 +1,11 @@
-import { Link } from '@tanstack/react-router'
 import { MouseEvent, useState } from 'react'
 import { Menu, MenuItem } from '@mui/material'
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 
 import { Button } from '@/shared/ui/button'
-import { Text } from '@/shared/ui/text'
 import { EmptyCard } from '@/shared/ui/empty-card'
 import { routesPath } from '@/shared/config/routes-path.config'
+import { TableRow } from '@/shared/ui/table-row'
 
 import { MyIssueResponseType, MyIssueType } from '@/entities/my-issues'
 import { StaffResponseType } from '@/entities/manuals'
@@ -50,24 +49,20 @@ export const TableBody = (props: ITableBodyProps) => {
 
   return (
     <>
-      {data.map((issue) => (
-        <div key={issue.id} style={{ display: 'flex', gap: 8, width: '100%' }}>
-          <Link to={proddevIssue(root(), issue.id)} style={{ width: '100%' }}>
-            <Button mode="table" style={{ display: 'flex', gap: 8, width: '100%' }}>
-              {config.map(([key, value]) => (
-                <Text key={key} style={{ width: value.size }} hideOverflow>
-                  {issue[key]}
-                </Text>
-              ))}
-            </Button>
-          </Link>
-
-          {tab === 'responsible' && (
-            <Button mode="secondary" circle onClick={(e) => handleOpenMenu(e, issue)}>
-              <MoreVertOutlinedIcon />
-            </Button>
-          )}
-        </div>
+      {data.map((v) => (
+        <TableRow
+          key={v.id}
+          config={config}
+          data={v}
+          to={proddevIssue(root(), v.id)}
+          actions={
+            tab === 'responsible' ? (
+              <Button mode="secondary" circle onClick={(e) => handleOpenMenu(e, v)}>
+                <MoreVertOutlinedIcon />
+              </Button>
+            ) : null
+          }
+        />
       ))}
 
       <ModalLayout

@@ -5,7 +5,7 @@ import { IssueInProcessType, ZIssueInProcess } from '../../model/issues.schema'
 
 export const getIssuesByManufacture = async (id: string) => {
   const response = await publicApi.get<IssueInProcessType[]>(
-    `v1/issues/manufactoring-process/${id}`,
+    `v1/issues/manufacturing-process/${id}`,
   )
 
   const parsed = z.array(ZIssueInProcess).safeParse(response.data)

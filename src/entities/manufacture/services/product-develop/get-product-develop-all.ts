@@ -16,7 +16,10 @@ export const getProductDevelopAll = async (props: GetWithParamsType) => {
     },
   )
 
-  const parsed = ZProductDevelopResponse.parse(response.data)
+  console.log('trying all')
 
-  return parsed
+  const parsed = ZProductDevelopResponse.safeParse(response.data)
+  if (parsed.error) console.log(parsed.error)
+
+  return parsed.data
 }
