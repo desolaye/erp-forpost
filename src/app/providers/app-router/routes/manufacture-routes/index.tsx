@@ -10,45 +10,52 @@ import { MyIssues } from '@/pages/my-issues'
 
 import { erpLayoutRoute } from '../private-routes'
 
-const erpManufactureRoute = createRoute({
+const manufactureRoute = createRoute({
   path: routesPath.erp.manufacture.root(),
   getParentRoute: () => erpLayoutRoute,
 })
 
-const erpManualsIndexRoute = createRoute({
+const manualsIndexRoute = createRoute({
   path: '/',
-  getParentRoute: () => erpManufactureRoute,
+  getParentRoute: () => manufactureRoute,
   component: ManufactureRoot,
 })
 
-const erpProcessesRoute = createRoute({
+const processesRoute = createRoute({
   path: routesPath.erp.manufacture.processes(),
-  getParentRoute: () => erpManufactureRoute,
+  getParentRoute: () => manufactureRoute,
   component: ManufactureProcesses,
 })
 
-const erpMyIssuesRoute = createRoute({
+const myIssuesRoute = createRoute({
   path: routesPath.erp.manufacture.issues('', 'my'),
-  getParentRoute: () => erpManufactureRoute,
+  getParentRoute: () => manufactureRoute,
   component: MyIssues,
 })
 
-const erpIssuesRoute = createRoute({
+const issuesRoute = createRoute({
   path: routesPath.erp.manufacture.issues(),
-  getParentRoute: () => erpManufactureRoute,
+  getParentRoute: () => manufactureRoute,
   component: ManufactureIssues,
 })
 
-const erpProductDevelopRoute = createRoute({
+const productDevelopRoute = createRoute({
   path: routesPath.erp.manufacture.proddev(),
-  getParentRoute: () => erpManufactureRoute,
+  getParentRoute: () => manufactureRoute,
   component: ProductDevelop,
 })
 
-export const erpManufactures = erpManufactureRoute.addChildren([
-  erpManualsIndexRoute,
-  erpProcessesRoute,
-  erpMyIssuesRoute,
-  erpIssuesRoute,
-  erpProductDevelopRoute,
+const productDevelopByIssueRoute = createRoute({
+  path: routesPath.erp.manufacture.proddevIssue(),
+  getParentRoute: () => manufactureRoute,
+  component: ProductDevelop,
+})
+
+export const erpManufactures = manufactureRoute.addChildren([
+  manualsIndexRoute,
+  processesRoute,
+  myIssuesRoute,
+  issuesRoute,
+  productDevelopRoute,
+  productDevelopByIssueRoute,
 ])

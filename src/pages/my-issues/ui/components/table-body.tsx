@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router'
 import { MouseEvent, useState } from 'react'
 import { Menu, MenuItem } from '@mui/material'
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
@@ -5,6 +6,7 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 import { Button } from '@/shared/ui/button'
 import { Text } from '@/shared/ui/text'
 import { EmptyCard } from '@/shared/ui/empty-card'
+import { routesPath } from '@/shared/config/routes-path.config'
 
 import { MyIssueResponseType, MyIssueType } from '@/entities/my-issues'
 import { StaffResponseType } from '@/entities/manuals'
@@ -32,6 +34,7 @@ export const TableBody = (props: ITableBodyProps) => {
 
   const [anchor, setAnchor] = useState<null | HTMLButtonElement>(null)
   const [modalData, setModalData] = useState<ModalExecutorType>(null)
+  const { root, proddevIssue } = routesPath.erp.manufacture
 
   const handleOpenMenu = (e: MouseEvent<HTMLButtonElement>, issue: MyIssueType) => {
     setAnchor(e.currentTarget)
@@ -49,13 +52,15 @@ export const TableBody = (props: ITableBodyProps) => {
     <>
       {data.map((issue) => (
         <div key={issue.id} style={{ display: 'flex', gap: 8, width: '100%' }}>
-          <Button mode="table" style={{ display: 'flex', gap: 8, width: '100%' }}>
-            {config.map(([key, value]) => (
-              <Text key={key} style={{ width: value.size }} hideOverflow>
-                {issue[key]}
-              </Text>
-            ))}
-          </Button>
+          <Link to={proddevIssue(root(), issue.id)} style={{ width: '100%' }}>
+            <Button mode="table" style={{ display: 'flex', gap: 8, width: '100%' }}>
+              {config.map(([key, value]) => (
+                <Text key={key} style={{ width: value.size }} hideOverflow>
+                  {issue[key]}
+                </Text>
+              ))}
+            </Button>
+          </Link>
 
           {tab === 'responsible' && (
             <Button mode="secondary" circle onClick={(e) => handleOpenMenu(e, issue)}>

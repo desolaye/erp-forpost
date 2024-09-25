@@ -1,5 +1,3 @@
-import { useParams } from '@tanstack/react-router'
-
 import { Table } from '@/shared/ui/table'
 import { Text } from '@/shared/ui/text'
 
@@ -10,8 +8,7 @@ import { IssuesTableHead } from './components/issues-table-head'
 import { IssuesTableBody } from './components/issues-table-body'
 
 export const ManufactureIssues = () => {
-  const { uuid } = useParams({ strict: false }) as { uuid: string }
-  const { handlers, values } = useIssuesPage(uuid)
+  const { handlers, values } = useIssuesPage()
 
   return (
     <PageWrapper title="Производственные задачи">

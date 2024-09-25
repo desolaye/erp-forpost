@@ -6,14 +6,13 @@ import {
   ZProductDevelopResponse,
 } from '../../model/product-develop.schema'
 
-export const getProductDevelopAll = async (props: GetWithParamsType) => {
-  const { params } = props
-
+export const getProductDevelopByIssueId = async (
+  id: string,
+  params: GetWithParamsType,
+) => {
   const response = await publicApi.get<ProductDevelopResponseType>(
-    'v1/product-development',
-    {
-      params,
-    },
+    `v1/product-development/issue/${id}`,
+    { params },
   )
 
   const parsed = ZProductDevelopResponse.parse(response.data)

@@ -16,7 +16,7 @@ const erpHomeRoute = createRoute({
   getParentRoute: () => erpLayoutRoute,
   component: () => (
     <div>
-      <main>erpHomeRoute</main>
+      <main>Домашняя страница ERP системы. Пока что пусто</main>
     </div>
   ),
 })

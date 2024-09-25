@@ -2,11 +2,11 @@ import { EmptyCard } from '@/shared/ui/empty-card'
 import { Button } from '@/shared/ui/button'
 import { Text } from '@/shared/ui/text'
 
-import { ProductDevelopType } from '@/entities/manufacture'
+import { ProductDevelopResponseType } from '@/entities/manufacture'
 import { productDevelopTableConfig } from '../../utils/product-develop-table.config'
 
 interface IDevelopTableBodyProps {
-  data?: ProductDevelopType[]
+  data?: ProductDevelopResponseType['developments']
 }
 
 export const DevelopTableBody = (props: IDevelopTableBodyProps) => {

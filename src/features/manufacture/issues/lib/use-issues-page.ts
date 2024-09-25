@@ -1,9 +1,11 @@
+import { useParams } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 
 import { usePagination } from '@/shared/lib/use-pagination'
 import { getIssuesByManufacture, getProcessById } from '@/entities/manufacture'
 
-export const useIssuesPage = (manufactureId: string) => {
+export const useIssuesPage = () => {
+  const { uuid: manufactureId } = useParams({ strict: false }) as { uuid: string }
   const { page, setPage } = usePagination(8)
 
   const { data: issues, isPending: isPendingIssues } = useQuery({
