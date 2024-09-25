@@ -33,7 +33,7 @@ export const ManufactureProcesses = () => {
       <Table
         body={
           <ProcessesTableBody
-            onCheck={handlers.selectId}
+            onCheck={(id) => handlers.selectId(id)}
             data={values.processes?.manufacturingProcesses}
           />
         }

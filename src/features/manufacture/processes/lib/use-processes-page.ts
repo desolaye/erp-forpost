@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { usePagination } from '@/shared/lib/use-pagination'
+import { useIdSelection } from '@/shared/lib/use-id-selection'
+
 import {
   getProcessesAll,
   putProcessComplete,
@@ -11,7 +13,7 @@ import {
 export const useProcessesPage = () => {
   const { getTotalCount, page, params, setPage } = usePagination(8)
   const [id, setId] = useState('')
-  const [selectedIds, setSelectedIds] = useState<string[]>([])
+  const { selectId, selectedIds } = useIdSelection()
 
   const queryClient = useQueryClient()
 
@@ -39,14 +41,6 @@ export const useProcessesPage = () => {
 
   const openModal = (id?: string) => {
     setId(id || '')
-  }
-
-  const selectId = (id: string) => {
-    const idx = selectedIds.findIndex((v) => v === id)
-
-    setSelectedIds((prev) =>
-      idx === -1 ? [...prev, id] : selectedIds.filter((v) => v !== id),
-    )
   }
 
   const launchAll = () => {

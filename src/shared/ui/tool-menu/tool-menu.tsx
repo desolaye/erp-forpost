@@ -13,7 +13,7 @@ export const ToolMenu = (props: IToolMenuProps) => {
   return (
     <div style={{ display: 'flex', gap: 8, justifyContent: 'end', paddingRight: 20 }}>
       {tools.map((v) => (
-        <Tooltip key={v.title} title={v.title}>
+        <Tooltip key={v.title} title={v.title} arrow>
           <Button disabled={v.disabled} mode="secondary" circle onClick={v.onClick}>
             {v.icon}
           </Button>
