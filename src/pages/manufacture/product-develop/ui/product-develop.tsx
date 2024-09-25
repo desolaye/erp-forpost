@@ -13,8 +13,6 @@ import { DevelopTableBody } from './components/develop-table-body'
 export const ProductDevelop = () => {
   const { handlers, values } = useProductDevelopPage()
 
-  console.log(values.isPending)
-
   return (
     <PageWrapper title={values.title}>
       {!values.isPending && values.issueId && (

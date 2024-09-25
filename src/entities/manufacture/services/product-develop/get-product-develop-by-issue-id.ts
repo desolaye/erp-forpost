@@ -12,7 +12,7 @@ export const getProductDevelopByIssueId = async (
 ) => {
   const response = await publicApi.get<ProductDevelopResponseType>(
     `v1/product-development/issue/${id}`,
-    { params },
+    { params: params.params },
   )
 
   const parsed = ZProductDevelopResponse.parse(response.data)

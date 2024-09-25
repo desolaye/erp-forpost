@@ -14,7 +14,7 @@ import { getMyIssueById } from '@/entities/my-issues'
 export const useProductDevelopPage = () => {
   const { issueId } = useParams({ strict: false }) as { issueId?: string }
 
-  const { page, setPage, getTotalCount, params } = usePagination(8)
+  const { page, setPage, getTotalCount, params } = usePagination(issueId ? 8 : 11)
   const { selectId, selectedIds } = useIdSelection()
   const queryClient = useQueryClient()
 
