@@ -18,7 +18,7 @@ export const TableHead = (props: ITableHeadProps) => {
         </Text>
       ))}
 
-      {tab === 'responsible' && <div style={{ width: '28px' }} />}
+      {tab === 'responsible' && <div style={{ width: '40px' }} />}
     </>
   )
 }

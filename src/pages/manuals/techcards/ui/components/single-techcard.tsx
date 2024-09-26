@@ -12,24 +12,21 @@ import {
 
 interface ISingleTechcard {
   id: string
+  onDelete?: (id: string) => void
 }
 
 export const SingleTechcard = (props: ISingleTechcard) => {
-  const { id } = props
+  const { id, onDelete } = props
   const { values, handlers } = useSingleTechcard(id)
 
   if (values.isPending || !values.data) return <Loader />
 
   return (
     <PageWrapper style={{ gridColumn: 'span 3 / span 3' }}>
-      <Tabs
-        value={values.tab}
-        onChange={(_, v) => handlers.setTab(v)}
-        aria-label="table-techcard"
-      >
-        <Tab label="Общее" {...values.a11y[0]} />
-        <Tab label="Этапы" {...values.a11y[1]} />
-        <Tab label="Компоненты" {...values.a11y[2]} />
+      <Tabs value={values.tab} onChange={(_, v) => handlers.setTab(v)}>
+        <Tab label="Общее" value={0} />
+        <Tab label="Этапы" value={1} />
+        <Tab label="Компоненты" value={2} />
       </Tabs>
 
       <TechcardGeneralInfo
@@ -37,6 +34,7 @@ export const SingleTechcard = (props: ISingleTechcard) => {
         index={0}
         number={values.data.number}
         tab={values.tab}
+        onDelete={() => onDelete?.(id)}
       />
 
       <TechcardStepsInfo id={id} index={1} tab={values.tab} steps={values.data.steps} />

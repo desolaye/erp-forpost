@@ -1,13 +1,15 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { usePagination } from '@/shared/lib/use-pagination'
-import { getTechcardsManual } from '@/entities/manuals'
+import { deleteTechcardById, getTechcardsManual } from '@/entities/manuals'
 
 export const useTechcardsPage = () => {
   const [id, setId] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { getTotalCount, page, params, setPage } = usePagination(11)
+
+  const queryClient = useQueryClient()
 
   const { data: techcards, isPending } = useQuery({
     queryFn: () =>
@@ -17,24 +19,29 @@ export const useTechcardsPage = () => {
     queryKey: ['techcards_all', page],
   })
 
-  const openCard = (cardId: string) => {
-    setId(cardId)
-  }
+  const { mutateAsync: deleteTechcard, isPending: isPendingDelete } = useMutation({
+    mutationFn: (id: string) => deleteTechcardById(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['techcards_all'] })
+      queryClient.invalidateQueries({ queryKey: ['techcard_full', id] })
+      setId('')
+    },
+  })
 
-  const openModal = () => {
-    setIsModalOpen((prev) => !prev)
-  }
+  const openCard = (cardId: string) => setId(cardId)
+  const openModal = () => setIsModalOpen((prev) => !prev)
 
   return {
     values: {
       data: techcards?.data.techCards,
       count: getTotalCount(techcards?.data.totalCount),
       id,
-      isPending,
+      isPending: isPending || isPendingDelete,
       isModalOpen,
       page,
     },
     handlers: {
+      deleteTechcard,
       openCard,
       openModal,
       setPage,

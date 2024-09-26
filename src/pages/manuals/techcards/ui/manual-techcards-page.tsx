@@ -58,7 +58,9 @@ export const ManualTechcardsPage = () => {
           )}
         </Card>
 
-        {values.id && <SingleTechcard id={values.id} />}
+        {values.id && (
+          <SingleTechcard id={values.id} onDelete={handlers.deleteTechcard} />
+        )}
       </section>
 
       <ModalLayout isOpen={values.isModalOpen} onClose={handlers.openModal}>

@@ -10,12 +10,14 @@ import {
   putCompleteIssueByProductDevelop,
 } from '@/entities/manufacture'
 import { getMyIssueById } from '@/entities/my-issues'
+import { useLocalSession } from '@/entities/session'
 
 export const useProductDevelopPage = () => {
   const { issueId } = useParams({ strict: false }) as { issueId?: string }
 
   const { page, setPage, getTotalCount, params } = usePagination(issueId ? 8 : 11)
   const { selectId, selectedIds } = useIdSelection()
+  const { getLocalSession } = useLocalSession()
   const queryClient = useQueryClient()
 
   const { data, isPending } = useQuery({
@@ -23,7 +25,7 @@ export const useProductDevelopPage = () => {
       issueId
         ? getProductDevelopByIssueId(issueId, { params })
         : getProductDevelopAll({ params }),
-    queryKey: ['product_develop_all', issueId],
+    queryKey: ['product_develop_all', issueId, page],
   })
 
   const { data: issue, isFetching: IsPendingIssue } = useQuery({
@@ -49,6 +51,8 @@ export const useProductDevelopPage = () => {
     ? 'Продукты в разработке'
     : `Продукт в разработке - ${issue?.productName}`
 
+  const isSelectable = issueId && issue?.responsibleId === getLocalSession()?.id
+
   return {
     values: {
       products: data?.developments,
@@ -59,10 +63,11 @@ export const useProductDevelopPage = () => {
       issue,
       selectedIds,
       title,
+      isSelectable,
     },
     handlers: {
       setPage,
-      selectId,
+      selectId: isSelectable ? selectId : undefined,
       completeAll,
     },
   }

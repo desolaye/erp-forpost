@@ -33,6 +33,9 @@ export const TableRow = <T,>(props: ITableRowProps<T>) => {
     onCheck?.()
   }
 
+  const Actions = () =>
+    actions ? <div style={{ minWidth: '40px' }}>{actions}</div> : null
+
   const InnerTable = () => (
     <>
       {onCheck && (
@@ -60,14 +63,14 @@ export const TableRow = <T,>(props: ITableRowProps<T>) => {
         <Link to={to} className={cls.table_row}>
           <InnerTable />
         </Link>
-        {actions}
+        <Actions />
       </div>
     )
 
   return (
     <li className={cls.table_row}>
       <InnerTable />
-      {actions}
+      <Actions />
     </li>
   )
 }

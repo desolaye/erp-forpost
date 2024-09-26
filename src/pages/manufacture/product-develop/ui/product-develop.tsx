@@ -23,7 +23,7 @@ export const ProductDevelop = () => {
         </>
       )}
 
-      {values.issueId && (
+      {values.isSelectable && (
         <ToolMenu
           tools={productDevelopToolMenu({
             selectedLength: values.selectedIds.length,

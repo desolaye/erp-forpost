@@ -1,6 +1,6 @@
 import { Card } from '@/shared/ui/card'
 import { Text } from '@/shared/ui/text'
-// import { Button } from '@/shared/ui/button'
+import { Button } from '@/shared/ui/button'
 
 import { TechcardFullType } from '@/entities/manuals'
 
@@ -9,10 +9,11 @@ interface ITechcardGeneralInfoProps {
   index: number
   number: TechcardFullType['number']
   description: TechcardFullType['description']
+  onDelete?: () => void
 }
 
 export const TechcardGeneralInfo = (props: ITechcardGeneralInfoProps) => {
-  const { tab, index, description, number } = props
+  const { tab, index, description, number, onDelete } = props
 
   if (tab !== index) return null
 
@@ -24,11 +25,11 @@ export const TechcardGeneralInfo = (props: ITechcardGeneralInfoProps) => {
         </Text>
         <Text size="lg">Описание: {description || 'Отсутствует'}</Text>
       </div>
-      {/* <div style={{ display: 'flex', gap: 12 }}>
-        <Button mode="secondary" full>
+      <div style={{ display: 'flex', gap: 12 }}>
+        <Button mode="secondary" full onClick={onDelete}>
           Удалить
         </Button>
-      </div> */}
+      </div>
     </Card>
   )
 }

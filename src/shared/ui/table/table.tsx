@@ -22,11 +22,11 @@ export const Table = (props: ITableProps) => {
 
   return (
     <>
-      <Card style={{ height: '100%' }}>
+      <Card style={{ height: '100%', overflow: 'hidden' }}>
         <section className={cls.table}>
           <header className={cls.table__header}>{header}</header>
           {isPending && <Loader />}
-          {!isPending && body}
+          <main className={cls.table__main}>{!isPending && body}</main>
         </section>
       </Card>
 
