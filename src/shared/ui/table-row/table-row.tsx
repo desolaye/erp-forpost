@@ -1,16 +1,18 @@
-import { ReactNode, useState } from 'react'
-import { Checkbox } from '@mui/material'
+import { ReactNode } from 'react'
 import { Link } from '@tanstack/react-router'
 
-import { isRenderable } from '../../utils/is-renderable'
-
-import { Button } from '../button'
-import { Text } from '../text'
+import { ActionsRow } from './components/actions-row'
+import { InnerTableRow } from './components/inner-table'
+import { CheckboxRow } from './components/checkbox-row'
 
 import cls from './table-row.module.scss'
 
 interface ITableRowProps<T> {
   data: T
+  to?: string
+  onCheck?: () => void
+  actions?: ReactNode
+
   config: [
     keyof T,
     {
@@ -18,59 +20,40 @@ interface ITableRowProps<T> {
       title: string
     },
   ][]
-  to?: string
-  onCheck?: () => void
-  actions?: ReactNode
 }
 
 export const TableRow = <T,>(props: ITableRowProps<T>) => {
   const { config, to, data, actions, onCheck } = props
 
-  const [checked, setChecked] = useState(false)
+  const widthStyle = `calc(100% - ${actions ? '48px' : '0px'} - ${onCheck ? '36px' : '0px'})`
 
-  const handleClick = () => {
-    setChecked((prev) => !prev)
-    onCheck?.()
-  }
-
-  const Actions = () =>
-    actions ? <div style={{ minWidth: '40px' }}>{actions}</div> : null
-
-  const InnerTable = () => (
-    <>
-      {onCheck && (
-        <Checkbox
-          onClick={(e) => e.stopPropagation()}
-          checked={checked}
-          onChange={handleClick}
-          style={{ padding: 0, minWidth: 28 }}
-        />
-      )}
-
-      <Button mode="table" className={cls.table_row}>
-        {config.map(([key, value]) => (
-          <Text key={String(key)} style={{ width: value.size }} hideOverflow>
-            {isRenderable(data[key]) ? data[key] : ''}
-          </Text>
-        ))}
-      </Button>
-    </>
-  )
-
-  if (to)
+  if (to) {
     return (
       <div className={cls.table_row}>
-        <Link to={to} className={cls.table_row}>
-          <InnerTable />
+        <CheckboxRow onCheck={onCheck} />
+        <Link to={to} className={cls.table_row} style={{ width: widthStyle }}>
+          <InnerTableRow
+            width={widthStyle}
+            config={config}
+            data={data}
+            isLink={Boolean(to)}
+          />
         </Link>
-        <Actions />
+        <ActionsRow actions={actions} />
       </div>
     )
+  }
 
   return (
     <li className={cls.table_row}>
-      <InnerTable />
-      <Actions />
+      <CheckboxRow onCheck={onCheck} />
+      <InnerTableRow
+        width={widthStyle}
+        config={config}
+        data={data}
+        isLink={Boolean(to)}
+      />
+      <ActionsRow actions={actions} />
     </li>
   )
 }

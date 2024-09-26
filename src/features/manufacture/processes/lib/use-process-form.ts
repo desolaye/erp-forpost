@@ -57,9 +57,7 @@ export const useProcessForm = (props: IUseProcessForm) => {
     enabled: false,
   })
 
-  const onSubmit: SubmitHandler<ProcessValidatorType> = (data) => {
-    onMutate?.(data)
-  }
+  const onSubmit: SubmitHandler<ProcessValidatorType> = (data) => onMutate?.(data)
 
   useEffect(() => {
     if (id) {

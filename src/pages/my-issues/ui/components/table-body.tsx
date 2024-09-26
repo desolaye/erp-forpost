@@ -1,6 +1,5 @@
 import { MouseEvent, useState } from 'react'
 import { Menu, MenuItem } from '@mui/material'
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 
 import { Button } from '@/shared/ui/button'
 import { EmptyCard } from '@/shared/ui/empty-card'
@@ -14,6 +13,7 @@ import { SelectExecutor } from '@/features/my-issues'
 import { ModalLayout } from '@/widgets/layouts/modal'
 
 import { myIssuesTableConfig } from '../../utils/my-issues-table.config'
+import { MyIssuesTooltip } from './my-issues-tooltip'
 
 interface ITableBodyProps {
   tab: 'executor' | 'responsible'
@@ -31,13 +31,10 @@ export const TableBody = (props: ITableBodyProps) => {
   const { data, staff, tab } = props
   const config = myIssuesTableConfig(tab)
 
-  const [anchor, setAnchor] = useState<null | HTMLButtonElement>(null)
   const [modalData, setModalData] = useState<ModalExecutorType>(null)
   const { root, proddevIssue } = routesPath.erp.manufacture
 
-  const handleOpenMenu = (e: MouseEvent<HTMLButtonElement>, issue: MyIssueType) => {
-    setAnchor(e.currentTarget)
-
+  const handleSetResponsible = (issue: MyIssueType) => {
     setModalData({
       executorId: issue.executorId,
       executorName: issue.executorName || '',
@@ -55,21 +52,11 @@ export const TableBody = (props: ITableBodyProps) => {
           config={config}
           data={v}
           to={proddevIssue(root(), v.id)}
-          actions={
-            tab === 'responsible' ? (
-              <Button mode="secondary" circle onClick={(e) => handleOpenMenu(e, v)}>
-                <MoreVertOutlinedIcon />
-              </Button>
-            ) : null
-          }
+          actions={<MyIssuesTooltip onSetResponsible={() => handleSetResponsible(v)} />}
         />
       ))}
 
-      <ModalLayout
-        isOpen={Boolean(modalData) && !anchor}
-        onClose={() => setModalData(null)}
-        center
-      >
+      <ModalLayout isOpen={Boolean(modalData)} onClose={() => setModalData(null)} center>
         <SelectExecutor
           onClose={() => setModalData(null)}
           defaultValue={{
@@ -80,10 +67,6 @@ export const TableBody = (props: ITableBodyProps) => {
           staff={staff}
         />
       </ModalLayout>
-
-      <Menu anchorEl={anchor} open={Boolean(anchor)} onClose={() => setAnchor(null)}>
-        <MenuItem onClick={() => setAnchor(null)}>Назначить исполнителя</MenuItem>
-      </Menu>
     </>
   )
 }
