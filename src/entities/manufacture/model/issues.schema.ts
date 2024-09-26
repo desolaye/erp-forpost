@@ -33,7 +33,7 @@ export const ZIssueInProcess = z
 
 export const ZIssueValidator = z.object({
   description: z.string(),
-  // productCompositionSettingFlag: z.boolean(),
+  productCompositionSettingFlag: z.boolean().optional(),
 
   stepId: z.object({
     value: z.string().uuid(),

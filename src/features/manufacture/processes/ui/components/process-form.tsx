@@ -9,13 +9,13 @@ import dayjs from 'dayjs'
 import { Form } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
-import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 
 import { StaffType, StepType, TechcardType } from '@/entities/manuals'
 import { ProcessValidatorType } from '@/entities/manufacture'
 
 import { useProcessForm } from '../../lib/use-process-form'
+import { Checkbox } from '@mui/material'
 
 interface IProcessFormProps {
   staff: StaffType[]
@@ -96,43 +96,9 @@ export const ProcessForm = (props: IProcessFormProps) => {
 
       {values.fields.map((f, i) => (
         <Card key={f.id}>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Text weight="semi">Задача №{i + 1}</Text>
-            <Button mode="secondary" type="button" onClick={() => handlers.remove(i)}>
-              Удалить
-            </Button>
-          </div>
+          <Text weight="semi">Задача №{i + 1}</Text>
 
-          <Text>Выбор этапа</Text>
-          <Controller
-            name={`issues.${i}.stepId`}
-            control={values.control}
-            render={({ field }) => (
-              <ReactSelect
-                {...field}
-                options={values.steps}
-                styles={{
-                  control: (baseStyles) => ({
-                    ...baseStyles,
-                    borderColor: !values.errors.issues?.[i]?.stepId ? 'grey' : '#830000',
-                  }),
-                }}
-              />
-            )}
-          />
-          {values.errors.issues?.[i]?.stepId && (
-            <Text size="sm" color="error">
-              Необходимо выбрать этап
-            </Text>
-          )}
-
-          {/* Чекбокс указ состава продукта */}
+          <Text>Этап - {f.stepId.label}</Text>
 
           <Text>Выбор ответственного</Text>
           <Controller
@@ -153,6 +119,7 @@ export const ProcessForm = (props: IProcessFormProps) => {
               />
             )}
           />
+
           {values.errors.issues?.[i]?.responsibleId && (
             <Text size="sm" color="error">
               Необходимо выбрать ответственного
@@ -165,22 +132,17 @@ export const ProcessForm = (props: IProcessFormProps) => {
             isError={Boolean(values.errors.issues?.[i]?.description)}
             {...handlers.register(`issues.${i}.description` as const)}
           />
+
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <Controller
+              name={`issues.${i}.productCompositionSettingFlag`}
+              control={values.control}
+              render={({ field }) => <Checkbox {...field} />}
+            />
+            <Text>Проверка состава продукта</Text>
+          </div>
         </Card>
       ))}
-
-      <Button
-        type="button"
-        mode="secondary"
-        onClick={() =>
-          handlers.append({
-            description: '',
-            responsibleId: { label: '', value: '' },
-            stepId: { label: '', value: '' },
-          })
-        }
-      >
-        Добавить задачу
-      </Button>
     </Form>
   )
 }

@@ -1,7 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
+import { useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
 
 import {
+  getTechcardFull,
   staffToOptions,
   StaffType,
   stepsToOptions,
@@ -26,6 +29,7 @@ export const useProcessForm = (props: IUseProcessForm) => {
     handleSubmit,
     formState: { errors },
     control,
+    watch,
   } = useForm<ProcessValidatorType>({
     resolver: zodResolver(
       ZProcessValidator.transform((data) => ({
@@ -35,7 +39,6 @@ export const useProcessForm = (props: IUseProcessForm) => {
           ...v,
           stepId: v.stepId.value,
           responsibleId: v.responsibleId.value,
-          productCompositionSettingFlag: true,
         })),
       })),
     ),
@@ -44,14 +47,39 @@ export const useProcessForm = (props: IUseProcessForm) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'issues',
-    rules: {
-      minLength: 1,
-    },
+  })
+
+  const id = watch('technologicalCardId')
+
+  const { refetch } = useQuery({
+    queryFn: () => getTechcardFull(id?.value),
+    queryKey: ['techcard_full', id?.value],
+    enabled: false,
   })
 
   const onSubmit: SubmitHandler<ProcessValidatorType> = (data) => {
     onMutate?.(data)
   }
+
+  useEffect(() => {
+    if (id) {
+      refetch().then(({ data }) => {
+        remove()
+
+        data?.data.steps.forEach((v) =>
+          append({
+            description: v.description || '',
+            responsibleId: { label: '', value: '' },
+            productCompositionSettingFlag: false,
+            stepId: {
+              label: `${v.description || 'Без описания'} - ${v.duration}`,
+              value: v.id,
+            },
+          }),
+        )
+      })
+    }
+  }, [id])
 
   return {
     values: {
@@ -66,8 +94,6 @@ export const useProcessForm = (props: IUseProcessForm) => {
       register,
       handleSubmit,
       onSubmit,
-      append,
-      remove,
     },
   }
 }

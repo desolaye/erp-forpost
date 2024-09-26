@@ -1,12 +1,14 @@
 import { z } from 'zod'
 
 const ZTechcardStep = z.object({
+  id: z.string().uuid(),
   operationName: z.string(),
   techCardId: z.string(),
   description: z.string().nullable(),
   duration: z.string(),
   cost: z.number(),
   unitOfMeasure: z.number(),
+  productCompositionSettingFlag: z.boolean(),
 })
 
 const ZTechcardItem = z.object({
