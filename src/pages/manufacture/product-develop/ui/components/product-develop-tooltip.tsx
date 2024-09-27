@@ -4,12 +4,12 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 import { Button } from '@/shared/ui/button'
 import { Text } from '@/shared/ui/text'
 
-interface IMyIssuesTooltipProps {
-  onSetResponsible?: () => void
+interface IProductDevelopTooltipProps {
+  onSetStructure?: () => void
 }
 
-export const MyIssuesTooltip = (props: IMyIssuesTooltipProps) => {
-  const { onSetResponsible } = props
+export const ProductDevelopTooltip = (props: IProductDevelopTooltipProps) => {
+  const { onSetStructure } = props
 
   return (
     <Tooltip
@@ -17,8 +17,8 @@ export const MyIssuesTooltip = (props: IMyIssuesTooltipProps) => {
       placement="left"
       title={
         <div style={{ display: 'flex', gap: 10, flexDirection: 'column', padding: 8 }}>
-          <Button onClick={onSetResponsible}>
-            <Text color="white">Назначить исполнителя</Text>
+          <Button onClick={onSetStructure}>
+            <Text color="white">Указать состав</Text>
           </Button>
         </div>
       }

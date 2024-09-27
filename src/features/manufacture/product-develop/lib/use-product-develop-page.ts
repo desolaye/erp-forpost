@@ -52,6 +52,7 @@ export const useProductDevelopPage = () => {
     : `Продукт в разработке - ${issue?.productName}`
 
   const isSelectable = issueId && issue?.responsibleId === getLocalSession()?.id
+  const isComposable = Boolean(issue?.productCompositionFlag)
 
   return {
     values: {
@@ -64,6 +65,7 @@ export const useProductDevelopPage = () => {
       selectedIds,
       title,
       isSelectable,
+      isComposable,
     },
     handlers: {
       setPage,

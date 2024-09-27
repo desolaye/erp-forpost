@@ -1,7 +1,5 @@
-import { MouseEvent, useState } from 'react'
-import { Menu, MenuItem } from '@mui/material'
+import { useState } from 'react'
 
-import { Button } from '@/shared/ui/button'
 import { EmptyCard } from '@/shared/ui/empty-card'
 import { routesPath } from '@/shared/config/routes-path.config'
 import { TableRow } from '@/shared/ui/table-row'

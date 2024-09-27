@@ -37,6 +37,7 @@ export const ProductDevelop = () => {
           <DevelopTableBody
             data={values.products}
             isIssue={Boolean(values.issueId)}
+            isComposable={values.isComposable}
             onCheck={handlers.selectId}
           />
         }
