@@ -34,6 +34,14 @@ export const getDisplayValuesSteps = () => {
       size: '0',
       title: '',
     },
+    id: {
+      size: '0',
+      title: '',
+    },
+    productCompositionSettingFlag: {
+      size: '0',
+      title: '',
+    },
   }
 
   const getDisplayValues = () => {
