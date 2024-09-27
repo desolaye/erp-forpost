@@ -7,7 +7,7 @@ export const getMyIssues = async (
   params: GetWithParamsType,
 ) => {
   const response = await publicApi.get<MyIssueResponseType>(`v1/issues/for-${assigner}`, {
-    params,
+    params: { ...params.params },
   })
 
   const parsed = ZMyIssueResponse.parse(response.data)
