@@ -3,6 +3,7 @@ import { createRoute } from '@tanstack/react-router'
 import { routesPath } from '@/shared/config/routes-path.config'
 import { ErpLayout } from '@/widgets/layouts/erp-layout'
 
+import { InvoicesPage } from '@/pages/invoices'
 import { rootRoute } from './public-routes'
 
 const erpLayoutRoute = createRoute({
@@ -21,4 +22,10 @@ const erpHomeRoute = createRoute({
   ),
 })
 
-export { erpHomeRoute, erpLayoutRoute }
+const erpInvoicesRoute = createRoute({
+  path: routesPath.erp.invoices.root(),
+  getParentRoute: () => erpLayoutRoute,
+  component: InvoicesPage,
+})
+
+export { erpHomeRoute, erpLayoutRoute, erpInvoicesRoute }

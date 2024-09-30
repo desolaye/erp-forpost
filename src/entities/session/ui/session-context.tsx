@@ -11,8 +11,6 @@ export const SessionContextProvider = (props: PropsWithChildren) => {
 
   const handleSaveSession = (user: UserType | null) => {
     if (user?.firstName || user === null) {
-      console.log('handleSaveSession', user)
-
       setSession(user)
       setLocalSession(user)
     }

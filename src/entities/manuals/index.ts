@@ -1,8 +1,10 @@
 export * from './model/agent.schema'
 export * from './services/agents'
+export { agentsToOptions } from './utils/agents-to-options'
 
 export * from './model/product.schema'
 export * from './services/products'
+export { productsToOptions } from './utils/products-to-options'
 
 export * from './model/warehouse.schema'
 export * from './services/warehouses'
