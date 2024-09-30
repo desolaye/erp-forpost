@@ -6,7 +6,7 @@ import { Text } from '@/shared/ui/text'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 import { manufactureRoutes } from '../utils/manufacture-routes'
 
-export const ManufactureRoot = () => {
+const ManufactureRoot = () => {
   return (
     <PageWrapper>
       <Card>
@@ -25,3 +25,5 @@ export const ManufactureRoot = () => {
     </PageWrapper>
   )
 }
+
+export default ManufactureRoot

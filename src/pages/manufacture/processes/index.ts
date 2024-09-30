@@ -1,1 +1,1 @@
-export { ManufactureProcesses } from './ui/manufacture-processes'
+export { PageAsync as ManufactureProcesses } from './ui/page.async'

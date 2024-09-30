@@ -8,7 +8,7 @@ import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 import { TableHead } from './components/table-head'
 import { TableBody } from './components/table-body'
 
-export const MyIssues = () => {
+const MyIssues = () => {
   const { handlers, values } = useMyIssuesPage()
 
   return (
@@ -35,3 +35,5 @@ export const MyIssues = () => {
     </PageWrapper>
   )
 }
+
+export default MyIssues

@@ -11,7 +11,7 @@ import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 import { ProductsTableBody } from './components/products-table-body'
 import { ProductsTableHead } from './components/products-table-head'
 
-export const ManualProductsPage = () => {
+const ManualProductsPage = () => {
   const { values, handlers } = useProductsPage()
 
   return (
@@ -40,3 +40,5 @@ export const ManualProductsPage = () => {
     </PageWrapper>
   )
 }
+
+export default ManualProductsPage

@@ -16,7 +16,7 @@ import { ModalLayout } from '@/widgets/layouts/modal'
 import { SingleTechcard } from './components/single-techcard'
 import cls from './manual-techcards-page.module.scss'
 
-export const ManualTechcardsPage = () => {
+const ManualTechcardsPage = () => {
   const { values, handlers } = useTechcardsPage()
 
   return (
@@ -76,3 +76,5 @@ export const ManualTechcardsPage = () => {
     </PageWrapper>
   )
 }
+
+export default ManualTechcardsPage

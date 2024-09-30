@@ -7,7 +7,7 @@ import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 import { IssuesTableHead } from './components/issues-table-head'
 import { IssuesTableBody } from './components/issues-table-body'
 
-export const ManufactureIssues = () => {
+const ManufactureIssues = () => {
   const { handlers, values } = useIssuesPage()
 
   return (
@@ -26,3 +26,5 @@ export const ManufactureIssues = () => {
     </PageWrapper>
   )
 }
+
+export default ManufactureIssues

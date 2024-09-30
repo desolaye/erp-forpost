@@ -1,1 +1,1 @@
-export { ManualRootPage } from './ui/manual-root-page'
+export { PageAsync as ManualRootPage } from './ui/page.async'

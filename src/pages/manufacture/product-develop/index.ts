@@ -1,1 +1,1 @@
-export { ProductDevelop } from './ui/product-develop'
+export { PageAsync as ProductDevelop } from './ui/page.async'

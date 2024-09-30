@@ -10,7 +10,7 @@ import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { WarehousesTableBody } from './components/warehouses-table-body'
 
-export const ManualWarehousesPage = () => {
+const ManualWarehousesPage = () => {
   const { values, handlers } = useWarehousesPage()
 
   return (
@@ -42,3 +42,5 @@ export const ManualWarehousesPage = () => {
     </PageWrapper>
   )
 }
+
+export default ManualWarehousesPage

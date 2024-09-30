@@ -6,7 +6,7 @@ import cls from './landing-page.module.scss'
 import { Button } from '@/shared/ui/button'
 import { Text } from '@/shared/ui/text'
 
-export const LandingPage = () => {
+const LandingPage = () => {
   return (
     <article className={cls.landing_page}>
       <section className={cls.landing_page__section}>
@@ -23,3 +23,5 @@ export const LandingPage = () => {
     </article>
   )
 }
+
+export default LandingPage

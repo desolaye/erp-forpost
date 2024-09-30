@@ -4,13 +4,14 @@ import { Input } from '@/shared/ui/input'
 import { Table } from '@/shared/ui/table'
 
 import { AgentEditor, useAgentsPage } from '@/features/manuals/agents'
+
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { AgentsTableHead } from './components/agents-table-head'
 import { AgentsTableBody } from './components/agents-table-body'
 
-export const ManualAgentsPage = () => {
+const ManualAgentsPage = () => {
   const { values, handlers } = useAgentsPage()
 
   return (
@@ -40,3 +41,5 @@ export const ManualAgentsPage = () => {
     </PageWrapper>
   )
 }
+
+export default ManualAgentsPage

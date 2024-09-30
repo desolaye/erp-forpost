@@ -1,1 +1,1 @@
-export { MyIssues } from './ui/my-issues'
+export { PageAsync as MyIssues } from './ui/page.async'

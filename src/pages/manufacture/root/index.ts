@@ -1,1 +1,1 @@
-export { ManufactureRoot } from './ui/manufacture-root'
+export { PageAsync as ManufactureRoot } from './ui/page.async'

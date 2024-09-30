@@ -12,7 +12,7 @@ import { processesToolMenu } from '../utils/processes-tool-menu'
 import { ProcessesTableHead } from './components/processes-table-head'
 import { ProcessesTableBody } from './components/processes-table-body'
 
-export const ManufactureProcesses = () => {
+const ManufactureProcesses = () => {
   const { handlers, values } = useProcessesPage()
 
   return (
@@ -50,3 +50,5 @@ export const ManufactureProcesses = () => {
     </PageWrapper>
   )
 }
+
+export default ManufactureProcesses

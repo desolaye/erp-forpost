@@ -11,7 +11,7 @@ import { ModalLayout } from '@/widgets/layouts/modal'
 import { StaffTableHead } from './components/staff-table-head'
 import { StaffTableBody } from './components/staff-table-body'
 
-export const ManualStaffPage = () => {
+const ManualStaffPage = () => {
   const { values, handlers } = useStaffPage()
 
   return (
@@ -42,3 +42,5 @@ export const ManualStaffPage = () => {
     </PageWrapper>
   )
 }
+
+export default ManualStaffPage

@@ -4,7 +4,7 @@ import cls from './manual-root-page.module.scss'
 import { Link } from '@tanstack/react-router'
 import { Text } from '@/shared/ui/text'
 
-export const ManualRootPage = () => {
+const ManualRootPage = () => {
   return (
     <article className={cls.manual_root}>
       <Card>
@@ -20,3 +20,5 @@ export const ManualRootPage = () => {
     </article>
   )
 }
+
+export default ManualRootPage

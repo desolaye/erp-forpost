@@ -8,7 +8,7 @@ import { useAuthLogin } from '@/features/auth'
 
 import cls from './login-page.module.scss'
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const { errors, onSubmit, handleSubmit, register, error, isPending } = useAuthLogin()
 
   return (
@@ -49,3 +49,5 @@ export const LoginPage = () => {
     </article>
   )
 }
+
+export default LoginPage

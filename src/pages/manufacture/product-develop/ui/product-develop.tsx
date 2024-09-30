@@ -10,7 +10,7 @@ import { productDevelopToolMenu } from '../utils/product-develop-tool-menu'
 import { DevelopTableHead } from './components/develop-table-head'
 import { DevelopTableBody } from './components/develop-table-body'
 
-export const ProductDevelop = () => {
+const ProductDevelop = () => {
   const { handlers, values } = useProductDevelopPage()
 
   return (
@@ -50,3 +50,5 @@ export const ProductDevelop = () => {
     </PageWrapper>
   )
 }
+
+export default ProductDevelop
