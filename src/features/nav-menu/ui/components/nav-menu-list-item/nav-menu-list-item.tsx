@@ -30,14 +30,12 @@ export const NavMenuListItem = (props: ISubNavListItemProps) => {
       className={cls.list_item__tooltip}
       title={
         <div className={cls.list_item__links}>
-          <Text size="xl" weight="medium" color="white">
+          <Text size="xl" weight="medium">
             {text}
           </Text>
           {childs?.map((v) => (
             <Link key={v.text} to={v.to(to)} onClick={() => setMenuOpen(false)}>
-              <Text size="sm" link color="white">
-                {v.text}
-              </Text>
+              <Text link>{v.text}</Text>
             </Link>
           ))}
         </div>
