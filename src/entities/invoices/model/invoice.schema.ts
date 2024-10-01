@@ -11,6 +11,13 @@ const ZInvoiceProduct = z.object({
   }),
 })
 
+const ZInvoiceProductResponse = z.object({
+  invoiceId: z.string().uuid(),
+  productId: z.string().uuid(),
+  name: z.string(),
+  quantity: z.number(),
+})
+
 const ZInvoice = z.object({
   id: z.string().uuid(),
   contragentId: z.string().uuid().optional(),
@@ -58,9 +65,13 @@ export const ZInvoiceValidator = z.object({
 export const ZInvoiceToBack = ZInvoiceValidator.transform((data) => ({
   ...data,
   contragentId: data.contragentId.value,
-  products: data.products.map((pr) => ({ ...pr, productId: pr.productId.value })),
+  products: data.products.map((pr) => ({
+    quantity: Number(pr.quantity),
+    productId: pr.productId.value,
+  })),
 }))
 
 export type InvoiceType = z.infer<typeof ZInvoice>
+export type InvoiceProductResponseType = z.infer<typeof ZInvoiceProductResponse>
 export type InvoiceResponseType = z.infer<typeof ZInvoiceResponse>
 export type InvoiceValidatorType = z.infer<typeof ZInvoiceValidator>

@@ -6,13 +6,16 @@ import { invoicesTableConfig } from '../../utils/invoices-table.config'
 
 interface ITableBodyProps {
   data?: InvoiceResponseType['invoices']
+  onClick?: (id: string) => void
 }
 
 export const TableBody = (props: ITableBodyProps) => {
-  const { data } = props
+  const { data, onClick } = props
   const config = invoicesTableConfig()
 
   if (!data || !data.length) return <EmptyCard />
 
-  return data.map((v) => <TableRow key={v.id} config={config} data={v} />)
+  return data.map((v) => (
+    <TableRow key={v.id} config={config} data={v} onClick={() => onClick?.(v.id)} />
+  ))
 }

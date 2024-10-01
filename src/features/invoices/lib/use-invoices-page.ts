@@ -7,6 +7,8 @@ import { getInvoicesAll } from '@/entities/invoices'
 
 export const useInvoicesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [invoiceId, setInvoiceId] = useState('')
+
   const { getTotalCount, page, params, setPage } = usePagination(11)
 
   const { data: invoices, isPending: isPendingInvoices } = useQuery({
@@ -18,6 +20,7 @@ export const useInvoicesPage = () => {
     values: {
       invoices,
       page,
+      invoiceId,
       isPending: isPendingInvoices,
       totalCount: getTotalCount(invoices?.totalCount),
       isModalOpen,
@@ -25,6 +28,7 @@ export const useInvoicesPage = () => {
     handlers: {
       setPage,
       setIsModalOpen,
+      setInvoiceId,
     },
   }
 }

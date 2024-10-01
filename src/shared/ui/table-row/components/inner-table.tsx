@@ -7,6 +7,7 @@ import cls from '../table-row.module.scss'
 interface IInnerTableRowProps<T> {
   width: string
   isLink?: boolean
+  onClick?: () => void
 
   data: T
   config: [
@@ -19,7 +20,7 @@ interface IInnerTableRowProps<T> {
 }
 
 export const InnerTableRow = <T,>(props: IInnerTableRowProps<T>) => {
-  const { width, isLink, config, data } = props
+  const { width, isLink, config, data, onClick } = props
 
   return (
     <Button
@@ -28,6 +29,7 @@ export const InnerTableRow = <T,>(props: IInnerTableRowProps<T>) => {
       style={{
         width: !isLink ? '100%' : width,
       }}
+      onClick={onClick}
     >
       {config.map(([key, value]) => (
         <Text key={String(key)} style={{ width: value.size }} hideOverflow>

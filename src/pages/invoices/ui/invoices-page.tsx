@@ -3,7 +3,7 @@ import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { Table } from '@/shared/ui/table'
 
-import { InvoiceCreator, useInvoicesPage } from '@/features/invoices'
+import { InvoiceCreator, InvoiceProducts, useInvoicesPage } from '@/features/invoices'
 
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
@@ -22,7 +22,9 @@ const InvoicesPage = () => {
       </Card>
 
       <Table
-        body={<TableBody data={values.invoices?.invoices} />}
+        body={
+          <TableBody data={values.invoices?.invoices} onClick={handlers.setInvoiceId} />
+        }
         header={<TableHead />}
         page={values.page}
         setPage={handlers.setPage}
@@ -35,6 +37,13 @@ const InvoicesPage = () => {
         onClose={() => handlers.setIsModalOpen(false)}
       >
         <InvoiceCreator onClose={() => handlers.setIsModalOpen(false)} />
+      </ModalLayout>
+
+      <ModalLayout
+        isOpen={Boolean(values.invoiceId)}
+        onClose={() => handlers.setInvoiceId('')}
+      >
+        <InvoiceProducts invoiceId={values.invoiceId} />
       </ModalLayout>
     </PageWrapper>
   )

@@ -11,6 +11,7 @@ interface ITableRowProps<T> {
   data: T
   to?: string
   onCheck?: () => void
+  onClick?: () => void
   actions?: ReactNode
 
   config: [
@@ -23,7 +24,7 @@ interface ITableRowProps<T> {
 }
 
 export const TableRow = <T,>(props: ITableRowProps<T>) => {
-  const { config, to, data, actions, onCheck } = props
+  const { config, to, data, actions, onCheck, onClick } = props
 
   const widthStyle = `calc(100% - ${actions ? '48px' : '0px'} - ${onCheck ? '36px' : '0px'})`
 
@@ -52,6 +53,7 @@ export const TableRow = <T,>(props: ITableRowProps<T>) => {
         config={config}
         data={data}
         isLink={Boolean(to)}
+        onClick={onClick}
       />
       <ActionsRow actions={actions} />
     </li>
