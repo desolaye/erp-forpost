@@ -1,8 +1,9 @@
 import { Controller } from 'react-hook-form'
 import ReactSelect from 'react-select'
+import { Checkbox } from '@mui/material'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import 'dayjs/locale/de'
 import dayjs from 'dayjs'
 
@@ -15,7 +16,6 @@ import { StaffType, StepType, TechcardType } from '@/entities/manuals'
 import { ProcessValidatorType } from '@/entities/manufacture'
 
 import { useProcessForm } from '../../lib/use-process-form'
-import { Checkbox } from '@mui/material'
 
 interface IProcessFormProps {
   staff: StaffType[]

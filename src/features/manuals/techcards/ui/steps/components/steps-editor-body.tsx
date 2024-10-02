@@ -1,12 +1,19 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import ReactSelect from 'react-select'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { TimePicker } from '@mui/x-date-pickers/TimePicker'
+import 'dayjs/locale/de'
+import dayjs from 'dayjs'
 
 import { Form } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
 
 import { OperationType, StepValidatorType, ZStepValidator } from '@/entities/manuals'
+
+import { modifyDuration } from '../../../utils/modify-duration'
 
 interface IStepsEditorBodyProps {
   operations?: OperationType[]
@@ -26,6 +33,7 @@ export const StepsEditorBody = (props: IStepsEditorBodyProps) => {
       ZStepValidator.transform((data) => ({
         ...data,
         operationId: data.operationId.value,
+        duration: modifyDuration(data.duration),
       })),
     ),
   })
@@ -61,13 +69,29 @@ export const StepsEditorBody = (props: IStepsEditorBodyProps) => {
         helper={errors.description?.message}
         {...register('description')}
       />
-      <Input
-        placeholder="Длительность операции"
-        label="Длительность операции"
-        isError={Boolean(errors.duration)}
-        helper={errors.duration?.message}
-        {...register('duration')}
-      />
+
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
+        <Text>Длительность операции</Text>
+        <Controller
+          name="duration"
+          control={control}
+          render={({ field }) => (
+            <TimePicker
+              {...field}
+              views={['hours', 'minutes', 'seconds']}
+              onChange={(v) => field.onChange(dayjs(v).toISOString())}
+              value={field.value ? dayjs(field.value) : null}
+            />
+          )}
+        />
+      </LocalizationProvider>
+
+      {errors.duration && (
+        <Text size="sm" color="error">
+          {errors.duration?.message}
+        </Text>
+      )}
+
       <Input
         placeholder="Стоимость операции"
         label="Стоимость операции"

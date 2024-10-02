@@ -13,12 +13,8 @@ export const ZStep = z.object({
 
 export const ZStepValidator = z.object({
   description: z.string().nullable(),
-  duration: z
-    .string()
-    .regex(
-      /^[0-9][0-9]:[0-5][0-9]:[0-5][0-9]$/gi,
-      'Формат длительности операции должен быть XX:XX:XX',
-    ),
+  duration: z.string(),
+
   cost: z.string().regex(/[0-9]+/gi),
   unitOfMeasure: z.string().regex(/[0-9]+/gi),
   number: z.string().regex(/[0-9]+/),
