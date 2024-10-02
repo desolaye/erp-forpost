@@ -30,7 +30,7 @@ const ManualWarehousesPage = () => {
       </Card>
 
       <Table
-        body={<WarehousesTableBody onModal={() => {}} data={values.data} />}
+        body={<WarehousesTableBody data={values.data} />}
         header={<Text weight="semi">Название склада</Text>}
         isPending={values.isPending}
         page={values.page}

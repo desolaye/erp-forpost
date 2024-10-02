@@ -5,21 +5,15 @@ import { Text } from '@/shared/ui/text'
 
 interface IWarehousesTableBody {
   data?: WarehouseType[]
-  onModal: (id: string) => void
 }
 
 export const WarehousesTableBody = (props: IWarehousesTableBody) => {
-  const { data, onModal } = props
+  const { data } = props
 
   if (!data) return <EmptyCard />
 
   return data.map((v) => (
-    <Button
-      key={v.id}
-      mode="table"
-      onClick={() => onModal(v.id)}
-      style={{ display: 'flex', gap: 8 }}
-    >
+    <Button key={v.id} mode="table" style={{ display: 'flex', gap: 8 }}>
       <Text>{v.name}</Text>
     </Button>
   ))

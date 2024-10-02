@@ -8,7 +8,7 @@ import { getWarehousesManual } from '@/entities/manuals'
 
 export const useWarehousesPage = () => {
   const [id, setId] = useState('')
-  const { getTotalCount, page, params, setPage } = usePagination(11)
+  const { page, params, setPage } = usePagination(11)
   const { filters, search, setSearch, debouncedSearch } = useSearch('name')
 
   const { data: warehouses, isPending } = useQuery({
@@ -17,7 +17,7 @@ export const useWarehousesPage = () => {
         params,
         filters,
       }),
-    queryKey: ['warehouses_all', page, debouncedSearch],
+    queryKey: ['warehouses_all', debouncedSearch],
   })
 
   const handleOpenModal = (editId?: string) => {
@@ -26,9 +26,9 @@ export const useWarehousesPage = () => {
 
   return {
     values: {
-      data: warehouses?.data.storages.slice((page - 1) * 11, page * 11),
+      data: warehouses?.data.storages,
       id,
-      totalCount: getTotalCount(warehouses?.data.totalCount),
+      totalCount: 0,
       page,
       isPending,
       search,

@@ -22,5 +22,9 @@ export const routesPath = {
     invoices: {
       root: () => '/invoices',
     },
+    warehouses: {
+      root: () => '/warehouses',
+      products: (pre = '', post = '$uuid') => `${pre}/warehouses/${post}`,
+    },
   },
 } as const

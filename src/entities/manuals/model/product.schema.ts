@@ -7,8 +7,21 @@ export const ZProduct = z.object({
   cost: z.number(),
 })
 
+const ZProductByWarehouse = z.object({
+  productId: z.string().uuid(),
+  storageId: z.string().uuid(),
+  storageName: z.string(),
+  productName: z.string(),
+  quantity: z.number(),
+})
+
 export const ZProductValidator = z.object({
   name: z.string().min(3, 'Название продукта слишком короткое'),
+})
+
+export const ZProductByWarehouseResponse = z.object({
+  products: z.array(ZProductByWarehouse),
+  totalCount: z.number(),
 })
 
 export const ZProductResponse = z.object({
@@ -17,5 +30,7 @@ export const ZProductResponse = z.object({
 })
 
 export type ProductType = z.infer<typeof ZProduct>
+export type ProductByWarehouseType = z.infer<typeof ZProductByWarehouse>
+export type ProductByWarehouseResponseType = z.infer<typeof ZProductByWarehouseResponse>
 export type ProductValidatorType = z.infer<typeof ZProductValidator>
 export type ProductResponseType = z.infer<typeof ZProductResponse>

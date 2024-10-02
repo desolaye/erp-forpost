@@ -3,10 +3,12 @@ import { z } from 'zod'
 export const ZWarehouse = z.object({
   id: z.string(),
   name: z.string(),
+  // description: z.string(),
 })
 
 export const ZWarehouseValidator = z.object({
   name: z.string().min(3),
+  // description: z.string(),
 
   responsibleId: z.object({
     value: z.string().uuid(),
