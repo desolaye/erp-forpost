@@ -23,7 +23,12 @@ const ManualTechcardsPage = () => {
     <PageWrapper title="Технологические карты">
       <section className={cls.techcards_page__layout}>
         <Card style={{ position: 'relative' }}>
-          <Input full placeholder="Поиск по номеру" />
+          <Input
+            full
+            placeholder="Поиск по номеру"
+            value={values.search}
+            onChange={(e) => handlers.setSearch(e.target.value)}
+          />
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             {values.count !== 0 && (

@@ -13,7 +13,7 @@ export const ModalEditor = (props: IModalEditorProps) => {
   return (
     <section className={cls.modal_editor}>
       <header className={cls.modal_editor__header}>{header}</header>
-      <main>{body}</main>
+      <main style={{ height: '100%' }}>{body}</main>
     </section>
   )
 }

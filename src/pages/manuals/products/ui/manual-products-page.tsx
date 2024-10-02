@@ -21,7 +21,12 @@ const ManualProductsPage = () => {
       </Text>
 
       <Card style={{ flexDirection: 'row' }}>
-        <Input full placeholder="Поиск" />
+        <Input
+          full
+          placeholder="Поиск"
+          value={values.search}
+          onChange={(e) => handlers.setSearch(e.target.value)}
+        />
         <Button onClick={() => handlers.openModal('new')}>Добавить</Button>
       </Card>
 

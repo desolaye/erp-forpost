@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { usePagination } from '@/shared/lib/use-pagination'
 import { useIdSelection } from '@/shared/lib/use-id-selection'
+import { useSearch } from '@/shared/lib/use-search'
 
 import {
   getProcessesAll,
@@ -11,8 +12,10 @@ import {
 } from '@/entities/manufacture'
 
 export const useProcessesPage = () => {
-  const { getTotalCount, page, params, setPage } = usePagination(8)
   const [id, setId] = useState('')
+
+  const { getTotalCount, page, params, setPage } = usePagination(8)
+  const { filters, search, setSearch, debouncedSearch } = useSearch('productName')
   const { selectId, selectedIds } = useIdSelection()
 
   const queryClient = useQueryClient()
@@ -21,8 +24,9 @@ export const useProcessesPage = () => {
     queryFn: () =>
       getProcessesAll({
         params,
+        filters,
       }),
-    queryKey: ['processes_all', page],
+    queryKey: ['processes_all', page, debouncedSearch],
   })
 
   const { mutateAsync: mutateLaunch, isPending: isLaunchPending } = useMutation({
@@ -64,6 +68,7 @@ export const useProcessesPage = () => {
       selectedIds,
       isPending,
       isPendingAction: isLaunchPending || isCompletePending,
+      search,
     },
     handlers: {
       openModal,
@@ -71,6 +76,7 @@ export const useProcessesPage = () => {
       selectId,
       launchAll,
       completeAll,
+      setSearch,
     },
   }
 }

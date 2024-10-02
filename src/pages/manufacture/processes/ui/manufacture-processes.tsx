@@ -18,7 +18,12 @@ const ManufactureProcesses = () => {
   return (
     <PageWrapper title="Производственные процессы">
       <Card style={{ flexDirection: 'row' }}>
-        <Input full placeholder="Поиск" />
+        <Input
+          full
+          placeholder="Поиск по продукту"
+          value={values.search}
+          onChange={(e) => handlers.setSearch(e.target.value)}
+        />
         <Button onClick={() => handlers.openModal('new')}>Запланировать</Button>
       </Card>
 

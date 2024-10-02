@@ -26,6 +26,7 @@ export const WarehouseEditor = (props: IWarehouseEditorProps) => {
             name={values.warehouse.name || ''}
             onClose={() => onClose?.()}
             onMutate={handlers.onMutate}
+            onSearch={handlers.setSearch}
           />
         )
       }

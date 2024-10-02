@@ -21,12 +21,13 @@ export const ProcessCreator = (props: IProcessCreatorProps) => {
         </Text>
       }
       body={
-        values.isPending || values.isLoading ? (
+        values.isPending ? (
           <Loader />
         ) : (
           <ProcessForm
+            onStaffSearch={handlers.onStaffSearch}
+            onTechcardSearch={handlers.onTechcardSearch}
             staff={values.staff}
-            steps={values.steps}
             techcards={values.techcards}
             onClose={onClose}
             onMutate={handlers.onMutate}

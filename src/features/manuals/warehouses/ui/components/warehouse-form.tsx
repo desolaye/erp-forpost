@@ -15,18 +15,14 @@ interface IWarehouseFormProps {
   staff?: StaffType[]
   onMutate: (data: WarehouseValidatorType) => void
   onClose: () => void
+  onSearch: (search: string) => void
 }
 
 export const WarehouseForm = (props: IWarehouseFormProps) => {
-  const { id, name, staff, onMutate, onClose } = props
+  const { id, onSearch } = props
 
   const { register, errors, control, users, handleSubmit, onReset, onSubmit } =
-    useWarehouseForm({
-      name,
-      staff,
-      onMutate,
-      onClose,
-    })
+    useWarehouseForm(props)
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
@@ -45,6 +41,7 @@ export const WarehouseForm = (props: IWarehouseFormProps) => {
         render={({ field }) => (
           <ReactSelect
             {...field}
+            onInputChange={onSearch}
             options={users}
             styles={{
               control: (baseStyles) => ({

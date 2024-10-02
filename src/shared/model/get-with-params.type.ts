@@ -3,4 +3,8 @@ export type GetWithParamsType = {
     skip: number
     limit: number
   }
+  filters?: {
+    filterExpression: string
+    filterValues: string
+  }
 }

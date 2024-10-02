@@ -1,33 +1,23 @@
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import ReactSelect from 'react-select'
-import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Form } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
 
-import { ItemValidatorType, ZItemValidator, ProductType } from '@/entities/manuals'
+import { ItemValidatorType, ProductType } from '@/entities/manuals'
+import { useItemForm } from '../../../lib/items/use-item-form'
 
 interface IItemsEditorBodyProps {
   products?: ProductType[]
+
   onMutate: (step: ItemValidatorType) => void
+  onSearch: (search: string) => void
 }
 
 export const ItemsEditorBody = (props: IItemsEditorBodyProps) => {
-  const { products, onMutate } = props
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm<ItemValidatorType>({
-    resolver: zodResolver(
-      ZItemValidator.transform((data) => ({ ...data, productId: data.productId.value })),
-    ),
-  })
-
-  const onSubmit: SubmitHandler<ItemValidatorType> = onMutate
+  const { products, onMutate, onSearch } = props
+  const { control, errors, handleSubmit, onSubmit, register } = useItemForm({ onMutate })
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} withButtons>
@@ -38,6 +28,7 @@ export const ItemsEditorBody = (props: IItemsEditorBodyProps) => {
         render={({ field }) => (
           <ReactSelect
             {...field}
+            onInputChange={onSearch}
             options={products?.map((v) => ({ label: v.name, value: v.id }))}
             styles={{
               control: (baseStyles) => ({

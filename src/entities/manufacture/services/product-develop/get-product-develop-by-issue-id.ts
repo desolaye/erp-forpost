@@ -8,11 +8,18 @@ import {
 
 export const getProductDevelopByIssueId = async (
   id: string,
-  params: GetWithParamsType,
+  props: GetWithParamsType,
 ) => {
+  const { params, filters } = props
+
   const response = await publicApi.get<ProductDevelopResponseType>(
     `v1/product-development/issue/${id}`,
-    { params: params.params },
+    {
+      params: {
+        ...params,
+        ...filters,
+      },
+    },
   )
 
   const parsed = ZProductDevelopResponse.parse(response.data)

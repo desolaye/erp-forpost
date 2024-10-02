@@ -3,8 +3,14 @@ import { ProductResponseType } from '../../model/product.schema'
 import { GetWithParamsType } from '@/shared/model/get-with-params.type'
 
 export const getProductsManual = async (props: GetWithParamsType) => {
-  const { params } = props
+  const { params, filters } = props
 
-  const response = await publicApi.get<ProductResponseType>('v1/products', { params })
+  const response = await publicApi.get<ProductResponseType>('v1/products', {
+    params: {
+      ...params,
+      ...filters,
+    },
+  })
+
   return response
 }

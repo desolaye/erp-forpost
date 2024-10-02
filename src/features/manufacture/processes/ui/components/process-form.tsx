@@ -12,20 +12,22 @@ import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
 import { Card } from '@/shared/ui/card'
 
-import { StaffType, StepType, TechcardType } from '@/entities/manuals'
+import { StaffType, TechcardType } from '@/entities/manuals'
 import { ProcessValidatorType } from '@/entities/manufacture'
 
 import { useProcessForm } from '../../lib/use-process-form'
 
 interface IProcessFormProps {
   staff: StaffType[]
-  steps: StepType[]
   techcards: TechcardType[]
   onClose?: () => void
   onMutate?: (data: ProcessValidatorType) => void
+  onTechcardSearch: (value: string) => void
+  onStaffSearch: (value: string) => void
 }
 
 export const ProcessForm = (props: IProcessFormProps) => {
+  const { onStaffSearch, onTechcardSearch } = props
   const { handlers, values } = useProcessForm(props)
 
   return (
@@ -42,6 +44,8 @@ export const ProcessForm = (props: IProcessFormProps) => {
           <ReactSelect
             {...field}
             options={values.techcards}
+            onInputChange={onTechcardSearch}
+            placeholder={'Поиск по номеру'}
             styles={{
               control: (baseStyles) => ({
                 ...baseStyles,
@@ -107,6 +111,8 @@ export const ProcessForm = (props: IProcessFormProps) => {
             render={({ field }) => (
               <ReactSelect
                 {...field}
+                onInputChange={onStaffSearch}
+                placeholder={'Поиск по фамилии'}
                 options={values.staff}
                 styles={{
                   control: (baseStyles) => ({

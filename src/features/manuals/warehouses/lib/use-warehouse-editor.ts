@@ -5,6 +5,7 @@ import {
   postCreateWarehouse,
   WarehouseValidatorType,
 } from '@/entities/manuals'
+import { useSearch } from '@/shared/lib/use-search'
 
 interface IWarehouseEditorProps {
   id: string
@@ -16,6 +17,8 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
 
   const queryClient = useQueryClient()
 
+  const { filters, search, setSearch, debouncedSearch } = useSearch('lastName')
+
   const { mutateAsync, isPending, error } = useMutation({
     mutationFn: (data: WarehouseValidatorType) => postCreateWarehouse(data),
     onSuccess: () => {
@@ -26,8 +29,8 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
   })
 
   const { data: staff, isLoading: isLoadingStaff } = useQuery({
-    queryFn: () => getStaffManual({ params: { limit: 1000, skip: 0 } }),
-    queryKey: ['staff_all'],
+    queryFn: () => getStaffManual({ params: { limit: 8, skip: 0 }, filters }),
+    queryKey: ['staff_all', debouncedSearch],
   })
 
   return {
@@ -37,9 +40,11 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
       isPending,
       isLoading: isLoadingStaff,
       staff: staff?.data.employees,
+      search,
     },
     handlers: {
       onMutate: mutateAsync,
+      setSearch,
     },
   }
 }

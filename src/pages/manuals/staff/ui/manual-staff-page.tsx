@@ -21,7 +21,12 @@ const ManualStaffPage = () => {
       </Text>
 
       <Card style={{ flexDirection: 'row' }}>
-        <Input full placeholder="Поиск" />
+        <Input
+          full
+          placeholder="Поиск"
+          value={values.search}
+          onChange={(e) => handlers.setSearch(e.target.value)}
+        />
         {values.user && values.user.role === 'Admin' && (
           <Button onClick={() => handlers.openModal('new')}>Добавить</Button>
         )}

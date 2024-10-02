@@ -7,12 +7,15 @@ import {
 } from '../../model/product-develop.schema'
 
 export const getProductDevelopAll = async (props: GetWithParamsType) => {
-  const { params } = props
+  const { params, filters } = props
 
   const response = await publicApi.get<ProductDevelopResponseType>(
     'v1/product-development',
     {
-      params,
+      params: {
+        ...params,
+        ...filters,
+      },
     },
   )
 

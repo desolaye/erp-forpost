@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useSearch } from '@/shared/lib/use-search'
 
-import { getStaffManual, getStepsAll, getTechcardsManual } from '@/entities/manuals'
+import { getStaffManual, getTechcardsManual } from '@/entities/manuals'
 import { postCreateProcess, ProcessValidatorType } from '@/entities/manufacture'
 
 interface IProcessCreatorProps {
@@ -12,6 +13,9 @@ export const useProcessCreator = (props: IProcessCreatorProps) => {
 
   const queryClient = useQueryClient()
 
+  const techcardSearch = useSearch('number')
+  const staffSearch = useSearch('lastName')
+
   const { mutateAsync, isPending, error } = useMutation({
     mutationFn: (data: ProcessValidatorType) => postCreateProcess(data),
     onSuccess: () => {
@@ -20,32 +24,32 @@ export const useProcessCreator = (props: IProcessCreatorProps) => {
     },
   })
 
-  const { data: techcards, isLoading: isLoadingTechcards } = useQuery({
-    queryFn: () => getTechcardsManual({ params: { limit: 1000, skip: 0 } }),
-    queryKey: ['techcard_all'],
+  const { data: techcards } = useQuery({
+    queryFn: () =>
+      getTechcardsManual({
+        params: { limit: 8, skip: 0 },
+        filters: techcardSearch.filters,
+      }),
+    queryKey: ['techcard_all', techcardSearch.debouncedSearch],
   })
 
-  const { data: staff, isLoading: isLoadingStaff } = useQuery({
-    queryFn: () => getStaffManual({ params: { limit: 1000, skip: 0 } }),
-    queryKey: ['staff_all'],
-  })
-
-  const { data: steps, isLoading: isLoadingSteps } = useQuery({
-    queryFn: () => getStepsAll({ params: { limit: 1000, skip: 0 } }),
-    queryKey: ['steps_all'],
+  const { data: staff } = useQuery({
+    queryFn: () =>
+      getStaffManual({ params: { limit: 8, skip: 0 }, filters: staffSearch.filters }),
+    queryKey: ['staff_all', staffSearch.debouncedSearch],
   })
 
   return {
     values: {
       error,
       isPending,
-      isLoading: isLoadingStaff || isLoadingSteps || isLoadingTechcards,
       staff: staff?.data.employees || [],
-      steps: steps?.data.steps || [],
       techcards: techcards?.data.techCards || [],
     },
     handlers: {
       onMutate: mutateAsync,
+      onStaffSearch: staffSearch.setSearch,
+      onTechcardSearch: staffSearch.setSearch,
     },
   }
 }

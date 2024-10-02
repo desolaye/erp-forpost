@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { useParams } from '@tanstack/react-router'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useIdSelection } from '@/shared/lib/use-id-selection'
 import { usePagination } from '@/shared/lib/use-pagination'
+import { useSearch } from '@/shared/lib/use-search'
 
 import {
   getProductDevelopAll,
@@ -13,19 +15,22 @@ import { getMyIssueById } from '@/entities/my-issues'
 import { useLocalSession } from '@/entities/session'
 
 export const useProductDevelopPage = () => {
+  const [searchBy, setSearchBy] = useState('productName')
   const { issueId } = useParams({ strict: false }) as { issueId?: string }
 
   const { page, setPage, getTotalCount, params } = usePagination(issueId ? 8 : 11)
   const { selectId, selectedIds } = useIdSelection()
   const { getLocalSession } = useLocalSession()
+  const { filters, search, setSearch, debouncedSearch } = useSearch(searchBy)
+
   const queryClient = useQueryClient()
 
   const { data, isPending } = useQuery({
     queryFn: () =>
       issueId
-        ? getProductDevelopByIssueId(issueId, { params })
-        : getProductDevelopAll({ params }),
-    queryKey: ['product_develop_all', issueId, page],
+        ? getProductDevelopByIssueId(issueId, { params, filters })
+        : getProductDevelopAll({ params, filters }),
+    queryKey: ['product_develop_all', issueId, page, debouncedSearch, searchBy],
   })
 
   const { data: issue, isFetching: IsPendingIssue } = useQuery({
@@ -66,11 +71,15 @@ export const useProductDevelopPage = () => {
       title,
       isSelectable,
       isComposable,
+      searchBy,
+      search,
     },
     handlers: {
       setPage,
       selectId: isSelectable ? selectId : undefined,
       completeAll,
+      setSearchBy,
+      setSearch,
     },
   }
 }

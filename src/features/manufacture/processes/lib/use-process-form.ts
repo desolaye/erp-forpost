@@ -7,22 +7,20 @@ import {
   getTechcardFull,
   staffToOptions,
   StaffType,
-  stepsToOptions,
-  StepType,
   techcardsToOptions,
   TechcardType,
 } from '@/entities/manuals'
+
 import { ProcessValidatorType, ZProcessValidator } from '@/entities/manufacture'
 
 interface IUseProcessForm {
   staff: StaffType[]
-  steps: StepType[]
   techcards: TechcardType[]
   onMutate?: (data: ProcessValidatorType) => void
 }
 
 export const useProcessForm = (props: IUseProcessForm) => {
-  const { staff, steps, techcards, onMutate } = props
+  const { staff, techcards, onMutate } = props
 
   const {
     register,
@@ -84,7 +82,6 @@ export const useProcessForm = (props: IUseProcessForm) => {
       errors,
       control,
       staff: staffToOptions(staff),
-      steps: stepsToOptions(steps),
       techcards: techcardsToOptions(techcards),
       fields,
     },

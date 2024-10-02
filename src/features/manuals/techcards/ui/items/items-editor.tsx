@@ -14,7 +14,13 @@ export const ItemsEditor = (props: IItemsEditorProps) => {
 
   return (
     <ModalEditor
-      body={<ItemsEditorBody onMutate={handlers.mutateAsync} products={values.items} />}
+      body={
+        <ItemsEditorBody
+          onMutate={handlers.mutateAsync}
+          products={values.items}
+          onSearch={handlers.setSearch}
+        />
+      }
       header={
         <Text weight="semi" size="xl">
           Добавление компонента
