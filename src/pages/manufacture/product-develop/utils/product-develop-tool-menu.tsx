@@ -2,7 +2,7 @@ import SkipNextIcon from '@mui/icons-material/SkipNext'
 
 interface IProductDevelopToolMenu {
   selectedLength: number
-  onComplete: (id?: string) => void
+  onComplete: () => void
 }
 
 export const productDevelopToolMenu = (props: IProductDevelopToolMenu) => {

@@ -18,6 +18,6 @@ export const WarehousesTableBody = (props: IWarehousesTableBody) => {
   if (!data) return <EmptyCard />
 
   return data.map((v) => (
-    <TableRow config={config} data={v} to={products(root(), v.id)} />
+    <TableRow key={v.id} config={config} data={v} to={products(root(), v.id)} />
   ))
 }

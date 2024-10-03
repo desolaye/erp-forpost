@@ -31,7 +31,7 @@ export const useErpLayout = () => {
     publicApi.interceptors.response.use(
       (res) => res,
       (err) => {
-        if (err.response.status === 401) onAuthFail()
+        if (err.response?.status === 401) onAuthFail()
         return err
       },
     )

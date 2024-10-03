@@ -40,8 +40,7 @@ export const useProductDevelopPage = () => {
   })
 
   const { mutateAsync: mutateComplete, isPending: isCompletePending } = useMutation({
-    mutationFn: (id?: string) =>
-      putCompleteIssueByProductDevelop(id ? [id, ...selectedIds] : selectedIds),
+    mutationFn: () => putCompleteIssueByProductDevelop(selectedIds),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['product_develop_all'] })
     },

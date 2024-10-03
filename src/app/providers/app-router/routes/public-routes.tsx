@@ -20,10 +20,4 @@ const loginRoute = createRoute({
   component: LoginPage,
 })
 
-const registrationRoute = createRoute({
-  path: routesPath.registration(),
-  getParentRoute: () => rootRoute,
-  component: () => <div>registration page</div>,
-})
-
-export { rootRoute, landingRoute, loginRoute, registrationRoute }
+export { rootRoute, landingRoute, loginRoute }

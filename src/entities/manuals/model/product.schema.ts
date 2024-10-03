@@ -15,6 +15,21 @@ const ZProductByWarehouse = z.object({
   quantity: z.number(),
 })
 
+export const ZProductByWarehouseValidator = z.object({
+  productId: z.object({
+    label: z.string(),
+    value: z.string().uuid(),
+  }),
+  quantity: z.string().regex(/[0-9]+/gi),
+})
+
+export const ZProductByWarehouseToBack = ZProductByWarehouseValidator.transform(
+  (data) => ({
+    ...data,
+    productId: data.productId.value,
+  }),
+)
+
 export const ZProductValidator = z.object({
   name: z.string().min(3, 'Название продукта слишком короткое'),
 })
@@ -33,4 +48,6 @@ export type ProductType = z.infer<typeof ZProduct>
 export type ProductByWarehouseType = z.infer<typeof ZProductByWarehouse>
 export type ProductByWarehouseResponseType = z.infer<typeof ZProductByWarehouseResponse>
 export type ProductValidatorType = z.infer<typeof ZProductValidator>
+export type ProductByWarehouseValidatorType = z.infer<typeof ZProductByWarehouseValidator>
+export type ProductByWarehouseToBackType = z.infer<typeof ZProductByWarehouseToBack>
 export type ProductResponseType = z.infer<typeof ZProductResponse>

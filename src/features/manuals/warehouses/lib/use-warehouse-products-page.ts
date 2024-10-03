@@ -4,9 +4,12 @@ import { useParams } from '@tanstack/react-router'
 import { usePagination } from '@/shared/lib/use-pagination'
 import { getProductsByWarehouse } from '@/entities/manuals'
 import { useSearch } from '@/shared/lib/use-search'
+import { useState } from 'react'
 
 export const useWarehouseProductsPage = () => {
   const { uuid } = useParams({ strict: false }) as { uuid: string }
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { getTotalCount, page, params, setPage } = usePagination(11)
   const { filters, search, setSearch, debouncedSearch } = useSearch('productName')
@@ -27,10 +30,13 @@ export const useWarehouseProductsPage = () => {
       page,
       isPending,
       search,
+      isModalOpen,
+      uuid,
     },
     handlers: {
       setPage,
       setSearch,
+      setIsModalOpen,
     },
   }
 }

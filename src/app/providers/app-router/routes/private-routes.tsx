@@ -5,9 +5,10 @@ import { ErpLayout } from '@/widgets/layouts/erp-layout'
 
 import { InvoicesPage } from '@/pages/invoices'
 import { WarehousesPage } from '@/pages/warehouses'
+import { WarehouseProductsPage } from '@/pages/warehouse-products'
+import { HomePage } from '@/pages/home'
 
 import { rootRoute } from './public-routes'
-import { WarehouseProductsPage } from '@/pages/warehouse-products'
 
 const erpLayoutRoute = createRoute({
   id: 'erp',
@@ -18,11 +19,7 @@ const erpLayoutRoute = createRoute({
 const erpHomeRoute = createRoute({
   path: routesPath.erp.root(),
   getParentRoute: () => erpLayoutRoute,
-  component: () => (
-    <div>
-      <main>Домашняя страница ERP системы. Пока что пусто</main>
-    </div>
-  ),
+  component: HomePage,
 })
 
 const erpInvoicesRoute = createRoute({

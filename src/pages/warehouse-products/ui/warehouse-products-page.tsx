@@ -1,9 +1,13 @@
 import { Table } from '@/shared/ui/table'
 import { Input } from '@/shared/ui/input'
 import { Card } from '@/shared/ui/card'
+import { Button } from '@/shared/ui/button'
 
 import { useWarehouseProductsPage } from '@/features/manuals/warehouses'
+import { WarehouseProductsCreator } from '@/features/warehouse-products'
+
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
+import { ModalLayout } from '@/widgets/layouts/modal'
 
 import { WarehouseProductsTableBody } from './components/warehouse-products-table-body'
 import { WarehouseProductsTableHead } from './components/warehouse-products-table-head'
@@ -20,6 +24,7 @@ const WarehouseProductsPage = () => {
           value={values.search}
           onChange={(e) => handlers.setSearch(e.target.value)}
         />
+        <Button onClick={() => handlers.setIsModalOpen(true)}>Добавить</Button>
       </Card>
 
       <Table
@@ -30,6 +35,16 @@ const WarehouseProductsPage = () => {
         setPage={handlers.setPage}
         totalCount={values.totalCount}
       />
+
+      <ModalLayout
+        isOpen={values.isModalOpen}
+        onClose={() => handlers.setIsModalOpen(false)}
+      >
+        <WarehouseProductsCreator
+          warehouseId={values.uuid}
+          onClose={() => handlers.setIsModalOpen(false)}
+        />
+      </ModalLayout>
     </PageWrapper>
   )
 }
