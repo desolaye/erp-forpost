@@ -68,7 +68,7 @@ export const useProcessForm = (props: IUseProcessForm) => {
             responsibleId: { label: '', value: '' },
             productCompositionSettingFlag: false,
             stepId: {
-              label: `${v.description || 'Без описания'} - ${v.duration}`,
+              label: `${v.operationName} (${v.description || 'без описания'}) - ${v.duration}`,
               value: v.id,
             },
           }),

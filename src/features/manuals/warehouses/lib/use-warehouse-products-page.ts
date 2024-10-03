@@ -17,7 +17,7 @@ export const useWarehouseProductsPage = () => {
         params,
         filters,
       }),
-    queryKey: ['products_by_warehouse_all', page, debouncedSearch],
+    queryKey: ['warehouse_products_all', page, debouncedSearch],
   })
 
   return {

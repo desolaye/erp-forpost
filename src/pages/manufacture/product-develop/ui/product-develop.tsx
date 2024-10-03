@@ -49,7 +49,7 @@ const ProductDevelop = () => {
         <ToolMenu
           tools={productDevelopToolMenu({
             selectedLength: values.selectedIds.length,
-            onComplete: handlers.completeAll,
+            onComplete: handlers.mutateComplete,
           })}
         />
       )}

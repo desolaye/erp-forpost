@@ -40,17 +40,12 @@ export const useProductDevelopPage = () => {
   })
 
   const { mutateAsync: mutateComplete, isPending: isCompletePending } = useMutation({
-    mutationFn: (id: string) => putCompleteIssueByProductDevelop(id),
+    mutationFn: (id?: string) =>
+      putCompleteIssueByProductDevelop(id ? [id, ...selectedIds] : selectedIds),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['product_develop_all'] })
     },
   })
-
-  const completeAll = () => {
-    Promise.all(selectedIds.map((v) => mutateComplete(v))).then(() => {
-      queryClient.invalidateQueries({ queryKey: ['product_develop_all'] })
-    })
-  }
 
   const title = !issueId
     ? 'Продукты в разработке'
@@ -77,7 +72,7 @@ export const useProductDevelopPage = () => {
     handlers: {
       setPage,
       selectId: isSelectable ? selectId : undefined,
-      completeAll,
+      mutateComplete,
       setSearchBy,
       setSearch,
     },

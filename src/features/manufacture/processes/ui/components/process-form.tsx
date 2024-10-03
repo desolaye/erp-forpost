@@ -102,7 +102,9 @@ export const ProcessForm = (props: IProcessFormProps) => {
         <Card key={f.id}>
           <Text weight="semi">Задача №{i + 1}</Text>
 
-          <Text>Этап - {f.stepId.label}</Text>
+          <Text size="lg" weight="medium">
+            Этап: {f.stepId.label}
+          </Text>
 
           <Text>Выбор ответственного</Text>
           <Controller
