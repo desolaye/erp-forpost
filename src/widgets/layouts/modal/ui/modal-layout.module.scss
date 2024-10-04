@@ -31,6 +31,12 @@
   align-items: center;
 }
 
+.body_bg {
+  background-color: transparent;
+  box-shadow: none;
+  height: fit-content;
+}
+
 @keyframes fadein {
   from {
     background-color: rgba($color: #000, $alpha: 0);

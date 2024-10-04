@@ -1,0 +1,16 @@
+.notification_list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+
+  &__item {
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: var(--transition-base);
+
+    &:hover {
+      border-color: var(--color-primary-dark);
+    }
+  }
+}
