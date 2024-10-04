@@ -35,6 +35,7 @@ export const navMenuRoutes = () => {
       childs: [
         { text: 'Производственные процессы', to: manufacture.processes },
         { text: 'Продукты в разработке', to: manufacture.proddev },
+        { text: 'Склад готовой продукции', to: manufacture.productCompleted },
       ],
     },
     {

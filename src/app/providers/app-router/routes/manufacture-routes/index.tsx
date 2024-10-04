@@ -7,6 +7,7 @@ import { ManufactureProcesses } from '@/pages/manufacture/processes'
 import { ManufactureIssues } from '@/pages/manufacture/issues'
 import { ProductDevelop } from '@/pages/manufacture/product-develop'
 import { MyIssues } from '@/pages/my-issues'
+import { ProductCompleted } from '@/pages/manufacture/product-completed'
 
 import { erpLayoutRoute } from '../private-routes'
 import { SuspenseProvider } from '@/app/providers/suspense-provider'
@@ -46,6 +47,11 @@ const manufacturePaths = [
     path: routesPath.erp.manufacture.proddevIssue(),
     getParentRoute: () => manufactureRoute,
     component: ProductDevelop,
+  },
+  {
+    path: routesPath.erp.manufacture.productCompleted(),
+    getParentRoute: () => manufactureRoute,
+    component: ProductCompleted,
   },
 ]
 

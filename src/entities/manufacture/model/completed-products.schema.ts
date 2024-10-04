@@ -8,4 +8,10 @@ export const ZCompletedProduct = z.object({
   serialNumber: z.string(),
 })
 
+export const ZCompletedProductResponse = z.object({
+  completedProducts: z.array(ZCompletedProduct),
+  totalCount: z.number(),
+})
+
 export type CompletedProductType = z.infer<typeof ZCompletedProduct>
+export type CompletedProductResponseType = z.infer<typeof ZCompletedProductResponse>
