@@ -16,6 +16,7 @@ export const ZMyIssue = z.object({
 
   issueNumber: z.number(),
   currentQuantity: z.number(),
+  targetQuantity: z.number(),
   productCompositionFlag: z.boolean(),
 
   startTime: z.string().nullable(),

@@ -14,27 +14,31 @@ export const myIssuesTableConfig = (assigner: 'executor' | 'responsible') => {
 
   const config: Record<keyof MyIssueType, { size: string; title: string }> = {
     operationName: {
-      size: '150px',
+      size: '125px',
       title: 'Операция',
     },
     productName: {
-      size: '200px',
+      size: '250px',
       title: 'Продукт',
     },
     description: {
-      size: '200px',
+      size: '175px',
       title: 'Описание',
     },
     issueNumber: {
-      size: '100px',
+      size: '0', // 75
       title: 'Номер',
     },
     currentQuantity: {
       size: '125px',
       title: 'Выполнено',
     },
+    targetQuantity: {
+      size: '150px',
+      title: 'Целевое кол-во',
+    },
     startTime: {
-      size: '175px',
+      size: '150px',
       title: 'Время начала',
     },
     endTime: {
