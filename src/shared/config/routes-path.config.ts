@@ -20,8 +20,10 @@ export const routesPath = {
       proddevIssue: (pre = '', post = '$issueId') => `${pre}/product-develop/${post}`,
       productCompleted: (pre = '') => `${pre}/product-completed`,
     },
-    invoices: {
-      root: () => '/invoices',
+    crm: {
+      root: () => '/crm',
+      invoices: (pre = '') => `${pre}/invoices`,
+      issuesHistory: (pre = '') => `${pre}/issues-history`,
     },
     warehouses: {
       root: () => '/warehouses',

@@ -2,13 +2,13 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import ConstructionOutlinedIcon from '@mui/icons-material/ConstructionOutlined'
 import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined'
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined'
-import LocalAtmIcon from '@mui/icons-material/LocalAtm'
 import WarehouseIcon from '@mui/icons-material/Warehouse'
+import BackupTableIcon from '@mui/icons-material/BackupTable'
 
 import { routesPath } from '@/shared/config/routes-path.config'
 
 export const navMenuRoutes = () => {
-  const { manuals, manufacture } = routesPath.erp
+  const { manuals, manufacture, crm } = routesPath.erp
 
   return [
     {
@@ -44,9 +44,13 @@ export const navMenuRoutes = () => {
       text: 'Мои задачи',
     },
     {
-      icon: () => <LocalAtmIcon fontSize="large" />,
-      to: routesPath.erp.invoices.root(),
-      text: 'Счета',
+      icon: () => <BackupTableIcon fontSize="large" />,
+      to: routesPath.erp.crm.root(),
+      text: 'CRM',
+      childs: [
+        { text: 'Счета', to: crm.invoices },
+        { text: 'Отчёты по работе', to: crm.issuesHistory },
+      ],
     },
     {
       icon: () => <WarehouseIcon fontSize="large" />,

@@ -3,7 +3,6 @@ import { createRoute } from '@tanstack/react-router'
 import { routesPath } from '@/shared/config/routes-path.config'
 import { ErpLayout } from '@/widgets/layouts/erp-layout'
 
-import { InvoicesPage } from '@/pages/invoices'
 import { WarehousesPage } from '@/pages/warehouses'
 import { WarehouseProductsPage } from '@/pages/warehouse-products'
 import { HomePage } from '@/pages/home'
@@ -22,12 +21,6 @@ const erpHomeRoute = createRoute({
   component: HomePage,
 })
 
-const erpInvoicesRoute = createRoute({
-  path: routesPath.erp.invoices.root(),
-  getParentRoute: () => erpLayoutRoute,
-  component: InvoicesPage,
-})
-
 const erpWarehousesRoute = createRoute({
   path: routesPath.erp.warehouses.root(),
   getParentRoute: () => erpLayoutRoute,
@@ -40,10 +33,4 @@ const erpWarehouseProductsRoute = createRoute({
   component: WarehouseProductsPage,
 })
 
-export {
-  erpHomeRoute,
-  erpLayoutRoute,
-  erpInvoicesRoute,
-  erpWarehousesRoute,
-  erpWarehouseProductsRoute,
-}
+export { erpHomeRoute, erpLayoutRoute, erpWarehousesRoute, erpWarehouseProductsRoute }

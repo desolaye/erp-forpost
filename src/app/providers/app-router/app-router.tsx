@@ -2,7 +2,6 @@ import { createRouter, RouterProvider } from '@tanstack/react-router'
 
 import {
   erpHomeRoute,
-  erpInvoicesRoute,
   erpLayoutRoute,
   erpWarehouseProductsRoute,
   erpWarehousesRoute,
@@ -10,6 +9,7 @@ import {
 
 import { erpManuals } from './routes/manuals-routes'
 import { erpManufactures } from './routes/manufacture-routes'
+import { erpCrm } from './routes/crm-routes'
 
 import { landingRoute, loginRoute, rootRoute } from './routes/public-routes'
 
@@ -17,7 +17,7 @@ const erpRouteTree = erpLayoutRoute.addChildren([
   erpHomeRoute,
   erpManuals,
   erpManufactures,
-  erpInvoicesRoute,
+  erpCrm,
   erpWarehousesRoute,
   erpWarehouseProductsRoute,
 ])

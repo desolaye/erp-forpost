@@ -6,6 +6,7 @@ import { Text } from '@/shared/ui/text'
 
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { useNotificationCreator } from '../../lib/use-notification-creator'
+import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
 
 interface INotificationCreatorProps {
   isOpen?: boolean
@@ -25,12 +26,14 @@ export const NotificationCreator = (props: INotificationCreatorProps) => {
             onSubmit={handlers.submit(handlers.onSubmit)}
             onReset={handlers.onReset}
           >
-            <Textarea
-              {...handlers.register('message')}
-              placeholder="Ваше сообщение"
-              minRows={4}
-              variant="soft"
-            />
+            <JoyUiProvider>
+              <Textarea
+                {...handlers.register('message')}
+                placeholder="Ваше сообщение"
+                minRows={4}
+                variant="soft"
+              />
+            </JoyUiProvider>
 
             {values.errors.message && <Text>Введите текст сообщения</Text>}
           </Form>
