@@ -16,13 +16,26 @@ interface INotificationCardProps {
 export const NotificationCard = (props: INotificationCardProps) => {
   const { notification, isPreview, className, style, onClick } = props
 
+  const notificationArticles = notification.message.split('\n')
+
   return (
     <Card className={className} style={{ width: '100%', ...style }} onClick={onClick}>
       <Text size="lg" weight="semi" hideOverflow={isPreview}>
         {notification.authorName}
       </Text>
 
-      <Text hideOverflow={isPreview}>{notification.message}</Text>
+      {!isPreview &&
+        notificationArticles.map((v, i) => (
+          <Text key={i} hideOverflow={isPreview} breakAll={!isPreview}>
+            {v}
+          </Text>
+        ))}
+
+      {isPreview && (
+        <Text hideOverflow={isPreview} breakAll={!isPreview}>
+          {notificationArticles[0]}
+        </Text>
+      )}
 
       <footer style={{ display: 'flex', justifyContent: 'end' }}>
         <Text size="sm" hideOverflow={isPreview}>

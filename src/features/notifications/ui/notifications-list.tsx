@@ -43,6 +43,7 @@ export const NotificationsList = () => {
       <main className={cls.notification_list}>
         {values.notifications?.map((v) => (
           <NotificationCard
+            key={v.id}
             className={cls.notification_list__item}
             notification={v}
             isPreview

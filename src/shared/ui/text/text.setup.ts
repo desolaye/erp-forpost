@@ -52,6 +52,7 @@ interface ITextProps {
   color?: TextColor
   style?: CSSProperties
   hideOverflow?: boolean
+  breakAll?: boolean
   link?: boolean
   className?: string
 }

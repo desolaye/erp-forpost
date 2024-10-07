@@ -19,6 +19,7 @@ export const useNotificationCreator = (props: IUseNotificationCreator) => {
     register,
     handleSubmit: submit,
     formState: { errors },
+    reset,
   } = useForm<NotificationValidatorType>({
     resolver: zodResolver(ZNotificationValidator),
   })
@@ -28,6 +29,7 @@ export const useNotificationCreator = (props: IUseNotificationCreator) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notifications_all'] })
       if (onClose) onClose()
+      reset()
     },
   })
 
