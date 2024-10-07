@@ -16,9 +16,16 @@
     gap: 8px;
   }
 
+  &__drawer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 8px;
+  }
+
   &__footer {
     display: flex;
-    justify-content: right;
+    justify-content: center;
 
     &__icon {
       cursor: pointer;

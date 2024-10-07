@@ -1,7 +1,7 @@
+import { forwardRef } from 'react'
 import cn from 'classnames'
 
 import { IButtonProps, modeStyle, cls } from './button.setup'
-import { forwardRef } from 'react'
 
 export const Button = forwardRef<HTMLButtonElement, IButtonProps>((props, ref) => {
   const { children, className, disabled, mode = 'primary', full, circle, ...rest } = props

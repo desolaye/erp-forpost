@@ -1,0 +1,18 @@
+.drawer_list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__link {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
