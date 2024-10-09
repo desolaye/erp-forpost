@@ -1,77 +1,85 @@
 import { MyIssueType } from '@/entities/my-issues'
+import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 
 export const myIssuesTableConfig = (assigner: 'executor' | 'responsible') => {
-  const executorSize = assigner === 'responsible' ? '150px' : '0'
-  const responsibleSize = assigner === 'executor' ? '150px' : '0'
+  const executorSize = assigner === 'responsible' ? 150 : 0
+  const responsibleSize = assigner === 'executor' ? 150 : 0
 
-  type DisplayValues = [
-    keyof MyIssueType,
-    {
-      size: string
-      title: string
-    },
-  ][]
-
-  const config: Record<keyof MyIssueType, { size: string; title: string }> = {
+  const config: TableRowRecordType<MyIssueType> = {
     operationName: {
-      size: '125px',
+      width: 125,
       title: 'Операция',
+      type: 'text',
     },
     productName: {
-      size: '250px',
+      width: 250,
       title: 'Продукт',
+      type: 'text',
     },
     description: {
-      size: '175px',
+      width: 150,
+      maxWidth: 150,
       title: 'Описание',
+      type: 'text',
     },
     issueNumber: {
-      size: '0', // 75
+      width: 75,
       title: 'Номер',
+      type: 'text',
     },
     currentQuantity: {
-      size: '125px',
+      width: 125,
       title: 'Выполнено',
+      type: 'text',
     },
     targetQuantity: {
-      size: '150px',
+      width: 150,
       title: 'Целевое кол-во',
+      type: 'text',
     },
     startTime: {
-      size: '150px',
+      width: 150,
       title: 'Время начала',
+      type: 'text',
     },
     endTime: {
-      size: '175px',
+      width: 175,
       title: 'Время окончания',
+      type: 'text',
     },
     executorName: {
-      size: executorSize,
+      width: executorSize,
       title: 'Исполнитель',
+      type: 'text',
     },
     responsibleName: {
-      size: responsibleSize,
+      width: responsibleSize,
       title: 'Ответственный',
+      type: 'text',
     },
     executorId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     responsibleId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     id: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     productCompositionFlag: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
   }
 
   return Object.entries(config).filter(
-    ([_, value]) => value.size !== '0',
-  ) as DisplayValues
+    ([_, value]) => value.width > 0,
+  ) as TableConfigType<MyIssueType>
 }

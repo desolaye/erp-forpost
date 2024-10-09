@@ -16,7 +16,7 @@ export const useProcessesPage = () => {
 
   const { getTotalCount, page, params, setPage } = usePagination(8)
   const { filters, search, setSearch, debouncedSearch } = useSearch('productName')
-  const { selectId, selectedIds } = useIdSelection()
+  const { selectId, selectAll, selectedIds } = useIdSelection()
 
   const queryClient = useQueryClient()
 
@@ -43,9 +43,7 @@ export const useProcessesPage = () => {
     },
   })
 
-  const openModal = (id?: string) => {
-    setId(id || '')
-  }
+  const openModal = (id?: string) => setId(id || '')
 
   const launchAll = () => {
     Promise.all(selectedIds.map((v) => mutateLaunch(v))).then(() => {
@@ -59,9 +57,17 @@ export const useProcessesPage = () => {
     })
   }
 
+  const isAllChecked = () => {
+    return (
+      data?.manufacturingProcesses
+        ?.map((v) => selectedIds.includes(v.id))
+        .reduce((prev, curr) => prev && curr, true) || false
+    )
+  }
+
   return {
     values: {
-      processes: data,
+      processes: data?.manufacturingProcesses,
       totalCount: getTotalCount(data?.totalCount),
       page,
       id,
@@ -76,7 +82,13 @@ export const useProcessesPage = () => {
       selectId,
       launchAll,
       completeAll,
+      selectAll: () =>
+        selectAll(
+          data?.manufacturingProcesses.map((v) => v.id),
+          isAllChecked(),
+        ),
       setSearch,
+      isAllChecked,
     },
   }
 }

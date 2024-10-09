@@ -1,25 +1,20 @@
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
-import { Text } from '@/shared/ui/text'
-import { Table } from '@/shared/ui/table'
+import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { StaffEditor, useStaffPage } from '@/features/manuals/staff'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 import { ModalLayout } from '@/widgets/layouts/modal'
 
-import { StaffTableHead } from './components/staff-table-head'
-import { StaffTableBody } from './components/staff-table-body'
+import { staffTableConfig } from '../utils/staff-table-config'
 
 const ManualStaffPage = () => {
   const { values, handlers } = useStaffPage()
+  const config = staffTableConfig()
 
   return (
-    <PageWrapper>
-      <Text size="2xl" weight="semi">
-        Сотрудники
-      </Text>
-
+    <PageWrapper title="Сотрудники">
       <Card style={{ flexDirection: 'row' }}>
         <Input
           full
@@ -32,14 +27,16 @@ const ManualStaffPage = () => {
         )}
       </Card>
 
-      <Table
-        body={<StaffTableBody data={values.data} />}
-        header={<StaffTableHead />}
-        isPending={values.isPending}
-        page={values.page}
-        setPage={handlers.setPage}
-        totalCount={values.totalCount}
-      />
+      <SmartTable
+        config={config}
+        currentPage={values.page}
+        onPageChange={handlers.setPage}
+        pageCount={values.totalCount}
+      >
+        {values.data?.map((row) => (
+          <SmartTableRow key={row.id} config={config} row={row} />
+        ))}
+      </SmartTable>
 
       <ModalLayout isOpen={Boolean(values.id)} onClose={handlers.openModal}>
         <StaffEditor id={values.id} onClose={handlers.openModal} />

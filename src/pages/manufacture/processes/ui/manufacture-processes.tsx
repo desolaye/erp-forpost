@@ -1,19 +1,19 @@
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
-import { Table } from '@/shared/ui/table'
 import { ToolMenu } from '@/shared/ui/tool-menu'
+import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { ProcessCreator, useProcessesPage } from '@/features/manufacture/processes'
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { processesToolMenu } from '../utils/processes-tool-menu'
-import { ProcessesTableHead } from './components/processes-table-head'
-import { ProcessesTableBody } from './components/processes-table-body'
+import { processesTableConfig } from '../utils/processes-table.config'
 
 const ManufactureProcesses = () => {
   const { handlers, values } = useProcessesPage()
+  const config = processesTableConfig()
 
   return (
     <PageWrapper title="Производственные процессы">
@@ -35,19 +35,28 @@ const ManufactureProcesses = () => {
         })}
       />
 
-      <Table
-        body={
-          <ProcessesTableBody
-            onCheck={(id) => handlers.selectId(id)}
-            data={values.processes?.manufacturingProcesses}
+      <SmartTable
+        config={config}
+        currentPage={values.page}
+        pageCount={values.totalCount}
+        onPageChange={handlers.setPage}
+        check={{
+          isAllChecked: handlers.isAllChecked(),
+          onCheckAll: handlers.selectAll,
+        }}
+      >
+        {values.processes?.map((row) => (
+          <SmartTableRow
+            key={row.id}
+            config={config}
+            row={row}
+            check={{
+              isChecked: values.selectedIds.includes(row.id),
+              onCheck: () => handlers.selectId(row.id),
+            }}
           />
-        }
-        header={<ProcessesTableHead />}
-        isPending={values.isPending}
-        page={values.page}
-        setPage={handlers.setPage}
-        totalCount={values.totalCount}
-      />
+        ))}
+      </SmartTable>
 
       <ModalLayout isOpen={Boolean(values.id)} onClose={handlers.openModal}>
         <ProcessCreator onClose={handlers.openModal} />

@@ -25,8 +25,8 @@ export const InvoiceForm = (props: IInvoiceFormProps) => {
   return (
     <Form withButtons onSubmit={handlers.handleSubmit(handlers.onSubmit)}>
       <Input
-        placeholder="Номер партии"
-        label="Номер партии"
+        placeholder="Номер счёта"
+        label="Номер счёта"
         isError={Boolean(values.errors.number)}
         helper={values.errors.number?.message}
         {...handlers.register('number')}

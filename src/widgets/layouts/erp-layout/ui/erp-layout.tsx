@@ -11,9 +11,11 @@ export const ErpLayout = () => {
   return (
     <article className={cls.erp_layout}>
       <header className={cls.erp_layout__header}>ФОРПОСТ</header>
-      <NavMenu />
       <main className={cls.erp_layout__main}>
-        <Outlet />
+        <NavMenu />
+        <section className={cls.erp_layout__main__outlet}>
+          <Outlet />
+        </section>
       </main>
     </article>
   )

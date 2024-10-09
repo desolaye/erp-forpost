@@ -3,12 +3,14 @@ import { useState } from 'react'
 
 import { usePagination } from '@/shared/lib/use-pagination'
 
-import { getMyIssues } from '@/entities/my-issues'
+import { getMyIssues, MyIssueType } from '@/entities/my-issues'
 import { getStaffManual } from '@/entities/manuals'
 
 export const useMyIssuesPage = () => {
   const [tab, setTab] = useState<'responsible' | 'executor'>('responsible')
-  const { getTotalCount, page, params, setPage } = usePagination(11)
+  const [modalData, setModalData] = useState<MyIssueType>()
+
+  const { getTotalCount, page, params, setPage } = usePagination(10)
 
   const { data: issues, isPending: isPendingIssues } = useQuery({
     queryFn: () =>
@@ -35,10 +37,12 @@ export const useMyIssuesPage = () => {
       staff: staff?.data.employees,
       isPending: isPendingIssues || isPendingStaff,
       totalCount: getTotalCount(issues?.totalCount),
+      modalData,
     },
     handlers: {
       setTab,
       setPage,
+      setModalData,
     },
   }
 }

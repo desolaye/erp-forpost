@@ -10,7 +10,7 @@
   background-color: white;
 
   &__list {
-    overflow: hidden;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     gap: 8px;

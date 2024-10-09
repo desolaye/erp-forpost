@@ -1,62 +1,66 @@
 import { ProcessType } from '@/entities/manufacture'
+import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 
 export const processesTableConfig = () => {
-  type DisplayValues = [
-    keyof ProcessType,
-    {
-      size: string
-      title: string
-    },
-  ][]
-
-  const config: Record<keyof ProcessType, { size: string; title: string }> = {
+  const config: TableRowRecordType<ProcessType> = {
     productName: {
-      size: '250px',
+      width: 275,
       title: 'Продукт',
+      type: 'text',
     },
     techCardNumber: {
-      size: '150px',
+      width: 150,
       title: 'Номер карты',
+      type: 'text',
     },
     batchNumber: {
-      size: '150px',
+      width: 150,
       title: 'Номер партии',
+      type: 'text',
     },
     currentQuantity: {
-      size: '125px',
+      width: 125,
       title: 'Выполнено',
+      type: 'text',
     },
     targetQuantity: {
-      size: '125px',
+      width: 125,
       title: 'Требуется',
+      type: 'text',
     },
     startTime: {
-      size: '175px',
+      width: 175,
       title: 'Время начала',
+      type: 'text',
     },
     endTime: {
-      size: '175px',
+      width: 175,
       title: 'Время окончания',
+      type: 'text',
     },
     status: {
-      size: '175px',
+      width: 175,
       title: 'Статус процесса',
+      type: 'text',
     },
     techCardId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     productId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     id: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
   }
 
   return Object.entries(config).filter(
-    ([_, value]) => value.size !== '0',
-  ) as DisplayValues
+    ([_, value]) => value.width > 0,
+  ) as TableConfigType<ProcessType>
 }
