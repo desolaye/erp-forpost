@@ -22,7 +22,7 @@ export const useProductCompletedPage = () => {
 
   return {
     values: {
-      products: data,
+      products: data?.completedProducts,
       totalCount: getTotalCount(data?.totalCount),
       page,
       isPending,

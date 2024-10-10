@@ -1,24 +1,24 @@
 import ReactSelect from 'react-select'
 
-import { Table } from '@/shared/ui/table'
 import { ToolMenu } from '@/shared/ui/tool-menu'
 import { Text } from '@/shared/ui/text'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
+import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { useProductDevelopPage } from '@/features/manufacture/product-develop'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { productDevelopToolMenu } from '../utils/product-develop-tool-menu'
 import { searchOptions } from '../utils/product-develop-search-options'
-
-import { DevelopTableHead } from './components/develop-table-head'
-import { DevelopTableBody } from './components/develop-table-body'
+import { productDevelopTableConfig } from '../utils/product-develop-table.config'
+import { ProductDevelopTooltip } from './components/product-develop-tooltip'
 
 import cls from './product-develop.module.scss'
 
 const ProductDevelop = () => {
   const { handlers, values } = useProductDevelopPage()
+  const config = productDevelopTableConfig()
 
   return (
     <PageWrapper title={values.title}>
@@ -54,21 +54,36 @@ const ProductDevelop = () => {
         />
       )}
 
-      <Table
-        body={
-          <DevelopTableBody
-            data={values.products}
-            isIssue={Boolean(values.issueId)}
-            isComposable={values.isComposable}
-            onCheck={handlers.selectId}
+      <SmartTable
+        config={config}
+        currentPage={values.page}
+        onPageChange={handlers.setPage}
+        pageCount={values.totalCount}
+        check={values.tableCheck}
+        withActions={values.isComposable}
+      >
+        {values.products?.map((row) => (
+          <SmartTableRow
+            key={row.id}
+            config={config}
+            // @ts-ignore
+            row={row}
+            check={
+              Boolean(values.issueId)
+                ? {
+                    isChecked: values.selectedIds.includes(row.id),
+                    onCheck: () => handlers.selectId(row.id),
+                  }
+                : undefined
+            }
+            actions={
+              values.isComposable ? (
+                <ProductDevelopTooltip onSetStructure={() => handlers.selectId(row.id)} />
+              ) : undefined
+            }
           />
-        }
-        header={<DevelopTableHead isIssue={Boolean(values.issueId)} />}
-        isPending={values.isPending}
-        page={values.page}
-        setPage={handlers.setPage}
-        totalCount={values.totalCount}
-      />
+        ))}
+      </SmartTable>
     </PageWrapper>
   )
 }

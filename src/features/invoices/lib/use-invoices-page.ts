@@ -20,7 +20,7 @@ export const useInvoicesPage = () => {
 
   return {
     values: {
-      invoices,
+      invoices: invoices?.invoices,
       page,
       invoiceId,
       isPending: isPendingInvoices,

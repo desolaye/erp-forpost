@@ -1,54 +1,57 @@
+import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 import { InvoiceType } from '@/entities/invoices'
 
 export const invoicesTableConfig = () => {
-  type DisplayValues = [
-    keyof InvoiceType,
-    {
-      size: string
-      title: string
-    },
-  ][]
-
-  const config: Record<keyof InvoiceType, { size: string; title: string }> = {
+  const config: TableRowRecordType<InvoiceType> = {
     number: {
-      size: '200px',
+      width: 200,
       title: 'Номер счёта',
+      type: 'text',
     },
     description: {
-      size: '150px',
+      width: 150,
+      maxWidth: 150,
       title: 'Описание',
+      type: 'text',
     },
     contractorName: {
-      size: '150px',
+      width: 150,
       title: 'Контрагент',
+      type: 'text',
     },
     daysShipment: {
-      size: '150px',
+      width: 150,
       title: 'Дней до отгрузки',
+      type: 'text',
     },
     dateShipment: {
-      size: '125px',
+      width: 125,
       title: 'Дата отрузки',
+      type: 'text',
     },
     paymentPercentage: {
-      size: '150px',
+      width: 150,
       title: 'Процент оплаты',
+      type: 'text',
     },
     status: {
-      size: '150px',
+      width: 150,
       title: 'Статус',
+      type: 'text',
     },
     contragentId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     id: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
   }
 
   return Object.entries(config).filter(
-    ([_, value]) => value.size !== '0',
-  ) as DisplayValues
+    ([_, value]) => value.width > 0,
+  ) as TableConfigType<InvoiceType>
 }

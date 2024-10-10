@@ -1,58 +1,61 @@
 import { ProductDevelopType } from '@/entities/manufacture'
+import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 
 export const productDevelopTableConfig = () => {
-  type DisplayValues = [
-    keyof ProductDevelopType,
-    {
-      size: string
-      title: string
-    },
-  ][]
-
-  const config: Record<keyof ProductDevelopType, { size: string; title: string }> = {
+  const config: TableRowRecordType<ProductDevelopType> = {
     productName: {
-      size: '250px',
+      width: 250,
       title: 'Продукт',
+      type: 'text',
     },
     batchNumber: {
-      size: '150px',
+      width: 150,
       title: 'Номер партии',
+      type: 'text',
     },
     operationName: {
-      size: '150px',
+      width: 150,
       title: 'Операция',
+      type: 'text',
     },
     serialNumber: {
-      size: '200px',
+      width: 200,
       title: 'Серийный номер',
+      type: 'text',
     },
     settingOption: {
-      size: '200px',
+      width: 200,
       title: 'Вариант настройки',
+      type: 'text',
     },
     status: {
-      size: '150px',
+      width: 150,
       title: 'Статус',
+      type: 'text',
     },
     manufacturingProcessId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     issueId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     productId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     id: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
   }
 
   return Object.entries(config).filter(
-    ([_, value]) => value.size !== '0',
-  ) as DisplayValues
+    ([_, value]) => value.width > 0,
+  ) as TableConfigType<ProductDevelopType>
 }

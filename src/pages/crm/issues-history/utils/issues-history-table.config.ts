@@ -1,58 +1,62 @@
+import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 import { IssueHistoryType } from '@/entities/crm/issues-history'
 
 export const issuesHistoryTableConfig = () => {
-  type DisplayValues = [
-    keyof IssueHistoryType,
-    {
-      size: string
-      title: string
-    },
-  ][]
-
-  const config: Record<keyof IssueHistoryType, { size: string; title: string }> = {
+  const config: TableRowRecordType<IssueHistoryType> = {
     productName: {
-      size: '225px',
+      width: 225,
       title: 'Продукт',
+      type: 'text',
     },
     operationName: {
-      size: '175px',
+      width: 175,
       title: 'Операция',
+      type: 'text',
     },
     description: {
-      size: '150px',
+      width: 150,
+      maxWidth: 150,
       title: 'Описание',
+      type: 'text',
     },
     executorName: {
-      size: '225px',
+      width: 225,
       title: 'Исполнитель',
+      type: 'text',
     },
     responsibleName: {
-      size: '225px',
+      width: 225,
       title: 'Ответственный',
+      type: 'text',
     },
     completionDate: {
-      size: '175px',
+      width: 175,
       title: 'Дата выполнения',
+      type: 'text',
     },
     productDevelopmentId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     issueId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     executorId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     responsibleId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
   }
 
   return Object.entries(config).filter(
-    ([_, value]) => value.size !== '0',
-  ) as DisplayValues
+    ([_, value]) => value.width > 0,
+  ) as TableConfigType<IssueHistoryType>
 }

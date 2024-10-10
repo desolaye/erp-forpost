@@ -1,38 +1,36 @@
 import { TechcardItemType } from '@/entities/manuals'
+import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 
 export const getDisplayValuesItems = () => {
-  type DisplayValues = [
-    keyof TechcardItemType,
-    {
-      size: string
-      title: string
-    },
-  ][]
-
-  const config: Record<keyof TechcardItemType, { size: string; title: string }> = {
+  const config: TableRowRecordType<TechcardItemType> = {
     productName: {
-      size: '350px',
+      width: 350,
       title: 'Название компонента',
+      type: 'text',
     },
     quantity: {
-      size: '100px',
+      width: 100,
       title: 'Количество',
+      type: 'text',
     },
     productId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     techCardId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     id: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
   }
 
   return Object.entries(config).filter(
-    ([_, value]) => value.size !== '0',
-  ) as DisplayValues
+    ([_, value]) => value.width > 0,
+  ) as TableConfigType<TechcardItemType>
 }

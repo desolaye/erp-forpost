@@ -1,18 +1,18 @@
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
-import { Table } from '@/shared/ui/table'
+import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { InvoiceCreator, InvoiceProducts, useInvoicesPage } from '@/features/invoices'
 
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
-import { TableHead } from './components/table-head'
-import { TableBody } from './components/table-body'
+import { invoicesTableConfig } from '../utils/invoices-table.config'
 
 const InvoicesPage = () => {
   const { handlers, values } = useInvoicesPage()
+  const config = invoicesTableConfig()
 
   return (
     <PageWrapper title="Счета">
@@ -26,16 +26,22 @@ const InvoicesPage = () => {
         <Button onClick={() => handlers.setIsModalOpen(true)}>Создать новый счёт</Button>
       </Card>
 
-      <Table
-        body={
-          <TableBody data={values.invoices?.invoices} onClick={handlers.setInvoiceId} />
-        }
-        header={<TableHead />}
-        page={values.page}
-        setPage={handlers.setPage}
-        totalCount={values.totalCount}
-        isPending={values.isPending}
-      />
+      <SmartTable
+        config={config}
+        currentPage={values.page}
+        onPageChange={handlers.setPage}
+        pageCount={values.totalCount}
+      >
+        {values.invoices?.map((row) => (
+          <SmartTableRow
+            key={row.id}
+            config={config}
+            // @ts-ignore
+            row={row}
+            onClick={() => handlers.setInvoiceId(row.id)}
+          />
+        ))}
+      </SmartTable>
 
       <ModalLayout
         isOpen={values.isModalOpen}

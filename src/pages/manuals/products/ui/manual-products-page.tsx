@@ -1,25 +1,20 @@
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
-import { Text } from '@/shared/ui/text'
-import { Table } from '@/shared/ui/table'
+import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { ProductEditor, useProductsPage } from '@/features/manuals/products'
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
-import { ProductsTableBody } from './components/products-table-body'
-import { ProductsTableHead } from './components/products-table-head'
+import { productsTableConfig } from '../utils/products-table-config'
 
 const ManualProductsPage = () => {
   const { values, handlers } = useProductsPage()
+  const config = productsTableConfig()
 
   return (
-    <PageWrapper>
-      <Text size="2xl" weight="semi">
-        Продукты
-      </Text>
-
+    <PageWrapper title="Продукты">
       <Card style={{ flexDirection: 'row' }}>
         <Input
           full
@@ -30,14 +25,16 @@ const ManualProductsPage = () => {
         <Button onClick={() => handlers.openModal('new')}>Добавить</Button>
       </Card>
 
-      <Table
-        body={<ProductsTableBody data={values.products} onModal={handlers.openModal} />}
-        header={<ProductsTableHead />}
-        isPending={values.isPending}
-        page={values.page}
-        setPage={handlers.setPage}
-        totalCount={values.totalCount}
-      />
+      <SmartTable
+        config={config}
+        currentPage={values.page}
+        onPageChange={handlers.setPage}
+        pageCount={values.totalCount}
+      >
+        {values.products?.map((row) => (
+          <SmartTableRow key={row.id} config={config} row={row} />
+        ))}
+      </SmartTable>
 
       <ModalLayout isOpen={Boolean(values.productId)} onClose={handlers.openModal}>
         <ProductEditor id={values.productId} onClose={handlers.openModal} />

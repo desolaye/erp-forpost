@@ -1,17 +1,17 @@
-import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 import { WarehouseType } from '@/entities/manuals'
+import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 
 export const warehousesTableConfig = () => {
   const config: TableRowRecordType<WarehouseType> = {
     name: {
-      width: 200,
-      title: 'Название склада',
       type: 'text',
+      title: 'Название склада',
+      width: 200,
     },
     id: {
-      width: 0,
-      title: '',
       type: 'text',
+      title: 'id',
+      width: 0,
     },
   }
 

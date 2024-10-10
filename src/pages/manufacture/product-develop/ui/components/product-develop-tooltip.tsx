@@ -22,7 +22,7 @@ export const ProductDevelopTooltip = (props: IProductDevelopTooltipProps) => {
           </Button>
         </div>
       }
-      style={{ color: '#830000' }}
+      style={{ color: '#830000', background: '#ccc', borderRadius: 8 }}
     >
       <MoreVertOutlinedIcon />
     </Tooltip>

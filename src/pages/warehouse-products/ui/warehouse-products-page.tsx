@@ -1,7 +1,7 @@
-import { Table } from '@/shared/ui/table'
 import { Input } from '@/shared/ui/input'
 import { Card } from '@/shared/ui/card'
 import { Button } from '@/shared/ui/button'
+import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { useWarehouseProductsPage } from '@/features/manuals/warehouses'
 import { WarehouseProductsCreator } from '@/features/warehouse-products'
@@ -9,11 +9,11 @@ import { WarehouseProductsCreator } from '@/features/warehouse-products'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 import { ModalLayout } from '@/widgets/layouts/modal'
 
-import { WarehouseProductsTableBody } from './components/warehouse-products-table-body'
-import { WarehouseProductsTableHead } from './components/warehouse-products-table-head'
+import { warehouseProductsTableConfig } from '../utils/warehouses-table.config'
 
 const WarehouseProductsPage = () => {
   const { values, handlers } = useWarehouseProductsPage()
+  const config = warehouseProductsTableConfig()
 
   return (
     <PageWrapper title="Продукты на складе">
@@ -27,14 +27,16 @@ const WarehouseProductsPage = () => {
         <Button onClick={() => handlers.setIsModalOpen(true)}>Добавить</Button>
       </Card>
 
-      <Table
-        body={<WarehouseProductsTableBody data={values.products} />}
-        header={<WarehouseProductsTableHead />}
-        isPending={values.isPending}
-        page={values.page}
-        setPage={handlers.setPage}
-        totalCount={values.totalCount}
-      />
+      <SmartTable
+        config={config}
+        currentPage={values.page}
+        onPageChange={handlers.setPage}
+        pageCount={values.totalCount}
+      >
+        {values.products?.map((row) => (
+          <SmartTableRow key={row.productId + row.quantity} config={config} row={row} />
+        ))}
+      </SmartTable>
 
       <ModalLayout
         isOpen={values.isModalOpen}

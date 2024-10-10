@@ -1,24 +1,20 @@
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
-import { Text } from '@/shared/ui/text'
-import { Table } from '@/shared/ui/table'
+import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { WarehouseEditor, useWarehousesPage } from '@/features/manuals/warehouses'
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
-import { WarehousesTableBody } from './components/warehouses-table-body'
+import { warehousesTableConfig } from '../utils/warehouses-table-config'
 
 const ManualWarehousesPage = () => {
   const { values, handlers } = useWarehousesPage()
+  const config = warehousesTableConfig()
 
   return (
-    <PageWrapper>
-      <Text size="2xl" weight="semi">
-        Склады
-      </Text>
-
+    <PageWrapper title="Склады">
       <Card style={{ flexDirection: 'row' }}>
         <Input
           full
@@ -29,14 +25,16 @@ const ManualWarehousesPage = () => {
         <Button onClick={() => handlers.handleOpenModal('new')}>Добавить</Button>
       </Card>
 
-      <Table
-        body={<WarehousesTableBody data={values.data} />}
-        header={<Text weight="semi">Название склада</Text>}
-        isPending={values.isPending}
-        page={values.page}
-        setPage={handlers.setPage}
-        totalCount={values.totalCount}
-      />
+      <SmartTable
+        config={config}
+        currentPage={values.page}
+        onPageChange={handlers.setPage}
+        pageCount={values.totalCount}
+      >
+        {values.data?.map((row) => (
+          <SmartTableRow key={row.id} config={config} row={row} />
+        ))}
+      </SmartTable>
 
       <ModalLayout
         isOpen={Boolean(values.id)}

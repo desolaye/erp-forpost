@@ -1,38 +1,36 @@
 import { ProductByWarehouseType } from '@/entities/manuals'
+import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 
 export const warehouseProductsTableConfig = () => {
-  type DisplayValues = [
-    keyof ProductByWarehouseType,
-    {
-      size: string
-      title: string
-    },
-  ][]
-
-  const config: Record<keyof ProductByWarehouseType, { size: string; title: string }> = {
+  const config: TableRowRecordType<ProductByWarehouseType> = {
     productName: {
-      size: '300px',
+      width: 300,
       title: 'Название продукта',
+      type: 'text',
     },
     quantity: {
-      size: '150px',
+      width: 150,
       title: 'Кол-во',
+      type: 'text',
     },
     storageId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     productId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     storageName: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
   }
 
   return Object.entries(config).filter(
-    ([_, value]) => value.size !== '0',
-  ) as DisplayValues
+    ([_, value]) => value.width > 0,
+  ) as TableConfigType<ProductByWarehouseType>
 }

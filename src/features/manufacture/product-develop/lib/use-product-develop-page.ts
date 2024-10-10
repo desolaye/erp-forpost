@@ -18,8 +18,8 @@ export const useProductDevelopPage = () => {
   const [searchBy, setSearchBy] = useState('productName')
   const { issueId } = useParams({ strict: false }) as { issueId?: string }
 
-  const { page, setPage, getTotalCount, params } = usePagination(issueId ? 8 : 11)
-  const { selectId, selectedIds } = useIdSelection()
+  const { page, setPage, getTotalCount, params } = usePagination(issueId ? 7 : 9)
+  const { selectId, selectAll, selectedIds } = useIdSelection()
   const { getLocalSession } = useLocalSession()
   const { filters, search, setSearch, debouncedSearch } = useSearch(searchBy)
 
@@ -53,6 +53,14 @@ export const useProductDevelopPage = () => {
   const isSelectable = issueId && issue?.responsibleId === getLocalSession()?.id
   const isComposable = Boolean(issue?.productCompositionFlag)
 
+  const isAllChecked = () => {
+    return (
+      data?.developments
+        ?.map((v) => selectedIds.includes(v.id))
+        .reduce((prev, curr) => prev && curr, true) || false
+    )
+  }
+
   return {
     values: {
       products: data?.developments,
@@ -67,13 +75,24 @@ export const useProductDevelopPage = () => {
       isComposable,
       searchBy,
       search,
+      tableCheck: Boolean(issueId)
+        ? {
+            isAllChecked: isAllChecked(),
+            onCheckAll: () =>
+              selectAll(
+                data?.developments.map((v) => v.id),
+                isAllChecked(),
+              ),
+          }
+        : undefined,
     },
     handlers: {
       setPage,
-      selectId: isSelectable ? selectId : undefined,
+      selectId,
       mutateComplete,
       setSearchBy,
       setSearch,
+      isAllChecked,
     },
   }
 }

@@ -13,6 +13,7 @@ interface ISmartTableRowProps<T> {
   config: TableConfigType<T>
   row: T
   to?: string
+  onClick?: () => void
   check?: {
     onCheck: () => void
     isChecked: boolean
@@ -20,13 +21,18 @@ interface ISmartTableRowProps<T> {
 }
 
 export const SmartTableRow = <T,>(props: ISmartTableRowProps<T>) => {
-  const { config, row, check, actions, to } = props
+  const { config, row, check, actions, to, onClick } = props
   const navigate = useNavigate()
 
-  const classes = cn({ [cls.smart_table__table__link]: to })
+  const classes = cn({ [cls.smart_table__table__link]: to || onClick })
+
+  const handleClick = () => {
+    if (to) navigate({ to })
+    if (onClick) onClick()
+  }
 
   return (
-    <tr className={classes} onClick={() => navigate({ to })}>
+    <tr className={classes} onClick={handleClick}>
       {check && (
         <td onClick={(e) => e.stopPropagation()}>
           <Checkbox checked={check.isChecked} onChange={check.onCheck} />
@@ -35,7 +41,7 @@ export const SmartTableRow = <T,>(props: ISmartTableRowProps<T>) => {
 
       {config.map(([key, cell]) => (
         <td
-          className={cls.smart_table__table__row}
+          className={cls.smart_table__table__td}
           key={String(key)}
           style={{ maxWidth: cell.maxWidth }}
         >
@@ -43,7 +49,14 @@ export const SmartTableRow = <T,>(props: ISmartTableRowProps<T>) => {
         </td>
       ))}
 
-      {actions && <td onClick={(e) => e.stopPropagation()}>{actions}</td>}
+      {actions && (
+        <td
+          onClick={(e) => e.stopPropagation()}
+          className={cls.smart_table__table__actions}
+        >
+          {actions}
+        </td>
+      )}
     </tr>
   )
 }

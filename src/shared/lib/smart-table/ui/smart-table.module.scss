@@ -28,9 +28,11 @@
       text-align: left;
     }
 
-    &__row {
+    &__td {
       padding: 20px 4px;
       overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     &__link {
@@ -40,6 +42,13 @@
       &:hover {
         background-color: #eee;
       }
+    }
+
+    &__actions {
+      position: sticky;
+      top: 0;
+      right: 0;
+      text-align: end;
     }
   }
 }

@@ -1,54 +1,52 @@
+import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 import { TechcardStepType } from '@/entities/manuals'
 
 export const getDisplayValuesSteps = () => {
-  type DisplayValues = [
-    keyof TechcardStepType,
-    {
-      size: string
-      title: string
-    },
-  ][]
-
-  const config: Record<keyof TechcardStepType, { size: string; title: string }> = {
+  const config: TableRowRecordType<TechcardStepType> = {
     operationName: {
-      size: '150px',
+      width: 150,
       title: 'Название',
+      type: 'text',
     },
     cost: {
-      size: '100px',
+      width: 100,
       title: 'Стоимость',
+      type: 'text',
     },
     duration: {
-      size: '150px',
+      width: 150,
       title: 'Длительность',
+      type: 'text',
     },
     unitOfMeasure: {
-      size: '100px',
+      width: 100,
       title: 'Меры',
+      type: 'text',
     },
     description: {
-      size: '250px',
+      width: 250,
+      maxWidth: 250,
       title: 'Описание',
+      type: 'text',
     },
     techCardId: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     id: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
     productCompositionSettingFlag: {
-      size: '0',
+      width: 0,
       title: '',
+      type: 'text',
     },
   }
 
-  const getDisplayValues = () => {
-    return Object.entries(config).filter(
-      ([_, value]) => value.size !== '0',
-    ) as DisplayValues
-  }
-
-  return getDisplayValues()
+  return Object.entries(config).filter(
+    ([_, value]) => value.width > 0,
+  ) as TableConfigType<TechcardStepType>
 }

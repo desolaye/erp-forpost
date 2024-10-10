@@ -1,21 +1,21 @@
-import { CompletedProductType } from '@/entities/manufacture'
 import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
+import { ProductType } from '@/entities/manuals'
 
-export const productCompletedTableConfig = () => {
-  const config: TableRowRecordType<CompletedProductType> = {
+export const productsTableConfig = () => {
+  const config: TableRowRecordType<ProductType> = {
     name: {
       type: 'text',
       title: 'Название продукта',
       width: 200,
     },
-    serialNumber: {
+    cost: {
       type: 'text',
-      title: 'Серийный номер',
-      width: 200,
+      title: 'Стоимость',
+      width: 0,
     },
-    productDevelopmentId: {
+    version: {
       type: 'text',
-      title: 'id',
+      title: 'Версия',
       width: 0,
     },
     id: {
@@ -27,5 +27,5 @@ export const productCompletedTableConfig = () => {
 
   return Object.entries(config).filter(
     ([_, value]) => value.width > 0,
-  ) as TableConfigType<CompletedProductType>
+  ) as TableConfigType<ProductType>
 }

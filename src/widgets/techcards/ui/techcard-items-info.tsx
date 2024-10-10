@@ -1,13 +1,12 @@
 import { TechcardFullType } from '@/entities/manuals'
-import { Table } from '@/shared/ui/table'
+import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 import { Button } from '@/shared/ui/button'
 
 import { ItemsEditor } from '@/features/manuals/techcards'
 import { ModalLayout } from '@/widgets/layouts/modal'
 
+import { getDisplayValuesItems } from '../utils/get-display-values-items'
 import { useItemsInfo } from '../lib/use-items-info'
-import { ItemsTableBody } from './components/items/items-table-body'
-import { ItemsTableHead } from './components/items/items-table-head'
 
 interface ITechcardItemsProps {
   tab: number
@@ -19,6 +18,7 @@ interface ITechcardItemsProps {
 export const TechcardItemsInfo = (props: ITechcardItemsProps) => {
   const { index, items, tab, id } = props
   const { values, handlers } = useItemsInfo(items)
+  const config = getDisplayValuesItems()
 
   if (tab !== index) return null
 
@@ -28,14 +28,16 @@ export const TechcardItemsInfo = (props: ITechcardItemsProps) => {
         Добавить компонент
       </Button>
 
-      <Table
-        body={<ItemsTableBody data={items} />}
-        header={<ItemsTableHead />}
-        page={values.page}
-        setPage={handlers.setPage}
-        totalCount={values.totalCount}
-        isPending={false}
-      />
+      <SmartTable
+        config={config}
+        currentPage={values.page}
+        onPageChange={handlers.setPage}
+        pageCount={values.totalCount}
+      >
+        {values.items?.map((row) => (
+          <SmartTableRow key={row.id} config={config} row={row} />
+        ))}
+      </SmartTable>
 
       <ModalLayout isOpen={values.isOpen} onClose={() => handlers.setIsOpen(false)}>
         <ItemsEditor id={id} onClose={() => handlers.setIsOpen(false)} />
