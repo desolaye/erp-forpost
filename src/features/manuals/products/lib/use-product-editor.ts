@@ -58,8 +58,9 @@ export const useProductEditor = (props: IProductEditorProps) => {
   })
 
   const { mutateAsync: mutateFile, isPending: isPendingFile } = useMutation({
-    mutationFn: (file: File) => postFilesLoad(file),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['files_products_all'] }),
+    mutationFn: (file: File) => postFilesLoad(file, id),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ['files_products_all', id] }),
   })
 
   const handleMutate = (data: ProductValidatorType) => {
