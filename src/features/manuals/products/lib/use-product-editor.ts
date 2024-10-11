@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import {
@@ -6,6 +7,7 @@ import {
   ProductValidatorType,
   putEditProduct,
 } from '@/entities/manuals'
+import { getFilesByParentId, postFilesLoad } from '@/entities/files'
 
 interface IProductEditorProps {
   id: string
@@ -14,6 +16,7 @@ interface IProductEditorProps {
 
 export const useProductEditor = (props: IProductEditorProps) => {
   const { id, onClose } = props
+  const [tab, setTab] = useState('data')
 
   const queryClient = useQueryClient()
 
@@ -26,6 +29,12 @@ export const useProductEditor = (props: IProductEditorProps) => {
   const { data: product, isLoading } = useQuery({
     queryFn: () => getProductById(id),
     queryKey: ['product_by_id', id],
+    enabled: id !== 'new',
+  })
+
+  const { data: files } = useQuery({
+    queryFn: () => getFilesByParentId(id),
+    queryKey: ['files_products_all', id],
     enabled: id !== 'new',
   })
 
@@ -48,6 +57,11 @@ export const useProductEditor = (props: IProductEditorProps) => {
     onSuccess: handleSuccess,
   })
 
+  const { mutateAsync: mutateFile, isPending: isPendingFile } = useMutation({
+    mutationFn: (file: File) => postFilesLoad(file),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['files_products_all'] }),
+  })
+
   const handleMutate = (data: ProductValidatorType) => {
     if (id === 'new') return mutateAsyncPost(data)
     return mutateAsyncPut(data)
@@ -59,10 +73,15 @@ export const useProductEditor = (props: IProductEditorProps) => {
       errorPost,
       errorPut,
       isPending: isPendingPut || isPendingPost,
+      isPendingFile,
       isLoading,
+      tab,
+      files,
     },
     handlers: {
       onMutate: handleMutate,
+      mutateFile,
+      setTab,
     },
   }
 }

@@ -6,7 +6,7 @@ import { getAgentsManual } from '@/entities/manuals'
 import { useSearch } from '@/shared/lib/use-search'
 
 export const useAgentsPage = () => {
-  const [agentId, setAgentId] = useState('')
+  const [agentId, setAgentId] = useState<string>()
 
   const { getTotalCount, page, params, setPage } = usePagination(11)
   const { filters, search, setSearch, debouncedSearch } = useSearch('name')
@@ -20,7 +20,7 @@ export const useAgentsPage = () => {
     queryKey: ['agents_all', page, debouncedSearch],
   })
 
-  const openModal = (id?: string) => setAgentId(id || '')
+  const openModal = (id?: string) => setAgentId(id)
 
   return {
     values: {

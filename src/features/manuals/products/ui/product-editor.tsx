@@ -1,9 +1,9 @@
-import { Text } from '@/shared/ui/text'
 import { ModalEditor } from '@/shared/ui/modal-editor'
-import { Loader } from '@/shared/ui/loader'
 
 import { useProductEditor } from '../lib/use-product-editor'
-import { ProductForm } from './components/product-form'
+
+import { EditorHeader } from './components/editor/editor-header'
+import { EditorBody } from './components/editor/editor-body'
 
 interface IProductEditorProps {
   id: string
@@ -17,20 +17,23 @@ export const ProductEditor = (props: IProductEditorProps) => {
   return (
     <ModalEditor
       body={
-        values.isLoading ? (
-          <Loader />
-        ) : (
-          <ProductForm
-            data={values.product}
-            onClose={() => onClose?.()}
-            onMutate={handlers.onMutate}
-          />
-        )
+        <EditorBody
+          onFileAdd={handlers.mutateFile}
+          currentTab={values.tab}
+          onMutate={handlers.onMutate}
+          isLoading={values.isLoading}
+          isFileLoading={values.isPendingFile}
+          onClose={onClose}
+          product={values.product}
+          files={values.files}
+        />
       }
       header={
-        <Text size="lg" weight="semi">
-          {id === 'new' ? 'Добавить' : 'Изменить'} продукт
-        </Text>
+        <EditorHeader
+          isNew={id === 'new'}
+          onTabChange={handlers.setTab}
+          tab={values.tab}
+        />
       }
     />
   )

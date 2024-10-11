@@ -1,0 +1,17 @@
+.file {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  &__download {
+    cursor: pointer;
+    border-radius: 8px;
+    color: #830000;
+
+    transition: var(--transition-base);
+
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}

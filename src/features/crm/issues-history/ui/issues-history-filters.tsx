@@ -19,6 +19,7 @@ export const IssuesHistoryFilters = (props: IIssuesHistoryProps) => {
               ...base,
               width: v.width,
               minWidth: '225px',
+              zIndex: 2,
             }),
           }}
         />

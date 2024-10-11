@@ -6,7 +6,7 @@ import { useAgentEditor } from '../lib/use-agent-editor'
 import { AgentForm } from './components/agent-form'
 
 interface IAgentEditorProps {
-  id: string
+  id?: string
   onClose?: () => void
 }
 

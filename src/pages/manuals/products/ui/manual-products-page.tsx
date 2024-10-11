@@ -32,7 +32,12 @@ const ManualProductsPage = () => {
         pageCount={values.totalCount}
       >
         {values.products?.map((row) => (
-          <SmartTableRow key={row.id} config={config} row={row} />
+          <SmartTableRow
+            key={row.id}
+            config={config}
+            row={row}
+            onClick={() => handlers.openModal(row.id)}
+          />
         ))}
       </SmartTable>
 

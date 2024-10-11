@@ -5,7 +5,7 @@ import { AgentValidatorType } from '@/entities/manuals'
 import { useAgentForm } from '../../lib/use-agent-form'
 
 interface IAgentFormProps {
-  id: string
+  id?: string
   name: string
   onMutate: (data: AgentValidatorType) => void
   onClose: () => void

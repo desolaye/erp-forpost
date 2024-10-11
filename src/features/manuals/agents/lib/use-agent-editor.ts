@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { AgentValidatorType, postCreateAgent, getAgentByid } from '@/entities/manuals'
 
 interface IAgentEditorProps {
-  id: string
+  id?: string
   onClose?: () => void
 }
 
@@ -13,7 +13,7 @@ export const useAgentEditor = (props: IAgentEditorProps) => {
   const queryClient = useQueryClient()
 
   const { data: agent, isLoading } = useQuery({
-    queryFn: () => getAgentByid(id),
+    queryFn: () => getAgentByid(id || ''),
     queryKey: ['agent_by_id', id],
     enabled: id !== 'new',
   })

@@ -19,9 +19,7 @@ export const useProductsPage = () => {
     queryKey: ['products_all', page, debouncedSearch],
   })
 
-  const openModal = (id?: string) => {
-    setProductId(id || '')
-  }
+  const openModal = (id?: string) => setProductId(id || '')
 
   return {
     values: {

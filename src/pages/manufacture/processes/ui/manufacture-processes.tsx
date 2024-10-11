@@ -3,6 +3,7 @@ import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { ToolMenu } from '@/shared/ui/tool-menu'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
+import { routesPath } from '@/shared/config/routes-path.config'
 
 import { ProcessCreator, useProcessesPage } from '@/features/manufacture/processes'
 import { ModalLayout } from '@/widgets/layouts/modal'
@@ -54,6 +55,7 @@ const ManufactureProcesses = () => {
               isChecked: values.selectedIds.includes(row.id),
               onCheck: () => handlers.selectId(row.id),
             }}
+            to={routesPath.erp.manufacture.issues('/manufacture', row.id)}
           />
         ))}
       </SmartTable>
