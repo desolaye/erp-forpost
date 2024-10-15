@@ -8,6 +8,11 @@ export const warehousesTableConfig = () => {
       title: 'Название склада',
       width: 200,
     },
+    responsibleId: {
+      type: 'text',
+      title: 'id',
+      width: 0,
+    },
     id: {
       type: 'text',
       title: 'id',
