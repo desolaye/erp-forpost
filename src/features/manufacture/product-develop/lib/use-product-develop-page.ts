@@ -11,12 +11,14 @@ import {
   getProductDevelopByIssueId,
   putCompleteIssueByProductDevelop,
 } from '@/entities/manufacture'
+
 import { getMyIssueById } from '@/entities/my-issues'
 import { useLocalSession } from '@/entities/session'
 
 export const useProductDevelopPage = () => {
   const [searchBy, setSearchBy] = useState('productName')
   const { issueId } = useParams({ strict: false }) as { issueId?: string }
+  const [productId, setProductId] = useState<string>()
 
   const { page, setPage, getTotalCount, params } = usePagination(issueId ? 7 : 9)
   const { selectId, selectAll, selectedIds } = useIdSelection()
@@ -75,6 +77,7 @@ export const useProductDevelopPage = () => {
       isComposable,
       searchBy,
       search,
+      productId,
       tableCheck: Boolean(issueId)
         ? {
             isAllChecked: isAllChecked(),
@@ -88,6 +91,7 @@ export const useProductDevelopPage = () => {
     },
     handlers: {
       setPage,
+      setProductId,
       selectId,
       mutateComplete,
       setSearchBy,

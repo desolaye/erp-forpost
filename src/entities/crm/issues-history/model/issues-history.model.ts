@@ -10,6 +10,7 @@ const ZIssueHistory = z.object({
 
   productName: z.string(),
   operationName: z.string(),
+  serialNumber: z.string(),
   description: z.string().nullable(),
   executorName: z.string(),
   responsibleName: z.string(),

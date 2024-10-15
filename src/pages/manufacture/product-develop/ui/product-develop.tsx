@@ -6,7 +6,10 @@ import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
-import { useProductDevelopPage } from '@/features/manufacture/product-develop'
+import {
+  ProductStructureCompose,
+  useProductDevelopPage,
+} from '@/features/manufacture/product-develop'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { productDevelopToolMenu } from '../utils/product-develop-tool-menu'
@@ -15,6 +18,7 @@ import { productDevelopTableConfig } from '../utils/product-develop-table.config
 import { ProductDevelopTooltip } from './components/product-develop-tooltip'
 
 import cls from './product-develop.module.scss'
+import { ModalLayout } from '@/widgets/layouts/modal'
 
 const ProductDevelop = () => {
   const { handlers, values } = useProductDevelopPage()
@@ -78,12 +82,25 @@ const ProductDevelop = () => {
             }
             actions={
               values.isComposable ? (
-                <ProductDevelopTooltip onSetStructure={() => handlers.selectId(row.id)} />
+                <ProductDevelopTooltip
+                  onSetStructure={() => handlers.setProductId(row.id)}
+                />
               ) : undefined
             }
           />
         ))}
       </SmartTable>
+
+      <ModalLayout
+        center
+        isOpen={Boolean(values.productId)}
+        onClose={() => handlers.setProductId(undefined)}
+      >
+        <ProductStructureCompose
+          productDevelopId={values.productId || ''}
+          onClose={() => handlers.setProductId(undefined)}
+        />
+      </ModalLayout>
     </PageWrapper>
   )
 }

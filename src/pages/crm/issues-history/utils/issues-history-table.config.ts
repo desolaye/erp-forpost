@@ -8,6 +8,11 @@ export const issuesHistoryTableConfig = () => {
       title: 'Продукт',
       type: 'text',
     },
+    serialNumber: {
+      width: 225,
+      title: 'Серийный номер',
+      type: 'text',
+    },
     operationName: {
       width: 175,
       title: 'Операция',

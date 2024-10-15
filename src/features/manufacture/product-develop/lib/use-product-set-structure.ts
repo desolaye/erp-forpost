@@ -8,6 +8,7 @@ import {
   ProductStructureValidatorType,
   postCreateProductDevelop,
   ZProductStructureValidator,
+  getProductsCompletedId,
 } from '@/entities/manufacture'
 
 export const useProductSetStructure = (
@@ -17,8 +18,15 @@ export const useProductSetStructure = (
   const [quantityTotal, setQuantityTotal] = useState<number[]>([])
 
   const { data: techcardItems, isPending } = useQuery({
-    queryKey: ['product_develop_techcard_item', productDevelopId],
     queryFn: () => getTechcadByProductDevelopId(productDevelopId),
+    queryKey: ['product_develop_techcard_item', productDevelopId],
+  })
+
+  const productsId = techcardItems?.map((v) => v.productId) || []
+
+  const { data: productsCompleted, isPending: isPendingProducts } = useQuery({
+    queryFn: () => Promise.all(productsId?.map((v) => getProductsCompletedId(v))),
+    queryKey: ['product_completed', productsId],
   })
 
   const { mutateAsync } = useMutation({
@@ -34,6 +42,7 @@ export const useProductSetStructure = (
     mutateAsync(data)
 
   const {
+    register,
     control,
     formState: { errors },
     handleSubmit,
@@ -45,6 +54,11 @@ export const useProductSetStructure = (
     control,
     name: 'completedProductsId',
   })
+
+  const getOptions = (idx: number) => {
+    if (!productsCompleted) return []
+    return productsCompleted.at(idx) || []
+  }
 
   useEffect(() => {
     if (techcardItems) {
@@ -68,12 +82,15 @@ export const useProductSetStructure = (
       errors,
       fields,
       quantityTotal,
-      isPending,
+      isPending: isPending || isPendingProducts,
       techcardItems,
+      productsCompleted,
     },
     handlers: {
       handleSubmit,
+      register,
       onSubmit,
+      getOptions,
       control,
     },
   }
