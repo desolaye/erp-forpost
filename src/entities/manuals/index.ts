@@ -22,6 +22,7 @@ export * from './services/roles'
 
 export * from './model/operation.schema'
 export * from './services/operations'
+export { operationsToOptions } from './utils/operations-to-options'
 
 export * from './model/step.schema'
 export * from './services/steps'

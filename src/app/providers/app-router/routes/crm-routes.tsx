@@ -4,6 +4,7 @@ import { routesPath } from '@/shared/config/routes-path.config'
 
 import { InvoicesPage } from '@/pages/crm/invoices'
 import { IssuesHistoryPage } from '@/pages/crm/issues-history'
+import { PriceListPage } from '@/pages/crm/price-list'
 
 import { SuspenseProvider } from '../../suspense-provider'
 import { erpLayoutRoute } from './private-routes'
@@ -28,6 +29,11 @@ const crmPaths = [
     path: routesPath.erp.crm.issuesHistory(),
     getParentRoute: () => crmRoute,
     component: IssuesHistoryPage,
+  },
+  {
+    path: routesPath.erp.crm.priceLists(),
+    getParentRoute: () => crmRoute,
+    component: PriceListPage,
   },
 ]
 

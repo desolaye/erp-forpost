@@ -24,6 +24,7 @@ export const routesPath = {
       root: () => '/crm',
       invoices: (pre = '') => `${pre}/invoices`,
       issuesHistory: (pre = '') => `${pre}/issues-history`,
+      priceLists: (pre = '') => `${pre}/price-lists`,
     },
     warehouses: {
       root: () => '/warehouses',

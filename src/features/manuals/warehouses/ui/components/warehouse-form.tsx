@@ -11,7 +11,7 @@ import { useWarehouseForm } from '../../lib/use-warehouse-form'
 
 interface IWarehouseFormProps {
   id: string
-  warehouse?: WarehouseType
+  warehouse: WarehouseType
   staff?: StaffType[]
   onMutate: (data: WarehouseValidatorType) => void
   onClose: () => void
@@ -25,7 +25,12 @@ export const WarehouseForm = (props: IWarehouseFormProps) => {
     useWarehouseForm(props)
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} onReset={onReset} saveDisabled={id === 'new'}>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      onReset={onReset}
+      withButtons
+      saveDisabled={id === 'new'}
+    >
       <Input
         placeholder="Название склада"
         label="Название склада"
@@ -58,15 +63,6 @@ export const WarehouseForm = (props: IWarehouseFormProps) => {
           Необходимо выбрать ответственного
         </Text>
       )}
-
-      <div style={{ display: 'flex', gap: 8 }}>
-        <Button type="submit" disabled={id !== 'new'} full>
-          Сохранить
-        </Button>
-        <Button type="reset" full mode="secondary">
-          Отменить
-        </Button>
-      </div>
     </Form>
   )
 }

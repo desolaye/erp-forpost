@@ -50,6 +50,7 @@ export const navMenuRoutes = () => {
       childs: [
         { text: 'Счета', to: crm.invoices },
         { text: 'Отчёты по работе', to: crm.issuesHistory },
+        { text: 'Прайс-лист', to: crm.priceLists },
       ],
     },
     {
