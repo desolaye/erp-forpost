@@ -1,39 +1,44 @@
-import { Text } from '@/shared/ui/text'
 import { ModalEditor } from '@/shared/ui/modal-editor'
-import { Loader } from '@/shared/ui/loader'
 
 import { useWarehouseEditor } from '../lib/use-warehouse-editor'
-import { WarehouseForm } from './components/warehouse-form'
+import { EditorBody } from './components/editor/editor-body'
+import { EditorHeader } from './components/editor/editor-header'
+import { WarehouseType } from '@/entities/manuals'
 
 interface IWarehouseEditorProps {
   id: string
+  warehouse?: WarehouseType
+  onSearch: (value: string) => void
   onClose?: () => void
 }
 
 export const WarehouseEditor = (props: IWarehouseEditorProps) => {
-  const { id, onClose } = props
+  const { id, warehouse, onClose, onSearch } = props
   const { values, handlers } = useWarehouseEditor(props)
 
   return (
     <ModalEditor
       body={
-        values.isPending ? (
-          <Loader />
-        ) : (
-          <WarehouseForm
-            id={id}
-            staff={values.staff}
-            name={values.warehouse.name || ''}
-            onClose={() => onClose?.()}
-            onMutate={handlers.onMutate}
-            onSearch={handlers.setSearch}
-          />
-        )
+        <EditorBody
+          currentTab={values.tab}
+          id={id}
+          warehouse={warehouse}
+          onFileAdd={handlers.mutateFile}
+          onMutate={() => {}}
+          onSearch={onSearch}
+          files={values.files}
+          isFileLoading={values.isPendingFile}
+          isLoading={values.isLoading}
+          onClose={onClose}
+          staff={values.staff}
+        />
       }
       header={
-        <Text size="lg" weight="semi">
-          {id === 'new' ? 'Добавить' : 'Изменить'} склад
-        </Text>
+        <EditorHeader
+          onTabChange={handlers.setTab}
+          tab={values.tab}
+          isNew={id === 'new'}
+        />
       }
     />
   )

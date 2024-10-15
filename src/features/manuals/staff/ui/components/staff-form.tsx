@@ -5,24 +5,23 @@ import { Input } from '@/shared/ui/input'
 import { Form } from '@/shared/ui/form'
 import { Text } from '@/shared/ui/text'
 
-import { StaffValidatorType } from '@/entities/manuals'
+import { StaffType, StaffValidatorType } from '@/entities/manuals'
 
 import { useStaffForm } from '../../lib/use-staff-form'
 
 interface IStaffFormProps {
   id: string
+  staff?: StaffType
   roles?: { label: string; value: string }[]
   onMutate: (data: StaffValidatorType) => void
   onClose: () => void
 }
 
 export const StaffForm = (props: IStaffFormProps) => {
-  const { id, roles, onMutate, onClose } = props
+  const { id, roles } = props
 
-  const { register, errors, control, handleSubmit, onReset, onSubmit } = useStaffForm({
-    onMutate,
-    onClose,
-  })
+  const { register, errors, control, handleSubmit, onReset, onSubmit } =
+    useStaffForm(props)
 
   return (
     <Form

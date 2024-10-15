@@ -1,37 +1,41 @@
-import { Text } from '@/shared/ui/text'
 import { ModalEditor } from '@/shared/ui/modal-editor'
-import { Loader } from '@/shared/ui/loader'
+import { StaffType } from '@/entities/manuals'
 
 import { useStaffEditor } from '../lib/use-staff-editor'
-import { StaffForm } from './components/staff-form'
+import { EditorHeader } from './components/editor/editor-header'
+import { EditorBody } from './components/editor/editor-body'
 
 interface IStaffEditorProps {
   id: string
+  staff?: StaffType
   onClose?: () => void
 }
 
 export const StaffEditor = (props: IStaffEditorProps) => {
-  const { id, onClose } = props
+  const { staff, onClose } = props
   const { values, handlers } = useStaffEditor(props)
 
   return (
     <ModalEditor
       body={
-        values.isPending ? (
-          <Loader />
-        ) : (
-          <StaffForm
-            id={id}
-            roles={values.roles}
-            onClose={() => onClose?.()}
-            onMutate={handlers.onMutate}
-          />
-        )
+        <EditorBody
+          currentTab={values.tab}
+          onFileAdd={handlers.mutateFile}
+          onMutate={handlers.onMutate}
+          files={values.files}
+          isFileLoading={values.isPendingFile}
+          isLoading={values.isLoading}
+          onClose={onClose}
+          roles={values.roles}
+          staff={staff}
+        />
       }
       header={
-        <Text size="lg" weight="semi">
-          Добавить сотрудника
-        </Text>
+        <EditorHeader
+          onTabChange={handlers.setTab}
+          tab={values.tab}
+          isNew={!Boolean(staff?.id) || staff?.id === 'new'}
+        />
       }
     />
   )

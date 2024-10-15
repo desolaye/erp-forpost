@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { getRoles, postCreateStaff, StaffValidatorType } from '@/entities/manuals'
 import { getRolesOptions } from '../utils/get-roles-options'
+import { useFileLoader } from '@/shared/lib/use-file-loader'
 
 interface IStaffEditorProps {
   id: string
@@ -10,8 +12,11 @@ interface IStaffEditorProps {
 
 export const useStaffEditor = (props: IStaffEditorProps) => {
   const { id, onClose } = props
+  const [tab, setTab] = useState('data')
 
   const queryClient = useQueryClient()
+
+  const { files, isPendingFile, mutateFile } = useFileLoader(id, 'files_staff')
 
   const { mutateAsync, isPending, error } = useMutation({
     mutationFn: (data: StaffValidatorType) => postCreateStaff(data),
@@ -33,9 +38,14 @@ export const useStaffEditor = (props: IStaffEditorProps) => {
       isPending,
       isLoading: isLoadingStaff,
       roles: getRolesOptions(roles?.data),
+      files,
+      isPendingFile,
+      tab,
     },
     handlers: {
       onMutate: mutateAsync,
+      mutateFile,
+      setTab,
     },
   }
 }

@@ -1,26 +1,26 @@
 import { Loader } from '@/shared/ui/loader'
 import { File, FileAdd } from '@/shared/ui/file'
 
-import { ProductType, ProductValidatorType } from '@/entities/manuals'
+import { AgentType, AgentValidatorType } from '@/entities/manuals'
 import { FileType } from '@/entities/files'
 
-import { ProductForm } from '../product-form'
+import { AgentForm } from '../agent-form'
 
 interface IEditorBodyProps {
   currentTab: string
   isLoading?: boolean
   isFileLoading?: boolean
-  product?: ProductType
+  agent?: AgentType
   files?: FileType[]
   onClose?: () => void
-  onMutate: (data: ProductValidatorType) => void
+  onMutate: (data: AgentValidatorType) => void
   onFileAdd: (file: File) => void
 }
 
 export const EditorBody = (props: IEditorBodyProps) => {
   const {
     onMutate,
-    product,
+    agent,
     isLoading,
     currentTab,
     isFileLoading,
@@ -32,7 +32,14 @@ export const EditorBody = (props: IEditorBodyProps) => {
   if (isLoading || isFileLoading) return <Loader />
 
   if (currentTab === 'data') {
-    return <ProductForm data={product} onClose={() => onClose?.()} onMutate={onMutate} />
+    return (
+      <AgentForm
+        id={agent?.id}
+        name={agent?.name || ''}
+        onClose={() => onClose?.()}
+        onMutate={onMutate}
+      />
+    )
   }
 
   if (currentTab === 'files') {

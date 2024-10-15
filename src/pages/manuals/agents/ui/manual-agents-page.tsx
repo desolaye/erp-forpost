@@ -33,7 +33,12 @@ const ManualAgentsPage = () => {
         pageCount={values.totalCount}
       >
         {values.agents?.map((row) => (
-          <SmartTableRow key={row.id} config={config} row={row} />
+          <SmartTableRow
+            key={row.id}
+            config={config}
+            row={row}
+            onClick={() => handlers.setAgentId(row.id)}
+          />
         ))}
       </SmartTable>
 

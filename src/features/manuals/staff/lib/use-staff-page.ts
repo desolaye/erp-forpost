@@ -3,12 +3,14 @@ import { useContext, useState } from 'react'
 
 import { usePagination } from '@/shared/lib/use-pagination'
 
-import { getStaffManual } from '@/entities/manuals'
+import { getStaffManual, StaffType } from '@/entities/manuals'
 import { SessionContext } from '@/entities/session'
 import { useSearch } from '@/shared/lib/use-search'
 
 export const useStaffPage = () => {
   const [id, setId] = useState('')
+  const [staffModal, setStaffModal] = useState<StaffType>()
+
   const { getTotalCount, page, params, setPage } = usePagination(11)
   const { filters, search, setSearch, debouncedSearch } = useSearch('lastName')
 
@@ -23,13 +25,15 @@ export const useStaffPage = () => {
     queryKey: ['staff_all', page, debouncedSearch],
   })
 
-  const openModal = (editId?: string) => {
-    setId(editId || '')
+  const openModal = (edit?: StaffType) => {
+    setId(edit?.id || '')
+    setStaffModal(edit)
   }
 
   return {
     values: {
       data: staff?.data.employees,
+      staffModal,
       isPending,
       totalCount: getTotalCount(staff?.data.totalCount),
       page,
@@ -41,6 +45,8 @@ export const useStaffPage = () => {
       setPage,
       openModal,
       setSearch,
+      setId,
+      setStaffModal,
     },
   }
 }

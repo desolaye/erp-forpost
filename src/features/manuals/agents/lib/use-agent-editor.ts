@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
 
+import { useFileLoader } from '@/shared/lib/use-file-loader'
 import { AgentValidatorType, postCreateAgent, getAgentByid } from '@/entities/manuals'
 
 interface IAgentEditorProps {
@@ -9,8 +11,10 @@ interface IAgentEditorProps {
 
 export const useAgentEditor = (props: IAgentEditorProps) => {
   const { id, onClose } = props
-
+  const [tab, setTab] = useState('data')
   const queryClient = useQueryClient()
+
+  const { files, isPendingFile, mutateFile } = useFileLoader(id || '', 'files_agent')
 
   const { data: agent, isLoading } = useQuery({
     queryFn: () => getAgentByid(id || ''),
@@ -30,12 +34,17 @@ export const useAgentEditor = (props: IAgentEditorProps) => {
   return {
     values: {
       agent: agent?.data,
+      tab,
+      files,
       error,
       isPending,
+      isPendingFile,
       isLoading,
     },
     handlers: {
       onMutate: mutateAsync,
+      setTab,
+      mutateFile,
     },
   }
 }

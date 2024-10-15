@@ -5,6 +5,7 @@ import { useSingleTechcard } from '@/features/manuals/techcards'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import {
+  TechcardFilesInfo,
   TechcardGeneralInfo,
   TechcardItemsInfo,
   TechcardStepsInfo,
@@ -27,6 +28,7 @@ export const SingleTechcard = (props: ISingleTechcard) => {
         <Tab label="Общее" value={0} />
         <Tab label="Этапы" value={1} />
         <Tab label="Компоненты" value={2} />
+        <Tab label="Файлы" value={3} />
       </Tabs>
 
       <TechcardGeneralInfo
@@ -39,6 +41,12 @@ export const SingleTechcard = (props: ISingleTechcard) => {
 
       <TechcardStepsInfo id={id} index={1} tab={values.tab} steps={values.data.steps} />
       <TechcardItemsInfo id={id} index={2} tab={values.tab} items={values.data.items} />
+      <TechcardFilesInfo
+        index={3}
+        tab={values.tab}
+        files={values.files}
+        onFileAdd={handlers.mutateFile}
+      />
     </PageWrapper>
   )
 }

@@ -4,19 +4,25 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import {
   staffToOptions,
   StaffType,
+  WarehouseType,
   WarehouseValidatorType,
   ZWarehouseValidator,
 } from '@/entities/manuals'
 
 interface IUseWarehouseForm {
-  name: string
+  warehouse?: WarehouseType
   staff?: StaffType[]
   onMutate: (data: WarehouseValidatorType) => void
   onClose: () => void
 }
 
 export const useWarehouseForm = (props: IUseWarehouseForm) => {
-  const { name, staff, onMutate, onClose } = props
+  const { warehouse, staff, onMutate, onClose } = props
+
+  const defaultResponsible = staff?.find((v) => v.id === warehouse?.responsibleId)
+  const label = defaultResponsible
+    ? `${defaultResponsible?.lastName} ${defaultResponsible?.firstName}`
+    : undefined
 
   const {
     register,
@@ -30,7 +36,13 @@ export const useWarehouseForm = (props: IUseWarehouseForm) => {
         responsibleId: data.responsibleId.value,
       })),
     ),
-    defaultValues: { name },
+    defaultValues: {
+      name: warehouse?.name,
+      responsibleId: {
+        label,
+        value: defaultResponsible?.id,
+      },
+    },
   })
 
   const onSubmit: SubmitHandler<WarehouseValidatorType> = onMutate

@@ -1,16 +1,16 @@
-import { StaffValidatorType } from '@/entities/manuals'
+import { StaffType, StaffValidatorType } from '@/entities/manuals'
 
-export const createInitialStaff = (): StaffValidatorType => {
+export const createInitialStaff = (staff?: StaffType): StaffValidatorType => {
   return {
-    email: '',
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    post: '',
+    email: staff?.email || '',
+    firstName: staff?.firstName || '',
+    lastName: staff?.lastName || '',
+    phoneNumber: staff?.phoneNumber || '',
+    post: staff?.post || '',
     password: '',
     role: {
       value: '',
-      label: '',
+      label: staff?.role || '',
     },
   }
 }

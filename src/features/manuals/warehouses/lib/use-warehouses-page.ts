@@ -4,10 +4,12 @@ import { useQuery } from '@tanstack/react-query'
 import { usePagination } from '@/shared/lib/use-pagination'
 import { useSearch } from '@/shared/lib/use-search'
 
-import { getWarehousesManual } from '@/entities/manuals'
+import { getWarehousesManual, WarehouseType } from '@/entities/manuals'
 
 export const useWarehousesPage = () => {
   const [id, setId] = useState('')
+  const [warehouse, setWarehouse] = useState<WarehouseType>()
+
   const { page, params, setPage } = usePagination(11)
   const { filters, search, setSearch, debouncedSearch } = useSearch('name')
 
@@ -20,8 +22,9 @@ export const useWarehousesPage = () => {
     queryKey: ['warehouses_all', debouncedSearch],
   })
 
-  const handleOpenModal = (editId?: string) => {
-    setId(editId || '')
+  const openModal = (edit?: WarehouseType) => {
+    setId(edit?.id || '')
+    setWarehouse(edit)
   }
 
   return {
@@ -32,11 +35,13 @@ export const useWarehousesPage = () => {
       page,
       isPending,
       search,
+      warehouse,
     },
     handlers: {
       setPage,
-      handleOpenModal,
+      openModal,
       setSearch,
+      setId,
     },
   }
 }

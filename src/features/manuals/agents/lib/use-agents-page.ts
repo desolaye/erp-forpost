@@ -35,6 +35,7 @@ export const useAgentsPage = () => {
       openModal,
       setPage,
       setSearch,
+      setAgentId,
     },
   }
 }

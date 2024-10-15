@@ -22,7 +22,7 @@ const ManualWarehousesPage = () => {
           value={values.search}
           onChange={(e) => handlers.setSearch(e.target.value)}
         />
-        <Button onClick={() => handlers.handleOpenModal('new')}>Добавить</Button>
+        <Button onClick={() => handlers.setId('new')}>Добавить</Button>
       </Card>
 
       <SmartTable
@@ -32,15 +32,22 @@ const ManualWarehousesPage = () => {
         pageCount={values.totalCount}
       >
         {values.data?.map((row) => (
-          <SmartTableRow key={row.id} config={config} row={row} />
+          <SmartTableRow
+            key={row.id}
+            config={config}
+            row={row}
+            onClick={() => handlers.openModal(row)}
+          />
         ))}
       </SmartTable>
 
-      <ModalLayout
-        isOpen={Boolean(values.id)}
-        onClose={() => handlers.handleOpenModal('')}
-      >
-        <WarehouseEditor id={values.id} onClose={() => handlers.handleOpenModal('')} />
+      <ModalLayout isOpen={Boolean(values.id)} onClose={() => handlers.openModal()}>
+        <WarehouseEditor
+          id={values.id}
+          warehouse={values.warehouse}
+          onClose={() => handlers.openModal()}
+          onSearch={handlers.setSearch}
+        />
       </ModalLayout>
     </PageWrapper>
   )

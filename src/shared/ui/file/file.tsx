@@ -4,14 +4,17 @@ import { Card } from '../card'
 
 import cls from './file.module.scss'
 import { Text } from '../text'
+import { Link } from '@tanstack/react-router'
+import { getDownloadLink } from '@/entities/files'
 
 interface IFileProps {
   title: string
+  link: string
   onDownload?: () => void
 }
 
 export const File = (props: IFileProps) => {
-  const { title, onDownload } = props
+  const { title, link, onDownload } = props
 
   return (
     <Card className={cls.file}>
@@ -21,7 +24,9 @@ export const File = (props: IFileProps) => {
       </Text>
 
       <div className={cls.file__download} onClick={onDownload}>
-        <FileDownloadOutlinedIcon fontSize="large" />
+        <Link to={getDownloadLink(link)} target="_blank" download>
+          <FileDownloadOutlinedIcon fontSize="large" />
+        </Link>
       </div>
     </Card>
   )

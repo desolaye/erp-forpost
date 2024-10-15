@@ -23,7 +23,7 @@ const ManualStaffPage = () => {
           onChange={(e) => handlers.setSearch(e.target.value)}
         />
         {values.user && values.user.role === 'Admin' && (
-          <Button onClick={() => handlers.openModal('new')}>Добавить</Button>
+          <Button onClick={() => handlers.setId('new')}>Добавить</Button>
         )}
       </Card>
 
@@ -34,12 +34,21 @@ const ManualStaffPage = () => {
         pageCount={values.totalCount}
       >
         {values.data?.map((row) => (
-          <SmartTableRow key={row.id} config={config} row={row} />
+          <SmartTableRow
+            key={row.id}
+            config={config}
+            row={row}
+            onClick={() => handlers.openModal(row)}
+          />
         ))}
       </SmartTable>
 
       <ModalLayout isOpen={Boolean(values.id)} onClose={handlers.openModal}>
-        <StaffEditor id={values.id} onClose={handlers.openModal} />
+        <StaffEditor
+          id={values.id}
+          onClose={handlers.openModal}
+          staff={values.staffModal}
+        />
       </ModalLayout>
     </PageWrapper>
   )

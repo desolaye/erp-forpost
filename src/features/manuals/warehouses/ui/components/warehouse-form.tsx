@@ -6,12 +6,12 @@ import { Button } from '@/shared/ui/button'
 import { Form } from '@/shared/ui/form'
 import { Text } from '@/shared/ui/text'
 
-import { StaffType, WarehouseValidatorType } from '@/entities/manuals'
+import { StaffType, WarehouseType, WarehouseValidatorType } from '@/entities/manuals'
 import { useWarehouseForm } from '../../lib/use-warehouse-form'
 
 interface IWarehouseFormProps {
   id: string
-  name: string
+  warehouse?: WarehouseType
   staff?: StaffType[]
   onMutate: (data: WarehouseValidatorType) => void
   onClose: () => void
@@ -25,7 +25,7 @@ export const WarehouseForm = (props: IWarehouseFormProps) => {
     useWarehouseForm(props)
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
+    <Form onSubmit={handleSubmit(onSubmit)} onReset={onReset} saveDisabled={id === 'new'}>
       <Input
         placeholder="Название склада"
         label="Название склада"

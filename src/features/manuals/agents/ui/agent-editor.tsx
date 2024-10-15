@@ -1,9 +1,8 @@
-import { Text } from '@/shared/ui/text'
 import { ModalEditor } from '@/shared/ui/modal-editor'
-import { Loader } from '@/shared/ui/loader'
 
 import { useAgentEditor } from '../lib/use-agent-editor'
-import { AgentForm } from './components/agent-form'
+import { EditorBody } from './components/editor/editor-body'
+import { EditorHeader } from './components/editor/editor-header'
 
 interface IAgentEditorProps {
   id?: string
@@ -17,21 +16,23 @@ export const AgentEditor = (props: IAgentEditorProps) => {
   return (
     <ModalEditor
       body={
-        values.isLoading ? (
-          <Loader />
-        ) : (
-          <AgentForm
-            id={id}
-            name={values.agent?.name || ''}
-            onClose={() => onClose?.()}
-            onMutate={handlers.onMutate}
-          />
-        )
+        <EditorBody
+          currentTab={values.tab}
+          onFileAdd={handlers.mutateFile}
+          onMutate={() => onClose?.()}
+          agent={values.agent}
+          files={values.files}
+          isFileLoading={values.isPendingFile}
+          isLoading={values.isLoading}
+          onClose={onClose}
+        />
       }
       header={
-        <Text size="lg" weight="semi">
-          {id === 'new' ? 'Добавить' : 'Изменить'} контрагента
-        </Text>
+        <EditorHeader
+          onTabChange={handlers.setTab}
+          tab={values.tab}
+          isNew={id === 'new'}
+        />
       }
     />
   )

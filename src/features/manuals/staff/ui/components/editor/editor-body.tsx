@@ -1,26 +1,27 @@
 import { Loader } from '@/shared/ui/loader'
 import { File, FileAdd } from '@/shared/ui/file'
 
-import { ProductType, ProductValidatorType } from '@/entities/manuals'
+import { StaffType, StaffValidatorType } from '@/entities/manuals'
 import { FileType } from '@/entities/files'
 
-import { ProductForm } from '../product-form'
+import { StaffForm } from '../staff-form'
 
 interface IEditorBodyProps {
   currentTab: string
   isLoading?: boolean
   isFileLoading?: boolean
-  product?: ProductType
+  staff?: StaffType
   files?: FileType[]
+  roles?: { label: string; value: string }[]
   onClose?: () => void
-  onMutate: (data: ProductValidatorType) => void
+  onMutate: (data: StaffValidatorType) => void
   onFileAdd: (file: File) => void
 }
 
 export const EditorBody = (props: IEditorBodyProps) => {
   const {
     onMutate,
-    product,
+    staff,
     isLoading,
     currentTab,
     isFileLoading,
@@ -32,7 +33,14 @@ export const EditorBody = (props: IEditorBodyProps) => {
   if (isLoading || isFileLoading) return <Loader />
 
   if (currentTab === 'data') {
-    return <ProductForm data={product} onClose={() => onClose?.()} onMutate={onMutate} />
+    return (
+      <StaffForm
+        id={staff?.id || 'new'}
+        staff={staff}
+        onClose={() => onClose?.()}
+        onMutate={onMutate}
+      />
+    )
   }
 
   if (currentTab === 'files') {

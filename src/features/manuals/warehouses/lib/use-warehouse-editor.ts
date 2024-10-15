@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
 
 import {
   getStaffManual,
@@ -6,6 +7,7 @@ import {
   WarehouseValidatorType,
 } from '@/entities/manuals'
 import { useSearch } from '@/shared/lib/use-search'
+import { useFileLoader } from '@/shared/lib/use-file-loader'
 
 interface IWarehouseEditorProps {
   id: string
@@ -14,8 +16,11 @@ interface IWarehouseEditorProps {
 
 export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
   const { id, onClose } = props
+  const [tab, setTab] = useState('data')
 
   const queryClient = useQueryClient()
+
+  const { files, isPendingFile, mutateFile } = useFileLoader(id, 'files_warehouse')
 
   const { filters, search, setSearch, debouncedSearch } = useSearch('lastName')
 
@@ -35,16 +40,20 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
 
   return {
     values: {
-      warehouse: { id, name: '' },
+      tab,
       error,
       isPending,
       isLoading: isLoadingStaff,
       staff: staff?.data.employees,
       search,
+      files,
+      isPendingFile,
     },
     handlers: {
       onMutate: mutateAsync,
       setSearch,
+      setTab,
+      mutateFile,
     },
   }
 }
