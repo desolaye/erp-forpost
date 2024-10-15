@@ -10,7 +10,7 @@ interface IUseWarehouseForm {
 }
 
 export const usePriceListFormForm = (props: IUseWarehouseForm) => {
-  const { priceList, onMutate, onClose } = props
+  const { onMutate, onClose } = props
 
   const {
     register,

@@ -2,7 +2,6 @@ import ReactSelect from 'react-select'
 import { Controller } from 'react-hook-form'
 
 import { Input } from '@/shared/ui/input'
-import { Button } from '@/shared/ui/button'
 import { Form } from '@/shared/ui/form'
 import { Text } from '@/shared/ui/text'
 
@@ -11,7 +10,7 @@ import { useWarehouseForm } from '../../lib/use-warehouse-form'
 
 interface IWarehouseFormProps {
   id: string
-  warehouse: WarehouseType
+  warehouse?: WarehouseType
   staff?: StaffType[]
   onMutate: (data: WarehouseValidatorType) => void
   onClose: () => void
