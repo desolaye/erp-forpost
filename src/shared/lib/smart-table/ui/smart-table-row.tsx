@@ -7,7 +7,6 @@ import { isRenderable } from '@/shared/utils/is-renderable'
 import { TableConfigType } from '../model/table-config.type'
 
 import cls from './smart-table.module.scss'
-import { Text } from '@/shared/ui/text'
 
 interface ISmartTableRowProps<T> {
   actions?: ReactNode
