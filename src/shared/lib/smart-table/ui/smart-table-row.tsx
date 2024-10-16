@@ -1,4 +1,4 @@
-import { Checkbox } from '@mui/material'
+import { Checkbox, Tooltip } from '@mui/material'
 import { ReactNode } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import cn from 'classnames'
@@ -7,6 +7,7 @@ import { isRenderable } from '@/shared/utils/is-renderable'
 import { TableConfigType } from '../model/table-config.type'
 
 import cls from './smart-table.module.scss'
+import { Text } from '@/shared/ui/text'
 
 interface ISmartTableRowProps<T> {
   actions?: ReactNode
@@ -45,7 +46,29 @@ export const SmartTableRow = <T,>(props: ISmartTableRowProps<T>) => {
           key={String(key)}
           style={{ maxWidth: cell.maxWidth }}
         >
-          {isRenderable(row[key]) && row[key]}
+          {cell.type !== 'tooltip' && isRenderable(row[key]) && row[key]}
+
+          {cell.type === 'tooltip' && (
+            <Tooltip
+              onClick={(e) => e.stopPropagation()}
+              title={
+                <p onClick={(e) => e.stopPropagation()}>
+                  {isRenderable(row[key]) && row[key]}
+                </p>
+              }
+            >
+              <p
+                style={{
+                  fontWeight: 600,
+                  maxWidth: cell.maxWidth,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {isRenderable(row[key]) && row[key]}
+              </p>
+            </Tooltip>
+          )}
         </td>
       ))}
 

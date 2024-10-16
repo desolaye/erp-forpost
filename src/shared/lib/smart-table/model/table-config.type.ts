@@ -13,8 +13,12 @@ type TableCellButtonType = {
   onClick: () => void
 }
 
+type TableCellTooltipType = {
+  type: 'tooltip'
+}
+
 export type TableCellConfigType = TableCellBaseType &
-  (TableCellTextType | TableCellButtonType)
+  (TableCellTextType | TableCellButtonType | TableCellTooltipType)
 
 export type TableRowRecordType<T> = Record<keyof T, TableCellConfigType>
 export type TableRowConfigType<T> = [keyof T, TableCellConfigType]

@@ -20,7 +20,7 @@ export const myIssuesTableConfig = (assigner: 'executor' | 'responsible') => {
       width: 150,
       maxWidth: 150,
       title: 'Описание',
-      type: 'text',
+      type: 'tooltip',
     },
     issueNumber: {
       width: 75,
