@@ -8,6 +8,8 @@ import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { productsTableConfig } from '../utils/products-table-config'
+import { ProductsPageTooltip } from './components/products-page-tooltip'
+import { ProductBarcodeEditor } from '@/features/manuals/products/ui/product-barcode-editor'
 
 const ManualProductsPage = () => {
   const { values, handlers } = useProductsPage()
@@ -30,6 +32,7 @@ const ManualProductsPage = () => {
         currentPage={values.page}
         onPageChange={handlers.setPage}
         pageCount={values.totalCount}
+        withActions
       >
         {values.products?.map((row) => (
           <SmartTableRow
@@ -37,12 +40,29 @@ const ManualProductsPage = () => {
             config={config}
             row={row}
             onClick={() => handlers.openModal(row.id)}
+            actions={
+              <ProductsPageTooltip
+                onSetBarcode={() => handlers.setProductBarcodeId(row.id)}
+              />
+            }
           />
         ))}
       </SmartTable>
 
       <ModalLayout isOpen={Boolean(values.productId)} onClose={handlers.openModal}>
         <ProductEditor id={values.productId} onClose={handlers.openModal} />
+      </ModalLayout>
+
+      <ModalLayout
+        center
+        bodyBg
+        isOpen={Boolean(values.productBarcodeId)}
+        onClose={() => handlers.setProductBarcodeId('')}
+      >
+        <ProductBarcodeEditor
+          productId={values.productBarcodeId}
+          onClose={() => handlers.setProductBarcodeId('')}
+        />
       </ModalLayout>
     </PageWrapper>
   )

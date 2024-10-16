@@ -7,6 +7,8 @@ import { useSearch } from '@/shared/lib/use-search'
 
 export const useProductsPage = () => {
   const [productId, setProductId] = useState('')
+  const [productBarcodeId, setProductBarcodeId] = useState('')
+
   const { getTotalCount, page, params, setPage } = usePagination(11)
   const { filters, search, setSearch, debouncedSearch } = useSearch('name')
 
@@ -29,11 +31,13 @@ export const useProductsPage = () => {
       productId,
       isPending,
       search,
+      productBarcodeId,
     },
     handlers: {
       openModal,
       setPage,
       setSearch,
+      setProductBarcodeId,
     },
   }
 }
