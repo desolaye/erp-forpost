@@ -13,6 +13,11 @@ export const productsTableConfig = () => {
       title: 'Стоимость',
       width: 0,
     },
+    purchased: {
+      type: 'text',
+      title: 'Закупочный товар',
+      width: 0,
+    },
     version: {
       type: 'text',
       title: 'Версия',

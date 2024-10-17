@@ -1,7 +1,7 @@
 import { Loader } from '@/shared/ui/loader'
 import { File, FileAdd } from '@/shared/ui/file'
 
-import { ProductValidatorType, StaffType, WarehouseType } from '@/entities/manuals'
+import { StaffType, WarehouseType, WarehouseValidatorType } from '@/entities/manuals'
 import { FileType } from '@/entities/files'
 
 import { WarehouseForm } from '../warehouse-form'
@@ -15,7 +15,7 @@ interface IEditorBodyProps {
   staff?: StaffType[]
   files?: FileType[]
   onClose?: () => void
-  onMutate: (data: ProductValidatorType) => void
+  onMutate: (data: WarehouseValidatorType) => void
   onFileAdd: (file: File) => void
   onSearch: (value: string) => void
 }
