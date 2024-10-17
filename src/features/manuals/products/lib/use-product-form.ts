@@ -16,6 +16,7 @@ export const useProductForm = (props: IUseProductForm) => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<ProductValidatorType>({
     resolver: zodResolver(ZProductValidator),
     defaultValues: { name: data?.name || '' },
@@ -27,6 +28,7 @@ export const useProductForm = (props: IUseProductForm) => {
 
   return {
     register,
+    control,
     handleSubmit,
     onSubmit,
     onReset,

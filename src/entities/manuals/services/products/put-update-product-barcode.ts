@@ -1,9 +1,14 @@
 import { publicApi } from '@/shared/api/public-api.config'
 
-export const putUpdateProductBarcode = async (productId: string, barcode: string) => {
-  const response = await publicApi.put('v1/products/barcode', {
+export const putUpdateProductBarcode = async (
+  productId: string,
+  barcode: string,
+  quantity: string,
+) => {
+  const response = await publicApi.post('v1/products/barcode', {
     productId,
     barcode,
+    quantity,
   })
 
   return response

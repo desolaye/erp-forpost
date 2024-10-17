@@ -1,12 +1,17 @@
-import { getProductBarcode, putUpdateProductBarcode } from '@/entities/manuals'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { FormEvent, useRef, useState } from 'react'
+
+import { Text } from '@/shared/ui/text'
 import { Card } from '@/shared/ui/card'
 import { Form } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
 import { Loader } from '@/shared/ui/loader'
 import { ModalEditor } from '@/shared/ui/modal-editor'
-import { Text } from '@/shared/ui/text'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { FormEvent, useState } from 'react'
+
+import { getProductBarcode, putUpdateProductBarcode } from '@/entities/manuals'
+
+import cls from './product-barcode-editor.module.scss'
+import { ProductBarcode } from './components/product-barcode'
 
 interface IProductBarcodeEditorProps {
   productId?: string
@@ -19,6 +24,8 @@ export const ProductBarcodeEditor = (props: IProductBarcodeEditorProps) => {
   const queryClient = useQueryClient()
 
   const [barcode, setBarcode] = useState('')
+  const [quantity, setQuantity] = useState('')
+  const ref = useRef<HTMLInputElement>(null)
 
   const { data, isPending } = useQuery({
     queryKey: ['barcode', productId],
@@ -26,13 +33,18 @@ export const ProductBarcodeEditor = (props: IProductBarcodeEditorProps) => {
   })
 
   const { mutateAsync } = useMutation({
-    mutationFn: (barcode: string) => putUpdateProductBarcode(productId || '', barcode),
+    mutationFn: (barcode: string) =>
+      putUpdateProductBarcode(productId || '', barcode, quantity),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['barcode', productId] }),
   })
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    mutateAsync(barcode || '').then(() => setBarcode(''))
+
+    mutateAsync(barcode || '').then(() => {
+      setBarcode('')
+      setQuantity('')
+    })
   }
 
   return (
@@ -45,14 +57,30 @@ export const ProductBarcodeEditor = (props: IProductBarcodeEditorProps) => {
             onSubmit={onSubmit}
             onReset={onClose}
           >
-            <div style={{ maxHeight: '200px' }}>
-              {isPending ? <Loader /> : <img src={data} alt="Изображение отсутствует" />}
+            <div className={cls.barcode_div}>
+              {isPending ? (
+                <Loader />
+              ) : (
+                data?.map((v, i) => <ProductBarcode key={v} idx={i + 1} image={v} />)
+              )}
             </div>
             <Input
               label="Введите штрих-код"
               autoFocus
               value={barcode}
               onChange={(e) => setBarcode(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.code === 'Enter') {
+                  e.preventDefault()
+                  ref.current?.focus()
+                }
+              }}
+            />
+            <Input
+              ref={ref}
+              label="Введите количество товара по штрих-коду"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
             />
           </Form>
         }

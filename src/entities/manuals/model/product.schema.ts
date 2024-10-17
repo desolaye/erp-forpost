@@ -3,6 +3,7 @@ import { z } from 'zod'
 export const ZProduct = z.object({
   id: z.string(),
   name: z.string(),
+  purchased: z.boolean(),
   version: z.string(),
   cost: z.number(),
 })
@@ -32,6 +33,7 @@ export const ZProductByWarehouseToBack = ZProductByWarehouseValidator.transform(
 
 export const ZProductValidator = z.object({
   name: z.string().min(3, 'Название продукта слишком короткое'),
+  purchased: z.boolean(),
 })
 
 export const ZProductByWarehouseResponse = z.object({
