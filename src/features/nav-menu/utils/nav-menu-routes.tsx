@@ -8,7 +8,7 @@ import BackupTableIcon from '@mui/icons-material/BackupTable'
 import { routesPath } from '@/shared/config/routes-path.config'
 
 export const navMenuRoutes = () => {
-  const { manuals, manufacture, crm } = routesPath.erp
+  const { manuals, manufacture, crm, warehouses } = routesPath.erp
 
   return [
     {
@@ -57,6 +57,10 @@ export const navMenuRoutes = () => {
       icon: () => <WarehouseIcon fontSize="large" />,
       to: routesPath.erp.warehouses.root(),
       text: 'Склады',
+      childs: [
+        { text: 'Все склады', to: warehouses.all },
+        { text: 'История закупок', to: warehouses.history },
+      ],
     },
   ]
 }

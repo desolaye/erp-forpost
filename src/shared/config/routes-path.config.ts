@@ -28,7 +28,9 @@ export const routesPath = {
     },
     warehouses: {
       root: () => '/warehouses',
-      products: (pre = '', post = '$uuid') => `${pre}/warehouses/${post}`,
+      all: (pre = '') => `${pre}/all`,
+      history: (pre = '') => `${pre}/history`,
+      products: (pre = '', post = '$uuid') => `${pre}/${post}`,
     },
   },
 } as const
