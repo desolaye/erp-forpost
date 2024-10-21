@@ -14,22 +14,20 @@
   &__main {
     height: calc(100% - var(--header-height) - 2 * var(--layout-gap));
     width: 100%;
-    display: flex;
-
-    gap: 8px;
 
     &__outlet {
       height: 100%;
       width: 100%;
       overflow: auto;
-      padding: 4px 8px 4px 0;
+      padding: 4px 8px;
     }
   }
 
   &__header {
     min-height: var(--header-height);
     display: flex;
-    justify-content: center;
+    gap: 8px;
+    justify-content: space-between;
     align-items: center;
 
     background-color: white;

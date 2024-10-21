@@ -10,17 +10,16 @@ interface IRootRouteTextProps {
   text: string
   icon?: () => JSX.Element
   onClick?: () => void
-  isLink?: boolean
 }
 
 interface IDrawerList {
   onClose: () => void
 }
 
-const RootRouteText = ({ text, icon, isLink, onClick }: IRootRouteTextProps) => (
+const RootRouteText = ({ text, icon, onClick }: IRootRouteTextProps) => (
   <div onClick={onClick} className={cls.drawer_list__link}>
-    {icon && <span>{icon()}</span>}
-    <Text size={icon ? 'lg' : 'base'} weight={icon ? 'semi' : 'base'} link={isLink}>
+    {icon && <span style={{ width: 35, height: 35 }}>{icon()}</span>}
+    <Text size={icon ? 'lg' : 'base'} weight={icon ? 'semi' : 'base'} color="inherit">
       {text}
     </Text>
   </div>
@@ -38,7 +37,11 @@ export const DrawerList = (props: IDrawerList) => {
 
   return routes.map((route) => (
     <div key={route.to} className={cls.drawer_list}>
-      <header>
+      <header
+        style={{
+          backgroundColor: expanded === route.text ? 'rgba(131, 0, 0, 0.1)' : undefined,
+        }}
+      >
         {route.childs ? (
           <RootRouteText
             onClick={() => handleExpanded(route.text)}
@@ -55,8 +58,13 @@ export const DrawerList = (props: IDrawerList) => {
       {expanded === route.text && (
         <main className={cls.drawer_list__main}>
           {route.childs?.map((v) => (
-            <Link key={v.text} to={v.to(route.to)} onClick={onClose}>
-              <RootRouteText text={v.text} isLink />
+            <Link
+              className={cls.drawer_list__expanded_link}
+              key={v.text}
+              to={v.to(route.to)}
+              onClick={onClose}
+            >
+              <RootRouteText text={v.text} />
             </Link>
           ))}
         </main>

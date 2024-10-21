@@ -3,7 +3,7 @@ import cls from './text.module.scss'
 
 type TextTag = 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'a'
 type TextWeight = 'base' | 'medium' | 'semi' | 'bold'
-type TextColor = 'black' | 'primary' | 'error' | 'white'
+type TextColor = 'black' | 'primary' | 'error' | 'white' | 'inherit'
 type TextSize =
   | 'base'
   | 'sm'
@@ -22,6 +22,7 @@ const colorStyle: Record<TextColor, string> = {
   error: cls.color_error,
   primary: cls.color_primary,
   white: cls.color_white,
+  inherit: cls.color_inherit,
 }
 
 const weightStyle: Record<TextWeight, string> = {
