@@ -39,7 +39,9 @@ export const DrawerList = (props: IDrawerList) => {
     <div key={route.to} className={cls.drawer_list}>
       <header
         style={{
-          backgroundColor: expanded === route.text ? 'rgba(131, 0, 0, 0.1)' : undefined,
+          backgroundColor: expanded === route.text ? 'rgba(131, 0, 0, 0.75)' : undefined,
+          borderRadius: '8px',
+          color: expanded === route.text ? 'white' : undefined,
         }}
       >
         {route.childs ? (
@@ -58,12 +60,7 @@ export const DrawerList = (props: IDrawerList) => {
       {expanded === route.text && (
         <main className={cls.drawer_list__main}>
           {route.childs?.map((v) => (
-            <Link
-              className={cls.drawer_list__expanded_link}
-              key={v.text}
-              to={v.to(route.to)}
-              onClick={onClose}
-            >
+            <Link key={v.text} to={v.to(route.to)} onClick={onClose}>
               <RootRouteText text={v.text} />
             </Link>
           ))}

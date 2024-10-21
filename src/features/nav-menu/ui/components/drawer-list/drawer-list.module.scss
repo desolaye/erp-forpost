@@ -18,12 +18,11 @@
     }
   }
 
-  &__expanded_link {
-    text-align: center;
-  }
-
   &__main {
     background-color: rgba(131, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 8px 0;
+
     display: flex;
     flex-direction: column;
     gap: 8px;
