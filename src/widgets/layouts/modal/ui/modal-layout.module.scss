@@ -36,7 +36,10 @@
 .body_bg {
   background-color: transparent;
   box-shadow: none;
-  height: fit-content;
+
+  height: 100%;
+  max-height: fit-content;
+  overflow: auto;
 }
 
 @keyframes fadein {

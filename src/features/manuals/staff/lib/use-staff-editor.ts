@@ -16,7 +16,7 @@ export const useStaffEditor = (props: IStaffEditorProps) => {
 
   const queryClient = useQueryClient()
 
-  const { files, isPendingFile, mutateFile } = useFileLoader(id, 'files_staff')
+  const { files, isPendingFile, mutateFile } = useFileLoader(id, 'files_all')
 
   const { mutateAsync, isPending, error } = useMutation({
     mutationFn: (data: StaffValidatorType) => postCreateStaff(data),

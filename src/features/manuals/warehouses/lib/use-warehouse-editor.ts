@@ -20,7 +20,7 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
 
   const queryClient = useQueryClient()
 
-  const { files, isPendingFile, mutateFile } = useFileLoader(id, 'files_warehouse')
+  const { files, isPendingFile, mutateFile } = useFileLoader(id, 'files_all')
 
   const { filters, search, setSearch, debouncedSearch } = useSearch('lastName')
 

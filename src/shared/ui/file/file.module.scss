@@ -3,7 +3,13 @@
   justify-content: space-between;
   align-items: center;
 
-  &__download {
+  &__actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__button {
     cursor: pointer;
     border-radius: 8px;
     color: #830000;

@@ -20,7 +20,7 @@ export const useProductEditor = (props: IProductEditorProps) => {
 
   const queryClient = useQueryClient()
 
-  const { files, isPendingFile, mutateFile } = useFileLoader(id, 'files_product')
+  const { files, isPendingFile, mutateFile } = useFileLoader(id, 'files_all')
 
   const handleSuccess = () => {
     queryClient.invalidateQueries({ queryKey: ['product_by_id', id] })

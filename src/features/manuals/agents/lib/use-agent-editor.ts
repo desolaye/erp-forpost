@@ -14,7 +14,7 @@ export const useAgentEditor = (props: IAgentEditorProps) => {
   const [tab, setTab] = useState('data')
   const queryClient = useQueryClient()
 
-  const { files, isPendingFile, mutateFile } = useFileLoader(id || '', 'files_agent')
+  const { files, isPendingFile, mutateFile } = useFileLoader(id || '', 'files_all')
 
   const { data: agent, isLoading } = useQuery({
     queryFn: () => getAgentByid(id || ''),

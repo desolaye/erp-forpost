@@ -2,18 +2,16 @@ import { publicApi } from '@/shared/api/public-api.config'
 
 export const getProductBarcode = async (productId: string) => {
   try {
-    const response = await publicApi.get<{ contentType: string; fileContents: string }[]>(
-      `v1/products/${productId}/barcode`,
-    )
+    const response = await publicApi.get<Blob>(`v1/products/${productId}/barcode`, {
+      responseType: 'blob',
+    })
 
-    const imageURIs = response.data.map(
-      (v) => `data:${v.contentType};base64,${v.fileContents}`,
-    )
+    const image = URL.createObjectURL(response.data)
 
-    return imageURIs
+    return image
   } catch (err) {
     console.log(err)
   }
 
-  return []
+  return ''
 }

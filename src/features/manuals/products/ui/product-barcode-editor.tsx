@@ -58,11 +58,7 @@ export const ProductBarcodeEditor = (props: IProductBarcodeEditorProps) => {
             onReset={onClose}
           >
             <div className={cls.barcode_div}>
-              {isPending ? (
-                <Loader />
-              ) : (
-                data?.map((v, i) => <ProductBarcode key={v} idx={i + 1} image={v} />)
-              )}
+              {isPending ? <Loader /> : <ProductBarcode image={data!} />}
             </div>
             <Input
               label="Введите штрих-код"
