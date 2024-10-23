@@ -1,20 +1,30 @@
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
-import { Card } from '../card'
+import { useMutation } from '@tanstack/react-query'
+import download from 'downloadjs'
 
-import cls from './file.module.scss'
+import { Card } from '../card'
 import { Text } from '../text'
-import { Link } from '@tanstack/react-router'
-import { getDownloadLink } from '@/entities/files'
+
+import { getDownloadFile } from '@/entities/files'
+import cls from './file.module.scss'
 
 interface IFileProps {
   title: string
   link: string
-  onDownload?: () => void
 }
 
 export const File = (props: IFileProps) => {
-  const { title, link, onDownload } = props
+  const { title, link } = props
+
+  const { mutateAsync } = useMutation({
+    mutationFn: () => getDownloadFile(link),
+    onSuccess: (res) => {
+      download(res, title)
+    },
+  })
+
+  const onClick = () => mutateAsync()
 
   return (
     <Card className={cls.file}>
@@ -23,10 +33,10 @@ export const File = (props: IFileProps) => {
         {title}
       </Text>
 
-      <div className={cls.file__download} onClick={onDownload}>
-        <Link to={getDownloadLink(link)} target="_blank" download>
+      <div className={cls.file__download} onClick={onClick}>
+        <button>
           <FileDownloadOutlinedIcon fontSize="large" />
-        </Link>
+        </button>
       </div>
     </Card>
   )
