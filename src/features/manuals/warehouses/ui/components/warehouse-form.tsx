@@ -28,7 +28,7 @@ export const WarehouseForm = (props: IWarehouseFormProps) => {
       onSubmit={handleSubmit(onSubmit)}
       onReset={onReset}
       withButtons
-      saveDisabled={id === 'new'}
+      saveDisabled={id !== 'new'}
     >
       <Input
         placeholder="Название склада"

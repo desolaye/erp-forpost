@@ -16,6 +16,8 @@ export const WarehouseEditor = (props: IWarehouseEditorProps) => {
   const { id, warehouse, onClose, onSearch } = props
   const { values, handlers } = useWarehouseEditor(props)
 
+  console.log(id)
+
   return (
     <ModalEditor
       body={
