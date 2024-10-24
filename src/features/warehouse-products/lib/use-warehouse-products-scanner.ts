@@ -3,7 +3,12 @@ import { FormEvent, KeyboardEvent, useRef, useState } from 'react'
 
 import { postProductScan } from '@/entities/manuals'
 
-type CodeStatus = { status: 'error' | 'success'; barcode: string; productName: string }
+type CodeStatus = {
+  status: 'error' | 'success'
+  barcode: string
+  productName: string
+  quantity: string
+}
 
 interface IPostReq {
   productId: { Id: string; Name: string }

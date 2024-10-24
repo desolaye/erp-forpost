@@ -6,7 +6,10 @@ import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
 import { Button } from '@/shared/ui/button'
 
-import { useWarehouseProductsScanner } from '../lib/use-warehouse-products-scanner'
+import { useWarehouseProductsScanner } from '../../lib/use-warehouse-products-scanner'
+
+import { TooltipTitle } from './tooltip-title'
+import cls from './warehouse-products-scanner.module.scss'
 
 interface IWarehouseProductsScannerProps {
   storageId: string
@@ -19,47 +22,13 @@ export const WarehouseProductsScanner = (props: IWarehouseProductsScannerProps) 
   const { handlers, values } = useWarehouseProductsScanner(storageId)
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 12,
-        height: '100%',
-        overflow: 'auto',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          gap: 8,
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
+    <div className={cls.product_scanner}>
+      <div className={cls.product_scanner__form}>
         <Text size="xl" weight="semi">
           Сканирование кодов
         </Text>
 
-        <Tooltip
-          title={
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <Text>Для успешного сканирования выполните следующие этапы:</Text>
-              <Text>1) Отсканируйте лоток с товаром</Text>
-              <Text>2) Отсканируйте штрихкод с номенклатурой товара</Text>
-              <Text>
-                3) Отсканируйте штрихкод с количеством товара или введите вручную
-              </Text>
-              <Text>4) Для каждого следующего товара повторите пункты 1-3</Text>
-              <Text size="sm">
-                При открытии окна сканирования, поле с лотком выделяется автоматически
-              </Text>
-              <Text weight="semi" size="sm">
-                Важно: при следовании пунктов 1-4 все действия на сайте выполняются
-                автоматически. Остается только сканировать согласно пунктам
-              </Text>
-            </div>
-          }
-        >
+        <Tooltip title={<TooltipTitle />}>
           <HelpOutlineIcon />
         </Tooltip>
       </div>
@@ -70,7 +39,7 @@ export const WarehouseProductsScanner = (props: IWarehouseProductsScannerProps) 
           value={values.productId}
           onChange={(e) => handlers.setProductId(e.target.value)}
           onKeyDown={handlers.onKeyDown}
-          label="Отсканируйте лоток"
+          label="Отсканируйте QR подгруппы"
           ref={values.refProductId}
         />
         <Input
@@ -92,7 +61,9 @@ export const WarehouseProductsScanner = (props: IWarehouseProductsScannerProps) 
 
       {values.codesStatus.map((v, i) => (
         <Text weight="semi" key={i} color={v.status === 'success' ? 'black' : 'error'}>
-          {v.barcode} отсканирован и добавлен к товару {v.productName}
+          {v.status === 'success'
+            ? `${v.barcode} отсканирован и добавлен к товару ${v.productName} в количестве ${v.quantity}`
+            : `${v.barcode} не был отсканирован. Убедитесь, что даннные отсканированы верно`}
         </Text>
       ))}
 

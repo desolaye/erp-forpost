@@ -17,5 +17,5 @@ export const postProductScan = async (props: IPostReq) => {
     quantity: Number(quantity),
   })
 
-  return { response, barcode, productName: productId.Name }
+  return { response, barcode, productName: productId.Name, quantity }
 }
