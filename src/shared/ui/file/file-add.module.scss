@@ -1,0 +1,22 @@
+.file_add {
+  width: fit-content;
+
+  color: #830000;
+  padding: 4px 8px;
+
+  border: 2px solid #830000;
+  border-radius: 8px;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-base);
+
+  &:hover {
+    background-color: #830000;
+    color: white;
+  }
+
+  &__container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+}

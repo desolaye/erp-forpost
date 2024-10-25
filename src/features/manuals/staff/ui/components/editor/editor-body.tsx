@@ -1,8 +1,8 @@
 import { Loader } from '@/shared/ui/loader'
-import { File, FileAdd } from '@/shared/ui/file'
+import { FileAdd } from '@/shared/ui/file'
 
 import { StaffType, StaffValidatorType } from '@/entities/manuals'
-import { FileType } from '@/entities/files'
+import { File, FileType } from '@/entities/files'
 
 import { StaffForm } from '../staff-form'
 

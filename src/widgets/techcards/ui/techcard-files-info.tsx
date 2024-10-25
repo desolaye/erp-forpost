@@ -1,5 +1,5 @@
-import { File, FileAdd } from '@/shared/ui/file'
-import { FileType } from '@/entities/files'
+import { FileAdd } from '@/shared/ui/file'
+import { File, FileType } from '@/entities/files'
 import { Card } from '@/shared/ui/card'
 
 interface ITechcardFilesInfoProps {

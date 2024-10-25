@@ -2,39 +2,16 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import download from 'downloadjs'
+import { Card } from '@/shared/ui/card'
+import { Text } from '@/shared/ui/text'
 
-import { Card } from '../card'
-import { Text } from '../text'
-
-import { deleteFileById, getDownloadFile } from '@/entities/files'
+import { IFileProps } from '../model/file-props.schema'
 import cls from './file.module.scss'
-
-interface IFileProps {
-  title: string
-  link: string
-}
+import { useFile } from '../lib/use-file'
 
 export const File = (props: IFileProps) => {
-  const { title, link } = props
-
-  const queryClient = useQueryClient()
-
-  const { mutateAsync } = useMutation({
-    mutationFn: () => getDownloadFile(link),
-    onSuccess: (res) => download(res, title),
-  })
-
-  const { mutateAsync: deleteAsync } = useMutation({
-    mutationFn: () => deleteFileById(link),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['files_all'] })
-    },
-  })
-
-  const onDownload = () => mutateAsync()
-  const onDelete = () => deleteAsync()
+  const { title } = props
+  const { onDelete, onDownload } = useFile(props)
 
   return (
     <Card className={cls.file}>

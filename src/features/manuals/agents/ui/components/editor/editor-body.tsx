@@ -1,8 +1,8 @@
 import { Loader } from '@/shared/ui/loader'
-import { File, FileAdd } from '@/shared/ui/file'
+import { FileAdd } from '@/shared/ui/file'
 
 import { AgentType, AgentValidatorType } from '@/entities/manuals'
-import { FileType } from '@/entities/files'
+import { File, FileType } from '@/entities/files'
 
 import { AgentForm } from '../agent-form'
 

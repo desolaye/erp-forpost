@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
+import UploadFileIcon from '@mui/icons-material/UploadFile'
 
 import { Button } from '../button'
 import { Text } from '../text'
+
+import cls from './file-add.module.scss'
 
 interface IFileAddProps {
   onLoad?: (file: File) => void
@@ -10,10 +13,9 @@ interface IFileAddProps {
 export const FileAdd = (props: IFileAddProps) => {
   const { onLoad } = props
 
-  const [isAdd, setIsAdd] = useState(false)
   const [file, setFile] = useState<File>()
 
-  const selectFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const selectFile = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target
     const selectedFiles = files as FileList
     setFile(selectedFiles?.[0])
@@ -24,31 +26,34 @@ export const FileAdd = (props: IFileAddProps) => {
     onCancel()
   }
 
-  const onCancel = () => {
-    setIsAdd(false)
-    setFile(undefined)
-  }
+  const onCancel = () => setFile(undefined)
 
-  if (!isAdd) {
+  if (!file) {
     return (
-      <Button mode="secondary" full onClick={() => setIsAdd(true)}>
-        Добавить
-      </Button>
+      <label className={cls.file_add}>
+        <input type="file" onChange={selectFile} style={{ display: 'none' }} />
+        <div className={cls.file_add__container}>
+          <UploadFileIcon />
+          <Text color="inherit">Добавить файл</Text>
+        </div>
+      </label>
     )
   }
 
   return (
-    <>
-      <div style={{ display: 'flex', gap: 8 }}>
-        <Button full onClick={handleLoad} disabled={!file}>
-          Загрузить
-        </Button>
-        <Button mode="secondary" full onClick={onCancel}>
-          Отменить
-        </Button>
-      </div>
-      <Text>Выберите файл</Text>
-      <input type="file" onChange={selectFile} />
-    </>
+    <div className={cls.file_add__container}>
+      <Text>
+        Выбран файл:{' '}
+        <Text weight="semi" tag="span">
+          {file.name}
+        </Text>
+      </Text>
+      <Button onClick={handleLoad} disabled={!file}>
+        Загрузить
+      </Button>
+      <Button mode="secondary" onClick={onCancel}>
+        Отменить
+      </Button>
+    </div>
   )
 }
