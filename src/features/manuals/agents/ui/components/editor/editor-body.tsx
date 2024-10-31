@@ -34,7 +34,7 @@ export const EditorBody = (props: IEditorBodyProps) => {
   if (currentTab === 'data') {
     return (
       <AgentForm
-        id={agent?.id}
+        id={agent?.id || 'new'}
         name={agent?.name || ''}
         onClose={() => onClose?.()}
         onMutate={onMutate}

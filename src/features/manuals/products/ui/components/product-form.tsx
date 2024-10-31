@@ -31,10 +31,10 @@ export const ProductForm = (props: IProductFormProps) => {
         name="purchased"
         control={control}
         render={({ field }) => (
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <Checkbox {...field} />
+          <label style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <Checkbox {...field} checked={field.value} />
             <Text>Закупочный товар</Text>
-          </div>
+          </label>
         )}
       />
     </Form>

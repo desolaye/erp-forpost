@@ -21,12 +21,14 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((props, ref) => {
   return (
     <div className={wrapperClasses}>
       {label && <Text>{label}</Text>}
+
       <input
         className={classes}
         ref={ref}
         autoComplete={autoComplete || 'off'}
         {...rest}
       />
+
       {helper && (
         <Text size="sm" className={helperClasses}>
           {helper}

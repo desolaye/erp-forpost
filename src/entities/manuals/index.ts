@@ -12,6 +12,7 @@ export * from './services/warehouses'
 export * from './model/staff.manual'
 export * from './services/staff'
 export { staffToOptions } from './utils/staff-to-options'
+export { staffToModel } from './utils/staff-to-model'
 
 export * from './model/techcard.schema'
 export * from './services/techcards'

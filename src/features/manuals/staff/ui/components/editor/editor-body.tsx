@@ -1,7 +1,7 @@
 import { Loader } from '@/shared/ui/loader'
 import { FileAdd } from '@/shared/ui/file'
 
-import { StaffType, StaffValidatorType } from '@/entities/manuals'
+import { StaffValidatorType } from '@/entities/manuals'
 import { File, FileType } from '@/entities/files'
 
 import { StaffForm } from '../staff-form'
@@ -9,8 +9,7 @@ import { StaffForm } from '../staff-form'
 interface IEditorBodyProps {
   currentTab: string
   isLoading?: boolean
-  isFileLoading?: boolean
-  staff?: StaffType
+  staff?: StaffValidatorType
   files?: FileType[]
   roles?: { label: string; value: string }[]
   onClose?: () => void
@@ -19,24 +18,16 @@ interface IEditorBodyProps {
 }
 
 export const EditorBody = (props: IEditorBodyProps) => {
-  const {
-    onMutate,
-    staff,
-    isLoading,
-    currentTab,
-    isFileLoading,
-    files,
-    onClose,
-    onFileAdd,
-  } = props
+  const { onMutate, staff, isLoading, currentTab, files, roles, onClose, onFileAdd } =
+    props
 
-  if (isLoading || isFileLoading) return <Loader />
+  if (isLoading || !staff) return <Loader />
 
   if (currentTab === 'data') {
     return (
       <StaffForm
-        id={staff?.id || 'new'}
         staff={staff}
+        roles={roles}
         onClose={() => onClose?.()}
         onMutate={onMutate}
       />

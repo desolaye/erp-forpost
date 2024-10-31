@@ -6,7 +6,6 @@ import { EditorHeader } from './components/editor/editor-header'
 import { EditorBody } from './components/editor/editor-body'
 
 interface IStaffEditorProps {
-  id: string
   staff?: StaffType
   onClose?: () => void
 }
@@ -23,11 +22,10 @@ export const StaffEditor = (props: IStaffEditorProps) => {
           onFileAdd={handlers.mutateFile}
           onMutate={handlers.onMutate}
           files={values.files}
-          isFileLoading={values.isPendingFile}
-          isLoading={values.isLoading}
+          isLoading={values.isLoading || values.isPendingFile}
           onClose={onClose}
           roles={values.roles}
-          staff={staff}
+          staff={values.employee}
         />
       }
       header={

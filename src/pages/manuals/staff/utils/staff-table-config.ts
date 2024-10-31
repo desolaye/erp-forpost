@@ -30,12 +30,12 @@ export const staffTableConfig = () => {
     },
     post: {
       type: 'text',
-      title: 'Пост',
+      title: 'Должность',
       width: 200,
     },
     role: {
       type: 'text',
-      title: 'Роль',
+      title: 'Роль в ERP',
       width: 200,
     },
     id: {

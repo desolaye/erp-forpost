@@ -13,11 +13,12 @@ export const ZStaff = z.object({
   phoneNumber: z.string(),
 })
 
-export const ZStaffValidator = z.object({
+export const ZStaffValidator = ZStaff.extend({
+  id: z.string(),
   firstName: z.string().min(3, 'Имя должно быть не менее 3 символов'),
   lastName: z.string().min(3, 'Фамилия должна быть не менее 3 символов'),
   password: z.string().min(3, 'Пароль слишком короткий'),
-  post: z.string().min(3),
+  post: z.string().min(3, 'Доложность должна состоять из 3 символов минимум'),
   email: z.string().email('Неверный формат почты'),
   phoneNumber: z.string().regex(phoneRegex, 'Неверный формат телефона'),
 
@@ -27,10 +28,18 @@ export const ZStaffValidator = z.object({
   }),
 })
 
-export const ZStaffResponse = z.object({
-  employees: z.array(ZStaff),
-  totalCount: z.number(),
-})
+export const ZStaffResponse = z
+  .object({
+    employees: z.array(ZStaff),
+    totalCount: z.number(),
+  })
+  .transform((data) => ({
+    ...data,
+    employees: data.employees.map((v) => ({
+      ...v,
+      patronymic: v.patronymic || 'Нет данных',
+    })),
+  }))
 
 export type StaffType = z.infer<typeof ZStaff>
 export type StaffResponseType = z.infer<typeof ZStaffResponse>

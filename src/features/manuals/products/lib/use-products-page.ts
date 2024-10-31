@@ -9,7 +9,7 @@ export const useProductsPage = () => {
   const [productId, setProductId] = useState('')
   const [productBarcodeId, setProductBarcodeId] = useState('')
 
-  const { getTotalCount, page, params, setPage } = usePagination(11)
+  const { getTotalCount, page, params, setPage } = usePagination(9)
   const { filters, search, setSearch, debouncedSearch } = useSearch('name')
 
   const { data: products, isPending } = useQuery({

@@ -44,11 +44,7 @@ const ManualStaffPage = () => {
       </SmartTable>
 
       <ModalLayout isOpen={Boolean(values.id)} onClose={handlers.openModal}>
-        <StaffEditor
-          id={values.id}
-          onClose={handlers.openModal}
-          staff={values.staffModal}
-        />
+        <StaffEditor onClose={handlers.openModal} staff={values.staffModal} />
       </ModalLayout>
     </PageWrapper>
   )

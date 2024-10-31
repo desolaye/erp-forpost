@@ -7,8 +7,8 @@ import { ModalEditor } from '@/shared/ui/modal-editor'
 
 import { getProductBarcode } from '@/entities/manuals'
 
-import cls from './product-barcode-editor.module.scss'
 import { ProductBarcode } from './components/product-barcode'
+import cls from './product-barcode-editor.module.scss'
 
 interface IProductBarcodeEditorProps {
   productId?: string

@@ -19,11 +19,10 @@ export const useProductForm = (props: IUseProductForm) => {
     control,
   } = useForm<ProductValidatorType>({
     resolver: zodResolver(ZProductValidator),
-    defaultValues: { name: data?.name || '' },
+    defaultValues: { name: data?.name || '', purchased: Boolean(data?.purchased) },
   })
 
   const onSubmit: SubmitHandler<ProductValidatorType> = onMutate
-
   const onReset = onClose
 
   return {

@@ -1,12 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { StaffType, StaffValidatorType, ZStaffValidator } from '@/entities/manuals'
-import { createInitialStaff } from '../utils/create-initial-staff'
+import { StaffValidatorType, ZStaffValidator } from '@/entities/manuals'
 
 interface IUseStaffForm {
   onMutate: (data: StaffValidatorType) => void
-  staff?: StaffType
+  staff: StaffValidatorType
   onClose: () => void
 }
 
@@ -19,11 +18,11 @@ export const useStaffForm = (props: IUseStaffForm) => {
     formState: { errors },
     control,
   } = useForm<StaffValidatorType>({
-    resolver: zodResolver(
-      ZStaffValidator.transform((data) => ({ ...data, role: data.role.label })),
-    ),
-    defaultValues: createInitialStaff(staff),
+    resolver: zodResolver(ZStaffValidator.transform((data) => ({ ...data }))),
+    defaultValues: staff,
   })
+
+  console.log(errors)
 
   const onSubmit: SubmitHandler<StaffValidatorType> = onMutate
   const onReset = onClose

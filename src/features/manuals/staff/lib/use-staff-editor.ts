@@ -1,33 +1,43 @@
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { getRoles, postCreateStaff, StaffValidatorType } from '@/entities/manuals'
-import { getRolesOptions } from '../utils/get-roles-options'
 import { useFileLoader } from '@/shared/lib/use-file-loader'
+import {
+  getRoles,
+  postCreateStaff,
+  staffToModel,
+  StaffType,
+  StaffValidatorType,
+} from '@/entities/manuals'
+
+import { getRolesOptions } from '../utils/get-roles-options'
 
 interface IStaffEditorProps {
-  id: string
+  staff?: StaffType
   onClose?: () => void
 }
 
 export const useStaffEditor = (props: IStaffEditorProps) => {
-  const { id, onClose } = props
+  const { staff, onClose } = props
   const [tab, setTab] = useState('data')
 
   const queryClient = useQueryClient()
 
-  const { files, isPendingFile, mutateFile } = useFileLoader(id, 'files_all')
+  const { files, isPendingFile, mutateFile } = useFileLoader(
+    staff?.id || 'new',
+    'files_all',
+  )
 
   const { mutateAsync, isPending, error } = useMutation({
     mutationFn: (data: StaffValidatorType) => postCreateStaff(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['staff_by_id', id] })
+      queryClient.invalidateQueries({ queryKey: ['staff_by_id', staff?.id || ''] })
       queryClient.invalidateQueries({ queryKey: ['staff_all'] })
       if (onClose) onClose()
     },
   })
 
-  const { data: roles, isLoading: isLoadingStaff } = useQuery({
+  const { data: roles, isLoading: isLoadingRoles } = useQuery({
     queryFn: getRoles,
     queryKey: ['roles_all'],
   })
@@ -36,11 +46,12 @@ export const useStaffEditor = (props: IStaffEditorProps) => {
     values: {
       error,
       isPending,
-      isLoading: isLoadingStaff,
+      isLoading: isLoadingRoles,
       roles: getRolesOptions(roles?.data),
       files,
       isPendingFile,
       tab,
+      employee: staffToModel(staff, roles?.data),
     },
     handlers: {
       onMutate: mutateAsync,

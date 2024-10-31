@@ -19,7 +19,7 @@ export const AgentEditor = (props: IAgentEditorProps) => {
         <EditorBody
           currentTab={values.tab}
           onFileAdd={handlers.mutateFile}
-          onMutate={() => onClose?.()}
+          onMutate={handlers.onMutate}
           agent={values.agent}
           files={values.files}
           isFileLoading={values.isPendingFile}

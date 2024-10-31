@@ -5,76 +5,57 @@ import { Input } from '@/shared/ui/input'
 import { Form } from '@/shared/ui/form'
 import { Text } from '@/shared/ui/text'
 
-import { StaffType, StaffValidatorType } from '@/entities/manuals'
+import { StaffValidatorType } from '@/entities/manuals'
 
 import { useStaffForm } from '../../lib/use-staff-form'
 
 interface IStaffFormProps {
-  id: string
-  staff?: StaffType
+  staff: StaffValidatorType
   roles?: { label: string; value: string }[]
   onMutate: (data: StaffValidatorType) => void
   onClose: () => void
 }
 
+type FormItemType = {
+  label: string
+  key: keyof StaffValidatorType
+}
+
 export const StaffForm = (props: IStaffFormProps) => {
-  const { id, roles } = props
+  const { staff, roles } = props
 
   const { register, errors, control, handleSubmit, onReset, onSubmit } =
     useStaffForm(props)
+
+  const formItems: FormItemType[] = [
+    { label: 'Фамилия', key: 'lastName' },
+    { label: 'Имя', key: 'firstName' },
+    { label: 'Отчество', key: 'patronymic' },
+    { label: 'Почта', key: 'email' },
+    { label: 'Номер телефона', key: 'phoneNumber' },
+    { label: 'Должность', key: 'post' },
+    { label: 'Пароль', key: 'password' },
+  ]
 
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
       onReset={onReset}
       withButtons
-      saveDisabled={id !== 'new'}
+      saveDisabled={Boolean(staff?.id)}
     >
-      <Input
-        placeholder="Фамилия"
-        label="Фамилия"
-        isError={Boolean(errors.lastName)}
-        helper={errors.lastName?.message}
-        {...register('lastName')}
-      />
-      <Input
-        placeholder="Имя"
-        label="Имя"
-        isError={Boolean(errors.firstName)}
-        helper={errors.firstName?.message}
-        {...register('firstName')}
-      />
-      <Input
-        placeholder="Почта"
-        label="Почта"
-        isError={Boolean(errors.email)}
-        helper={errors.email?.message}
-        {...register('email')}
-      />
-      <Input
-        placeholder="Номер телефона"
-        label="Номер телефона"
-        isError={Boolean(errors.phoneNumber)}
-        helper={errors.phoneNumber?.message}
-        {...register('phoneNumber')}
-      />
-      <Input
-        placeholder="Пост"
-        label="Пост"
-        isError={Boolean(errors.post)}
-        helper={errors.post?.message}
-        {...register('post')}
-      />
+      {formItems.map((v) => (
+        <Input
+          key={v.key}
+          placeholder={v.label}
+          label={v.label}
+          isError={Boolean(errors[v.key])}
+          helper={errors[v.key]?.message}
+          {...register(v.key)}
+        />
+      ))}
 
-      <Input
-        placeholder="Пароль сотрудника"
-        label="Пароль сотрудника"
-        isError={Boolean(errors.password)}
-        helper={errors.password?.message}
-        {...register('password')}
-      />
-
-      <Text>Выберите роль сотрудника</Text>
+      <Text>Выберите роль сотрудника в ERP</Text>
       <Controller
         name="role"
         control={control}
@@ -91,7 +72,6 @@ export const StaffForm = (props: IStaffFormProps) => {
           />
         )}
       />
-
       {errors.role && (
         <Text size="sm" color="error">
           Необходимо выбрать роль
