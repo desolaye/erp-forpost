@@ -16,8 +16,6 @@ export const WarehouseEditor = (props: IWarehouseEditorProps) => {
   const { id, warehouse, onClose, onSearch } = props
   const { values, handlers } = useWarehouseEditor(props)
 
-  console.log(id)
-
   return (
     <ModalEditor
       body={
@@ -26,7 +24,7 @@ export const WarehouseEditor = (props: IWarehouseEditorProps) => {
           id={id}
           warehouse={warehouse}
           onFileAdd={handlers.mutateFile}
-          onMutate={() => {}}
+          onMutate={handlers.onMutate}
           onSearch={onSearch}
           files={values.files}
           isFileLoading={values.isPendingFile}
