@@ -32,7 +32,9 @@ export const CategoriesList = () => {
         </Breadcrumbs>
         {values.route && (
           <section>
-            <Text weight="semi">Описание</Text>
+            <Text weight="semi" size="lg">
+              Описание
+            </Text>
             {splitByNewline(values.route.description).map((v) => (
               <Text key={v}>{v}</Text>
             ))}

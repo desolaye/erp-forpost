@@ -9,7 +9,7 @@ export const useCategoriesList = () => {
   const [isCreating, setIsCreating] = useState(false)
 
   const { data, isLoading } = useQuery({
-    queryFn: () => getCategoriesAll({ categoryId: route ? route.id : undefined }),
+    queryFn: () => getCategoriesAll({ parentCategoryId: route ? route.id : undefined }),
     queryKey: ['categories_list', route?.id || guidEmpty],
   })
 
