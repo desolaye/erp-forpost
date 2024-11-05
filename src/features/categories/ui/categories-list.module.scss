@@ -1,0 +1,41 @@
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: space-between;
+
+  height: 100%;
+
+  &__list {
+    height: 100%;
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__button {
+    color: var(--color-primary);
+    transition: var(--transition-base);
+
+    &:hover {
+      color: var(--color-primary-dark);
+      text-decoration: underline;
+    }
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  &__header {
+    padding: 0 0 8px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}

@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { ProductValidatorType, ZProductValidator } from '@/entities/manuals'
+import { ProductType, ProductValidatorType, ZProductValidator } from '@/entities/manuals'
 
 interface IUseProductForm {
-  data?: ProductValidatorType
+  data?: ProductType
   onMutate: (data: ProductValidatorType) => void
   onClose: () => void
 }

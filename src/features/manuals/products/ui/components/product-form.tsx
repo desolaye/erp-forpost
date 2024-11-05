@@ -5,11 +5,11 @@ import { Input } from '@/shared/ui/input'
 import { Form } from '@/shared/ui/form'
 import { Text } from '@/shared/ui/text'
 
-import { ProductValidatorType } from '@/entities/manuals'
+import { ProductType, ProductValidatorType } from '@/entities/manuals'
 import { useProductForm } from '../../lib/use-product-form'
 
 interface IProductFormProps {
-  data?: ProductValidatorType
+  data?: ProductType
   onMutate: (data: ProductValidatorType) => void
   onClose: () => void
 }
