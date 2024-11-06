@@ -7,18 +7,19 @@ import { useAgentForm } from '../../lib/use-agent-form'
 interface IAgentFormProps {
   id?: string
   name: string
+  form?: {
+    isPending: boolean
+    isError: boolean
+  }
+
   onMutate: (data: AgentValidatorType) => void
   onClose: () => void
 }
 
 export const AgentForm = (props: IAgentFormProps) => {
-  const { id, name, onMutate, onClose } = props
+  const { id, form } = props
 
-  const { register, errors, handleSubmit, onReset, onSubmit } = useAgentForm({
-    name,
-    onMutate,
-    onClose,
-  })
+  const { register, errors, handleSubmit, onReset, onSubmit } = useAgentForm(props)
 
   return (
     <Form
@@ -26,6 +27,8 @@ export const AgentForm = (props: IAgentFormProps) => {
       onReset={onReset}
       withButtons
       saveDisabled={id !== 'new'}
+      pending={form?.isPending}
+      error={form?.isError}
     >
       <Input
         placeholder="Имя агента"

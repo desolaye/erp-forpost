@@ -10,17 +10,26 @@ import { useItemForm } from '../../../lib/items/use-item-form'
 
 interface IItemsEditorBodyProps {
   products?: ProductType[]
+  form?: {
+    isPending: boolean
+    isError: boolean
+  }
 
   onMutate: (step: ItemValidatorType) => void
   onSearch: (search: string) => void
 }
 
 export const ItemsEditorBody = (props: IItemsEditorBodyProps) => {
-  const { products, onMutate, onSearch } = props
+  const { products, onMutate, onSearch, form } = props
   const { control, errors, handleSubmit, onSubmit, register } = useItemForm({ onMutate })
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} withButtons>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      withButtons
+      error={form?.isError}
+      pending={form?.isPending}
+    >
       <Text>Выберите компонент</Text>
       <Controller
         name="productId"

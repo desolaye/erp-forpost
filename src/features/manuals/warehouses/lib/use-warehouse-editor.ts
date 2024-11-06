@@ -24,7 +24,7 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
 
   const { filters, search, setSearch, debouncedSearch } = useSearch('lastName')
 
-  const { mutateAsync, isPending, error } = useMutation({
+  const { mutateAsync, isPending, isError } = useMutation({
     mutationFn: (data: WarehouseValidatorType) => postCreateWarehouse(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['warehouse_by_id', id] })
@@ -41,7 +41,7 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
   return {
     values: {
       tab,
-      error,
+      isError,
       isPending,
       isLoading: isLoadingStaff,
       staff: staff?.data.employees,

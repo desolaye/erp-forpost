@@ -19,6 +19,7 @@ export const ProductEditor = (props: IProductEditorProps) => {
       body={
         <EditorBody
           onFileAdd={handlers.mutateFile}
+          form={{ isError: values.isError, isPending: values.isPending }}
           currentTab={values.tab}
           onMutate={handlers.onMutate}
           isLoading={values.isLoading}

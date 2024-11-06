@@ -24,7 +24,11 @@ export const useItemsEditor = (props: IUseItemsEditor) => {
     queryFn: () => getProductsManual({ params: { limit: 8, skip: 0 }, filters }),
   })
 
-  const { mutateAsync, isPending: isPendingCreation } = useMutation({
+  const {
+    mutateAsync,
+    isPending: isPendingCreation,
+    isError,
+  } = useMutation({
     mutationFn: (data: ItemValidatorType) =>
       postAddItemToCard({ ...data, techCardId: id }),
     onSuccess: () => {
@@ -37,6 +41,7 @@ export const useItemsEditor = (props: IUseItemsEditor) => {
     values: {
       items: items?.data.products,
       isPendingCreation,
+      isError,
       isPendingItems,
       search,
     },

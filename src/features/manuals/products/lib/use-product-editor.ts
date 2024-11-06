@@ -61,8 +61,7 @@ export const useProductEditor = (props: IProductEditorProps) => {
   return {
     values: {
       product: product?.data,
-      errorPost,
-      errorPut,
+      isError: Boolean(errorPost) || Boolean(errorPost),
       isPending: isPendingPut || isPendingPost,
       isPendingFile,
       isLoading,

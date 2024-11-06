@@ -23,7 +23,11 @@ export const useTechcardCreator = (props: IUseTechcardCreator) => {
     queryFn: () => getProductsManual({ params: { limit: 1000, skip: 0 } }),
   })
 
-  const { mutateAsync, isPending: isPendingCreation } = useMutation({
+  const {
+    mutateAsync,
+    isPending: isPendingCreation,
+    isError,
+  } = useMutation({
     mutationFn: (data: TechcardValidatorType) =>
       postCreateTechcard({ ...data, createdById: sessionContext.session?.id || '' }),
     onSuccess: () => {
@@ -34,6 +38,7 @@ export const useTechcardCreator = (props: IUseTechcardCreator) => {
 
   return {
     values: {
+      isError,
       items: items?.data.products,
       isPendingItems,
       isPendingCreation,

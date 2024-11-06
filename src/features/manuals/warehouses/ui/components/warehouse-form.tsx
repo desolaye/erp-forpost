@@ -12,13 +12,17 @@ interface IWarehouseFormProps {
   id: string
   warehouse?: WarehouseType
   staff?: StaffType[]
+  form?: {
+    isPending: boolean
+    isError: boolean
+  }
   onMutate: (data: WarehouseValidatorType) => void
   onClose: () => void
   onSearch: (search: string) => void
 }
 
 export const WarehouseForm = (props: IWarehouseFormProps) => {
-  const { id, onSearch } = props
+  const { id, form, onSearch } = props
 
   const { register, errors, control, users, handleSubmit, onReset, onSubmit } =
     useWarehouseForm(props)
@@ -29,6 +33,8 @@ export const WarehouseForm = (props: IWarehouseFormProps) => {
       onReset={onReset}
       withButtons
       saveDisabled={id !== 'new'}
+      error={form?.isError}
+      pending={form?.isPending}
     >
       <Input
         placeholder="Название склада"

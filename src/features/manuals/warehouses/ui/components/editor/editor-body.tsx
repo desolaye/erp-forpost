@@ -14,6 +14,10 @@ interface IEditorBodyProps {
   warehouse?: WarehouseType
   staff?: StaffType[]
   files?: FileType[]
+  form?: {
+    isPending: boolean
+    isError: boolean
+  }
   onClose?: () => void
   onMutate: (data: WarehouseValidatorType) => void
   onFileAdd: (file: File) => void
@@ -29,6 +33,7 @@ export const EditorBody = (props: IEditorBodyProps) => {
     isFileLoading,
     files,
     staff,
+    form,
     onMutate,
     onClose,
     onFileAdd,
@@ -41,6 +46,7 @@ export const EditorBody = (props: IEditorBodyProps) => {
     return (
       <WarehouseForm
         id={id}
+        form={form}
         warehouse={warehouse}
         onSearch={onSearch}
         onClose={() => onClose?.()}

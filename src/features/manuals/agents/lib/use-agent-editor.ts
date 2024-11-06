@@ -36,7 +36,7 @@ export const useAgentEditor = (props: IAgentEditorProps) => {
       agent: agent?.data,
       tab,
       files,
-      error,
+      isError: Boolean(error),
       isPending,
       isPendingFile,
       isLoading,

@@ -10,6 +10,10 @@ interface IEditorBodyProps {
   currentTab: string
   isLoading?: boolean
   isFileLoading?: boolean
+  form?: {
+    isPending: boolean
+    isError: boolean
+  }
   product?: ProductType
   files?: FileType[]
   onClose?: () => void
@@ -27,12 +31,20 @@ export const EditorBody = (props: IEditorBodyProps) => {
     files,
     onClose,
     onFileAdd,
+    form,
   } = props
 
   if (isLoading || isFileLoading) return <Loader />
 
   if (currentTab === 'data') {
-    return <ProductForm data={product} onClose={() => onClose?.()} onMutate={onMutate} />
+    return (
+      <ProductForm
+        data={product}
+        onClose={() => onClose?.()}
+        onMutate={onMutate}
+        form={form}
+      />
+    )
   }
 
   if (currentTab === 'files') {

@@ -30,6 +30,7 @@ export const CategoriesList = () => {
             </button>
           ))}
         </Breadcrumbs>
+
         {values.route && (
           <section>
             <Text weight="semi" size="lg">

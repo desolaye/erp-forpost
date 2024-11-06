@@ -9,6 +9,21 @@ export const ZProduct = z.object({
   categoryId: z.string().uuid(),
 })
 
+export const ZProductValidator = z.object({
+  name: z.string().min(3, 'Название продукта слишком короткое'),
+  purchased: z.boolean(),
+  // categoryId: z.object({
+  //   label: z.string(),
+  //   value: z.string().uuid(),
+  // }),
+})
+
+export const ZProductToBack = z.object({
+  name: z.string(),
+  purchased: z.boolean(),
+  // categoryId: z.string(),
+})
+
 const ZProductByWarehouse = z.object({
   productId: z.string().uuid(),
   storageId: z.string().uuid(),
@@ -31,21 +46,6 @@ export const ZProductByWarehouseToBack = ZProductByWarehouseValidator.transform(
     productId: data.productId.value,
   }),
 )
-
-export const ZProductValidator = z.object({
-  name: z.string().min(3, 'Название продукта слишком короткое'),
-  purchased: z.boolean(),
-  categoryId: z.object({
-    label: z.string(),
-    value: z.string().uuid(),
-  }),
-})
-
-export const ZProductToBack = z.object({
-  name: z.string(),
-  purchased: z.boolean(),
-  categoryId: z.string(),
-})
 
 export const ZProductByWarehouseResponse = z.object({
   products: z.array(ZProductByWarehouse),

@@ -16,6 +16,7 @@ export const ItemsEditor = (props: IItemsEditorProps) => {
     <ModalEditor
       body={
         <ItemsEditorBody
+          form={{ isError: values.isError, isPending: values.isPendingCreation }}
           onMutate={handlers.mutateAsync}
           products={values.items}
           onSearch={handlers.setSearch}

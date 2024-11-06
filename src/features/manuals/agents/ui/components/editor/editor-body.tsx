@@ -9,6 +9,10 @@ import { AgentForm } from '../agent-form'
 interface IEditorBodyProps {
   currentTab: string
   isLoading?: boolean
+  form?: {
+    isPending: boolean
+    isError: boolean
+  }
   isFileLoading?: boolean
   agent?: AgentType
   files?: FileType[]
@@ -21,6 +25,7 @@ export const EditorBody = (props: IEditorBodyProps) => {
   const {
     onMutate,
     agent,
+    form,
     isLoading,
     currentTab,
     isFileLoading,
@@ -36,6 +41,7 @@ export const EditorBody = (props: IEditorBodyProps) => {
       <AgentForm
         id={agent?.id || 'new'}
         name={agent?.name || ''}
+        form={form}
         onClose={() => onClose?.()}
         onMutate={onMutate}
       />

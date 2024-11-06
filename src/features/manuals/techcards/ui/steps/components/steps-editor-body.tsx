@@ -17,11 +17,15 @@ import { modifyDuration } from '../../../utils/modify-duration'
 
 interface IStepsEditorBodyProps {
   operations?: OperationType[]
+  form?: {
+    isPending: boolean
+    isError: boolean
+  }
   onMutate: (step: StepValidatorType) => void
 }
 
 export const StepsEditorBody = (props: IStepsEditorBodyProps) => {
-  const { operations, onMutate } = props
+  const { operations, form, onMutate } = props
 
   const {
     register,
@@ -41,7 +45,12 @@ export const StepsEditorBody = (props: IStepsEditorBodyProps) => {
   const onSubmit: SubmitHandler<StepValidatorType> = onMutate
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} withButtons>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      withButtons
+      pending={form?.isPending}
+      error={form?.isError}
+    >
       <Text>Выберите этап</Text>
       <Controller
         name="operationId"

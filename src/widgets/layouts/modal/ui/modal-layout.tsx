@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import cls from './modal-layout.module.scss'
@@ -17,11 +17,25 @@ export const ModalLayout = (props: PropsWithChildren<IModalLayoutProps>) => {
   const classes = cn(cls.modal_layout, { [cls.center]: center })
   const classesBody = cn(cls.modal_layout__body, { [cls.body_bg]: bodyBg })
 
+  const [isStartedClick, setIsStartedClick] = useState(false)
+
+  const handleClose = () => {
+    if (isStartedClick && onClose) onClose()
+  }
+
   if (!isOpen) return null
 
   return createPortal(
-    <article className={classes} onClick={() => onClose?.()}>
-      <section onClick={(e) => e.stopPropagation()} className={classesBody}>
+    <article
+      className={classes}
+      onMouseDown={() => setIsStartedClick(true)}
+      onMouseUp={handleClose}
+    >
+      <section
+        onMouseDown={(e) => e.stopPropagation()}
+        onMouseUp={(e) => e.stopPropagation()}
+        className={classesBody}
+      >
         {children}
       </section>
     </article>,

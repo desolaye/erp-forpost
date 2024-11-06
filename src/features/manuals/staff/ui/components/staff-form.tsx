@@ -11,6 +11,10 @@ import { useStaffForm } from '../../lib/use-staff-form'
 
 interface IStaffFormProps {
   staff: StaffValidatorType
+  form?: {
+    isPending: boolean
+    isError: boolean
+  }
   roles?: { label: string; value: string }[]
   onMutate: (data: StaffValidatorType) => void
   onClose: () => void
@@ -22,7 +26,7 @@ type FormItemType = {
 }
 
 export const StaffForm = (props: IStaffFormProps) => {
-  const { staff, roles } = props
+  const { staff, roles, form } = props
 
   const { register, errors, control, handleSubmit, onReset, onSubmit } =
     useStaffForm(props)
@@ -43,6 +47,8 @@ export const StaffForm = (props: IStaffFormProps) => {
       onReset={onReset}
       withButtons
       saveDisabled={Boolean(staff?.id)}
+      pending={form?.isPending}
+      error={form?.isError}
     >
       {formItems.map((v) => (
         <Input

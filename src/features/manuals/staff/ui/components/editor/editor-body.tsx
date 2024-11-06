@@ -11,6 +11,10 @@ interface IEditorBodyProps {
   isLoading?: boolean
   staff?: StaffValidatorType
   files?: FileType[]
+  form?: {
+    isPending: boolean
+    isError: boolean
+  }
   roles?: { label: string; value: string }[]
   onClose?: () => void
   onMutate: (data: StaffValidatorType) => void
@@ -18,8 +22,17 @@ interface IEditorBodyProps {
 }
 
 export const EditorBody = (props: IEditorBodyProps) => {
-  const { onMutate, staff, isLoading, currentTab, files, roles, onClose, onFileAdd } =
-    props
+  const {
+    onMutate,
+    staff,
+    form,
+    isLoading,
+    currentTab,
+    files,
+    roles,
+    onClose,
+    onFileAdd,
+  } = props
 
   if (isLoading || !staff) return <Loader />
 
@@ -28,6 +41,7 @@ export const EditorBody = (props: IEditorBodyProps) => {
       <StaffForm
         staff={staff}
         roles={roles}
+        form={form}
         onClose={() => onClose?.()}
         onMutate={onMutate}
       />

@@ -20,6 +20,7 @@ export const WarehouseEditor = (props: IWarehouseEditorProps) => {
     <ModalEditor
       body={
         <EditorBody
+          form={{ isError: values.isError, isPending: values.isPending }}
           currentTab={values.tab}
           id={id}
           warehouse={warehouse}
