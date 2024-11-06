@@ -44,7 +44,7 @@ export const useStaffEditor = (props: IStaffEditorProps) => {
 
   return {
     values: {
-      error,
+      isError: Boolean(error),
       isPending,
       isLoading: isLoadingRoles,
       roles: getRolesOptions(roles?.data),

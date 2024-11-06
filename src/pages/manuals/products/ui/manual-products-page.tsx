@@ -4,12 +4,13 @@ import { Input } from '@/shared/ui/input'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { ProductEditor, useProductsPage } from '@/features/manuals/products'
+import { ProductBarcodeEditor } from '@/features/manuals/products/ui/product-barcode-editor'
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { productsTableConfig } from '../utils/products-table-config'
 import { ProductsPageTooltip } from './components/products-page-tooltip'
-import { ProductBarcodeEditor } from '@/features/manuals/products/ui/product-barcode-editor'
+import { CategoriesList } from '@/features/categories'
 
 const ManualProductsPage = () => {
   const { values, handlers } = useProductsPage()
@@ -25,6 +26,9 @@ const ManualProductsPage = () => {
           onChange={(e) => handlers.setSearch(e.target.value)}
         />
         <Button onClick={() => handlers.openModal('new')}>Добавить</Button>
+        <Button mode="neutral" onClick={() => handlers.setCategoriesOpen(true)}>
+          Категории
+        </Button>
       </Card>
 
       <SmartTable
@@ -63,6 +67,14 @@ const ManualProductsPage = () => {
           productId={values.productBarcodeId}
           onClose={() => handlers.setProductBarcodeId('')}
         />
+      </ModalLayout>
+
+      <ModalLayout
+        center
+        isOpen={values.categoriesOpen}
+        onClose={() => handlers.setCategoriesOpen(false)}
+      >
+        <CategoriesList />
       </ModalLayout>
     </PageWrapper>
   )

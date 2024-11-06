@@ -15,7 +15,11 @@ export const StepsEditor = (props: IStepsEditorProps) => {
   return (
     <ModalEditor
       body={
-        <StepsEditorBody onMutate={handlers.mutateAsync} operations={values.operations} />
+        <StepsEditorBody
+          form={{ isError: values.isError, isPending: values.isPendingCreation }}
+          onMutate={handlers.mutateAsync}
+          operations={values.operations}
+        />
       }
       header={
         <Text weight="semi" size="xl">

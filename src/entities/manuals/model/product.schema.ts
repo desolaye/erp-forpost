@@ -6,6 +6,22 @@ export const ZProduct = z.object({
   purchased: z.boolean(),
   version: z.string(),
   cost: z.number(),
+  categoryId: z.string().uuid(),
+})
+
+export const ZProductValidator = z.object({
+  name: z.string().min(3, 'Название продукта слишком короткое'),
+  purchased: z.boolean(),
+  // categoryId: z.object({
+  //   label: z.string(),
+  //   value: z.string().uuid(),
+  // }),
+})
+
+export const ZProductToBack = z.object({
+  name: z.string(),
+  purchased: z.boolean(),
+  // categoryId: z.string(),
 })
 
 const ZProductByWarehouse = z.object({
@@ -31,11 +47,6 @@ export const ZProductByWarehouseToBack = ZProductByWarehouseValidator.transform(
   }),
 )
 
-export const ZProductValidator = z.object({
-  name: z.string().min(3, 'Название продукта слишком короткое'),
-  purchased: z.boolean(),
-})
-
 export const ZProductByWarehouseResponse = z.object({
   products: z.array(ZProductByWarehouse),
   totalCount: z.number(),
@@ -47,9 +58,12 @@ export const ZProductResponse = z.object({
 })
 
 export type ProductType = z.infer<typeof ZProduct>
+export type ProductValidatorType = z.infer<typeof ZProductValidator>
+export type ProductToBackType = z.infer<typeof ZProductToBack>
+
 export type ProductByWarehouseType = z.infer<typeof ZProductByWarehouse>
 export type ProductByWarehouseResponseType = z.infer<typeof ZProductByWarehouseResponse>
-export type ProductValidatorType = z.infer<typeof ZProductValidator>
 export type ProductByWarehouseValidatorType = z.infer<typeof ZProductByWarehouseValidator>
 export type ProductByWarehouseToBackType = z.infer<typeof ZProductByWarehouseToBack>
+
 export type ProductResponseType = z.infer<typeof ZProductResponse>

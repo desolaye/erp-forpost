@@ -36,7 +36,13 @@ export const TechcardCreator = (props: ITechcardCreatorProps) => {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} withButtons onReset={onModal}>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      withButtons
+      onReset={onModal}
+      pending={values.isPendingCreation}
+      error={values.isError}
+    >
       <Text>Выберите создаваемый продукт</Text>
 
       <Controller

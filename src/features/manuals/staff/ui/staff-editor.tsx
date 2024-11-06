@@ -7,6 +7,7 @@ import { EditorBody } from './components/editor/editor-body'
 
 interface IStaffEditorProps {
   staff?: StaffType
+
   onClose?: () => void
 }
 
@@ -19,6 +20,7 @@ export const StaffEditor = (props: IStaffEditorProps) => {
       body={
         <EditorBody
           currentTab={values.tab}
+          form={{ isError: values.isError, isPending: values.isPending }}
           onFileAdd={handlers.mutateFile}
           onMutate={handlers.onMutate}
           files={values.files}

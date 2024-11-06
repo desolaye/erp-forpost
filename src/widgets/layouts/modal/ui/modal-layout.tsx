@@ -20,8 +20,8 @@ export const ModalLayout = (props: PropsWithChildren<IModalLayoutProps>) => {
   if (!isOpen) return null
 
   return createPortal(
-    <article className={classes} onClick={() => onClose?.()}>
-      <section onClick={(e) => e.stopPropagation()} className={classesBody}>
+    <article className={classes} onMouseDown={onClose}>
+      <section onMouseDown={(e) => e.stopPropagation()} className={classesBody}>
         {children}
       </section>
     </article>,

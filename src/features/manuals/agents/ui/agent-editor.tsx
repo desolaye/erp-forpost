@@ -18,6 +18,7 @@ export const AgentEditor = (props: IAgentEditorProps) => {
       body={
         <EditorBody
           currentTab={values.tab}
+          form={{ isError: values.isError, isPending: values.isPending }}
           onFileAdd={handlers.mutateFile}
           onMutate={handlers.onMutate}
           agent={values.agent}

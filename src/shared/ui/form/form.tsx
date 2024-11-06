@@ -1,22 +1,36 @@
 import { FormHTMLAttributes } from 'react'
 import cn from 'classnames'
 
-import cls from './form.module.scss'
+import { Loader } from '../loader'
 import { Button } from '../button'
+
+import cls from './form.module.scss'
+import { Text } from '../text'
 
 interface IFormProps extends FormHTMLAttributes<HTMLFormElement> {
   withButtons?: boolean
+  pending?: boolean
+  error?: boolean
   saveDisabled?: boolean
 }
 
 export const Form = (props: IFormProps) => {
-  const { children, className, withButtons, saveDisabled, ...rest } = props
+  const { children, className, withButtons, saveDisabled, pending, error, ...rest } =
+    props
 
   const classes = cn(cls.form, className)
+
+  if (pending) return <Loader />
 
   return (
     <form className={classes} {...rest}>
       {children}
+
+      {error && (
+        <Text weight="semi" color="error">
+          Ошибка отправки формы
+        </Text>
+      )}
 
       {withButtons && (
         <footer className={cls.form__buttons}>
