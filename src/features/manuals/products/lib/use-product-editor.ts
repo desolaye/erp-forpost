@@ -37,7 +37,7 @@ export const useProductEditor = (props: IProductEditorProps) => {
   const {
     mutateAsync: mutateAsyncPost,
     isPending: isPendingPost,
-    error: errorPost,
+    isError: errorPost,
   } = useMutation({
     mutationFn: (data: ProductValidatorType) => postCreateProduct(data),
     onSuccess: handleSuccess,
@@ -46,7 +46,7 @@ export const useProductEditor = (props: IProductEditorProps) => {
   const {
     mutateAsync: mutateAsyncPut,
     isPending: isPendingPut,
-    error: errorPut,
+    isError: errorPut,
   } = useMutation({
     mutationFn: (data: ProductValidatorType) =>
       putEditProduct({ ...product!.data, ...data }),
@@ -61,7 +61,7 @@ export const useProductEditor = (props: IProductEditorProps) => {
   return {
     values: {
       product: product?.data,
-      isError: Boolean(errorPost) || Boolean(errorPost),
+      isError: errorPost || errorPut,
       isPending: isPendingPut || isPendingPost,
       isPendingFile,
       isLoading,

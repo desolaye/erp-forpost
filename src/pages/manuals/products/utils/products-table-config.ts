@@ -28,6 +28,11 @@ export const productsTableConfig = () => {
       title: 'id',
       width: 0,
     },
+    categoryId: {
+      type: 'text',
+      title: 'cat_id',
+      width: 0,
+    },
   }
 
   return Object.entries(config).filter(
