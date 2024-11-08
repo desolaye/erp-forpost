@@ -49,7 +49,7 @@ export const useProductEditor = (props: IProductEditorProps) => {
     isError: errorPut,
   } = useMutation({
     mutationFn: (data: ProductValidatorType) =>
-      putEditProduct({ ...product!.data, ...data }),
+      putEditProduct({ ...product!.data, ...data, categoryId: data.categoryId.value }),
     onSuccess: handleSuccess,
   })
 

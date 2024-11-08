@@ -1,12 +1,20 @@
-import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { ProductType, ProductValidatorType, ZProductValidator } from '@/entities/manuals'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useQuery } from '@tanstack/react-query'
+
+import { ProductType, ProductValidatorType, ZProductToBack } from '@/entities/manuals'
+import { getCategoriesAll, guidEmpty } from '@/entities/categories'
 
 interface IUseProductForm {
   data?: ProductType
   onMutate: (data: ProductValidatorType) => void
   onClose: () => void
+}
+
+const baseCategory = {
+  label: 'Без категории',
+  value: guidEmpty,
 }
 
 export const useProductForm = (props: IUseProductForm) => {
@@ -17,20 +25,50 @@ export const useProductForm = (props: IUseProductForm) => {
     handleSubmit,
     formState: { errors },
     control,
+    watch,
+    setValue,
   } = useForm<ProductValidatorType>({
-    resolver: zodResolver(ZProductValidator),
-    defaultValues: { name: data?.name || '', purchased: Boolean(data?.purchased) },
+    resolver: zodResolver(ZProductToBack),
+    defaultValues: {
+      name: data?.name || '',
+      purchased: Boolean(data?.purchased),
+      categoryId: data ? { label: 'Категория', value: data.categoryId } : baseCategory,
+    },
+  })
+
+  const setCategory = (cat?: { label: string; value: string }) => {
+    setValue('categoryId', cat || baseCategory)
+  }
+
+  const categoryValue = watch('categoryId')
+
+  const { data: categories, isLoading: isLoadingCategories } = useQuery({
+    queryFn: () =>
+      getCategoriesAll({
+        parentCategoryId:
+          categoryValue.value === guidEmpty ? undefined : categoryValue.value,
+      }),
+    queryKey: ['categories_list', categoryValue.value],
   })
 
   const onSubmit: SubmitHandler<ProductValidatorType> = onMutate
   const onReset = onClose
 
   return {
-    register,
-    control,
-    handleSubmit,
-    onSubmit,
-    onReset,
-    errors,
+    values: {
+      control,
+      errors,
+      categories:
+        categoryValue.value === guidEmpty ? categories : categories?.at(0)?.children,
+      categoryValue,
+      isLoadingCategories,
+    },
+    handlers: {
+      register,
+      handleSubmit,
+      setCategory,
+      onSubmit,
+      onReset,
+    },
   }
 }
