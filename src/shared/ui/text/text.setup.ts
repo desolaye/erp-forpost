@@ -4,6 +4,7 @@ import cls from './text.module.scss'
 type TextTag = 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'a'
 type TextWeight = 'base' | 'medium' | 'semi' | 'bold'
 type TextColor = 'black' | 'primary' | 'error' | 'white' | 'inherit'
+type TextPos = 'center' | 'left' | 'right'
 type TextSize =
   | 'base'
   | 'sm'
@@ -23,6 +24,12 @@ const colorStyle: Record<TextColor, string> = {
   primary: cls.color_primary,
   white: cls.color_white,
   inherit: cls.color_inherit,
+}
+
+const posStyle: Record<TextPos, string> = {
+  center: cls.pos_center,
+  left: cls.pos_left,
+  right: cls.pos_right,
 }
 
 const weightStyle: Record<TextWeight, string> = {
@@ -51,6 +58,7 @@ interface ITextProps {
   weight?: TextWeight
   size?: TextSize
   color?: TextColor
+  pos?: TextPos
   style?: CSSProperties
   hideOverflow?: boolean
   breakAll?: boolean
@@ -58,4 +66,4 @@ interface ITextProps {
   className?: string
 }
 
-export { type ITextProps, cls, sizeStyle, weightStyle, colorStyle }
+export { type ITextProps, cls, sizeStyle, weightStyle, colorStyle, posStyle }

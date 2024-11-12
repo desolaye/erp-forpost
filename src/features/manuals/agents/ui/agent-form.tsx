@@ -1,34 +1,34 @@
 import { Input } from '@/shared/ui/input'
 import { Form } from '@/shared/ui/form'
+import { Loader } from '@/shared/ui/loader'
 
 import { AgentValidatorType } from '@/entities/manuals'
-import { useAgentForm } from '../../lib/use-agent-form'
+import { useAgentForm } from '../lib/use-agent-form'
+import { Text } from '@/shared/ui/text'
 
 interface IAgentFormProps {
-  id?: string
   name: string
-  form?: {
-    isPending: boolean
-    isError: boolean
-  }
-
+  isPending?: boolean
+  isError?: boolean
   onMutate: (data: AgentValidatorType) => void
   onClose: () => void
 }
 
 export const AgentForm = (props: IAgentFormProps) => {
-  const { id, form } = props
+  const { name, isPending, isError, onMutate, onClose } = props
 
-  const { register, errors, handleSubmit, onReset, onSubmit } = useAgentForm(props)
+  const { register, errors, handleSubmit, onReset, onSubmit } = useAgentForm({
+    name,
+    onMutate,
+    onClose,
+  })
 
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
       onReset={onReset}
       withButtons
-      saveDisabled={id !== 'new'}
-      pending={form?.isPending}
-      error={form?.isError}
+      saveDisabled={isPending}
     >
       <Input
         placeholder="Имя агента"
@@ -37,6 +37,13 @@ export const AgentForm = (props: IAgentFormProps) => {
         helper={errors.name?.message}
         {...register('name')}
       />
+
+      {isPending && <Text pos="center">Отправляем форму...</Text>}
+      {isError && (
+        <Text pos="center" color="error">
+          Ошибка обработки формы
+        </Text>
+      )}
     </Form>
   )
 }

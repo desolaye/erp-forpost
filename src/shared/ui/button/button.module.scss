@@ -23,6 +23,15 @@
     box-shadow: var(--shadow-inner);
     border-color: var(--color-primary-dark);
   }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+
+    background-color: var(--color-primary);
+    box-shadow: var(--shadow);
+    border-color: var(--color-primary);
+  }
 }
 
 .mode_secondary {
@@ -38,6 +47,16 @@
     border-color: var(--color-primary-dark);
     box-shadow: var(--shadow-inner);
   }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+
+    background-color: transparent;
+    color: var(--color-primary);
+    box-shadow: var(--shadow);
+    border-color: var(--color-primary);
+  }
 }
 
 .mode_neutral {
@@ -49,6 +68,14 @@
   &:hover {
     background-color: rgb(from var(--color-text) r g b / 10%);
     box-shadow: var(--shadow-inner);
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+
+    background-color: transparent;
+    box-shadow: var(--shadow);
   }
 }
 

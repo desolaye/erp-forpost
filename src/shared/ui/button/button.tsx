@@ -9,7 +9,7 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>((props, ref) =
   const classes = cn(
     cls.button,
     modeStyle[mode],
-    { [cls.disabled]: disabled, [cls.full]: full, [cls.circle]: circle },
+    { [cls.full]: full, [cls.circle]: circle },
     className,
   )
 

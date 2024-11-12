@@ -1,7 +1,14 @@
 import { PropsWithChildren } from 'react'
 import cn from 'classnames'
 
-import { cls, colorStyle, ITextProps, sizeStyle, weightStyle } from './text.setup'
+import {
+  cls,
+  colorStyle,
+  ITextProps,
+  posStyle,
+  sizeStyle,
+  weightStyle,
+} from './text.setup'
 
 export const Text = (props: PropsWithChildren<ITextProps>) => {
   const {
@@ -10,6 +17,7 @@ export const Text = (props: PropsWithChildren<ITextProps>) => {
     size = 'base',
     weight = 'base',
     color = 'black',
+    pos = 'left',
     className,
     children,
     hideOverflow,
@@ -22,6 +30,7 @@ export const Text = (props: PropsWithChildren<ITextProps>) => {
     sizeStyle[size],
     weightStyle[weight],
     colorStyle[color],
+    posStyle[pos],
     {
       [cls.link]: link,
       [cls.hide_overflow]: hideOverflow,
