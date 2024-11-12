@@ -6,9 +6,10 @@ import { splitByNewline } from '@/shared/utils/split-by-newline'
 
 import { useCategoriesList } from '../lib/use-categories-list'
 
-import cls from './categories-list.module.scss'
 import { CategoryForm } from './components/category-form'
 import { CategoriesObserver } from './components/categories-observer'
+
+import cls from './categories-list.module.scss'
 
 export const CategoriesList = () => {
   const { values, handlers } = useCategoriesList()

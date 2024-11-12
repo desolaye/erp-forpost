@@ -12,17 +12,16 @@ export const ZProduct = z.object({
 export const ZProductValidator = z.object({
   name: z.string().min(3, 'Название продукта слишком короткое'),
   purchased: z.boolean(),
-  // categoryId: z.object({
-  //   label: z.string(),
-  //   value: z.string().uuid(),
-  // }),
+  categoryId: z.object({
+    label: z.string(),
+    value: z.string().uuid(),
+  }),
 })
 
-export const ZProductToBack = z.object({
-  name: z.string(),
-  purchased: z.boolean(),
-  // categoryId: z.string(),
-})
+export const ZProductToBack = ZProductValidator.transform((data) => ({
+  ...data,
+  categoryId: data.categoryId.value,
+}))
 
 const ZProductByWarehouse = z.object({
   productId: z.string().uuid(),
