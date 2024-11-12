@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useFileLoader } from '@/shared/lib/use-file-loader'
 import {
+  deleteProductById,
   getProductById,
   postCreateProduct,
   ProductValidatorType,
@@ -53,6 +54,11 @@ export const useProductEditor = (props: IProductEditorProps) => {
     onSuccess: handleSuccess,
   })
 
+  const mutateDelete = useMutation({
+    mutationFn: () => deleteProductById(id),
+    onSuccess: handleSuccess,
+  })
+
   const handleMutate = (data: ProductValidatorType) => {
     if (id === 'new') return mutateAsyncPost(data)
     return mutateAsyncPut(data)
@@ -70,6 +76,7 @@ export const useProductEditor = (props: IProductEditorProps) => {
     },
     handlers: {
       onMutate: handleMutate,
+      onDelete: mutateDelete.mutateAsync,
       mutateFile,
       setTab,
     },

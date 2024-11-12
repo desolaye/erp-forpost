@@ -13,16 +13,15 @@ import { useProductForm } from '../../lib/use-product-form'
 
 interface IProductFormProps {
   data?: ProductType
-  form?: {
-    isPending: boolean
-    isError: boolean
-  }
+  isPending?: boolean
+  isError?: boolean
+
   onMutate: (data: ProductValidatorType) => void
   onClose: () => void
 }
 
 export const ProductForm = (props: IProductFormProps) => {
-  const { form } = props
+  const { isPending, isError } = props
   const { values, handlers } = useProductForm(props)
 
   return (
@@ -30,8 +29,8 @@ export const ProductForm = (props: IProductFormProps) => {
       onSubmit={handlers.handleSubmit(handlers.onSubmit)}
       onReset={handlers.onReset}
       withButtons
-      pending={form?.isPending}
-      error={form?.isError}
+      pending={isPending}
+      error={isError}
     >
       <Input
         placeholder="Название продукта"

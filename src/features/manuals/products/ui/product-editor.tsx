@@ -1,9 +1,12 @@
 import { ModalEditor } from '@/shared/ui/modal-editor'
+import { Loader } from '@/shared/ui/loader'
+import { FileAdd } from '@/shared/ui/file'
 
+import { File } from '@/entities/files'
 import { useProductEditor } from '../lib/use-product-editor'
 
-import { EditorHeader } from './components/editor/editor-header'
-import { EditorBody } from './components/editor/editor-body'
+import { ProductForm } from './components/product-form'
+import { ManualHeader } from '@/entities/manuals'
 
 interface IProductEditorProps {
   id: string
@@ -14,28 +17,37 @@ export const ProductEditor = (props: IProductEditorProps) => {
   const { id, onClose } = props
   const { values, handlers } = useProductEditor(props)
 
+  if (values.isLoading) return <Loader />
+
   return (
     <ModalEditor
-      body={
-        <EditorBody
-          onFileAdd={handlers.mutateFile}
-          form={{ isError: values.isError, isPending: values.isPending }}
-          currentTab={values.tab}
-          onMutate={handlers.onMutate}
-          isLoading={values.isLoading}
-          isFileLoading={values.isPendingFile}
-          onClose={onClose}
-          product={values.product}
-          files={values.files}
-        />
-      }
       header={
-        <EditorHeader
-          isNew={id === 'new'}
-          onTabChange={handlers.setTab}
+        <ManualHeader
+          id={id}
+          onDelete={handlers.onDelete}
+          setTab={handlers.setTab}
           tab={values.tab}
         />
       }
-    />
+    >
+      {values.tab === 'data' && (
+        <ProductForm
+          data={values.product}
+          onClose={() => onClose?.()}
+          onMutate={handlers.onMutate}
+          isError={values.isError}
+          isPending={values.isPending}
+        />
+      )}
+
+      {values.tab === 'files' && (
+        <>
+          <FileAdd onLoad={handlers.mutateFile} />
+          {values.files?.map((file) => (
+            <File title={file.fileName} link={file.id} key={file.id} />
+          ))}
+        </>
+      )}
+    </ModalEditor>
   )
 }

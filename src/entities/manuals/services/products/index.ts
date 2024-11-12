@@ -10,4 +10,4 @@ export { postProductScan } from './post-product-scan'
 export { putEditProduct } from './put-edit-product'
 export { putUpdateProductBarcode } from './put-update-product-barcode'
 
-export { deleteProductByid } from './delete-product-by-id'
+export { deleteProductById } from './delete-product-by-id'

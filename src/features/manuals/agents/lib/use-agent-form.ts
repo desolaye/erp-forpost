@@ -6,11 +6,10 @@ import { AgentValidatorType, ZAgentValidator } from '@/entities/manuals'
 interface IUseAgentForm {
   name: string
   onMutate: (data: AgentValidatorType) => void
-  onClose: () => void
 }
 
 export const useAgentForm = (props: IUseAgentForm) => {
-  const { name, onMutate, onClose } = props
+  const { name, onMutate } = props
 
   const {
     register,
@@ -22,13 +21,11 @@ export const useAgentForm = (props: IUseAgentForm) => {
   })
 
   const onSubmit: SubmitHandler<AgentValidatorType> = onMutate
-  const onReset = onClose
 
   return {
     register,
     handleSubmit,
     onSubmit,
-    onReset,
     errors,
   }
 }

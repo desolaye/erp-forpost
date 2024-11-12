@@ -1,15 +1,12 @@
-import { Tab, Tabs } from '@mui/material'
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
-
 import { ModalEditor } from '@/shared/ui/modal-editor'
 import { Loader } from '@/shared/ui/loader'
 import { FileAdd } from '@/shared/ui/file'
-import { Button } from '@/shared/ui/button'
 
 import { File } from '@/entities/files'
 
 import { useAgentEditor } from '../lib/use-agent-editor'
 import { AgentForm } from './agent-form'
+import { ManualHeader } from '@/entities/manuals'
 
 interface IAgentEditorProps {
   id?: string
@@ -25,21 +22,12 @@ export const AgentEditor = (props: IAgentEditorProps) => {
   return (
     <ModalEditor
       header={
-        <>
-          <Tabs value={values.tab} onChange={(_, v) => handlers.setTab(v)}>
-            <Tab label="Данные" value="data" />
-            <Tab disabled={id === 'new'} label="Файлы" value="files" />
-          </Tabs>
-
-          <Button
-            disabled={id === 'new'}
-            mode="secondary"
-            style={{ padding: '2px 4px' }}
-            onClick={() => handlers.onDelete()}
-          >
-            <DeleteOutlineIcon />
-          </Button>
-        </>
+        <ManualHeader
+          id={id || ''}
+          onDelete={handlers.onDelete}
+          setTab={handlers.setTab}
+          tab={values.tab}
+        />
       }
     >
       {values.tab === 'data' && (

@@ -31,3 +31,5 @@ export { stepsToOptions } from './utils/steps-to-options'
 
 export * from './model/item.schema'
 export * from './services/items'
+
+export { ManualHeader } from './ui/manual-header'
