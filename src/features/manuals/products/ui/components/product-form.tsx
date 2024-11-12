@@ -4,11 +4,12 @@ import { Checkbox, FormControl, InputLabel, MenuItem, Select } from '@mui/materi
 import { Input } from '@/shared/ui/input'
 import { Form } from '@/shared/ui/form'
 import { Text } from '@/shared/ui/text'
+import { Loader } from '@/shared/ui/loader'
 
 import { ProductType, ProductValidatorType } from '@/entities/manuals'
-import { useProductForm } from '../../lib/use-product-form'
-import { Loader } from '@/shared/ui/loader'
 import { guidEmpty } from '@/entities/categories'
+
+import { useProductForm } from '../../lib/use-product-form'
 
 interface IProductFormProps {
   data?: ProductType
