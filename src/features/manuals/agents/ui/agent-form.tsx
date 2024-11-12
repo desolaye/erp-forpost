@@ -1,6 +1,5 @@
 import { Input } from '@/shared/ui/input'
 import { Form } from '@/shared/ui/form'
-import { Loader } from '@/shared/ui/loader'
 
 import { AgentValidatorType } from '@/entities/manuals'
 import { useAgentForm } from '../lib/use-agent-form'
