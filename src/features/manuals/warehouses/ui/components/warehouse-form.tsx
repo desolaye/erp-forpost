@@ -9,32 +9,28 @@ import { StaffType, WarehouseType, WarehouseValidatorType } from '@/entities/man
 import { useWarehouseForm } from '../../lib/use-warehouse-form'
 
 interface IWarehouseFormProps {
-  id: string
   warehouse?: WarehouseType
   staff?: StaffType[]
-  form?: {
-    isPending: boolean
-    isError: boolean
-  }
+  isPending?: boolean
+  isError?: boolean
   onMutate: (data: WarehouseValidatorType) => void
   onClose: () => void
   onSearch: (search: string) => void
 }
 
 export const WarehouseForm = (props: IWarehouseFormProps) => {
-  const { id, form, onSearch } = props
+  const { isPending, isError, onSearch, onClose } = props
 
-  const { register, errors, control, users, handleSubmit, onReset, onSubmit } =
+  const { register, errors, control, users, handleSubmit, onSubmit } =
     useWarehouseForm(props)
 
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      onReset={onReset}
+      onReset={onClose}
       withButtons
-      saveDisabled={id !== 'new'}
-      error={form?.isError}
-      pending={form?.isPending}
+      error={isError}
+      pending={isPending}
     >
       <Input
         placeholder="Название склада"

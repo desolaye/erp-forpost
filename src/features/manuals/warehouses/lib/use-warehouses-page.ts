@@ -13,13 +13,14 @@ export const useWarehousesPage = () => {
   const { page, params, setPage } = usePagination(11)
   const { filters, search, setSearch, debouncedSearch } = useSearch('name')
 
-  const { data: warehouses, isPending } = useQuery({
+  const { data: warehouses, isFetching } = useQuery({
     queryFn: () =>
       getWarehousesManual({
         params,
         filters,
       }),
     queryKey: ['warehouses_all', debouncedSearch],
+    refetchOnWindowFocus: false,
   })
 
   const openModal = (edit?: WarehouseType) => {
@@ -33,7 +34,7 @@ export const useWarehousesPage = () => {
       id,
       totalCount: 0,
       page,
-      isPending,
+      isPending: isFetching,
       search,
       warehouse,
     },

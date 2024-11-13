@@ -32,6 +32,7 @@ const ManualStaffPage = () => {
         currentPage={values.page}
         onPageChange={handlers.setPage}
         pageCount={values.totalCount}
+        isLoading={values.isLoading}
       >
         {values.data?.map((row) => (
           <SmartTableRow

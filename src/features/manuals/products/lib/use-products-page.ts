@@ -13,13 +13,14 @@ export const useProductsPage = () => {
   const { getTotalCount, page, params, setPage } = usePagination(9)
   const { filters, search, setSearch, debouncedSearch } = useSearch('name')
 
-  const { data: products, isPending } = useQuery({
+  const { data: products, isFetching } = useQuery({
     queryFn: () =>
       getProductsManual({
         params,
         filters,
       }),
     queryKey: ['products_all', page, debouncedSearch],
+    refetchOnWindowFocus: false,
   })
 
   const openModal = (id?: string) => setProductId(id || '')
@@ -30,7 +31,7 @@ export const useProductsPage = () => {
       totalCount: getTotalCount(products?.data.totalCount),
       page,
       productId,
-      isPending,
+      isLoading: isFetching,
       search,
       productBarcodeId,
       categoriesOpen,

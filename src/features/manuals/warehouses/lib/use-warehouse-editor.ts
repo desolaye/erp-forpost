@@ -1,36 +1,55 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 
-import {
-  getStaffManual,
-  postCreateWarehouse,
-  WarehouseValidatorType,
-} from '@/entities/manuals'
 import { useSearch } from '@/shared/lib/use-search'
 import { useFileLoader } from '@/shared/lib/use-file-loader'
 
+import {
+  deleteWarehouseById,
+  getStaffManual,
+  postCreateWarehouse,
+  putEditWarehouse,
+  WarehouseType,
+  WarehouseValidatorType,
+} from '@/entities/manuals'
+
 interface IWarehouseEditorProps {
-  id: string
+  warehouse?: WarehouseType
   onClose?: () => void
 }
 
 export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
-  const { id, onClose } = props
+  const { warehouse, onClose } = props
   const [tab, setTab] = useState('data')
 
   const queryClient = useQueryClient()
 
-  const { files, isPendingFile, mutateFile } = useFileLoader(id, 'files_all')
+  const { files, isPendingFile, mutateFile } = useFileLoader(
+    warehouse?.id || '',
+    'files_all',
+  )
 
   const { filters, search, setSearch, debouncedSearch } = useSearch('lastName')
 
-  const { mutateAsync, isPending, isError } = useMutation({
-    mutationFn: (data: WarehouseValidatorType) => postCreateWarehouse(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['warehouse_by_id', id] })
-      queryClient.invalidateQueries({ queryKey: ['warehouses_all'] })
-      if (onClose) onClose()
-    },
+  const onSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ['warehouse_by_id', warehouse?.id] })
+    queryClient.invalidateQueries({ queryKey: ['warehouses_all'] })
+    if (onClose) onClose()
+  }
+
+  const createWarehouse = useMutation({
+    mutationFn: postCreateWarehouse,
+    onSuccess,
+  })
+
+  const editWarehouse = useMutation({
+    mutationFn: putEditWarehouse,
+    onSuccess,
+  })
+
+  const deleteWarehouse = useMutation({
+    mutationFn: deleteWarehouseById,
+    onSuccess,
   })
 
   const { data: staff, isLoading: isLoadingStaff } = useQuery({
@@ -38,11 +57,20 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
     queryKey: ['staff_all', debouncedSearch],
   })
 
+  const handleMutate = (data: WarehouseValidatorType) => {
+    console.log(data)
+
+    if (warehouse?.id) return editWarehouse.mutateAsync(data)
+    return createWarehouse.mutateAsync(data)
+  }
+
   return {
     values: {
       tab,
-      isError,
-      isPending,
+      isError:
+        createWarehouse.isError || editWarehouse.isError || deleteWarehouse.isError,
+      isPendingMutate:
+        createWarehouse.isPending || editWarehouse.isPending || deleteWarehouse.isPending,
       isLoading: isLoadingStaff,
       staff: staff?.data.employees,
       search,
@@ -50,7 +78,8 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
       isPendingFile,
     },
     handlers: {
-      onMutate: mutateAsync,
+      onMutate: handleMutate,
+      onDelete: () => deleteWarehouse.mutateAsync(warehouse?.id || ''),
       setSearch,
       setTab,
       mutateFile,

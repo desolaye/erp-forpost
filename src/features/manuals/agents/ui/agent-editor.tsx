@@ -3,10 +3,10 @@ import { Loader } from '@/shared/ui/loader'
 import { FileAdd } from '@/shared/ui/file'
 
 import { File } from '@/entities/files'
+import { ManualHeader } from '@/entities/manuals'
 
 import { useAgentEditor } from '../lib/use-agent-editor'
 import { AgentForm } from './agent-form'
-import { ManualHeader } from '@/entities/manuals'
 
 interface IAgentEditorProps {
   id?: string

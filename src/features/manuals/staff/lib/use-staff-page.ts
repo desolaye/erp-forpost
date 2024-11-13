@@ -16,13 +16,14 @@ export const useStaffPage = () => {
 
   const sessionContext = useContext(SessionContext)
 
-  const { data: staff, isPending } = useQuery({
+  const { data: staff, isFetching } = useQuery({
     queryFn: () =>
       getStaffManual({
         params,
         filters,
       }),
     queryKey: ['staff_all', page, debouncedSearch],
+    refetchOnWindowFocus: false,
   })
 
   const openModal = (edit?: StaffType) => {
@@ -34,7 +35,7 @@ export const useStaffPage = () => {
     values: {
       data: staff?.data.employees,
       staffModal,
-      isPending,
+      isLoading: isFetching,
       totalCount: getTotalCount(staff?.data.totalCount),
       page,
       user: sessionContext.session,

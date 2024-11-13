@@ -1,13 +1,15 @@
 import { ModalEditor } from '@/shared/ui/modal-editor'
-import { StaffType } from '@/entities/manuals'
+import { Loader } from '@/shared/ui/loader'
+import { FileAdd } from '@/shared/ui/file'
+
+import { File } from '@/entities/files'
+import { ManualHeader, StaffType } from '@/entities/manuals'
 
 import { useStaffEditor } from '../lib/use-staff-editor'
-import { EditorHeader } from './components/editor/editor-header'
-import { EditorBody } from './components/editor/editor-body'
+import { StaffForm } from './components/staff-form'
 
 interface IStaffEditorProps {
   staff?: StaffType
-
   onClose?: () => void
 }
 
@@ -15,28 +17,38 @@ export const StaffEditor = (props: IStaffEditorProps) => {
   const { staff, onClose } = props
   const { values, handlers } = useStaffEditor(props)
 
+  if (values.isLoading) return <Loader />
+
   return (
     <ModalEditor
-      body={
-        <EditorBody
-          currentTab={values.tab}
-          form={{ isError: values.isError, isPending: values.isPending }}
-          onFileAdd={handlers.mutateFile}
-          onMutate={handlers.onMutate}
-          files={values.files}
-          isLoading={values.isLoading || values.isPendingFile}
-          onClose={onClose}
-          roles={values.roles}
-          staff={values.employee}
-        />
-      }
       header={
-        <EditorHeader
-          onTabChange={handlers.setTab}
+        <ManualHeader
+          id={staff?.id || 'new'}
+          onDelete={handlers.onDelete}
+          setTab={handlers.setTab}
           tab={values.tab}
-          isNew={!Boolean(staff?.id) || staff?.id === 'new'}
         />
       }
-    />
+    >
+      {values.tab === 'data' && (
+        <StaffForm
+          staff={values.employee}
+          roles={values.roles}
+          isError={values.isError}
+          isPending={values.isMutateLoading}
+          onClose={() => onClose?.()}
+          onMutate={handlers.onMutate}
+        />
+      )}
+
+      {values.tab === 'files' && (
+        <>
+          <FileAdd onLoad={handlers.mutateFile} />
+          {values.files?.map((file) => (
+            <File title={file.fileName} link={file.id} key={file.id} />
+          ))}
+        </>
+      )}
+    </ModalEditor>
   )
 }

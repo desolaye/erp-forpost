@@ -36,6 +36,7 @@ const ManualProductsPage = () => {
         currentPage={values.page}
         onPageChange={handlers.setPage}
         pageCount={values.totalCount}
+        isLoading={values.isLoading}
         withActions
       >
         {values.products?.map((row) => (

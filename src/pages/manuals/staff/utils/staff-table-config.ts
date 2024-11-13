@@ -38,6 +38,11 @@ export const staffTableConfig = () => {
       title: 'Роль в ERP',
       width: 200,
     },
+    roleId: {
+      type: 'text',
+      title: '',
+      width: 0,
+    },
     id: {
       type: 'text',
       title: 'id',

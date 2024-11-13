@@ -11,5 +11,6 @@ export const createInitialStaff = (): StaffValidatorType => {
     password: '',
     patronymic: '',
     role: { label: '', value: '' },
+    roleId: '',
   }
 }

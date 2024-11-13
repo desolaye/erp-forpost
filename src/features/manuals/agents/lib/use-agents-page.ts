@@ -11,13 +11,14 @@ export const useAgentsPage = () => {
   const { getTotalCount, page, params, setPage } = usePagination(11)
   const { filters, search, setSearch, debouncedSearch } = useSearch('name')
 
-  const { data: agents, isPending } = useQuery({
+  const { data: agents, isFetching } = useQuery({
     queryFn: () =>
       getAgentsManual({
         params,
         filters,
       }),
     queryKey: ['agents_all', page, debouncedSearch],
+    refetchOnWindowFocus: false,
   })
 
   const openModal = (id?: string) => setAgentId(id)
@@ -28,7 +29,7 @@ export const useAgentsPage = () => {
       totalCount: getTotalCount(agents?.data.totalCount),
       page,
       agentId,
-      isPending,
+      isLoading: isFetching,
       search,
     },
     handlers: {

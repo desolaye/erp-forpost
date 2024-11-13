@@ -13,11 +13,10 @@ interface IUseWarehouseForm {
   warehouse?: WarehouseType
   staff?: StaffType[]
   onMutate: (data: WarehouseValidatorType) => void
-  onClose: () => void
 }
 
 export const useWarehouseForm = (props: IUseWarehouseForm) => {
-  const { warehouse, staff, onMutate, onClose } = props
+  const { warehouse, staff, onMutate } = props
 
   const defaultResponsible = staff?.find((v) => v.id === warehouse?.responsibleId)
   const label = defaultResponsible
@@ -37,6 +36,7 @@ export const useWarehouseForm = (props: IUseWarehouseForm) => {
       })),
     ),
     defaultValues: {
+      id: warehouse?.id || '',
       name: warehouse?.name,
       responsibleId: {
         label,
@@ -46,13 +46,11 @@ export const useWarehouseForm = (props: IUseWarehouseForm) => {
   })
 
   const onSubmit: SubmitHandler<WarehouseValidatorType> = onMutate
-  const onReset = onClose
 
   return {
     register,
     handleSubmit,
     onSubmit,
-    onReset,
     errors,
     control,
     users: staffToOptions(staff),

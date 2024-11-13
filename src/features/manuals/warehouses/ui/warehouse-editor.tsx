@@ -1,46 +1,57 @@
 import { ModalEditor } from '@/shared/ui/modal-editor'
+import { FileAdd } from '@/shared/ui/file'
+import { Loader } from '@/shared/ui/loader'
+
+import { File } from '@/entities/files'
+import { ManualHeader, WarehouseType } from '@/entities/manuals'
 
 import { useWarehouseEditor } from '../lib/use-warehouse-editor'
-import { EditorBody } from './components/editor/editor-body'
-import { EditorHeader } from './components/editor/editor-header'
-import { WarehouseType } from '@/entities/manuals'
+
+import { WarehouseForm } from './components/warehouse-form'
 
 interface IWarehouseEditorProps {
-  id: string
   warehouse?: WarehouseType
   onSearch: (value: string) => void
   onClose?: () => void
 }
 
 export const WarehouseEditor = (props: IWarehouseEditorProps) => {
-  const { id, warehouse, onClose, onSearch } = props
+  const { warehouse, onClose, onSearch } = props
   const { values, handlers } = useWarehouseEditor(props)
+
+  if (values.isLoading) return <Loader />
 
   return (
     <ModalEditor
-      body={
-        <EditorBody
-          form={{ isError: values.isError, isPending: values.isPending }}
-          currentTab={values.tab}
-          id={id}
+      header={
+        <ManualHeader
+          id={warehouse?.id || 'new'}
+          onDelete={handlers.onDelete}
+          setTab={handlers.setTab}
+          tab={values.tab}
+        />
+      }
+    >
+      {values.tab === 'data' && (
+        <WarehouseForm
+          isError={values.isError}
+          isPending={values.isPendingMutate}
           warehouse={warehouse}
-          onFileAdd={handlers.mutateFile}
-          onMutate={handlers.onMutate}
           onSearch={onSearch}
-          files={values.files}
-          isFileLoading={values.isPendingFile}
-          isLoading={values.isLoading}
-          onClose={onClose}
+          onClose={() => onClose?.()}
+          onMutate={handlers.onMutate}
           staff={values.staff}
         />
-      }
-      header={
-        <EditorHeader
-          onTabChange={handlers.setTab}
-          tab={values.tab}
-          isNew={id === 'new'}
-        />
-      }
-    />
+      )}
+
+      {values.tab === 'files' && (
+        <>
+          <FileAdd onLoad={handlers.mutateFile} />
+          {values.files?.map((file) => (
+            <File title={file.fileName} link={file.id} key={file.id} />
+          ))}
+        </>
+      )}
+    </ModalEditor>
   )
 }

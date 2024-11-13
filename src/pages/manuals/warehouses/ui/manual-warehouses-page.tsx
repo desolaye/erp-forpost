@@ -30,6 +30,7 @@ const ManualWarehousesPage = () => {
         currentPage={values.page}
         onPageChange={handlers.setPage}
         pageCount={values.totalCount}
+        isLoading={values.isPending}
       >
         {values.data?.map((row) => (
           <SmartTableRow
@@ -43,7 +44,6 @@ const ManualWarehousesPage = () => {
 
       <ModalLayout isOpen={Boolean(values.id)} onClose={() => handlers.openModal()}>
         <WarehouseEditor
-          id={values.id}
           warehouse={values.warehouse}
           onClose={() => handlers.openModal()}
           onSearch={handlers.setSearch}

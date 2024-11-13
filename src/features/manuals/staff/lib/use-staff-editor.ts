@@ -5,6 +5,8 @@ import { useFileLoader } from '@/shared/lib/use-file-loader'
 import {
   getRoles,
   postCreateStaff,
+  putEditStaff,
+  deleteStaffById,
   staffToModel,
   StaffType,
   StaffValidatorType,
@@ -28,13 +30,25 @@ export const useStaffEditor = (props: IStaffEditorProps) => {
     'files_all',
   )
 
-  const { mutateAsync, isPending, error } = useMutation({
-    mutationFn: (data: StaffValidatorType) => postCreateStaff(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['staff_by_id', staff?.id || ''] })
-      queryClient.invalidateQueries({ queryKey: ['staff_all'] })
-      if (onClose) onClose()
-    },
+  const onSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ['staff_by_id', staff?.id || ''] })
+    queryClient.invalidateQueries({ queryKey: ['staff_all'] })
+    if (onClose) onClose()
+  }
+
+  const createStaff = useMutation({
+    mutationFn: postCreateStaff,
+    onSuccess,
+  })
+
+  const editStaff = useMutation({
+    mutationFn: putEditStaff,
+    onSuccess,
+  })
+
+  const deleteStaff = useMutation({
+    mutationFn: () => deleteStaffById(staff?.id || 'new'),
+    onSuccess,
   })
 
   const { data: roles, isLoading: isLoadingRoles } = useQuery({
@@ -42,10 +56,16 @@ export const useStaffEditor = (props: IStaffEditorProps) => {
     queryKey: ['roles_all'],
   })
 
+  const handleMutate = (empl: StaffValidatorType) => {
+    if (staff?.id) editStaff.mutateAsync(empl)
+    else createStaff.mutateAsync(empl)
+  }
+
   return {
     values: {
-      isError: Boolean(error),
-      isPending,
+      isError: createStaff.isError || editStaff.isError || deleteStaff.isError,
+      isMutateLoading:
+        createStaff.isPending || editStaff.isPending || deleteStaff.isPending,
       isLoading: isLoadingRoles,
       roles: getRolesOptions(roles?.data),
       files,
@@ -54,7 +74,8 @@ export const useStaffEditor = (props: IStaffEditorProps) => {
       employee: staffToModel(staff, roles?.data),
     },
     handlers: {
-      onMutate: mutateAsync,
+      onMutate: handleMutate,
+      onDelete: deleteStaff.mutateAsync,
       mutateFile,
       setTab,
     },

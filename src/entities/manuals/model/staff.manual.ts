@@ -8,7 +8,8 @@ export const ZStaff = z.object({
   lastName: z.string(),
   patronymic: z.string(),
   post: z.string(),
-  role: z.string().uuid(),
+  role: z.string(),
+  roleId: z.string().uuid(),
   email: z.string().email(),
   phoneNumber: z.string(),
 })

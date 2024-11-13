@@ -8,6 +8,7 @@ export const ZWarehouse = z.object({
 })
 
 export const ZWarehouseValidator = z.object({
+  id: z.string(),
   name: z.string().min(3),
   // description: z.string(),
 

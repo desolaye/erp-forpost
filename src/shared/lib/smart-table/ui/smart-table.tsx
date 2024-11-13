@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { Checkbox, Pagination } from '@mui/material'
 
 import { Card } from '@/shared/ui/card'
+import { Loader } from '@/shared/ui/loader'
 
 import { TableConfigType } from '../model/table-config.type'
 import cls from './smart-table.module.scss'
@@ -13,6 +14,7 @@ interface ISmartTableProps<T> {
   currentPage: number
   onPageChange: (page: number) => void
   withActions?: boolean
+  isLoading?: boolean
   check?: {
     onCheckAll: () => void
     isAllChecked: boolean
@@ -20,8 +22,18 @@ interface ISmartTableProps<T> {
 }
 
 export const SmartTable = <T,>(props: ISmartTableProps<T>) => {
-  const { config, pageCount, currentPage, onPageChange, check, withActions, children } =
-    props
+  const {
+    config,
+    pageCount,
+    currentPage,
+    isLoading,
+    onPageChange,
+    check,
+    withActions,
+    children,
+  } = props
+
+  if (isLoading) return <Loader />
 
   return (
     <main className={cls.card}>

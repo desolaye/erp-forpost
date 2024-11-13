@@ -31,6 +31,7 @@ const ManualAgentsPage = () => {
         currentPage={values.page}
         onPageChange={handlers.setPage}
         pageCount={values.totalCount}
+        isLoading={values.isLoading}
       >
         {values.agents?.map((row) => (
           <SmartTableRow

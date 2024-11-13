@@ -3,10 +3,10 @@ import { Loader } from '@/shared/ui/loader'
 import { FileAdd } from '@/shared/ui/file'
 
 import { File } from '@/entities/files'
+import { ManualHeader } from '@/entities/manuals'
 import { useProductEditor } from '../lib/use-product-editor'
 
 import { ProductForm } from './components/product-form'
-import { ManualHeader } from '@/entities/manuals'
 
 interface IProductEditorProps {
   id: string
