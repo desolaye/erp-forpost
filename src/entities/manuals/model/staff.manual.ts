@@ -27,6 +27,8 @@ export const ZStaffValidator = ZStaff.extend({
     value: z.string().uuid(),
     label: z.string(),
   }),
+
+  roleId: z.string().optional(),
 })
 
 export const ZStaffResponse = z

@@ -44,13 +44,14 @@ const ManualTechcardsPage = () => {
           {values.isPending && <Loader />}
           {!values.isPending && !values.data?.length && <EmptyCard />}
 
-          {values.data?.map((v) => (
-            <Button key={v.id} mode="table" onClick={() => handlers.openCard(v.id)}>
-              <Text hideOverflow>
-                {v.number} - {v.productName}
-              </Text>
-            </Button>
-          ))}
+          {!values.isPending &&
+            values.data?.map((v) => (
+              <Button key={v.id} mode="table" onClick={() => handlers.openCard(v.id)}>
+                <Text hideOverflow>
+                  {v.number} - {v.productName}
+                </Text>
+              </Button>
+            ))}
 
           {!values.isPending && (
             <Button

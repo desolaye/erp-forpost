@@ -16,8 +16,9 @@ export const StepsEditor = (props: IStepsEditorProps) => {
     <ModalEditor
       body={
         <StepsEditorBody
-          form={{ isError: values.isError, isPending: values.isPendingCreation }}
-          onMutate={handlers.mutateAsync}
+          isPending={values.isPending}
+          isError={values.isError}
+          onMutate={handlers.onMutate}
           operations={values.operations}
         />
       }

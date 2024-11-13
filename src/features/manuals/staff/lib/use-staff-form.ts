@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { StaffValidatorType, ZStaffValidator } from '@/entities/manuals'
+import { useEffect } from 'react'
 
 interface IUseStaffForm {
   onMutate: (data: StaffValidatorType) => void
@@ -18,7 +19,7 @@ export const useStaffForm = (props: IUseStaffForm) => {
     formState: { errors },
     control,
   } = useForm<StaffValidatorType>({
-    resolver: zodResolver(ZStaffValidator.transform((data) => ({ ...data }))),
+    resolver: zodResolver(ZStaffValidator),
     defaultValues: staff,
   })
 
@@ -26,6 +27,10 @@ export const useStaffForm = (props: IUseStaffForm) => {
 
   const onSubmit: SubmitHandler<StaffValidatorType> = onMutate
   const onReset = onClose
+
+  useEffect(() => {
+    console.log('staff initial', staff)
+  }, [])
 
   return {
     register,
