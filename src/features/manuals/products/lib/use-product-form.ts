@@ -3,12 +3,17 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQuery } from '@tanstack/react-query'
 
-import { ProductType, ProductValidatorType, ZProductToBack } from '@/entities/manuals'
+import {
+  ProductToBackType,
+  ProductType,
+  ProductValidatorType,
+  ZProductToBack,
+} from '@/entities/manuals'
 import { getCategoriesAll, guidEmpty } from '@/entities/categories'
 
 interface IUseProductForm {
   data?: ProductType
-  onMutate: (data: ProductValidatorType) => void
+  onMutate: (data: ProductToBackType) => void
   onClose: () => void
 }
 
@@ -51,7 +56,11 @@ export const useProductForm = (props: IUseProductForm) => {
     queryKey: ['categories_list', categoryValue.value],
   })
 
-  const onSubmit: SubmitHandler<ProductValidatorType> = onMutate
+  const onSubmit: SubmitHandler<ProductValidatorType> = (data) => {
+    const categoryId = data?.categoryId?.value || (data.categoryId as unknown as string)
+    onMutate({ ...data, categoryId })
+  }
+
   const onReset = onClose
 
   return {

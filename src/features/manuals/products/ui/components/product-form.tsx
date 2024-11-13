@@ -6,7 +6,7 @@ import { Form } from '@/shared/ui/form'
 import { Text } from '@/shared/ui/text'
 import { Loader } from '@/shared/ui/loader'
 
-import { ProductType, ProductValidatorType } from '@/entities/manuals'
+import { ProductToBackType, ProductType } from '@/entities/manuals'
 import { guidEmpty } from '@/entities/categories'
 
 import { useProductForm } from '../../lib/use-product-form'
@@ -16,7 +16,7 @@ interface IProductFormProps {
   isPending?: boolean
   isError?: boolean
 
-  onMutate: (data: ProductValidatorType) => void
+  onMutate: (data: ProductToBackType) => void
   onClose: () => void
 }
 

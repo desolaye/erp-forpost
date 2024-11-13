@@ -6,7 +6,7 @@ import {
   deleteProductById,
   getProductById,
   postCreateProduct,
-  ProductValidatorType,
+  ProductToBackType,
   putEditProduct,
 } from '@/entities/manuals'
 
@@ -40,7 +40,7 @@ export const useProductEditor = (props: IProductEditorProps) => {
     isPending: isPendingPost,
     isError: errorPost,
   } = useMutation({
-    mutationFn: (data: ProductValidatorType) => postCreateProduct(data),
+    mutationFn: postCreateProduct,
     onSuccess: handleSuccess,
   })
 
@@ -49,8 +49,12 @@ export const useProductEditor = (props: IProductEditorProps) => {
     isPending: isPendingPut,
     isError: errorPut,
   } = useMutation({
-    mutationFn: (data: ProductValidatorType) =>
-      putEditProduct({ ...product!.data, ...data, categoryId: data.categoryId.value }),
+    mutationFn: (data: ProductToBackType) =>
+      putEditProduct({
+        ...product!.data,
+        ...data,
+        categoryId: data.categoryId,
+      }),
     onSuccess: handleSuccess,
   })
 
@@ -59,7 +63,7 @@ export const useProductEditor = (props: IProductEditorProps) => {
     onSuccess: handleSuccess,
   })
 
-  const handleMutate = (data: ProductValidatorType) => {
+  const handleMutate = (data: ProductToBackType) => {
     if (id === 'new') return mutateAsyncPost(data)
     return mutateAsyncPut(data)
   }

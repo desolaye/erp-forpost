@@ -7,7 +7,7 @@ import { Form } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
 
-import { CategoryToBackType, postCreateCategory } from '@/entities/categories'
+import { CategoryToBackType, guidEmpty, postCreateCategory } from '@/entities/categories'
 
 type CategoryFormProps = {
   parentCategoryId?: string
@@ -15,7 +15,7 @@ type CategoryFormProps = {
 }
 
 export const CategoryForm = (props: CategoryFormProps) => {
-  const { parentCategoryId = '', onClose } = props
+  const { parentCategoryId = guidEmpty, onClose } = props
 
   const queryClient = useQueryClient()
 
