@@ -25,11 +25,11 @@ export const usePriceListDetailed = (props: IUsePriceListDetailed) => {
   })
 
   const { data: products } = useQuery({
-    queryFn: () => getProductsManual({ params: { limit: 8, skip: 0 }, filters }),
+    queryFn: () => getProductsManual({ limit: 8, skip: 0, name: filters?.filterValues }),
     queryKey: ['product_all', debouncedSearch],
   })
 
-  const productOptions = productsToOptions(products?.data.products)
+  const productOptions = productsToOptions(products?.data.items)
   const operationOptions = operationsToOptions(operations?.data)
 
   return {

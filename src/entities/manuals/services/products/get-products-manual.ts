@@ -1,14 +1,26 @@
 import { publicApi } from '@/shared/api/public-api.config'
 import { ProductResponseType } from '../../model/product.schema'
-import { GetWithParamsType } from '@/shared/model/get-with-params.type'
 
-export const getProductsManual = async (props: GetWithParamsType) => {
-  const { params, filters } = props
+type ProductManualProps = {
+  skip?: number
+  limit?: number
+  purchased?: boolean
+  categoryName?: string
+  categoryId?: string
+  name?: string
+}
+
+export const getProductsManual = async (props: ProductManualProps) => {
+  const { categoryId, categoryName, limit, name, purchased, skip } = props
 
   const response = await publicApi.get<ProductResponseType>('v1/products', {
     params: {
-      ...params,
-      ...filters,
+      Skip: skip,
+      Limit: limit,
+      CategoryId: categoryId,
+      CategoryName: categoryName,
+      Name: name,
+      Purchased: purchased,
     },
   })
 

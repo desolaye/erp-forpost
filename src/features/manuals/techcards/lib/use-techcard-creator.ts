@@ -20,7 +20,7 @@ export const useTechcardCreator = (props: IUseTechcardCreator) => {
 
   const { data: items, isPending: isPendingItems } = useQuery({
     queryKey: ['items_all'],
-    queryFn: () => getProductsManual({ params: { limit: 1000, skip: 0 } }),
+    queryFn: () => getProductsManual({ limit: 1000, skip: 0 }),
   })
 
   const {
@@ -39,7 +39,7 @@ export const useTechcardCreator = (props: IUseTechcardCreator) => {
   return {
     values: {
       isError,
-      items: items?.data.products,
+      items: items?.data.items,
       isPendingItems,
       isPendingCreation,
     },

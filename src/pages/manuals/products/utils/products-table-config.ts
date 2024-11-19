@@ -5,22 +5,17 @@ export const productsTableConfig = () => {
   const config: TableRowRecordType<ProductType> = {
     name: {
       type: 'text',
-      title: 'Название продукта',
-      width: 200,
+      title: 'Название товара',
+      width: 360,
     },
-    cost: {
+    categoryName: {
       type: 'text',
-      title: 'Стоимость',
-      width: 0,
+      title: 'Название категории',
+      width: 150,
     },
     purchased: {
       type: 'text',
       title: 'Закупочный товар',
-      width: 0,
-    },
-    version: {
-      type: 'text',
-      title: 'Версия',
       width: 0,
     },
     id: {

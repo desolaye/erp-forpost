@@ -3,21 +3,25 @@ import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
-import { ProductEditor, useProductsPage } from '@/features/manuals/products'
-import { ProductBarcodeEditor } from '@/features/manuals/products/ui/product-barcode-editor'
+import {
+  ProductEditor,
+  ProductBarcodeEditor,
+  useProductsPage,
+} from '@/features/manuals/products'
+import { CategoriesCrumbs, CategoriesList } from '@/features/categories'
+
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { productsTableConfig } from '../utils/products-table-config'
 import { ProductsPageTooltip } from './components/products-page-tooltip'
-import { CategoriesList } from '@/features/categories'
 
 const ManualProductsPage = () => {
   const { values, handlers } = useProductsPage()
   const config = productsTableConfig()
 
   return (
-    <PageWrapper title="Продукты">
+    <PageWrapper title="Товары">
       <Card style={{ flexDirection: 'row' }}>
         <Input
           full
@@ -30,6 +34,8 @@ const ManualProductsPage = () => {
           Категории
         </Button>
       </Card>
+
+      <CategoriesCrumbs onSetCategory={handlers.setCurrentCategory} />
 
       <SmartTable
         config={config}

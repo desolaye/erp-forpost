@@ -21,7 +21,7 @@ export const useWarehouseProductsCreator = (props: IUseWarehouseProductsCreator)
   const queryClient = useQueryClient()
 
   const { data: products } = useQuery({
-    queryFn: () => getProductsManual({ params: { limit: 8, skip: 0 }, filters: filters }),
+    queryFn: () => getProductsManual({ limit: 8, skip: 0, name: filters?.filterValues }),
     queryKey: ['products_all', debouncedSearch],
   })
 
@@ -40,7 +40,7 @@ export const useWarehouseProductsCreator = (props: IUseWarehouseProductsCreator)
 
   return {
     values: {
-      products: products?.data.products,
+      products: products?.data.items,
       search,
     },
     handlers: {

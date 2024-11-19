@@ -10,7 +10,7 @@ export const useWarehousesPage = () => {
   const [id, setId] = useState('')
   const [warehouse, setWarehouse] = useState<WarehouseType>()
 
-  const { page, params, setPage } = usePagination(11)
+  const { page, params, setPage } = usePagination(50)
   const { filters, search, setSearch, debouncedSearch } = useSearch('name')
 
   const { data: warehouses, isFetching } = useQuery({

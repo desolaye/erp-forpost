@@ -1,12 +1,13 @@
 import { z } from 'zod'
 
 export const ZProduct = z.object({
-  id: z.string(),
+  id: z.string().uuid(),
   name: z.string(),
   purchased: z.boolean(),
-  version: z.string(),
-  cost: z.number(),
   categoryId: z.string().uuid(),
+  categoryName: z.string(),
+
+  // updatedAt: z.string(),
 })
 
 export const ZProductValidator = z.object({
@@ -52,7 +53,7 @@ export const ZProductByWarehouseResponse = z.object({
 })
 
 export const ZProductResponse = z.object({
-  products: z.array(ZProduct),
+  items: z.array(ZProduct),
   totalCount: z.number(),
 })
 

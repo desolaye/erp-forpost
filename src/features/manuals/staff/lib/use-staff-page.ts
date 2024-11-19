@@ -2,16 +2,16 @@ import { useQuery } from '@tanstack/react-query'
 import { useContext, useState } from 'react'
 
 import { usePagination } from '@/shared/lib/use-pagination'
+import { useSearch } from '@/shared/lib/use-search'
 
 import { getStaffManual, StaffType } from '@/entities/manuals'
 import { SessionContext } from '@/entities/session'
-import { useSearch } from '@/shared/lib/use-search'
 
 export const useStaffPage = () => {
   const [id, setId] = useState('')
   const [staffModal, setStaffModal] = useState<StaffType>()
 
-  const { getTotalCount, page, params, setPage } = usePagination(11)
+  const { getTotalCount, page, params, setPage } = usePagination(50)
   const { filters, search, setSearch, debouncedSearch } = useSearch('lastName')
 
   const sessionContext = useContext(SessionContext)

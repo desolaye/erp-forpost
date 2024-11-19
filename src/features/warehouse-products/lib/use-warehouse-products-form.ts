@@ -9,7 +9,7 @@ import {
 } from '@/entities/manuals'
 
 interface IUseWarehouseProductsForm {
-  products?: ProductResponseType['products']
+  products?: ProductResponseType['items']
   onMutate: (product: ProductByWarehouseValidatorType) => void
 }
 

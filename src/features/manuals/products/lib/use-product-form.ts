@@ -37,7 +37,9 @@ export const useProductForm = (props: IUseProductForm) => {
     defaultValues: {
       name: data?.name || '',
       purchased: Boolean(data?.purchased),
-      categoryId: data ? { label: 'Категория', value: data.categoryId } : baseCategory,
+      categoryId: data
+        ? { label: data.categoryName, value: data.categoryId }
+        : baseCategory,
     },
   })
 

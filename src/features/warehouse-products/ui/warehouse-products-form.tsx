@@ -10,7 +10,7 @@ import { ProductByWarehouseValidatorType, ProductResponseType } from '@/entities
 import { useWarehouseProductsForm } from '../lib/use-warehouse-products-form'
 
 interface IWarehouseProductsFormProps {
-  products?: ProductResponseType['products']
+  products?: ProductResponseType['items']
   onClose?: () => void
   onMutate: (product: ProductByWarehouseValidatorType) => void
   onSearch: (value: string) => void

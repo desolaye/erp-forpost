@@ -21,7 +21,7 @@ export const useItemsEditor = (props: IUseItemsEditor) => {
 
   const { data: items, isPending: isPendingItems } = useQuery({
     queryKey: ['items_all', debouncedSearch],
-    queryFn: () => getProductsManual({ params: { limit: 8, skip: 0 }, filters }),
+    queryFn: () => getProductsManual({ limit: 50, skip: 0, name: filters?.filterValues }),
   })
 
   const {
@@ -39,7 +39,7 @@ export const useItemsEditor = (props: IUseItemsEditor) => {
 
   return {
     values: {
-      items: items?.data.products,
+      items: items?.data.items,
       isPendingCreation,
       isError,
       isPendingItems,

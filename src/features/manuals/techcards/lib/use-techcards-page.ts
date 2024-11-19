@@ -8,7 +8,7 @@ import { deleteTechcardById, getTechcardsManual } from '@/entities/manuals'
 export const useTechcardsPage = () => {
   const [id, setId] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { getTotalCount, page, params, setPage } = usePagination(11)
+  const { getTotalCount, page, params, setPage } = usePagination(50)
   const { filters, search, setSearch, debouncedSearch } = useSearch('number')
 
   const queryClient = useQueryClient()

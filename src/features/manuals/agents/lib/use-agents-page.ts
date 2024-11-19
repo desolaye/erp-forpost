@@ -2,13 +2,13 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import { usePagination } from '@/shared/lib/use-pagination'
-import { getAgentsManual } from '@/entities/manuals'
 import { useSearch } from '@/shared/lib/use-search'
+import { getAgentsManual } from '@/entities/manuals'
 
 export const useAgentsPage = () => {
   const [agentId, setAgentId] = useState<string>()
 
-  const { getTotalCount, page, params, setPage } = usePagination(11)
+  const { getTotalCount, page, params, setPage } = usePagination(50)
   const { filters, search, setSearch, debouncedSearch } = useSearch('name')
 
   const { data: agents, isFetching } = useQuery({

@@ -26,7 +26,7 @@ export const useInvoiceCreator = (props: IInvoiceCreatorProps) => {
   })
 
   const { data: products, isLoading: isLoadingProducts } = useQuery({
-    queryFn: () => getProductsManual({ params: { limit: 1000, skip: 0 } }),
+    queryFn: () => getProductsManual({ limit: 1000, skip: 0 }),
     queryKey: ['products_all'],
   })
 
@@ -41,7 +41,7 @@ export const useInvoiceCreator = (props: IInvoiceCreatorProps) => {
       isPending,
       isLoading: isLoadingProducts || isLoadingAgents,
       agents: agentsToOptions(agents?.data.contractors),
-      products: productsToOptions(products?.data.products),
+      products: productsToOptions(products?.data.items),
     },
     handlers: {
       onMutate: mutateAsync,
