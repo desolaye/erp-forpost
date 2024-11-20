@@ -33,8 +33,8 @@ export const ProductForm = (props: IProductFormProps) => {
       error={isError}
     >
       <Input
-        placeholder="Название товара"
-        label="Название товара"
+        placeholder="Название продукта"
+        label="Название продукта"
         isError={Boolean(values.errors.name)}
         helper={values.errors.name?.message}
         {...handlers.register('name')}
@@ -45,13 +45,13 @@ export const ProductForm = (props: IProductFormProps) => {
         render={({ field }) => (
           <label style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <Checkbox {...field} checked={field.value} />
-            <Text>Закупочный товар</Text>
+            <Text>Закупочный продукт</Text>
           </label>
         )}
       />
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Text>Категория товара</Text>
+        <Text>Категория продукта</Text>
         {values.categoryValue.value !== guidEmpty && (
           <button
             type="button"

@@ -31,7 +31,7 @@ export const ProductBarcodeEditor = (props: IProductBarcodeEditorProps) => {
             {isPending ? <Loader /> : <ProductBarcode image={data!} />}
           </div>
         }
-        header={<Text weight="semi">QR товара</Text>}
+        header={<Text weight="semi">QR-код продукта</Text>}
       />
     </Card>
   )

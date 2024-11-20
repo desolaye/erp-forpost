@@ -21,7 +21,7 @@ const ManualProductsPage = () => {
   const config = productsTableConfig()
 
   return (
-    <PageWrapper title="Товары">
+    <PageWrapper title="Продукты">
       <Card style={{ flexDirection: 'row' }}>
         <Input
           full
