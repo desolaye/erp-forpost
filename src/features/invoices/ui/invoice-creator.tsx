@@ -1,6 +1,5 @@
 import { Text } from '@/shared/ui/text'
 import { ModalEditor } from '@/shared/ui/modal-editor'
-import { Loader } from '@/shared/ui/loader'
 
 import { useInvoiceCreator } from '../lib/use-invoice-creator'
 import { InvoiceForm } from './invoice-form'
@@ -21,18 +20,15 @@ export const InvoiceCreator = (props: IInvoiceCreatorProps) => {
           Создание нового счёта
         </Text>
       }
-      body={
-        values.isPending || values.isLoading ? (
-          <Loader />
-        ) : (
-          <InvoiceForm
-            agents={values.agents}
-            products={values.products}
-            onClose={onClose}
-            onMutate={handlers.onMutate}
-          />
-        )
-      }
-    />
+    >
+      <InvoiceForm
+        isError={values.isError}
+        isLoading={values.isLoading}
+        agents={values.agents}
+        products={values.products}
+        onClose={onClose}
+        onMutate={handlers.onMutate}
+      />
+    </ModalEditor>
   )
 }

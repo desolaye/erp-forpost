@@ -1,6 +1,12 @@
 import ReactSelect from 'react-select'
 import { Controller } from 'react-hook-form'
 
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import 'dayjs/locale/de'
+import dayjs from 'dayjs'
+
 import { Form } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
 
@@ -16,16 +22,25 @@ interface IInvoiceFormProps {
   agents: { label: string; value: string }[]
   products: { label: string; value: string }[]
 
+  isLoading?: boolean
+  isError?: boolean
+
   onClose?: () => void
   onMutate?: (data: InvoiceValidatorType) => void
 }
 
 export const InvoiceForm = (props: IInvoiceFormProps) => {
-  const { agents, products } = props
+  const { agents, products, isError, isLoading, onClose } = props
   const { handlers, values } = useInvoiceForm(props)
 
   return (
-    <Form withButtons onSubmit={handlers.handleSubmit(handlers.onSubmit)}>
+    <Form
+      error={isError}
+      pending={isLoading}
+      withButtons
+      onSubmit={handlers.handleSubmit(handlers.onSubmit)}
+      onReset={() => onClose?.()}
+    >
       <Input
         placeholder="Номер счёта"
         label="Номер счёта"
@@ -112,6 +127,28 @@ export const InvoiceForm = (props: IInvoiceFormProps) => {
           Необходимо выбрать приоритет
         </Text>
       )}
+
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
+        <Text>Крайняя дата оплаты</Text>
+        <Controller
+          name="paymentDeadline"
+          control={values.control}
+          render={({ field }) => (
+            <DateTimePicker
+              {...field}
+              onChange={(v) => field.onChange(dayjs(v).toISOString())}
+              defaultValue={dayjs()}
+              value={dayjs(field.value)}
+            />
+          )}
+        />
+
+        {values.errors.paymentDeadline && (
+          <Text size="sm" color="error">
+            Необходимо выбрать дату
+          </Text>
+        )}
+      </LocalizationProvider>
 
       {values.fields.map((f, i) => (
         <Card key={f.id}>

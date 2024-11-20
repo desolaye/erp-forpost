@@ -4,12 +4,11 @@ import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { InvoiceValidatorType, ZInvoiceToBack } from '@/entities/invoices'
 
 interface IUseInvoiceForm {
-  onClose?: () => void
   onMutate?: (data: InvoiceValidatorType) => void
 }
 
 export const useInvoiceForm = (props: IUseInvoiceForm) => {
-  const { onClose, onMutate } = props
+  const { onMutate } = props
 
   const {
     register,
@@ -29,7 +28,6 @@ export const useInvoiceForm = (props: IUseInvoiceForm) => {
   const removeField = (index?: number) => remove(index)
 
   const onSubmit: SubmitHandler<InvoiceValidatorType> = (data) => onMutate?.(data)
-  const onReset = onClose
 
   return {
     values: {
@@ -43,7 +41,6 @@ export const useInvoiceForm = (props: IUseInvoiceForm) => {
       createField,
       removeField,
       onSubmit,
-      onReset,
     },
   }
 }

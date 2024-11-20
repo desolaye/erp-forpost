@@ -17,7 +17,7 @@ export const useInvoiceCreator = (props: IInvoiceCreatorProps) => {
   const { onClose } = props
   const queryClient = useQueryClient()
 
-  const { mutateAsync, isPending, error } = useMutation({
+  const { mutateAsync, isPending, isError } = useMutation({
     mutationFn: (data: InvoiceValidatorType) => postCreateInvoice(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['invoices_all'] })
@@ -37,9 +37,8 @@ export const useInvoiceCreator = (props: IInvoiceCreatorProps) => {
 
   return {
     values: {
-      error,
-      isPending,
-      isLoading: isLoadingProducts || isLoadingAgents,
+      isError,
+      isLoading: isLoadingProducts || isLoadingAgents || isPending,
       agents: agentsToOptions(agents?.data.contractors),
       products: productsToOptions(products?.data.items),
     },

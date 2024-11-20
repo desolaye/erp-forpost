@@ -94,6 +94,8 @@ export const ZInvoiceValidator = z.object({
   number: z.string().min(3, 'Минимум 3 символа'),
   description: z.string(),
 
+  paymentDeadline: z.string(),
+
   priority: z.object({
     label: z.string(),
     value: ZPriorityEnum,
