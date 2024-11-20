@@ -7,35 +7,57 @@ import { Form } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
 
-import { CategoryToBackType, guidEmpty, postCreateCategory } from '@/entities/categories'
+import {
+  CategoryToBackType,
+  CategoryType,
+  guidEmpty,
+  postCreateCategory,
+  putEditCategory,
+} from '@/entities/categories'
 
 type CategoryFormProps = {
-  parentCategoryId?: string
+  category?: CategoryType
   onClose?: () => void
 }
 
 export const CategoryForm = (props: CategoryFormProps) => {
-  const { parentCategoryId = guidEmpty, onClose } = props
+  const { category, onClose } = props
 
   const queryClient = useQueryClient()
 
-  const { mutateAsync, isPending, isError } = useMutation({
+  const onSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ['categories_list'] })
+    onClose?.()
+  }
+
+  const createCategory = useMutation({
     mutationFn: postCreateCategory,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['categories_list'] })
-      onClose?.()
-    },
+    onSuccess,
   })
+
+  const editCategory = useMutation({
+    mutationFn: putEditCategory,
+    onSuccess,
+  })
+
+  const isError = createCategory.isError || editCategory.isError
+  const isPending = createCategory.isPending || editCategory.isPending
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CategoryToBackType>({
-    defaultValues: { parentCategoryId },
+    defaultValues: category,
   })
 
-  const onSubmit: SubmitHandler<CategoryToBackType> = (e) => mutateAsync(e)
+  const onSubmit: SubmitHandler<CategoryToBackType> = (e) => {
+    if (category) {
+      return category.id === guidEmpty
+        ? createCategory.mutateAsync(e)
+        : editCategory.mutateAsync(e)
+    }
+  }
 
   return (
     <Form

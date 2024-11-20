@@ -16,6 +16,7 @@ export const ZCategory: z.ZodType<CategoryType> = ZBaseCategory.extend({
 })
 
 export const ZCategoryForm = z.object({
+  id: z.string(),
   name: z.string().min(1, 'Пустое название'),
   description: z.string(),
   parentCategoryId: z.object({

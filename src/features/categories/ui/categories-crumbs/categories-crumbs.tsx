@@ -21,6 +21,7 @@ export const CategoriesCrumbs = (props: CategoriesCrumbsProps) => {
   const { data, isLoading } = useQuery({
     queryFn: () => getCategoriesAll({}),
     queryKey: ['categories_list'],
+    refetchOnWindowFocus: false,
   })
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -41,13 +42,13 @@ export const CategoriesCrumbs = (props: CategoriesCrumbsProps) => {
     handleClose()
     onSetCategory(category.id)
 
-    if (openedCategory) {
-      if (openedCategory.idx < routeHistory.length - 1) {
-        setRouteHistory((prev) => prev.filter((_, i) => i <= openedCategory.idx))
-        if (category.id !== guidEmpty) setRouteHistory((prev) => [...prev, category])
-      } else {
-        if (category.id !== guidEmpty) setRouteHistory((prev) => [...prev, category])
-      }
+    const idx = openedCategory?.idx || 0
+
+    if (idx < routeHistory.length - 1) {
+      setRouteHistory((prev) => prev.filter((_, i) => i <= idx))
+      if (category.id !== guidEmpty) setRouteHistory((prev) => [...prev, category])
+    } else if (category.id !== guidEmpty) {
+      setRouteHistory((prev) => [...prev, category])
     }
   }
 

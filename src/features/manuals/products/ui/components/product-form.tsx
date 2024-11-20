@@ -33,8 +33,8 @@ export const ProductForm = (props: IProductFormProps) => {
       error={isError}
     >
       <Input
-        placeholder="Название продукта"
-        label="Название продукта"
+        placeholder="Название товара"
+        label="Название товара"
         isError={Boolean(values.errors.name)}
         helper={values.errors.name?.message}
         {...handlers.register('name')}

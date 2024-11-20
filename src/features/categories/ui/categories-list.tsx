@@ -3,6 +3,7 @@ import { Breadcrumbs } from '@mui/material'
 import { Button } from '@/shared/ui/button'
 import { Text } from '@/shared/ui/text'
 import { splitByNewline } from '@/shared/utils/split-by-newline'
+import { guidEmpty } from '@/entities/categories'
 
 import { useCategoriesList } from '../lib/use-categories-list'
 
@@ -44,24 +45,62 @@ export const CategoriesList = () => {
         )}
       </header>
 
-      {!values.isCreating && (
+      {!values.categoryToCreate && !values.categoryToDelete && (
         <CategoriesObserver
+          onDelete={handlers.setCategoryToDelete}
+          onEdit={handlers.setCategoryToCreate}
           navigateTo={handlers.navigateTo}
           categories={values.categories}
           isLoading={values.isLoading}
         />
       )}
 
-      {values.isCreating && (
+      {values.categoryToCreate && (
         <CategoryForm
-          onClose={() => handlers.setIsCreating(false)}
-          parentCategoryId={values.route?.id}
+          onClose={() => handlers.setCategoryToCreate(undefined)}
+          category={values.categoryToCreate}
         />
       )}
 
-      {!values.isCreating && (
+      {values.categoryToDelete && (
+        <section>
+          <Text style={{ padding: '10px 0' }}>
+            Вы действительно хотите удалить категорию{' '}
+            <Text tag="span" color="error">
+              {values.categoryToDelete.name}
+            </Text>
+            ?
+          </Text>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <Button full onClick={() => handlers.onDelete()}>
+              Подтвердить
+            </Button>
+            <Button
+              full
+              mode="neutral"
+              onClick={() => handlers.setCategoryToDelete(undefined)}
+            >
+              Отменить
+            </Button>
+          </div>
+        </section>
+      )}
+
+      {!values.categoryToCreate && !values.categoryToDelete && (
         <footer>
-          <Button mode="secondary" full onClick={() => handlers.setIsCreating(true)}>
+          <Button
+            mode="secondary"
+            full
+            onClick={() =>
+              handlers.setCategoryToCreate({
+                children: [],
+                description: '',
+                id: guidEmpty,
+                name: '',
+                parentCategoryId: values.route?.id || guidEmpty,
+              })
+            }
+          >
             Добавить
           </Button>
         </footer>
