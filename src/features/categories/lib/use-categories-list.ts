@@ -24,7 +24,10 @@ export const useCategoriesList = () => {
 
   const deleteCategory = useMutation({
     mutationFn: deleteCategoryById,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['categories_list'] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['categories_list'] })
+      queryClient.invalidateQueries({ queryKey: ['products_all'] })
+    },
   })
 
   const navigateTo = (routeOpt: CategoryType) => {

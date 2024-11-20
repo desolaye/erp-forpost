@@ -27,6 +27,7 @@ export const CategoryForm = (props: CategoryFormProps) => {
 
   const onSuccess = () => {
     queryClient.invalidateQueries({ queryKey: ['categories_list'] })
+    queryClient.invalidateQueries({ queryKey: ['products_all'] })
     onClose?.()
   }
 
