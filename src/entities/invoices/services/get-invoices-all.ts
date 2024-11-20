@@ -1,21 +1,52 @@
 import { publicApi } from '@/shared/api/public-api.config'
-import { GetWithParamsType } from '@/shared/model/get-with-params.type'
 
 import { InvoiceResponseType, ZInvoiceResponse } from '../model/invoice.schema'
 
-export const getInvoicesAll = async (props: GetWithParamsType) => {
-  const { params, filters } = props
+type InvoicesAllParams = {
+  number?: string
+  contractorId?: string
+  dateShipment?: string
+  dateClosing?: string
+  priority?: number
+  paymentStatus?: number
+  invoiceStatus?: number
+  skip?: number
+  limit?: number
+}
+
+export const getInvoicesAll = async (props: InvoicesAllParams) => {
+  const {
+    contractorId,
+    dateClosing,
+    dateShipment,
+    invoiceStatus,
+    limit,
+    number,
+    paymentStatus,
+    priority,
+    skip,
+  } = props
 
   const response = await publicApi.get<InvoiceResponseType>('v1/invoices', {
     params: {
-      ...params,
-      ...filters,
+      Skip: skip,
+      Limit: limit,
+      ContractorId: contractorId,
+      DateClosing: dateClosing,
+      DateShipment: dateShipment,
+      InvoiceStatus: invoiceStatus,
+      Number: number,
+      PaymentStatus: paymentStatus,
+      Priority: priority,
     },
   })
 
   const parsed = ZInvoiceResponse.safeParse(response.data)
 
-  if (parsed.error) console.log(parsed.error)
+  if (parsed.error || response.status >= 400) {
+    console.log(parsed.error)
+    throw new Error()
+  }
 
   return parsed.data
 }

@@ -14,14 +14,39 @@ export const invoicesTableConfig = () => {
       title: 'Описание',
       type: 'text',
     },
-    contractorName: {
+    contragentName: {
       width: 150,
       title: 'Контрагент',
       type: 'text',
     },
-    daysShipment: {
+    createdAt: {
       width: 150,
-      title: 'Дней до отгрузки',
+      title: 'Дата создания',
+      type: 'text',
+    },
+    dateClosing: {
+      width: 150,
+      title: 'Дата закрытия',
+      type: 'text',
+    },
+    invoiceStatus: {
+      width: 150,
+      title: 'Статус счёта',
+      type: 'text',
+    },
+    paymentDeadline: {
+      width: 150,
+      title: 'Оплата до',
+      type: 'text',
+    },
+    paymentStatus: {
+      width: 150,
+      title: 'Статус оплаты',
+      type: 'text',
+    },
+    priority: {
+      width: 150,
+      title: 'Приоритет',
       type: 'text',
     },
     dateShipment: {
@@ -29,17 +54,7 @@ export const invoicesTableConfig = () => {
       title: 'Дата отрузки',
       type: 'text',
     },
-    paymentPercentage: {
-      width: 150,
-      title: 'Процент оплаты',
-      type: 'text',
-    },
-    status: {
-      width: 150,
-      title: 'Статус',
-      type: 'text',
-    },
-    contragentId: {
+    contractorId: {
       width: 0,
       title: '',
       type: 'text',

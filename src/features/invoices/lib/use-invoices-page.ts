@@ -10,17 +10,17 @@ export const useInvoicesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [invoiceId, setInvoiceId] = useState('')
 
-  const { getTotalCount, page, params, setPage } = usePagination(11)
+  const { getTotalCount, page, params, setPage } = usePagination(50)
   const { filters, search, setSearch, debouncedSearch } = useSearch('number')
 
   const { data: invoices, isPending: isPendingInvoices } = useQuery({
-    queryFn: () => getInvoicesAll({ params, filters }),
+    queryFn: () => getInvoicesAll({ ...params, number: filters?.filterValues }),
     queryKey: ['invoices_all', page, debouncedSearch],
   })
 
   return {
     values: {
-      invoices: invoices?.invoices,
+      invoices: invoices?.items,
       page,
       invoiceId,
       isPending: isPendingInvoices,

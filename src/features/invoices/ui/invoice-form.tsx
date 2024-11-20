@@ -9,6 +9,8 @@ import { useInvoiceForm } from '../lib/use-invoice-form'
 import { Text } from '@/shared/ui/text'
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
+import { getPaymentStatusOptions } from '../utils/get-payment-status-options'
+import { getPriorityStatusOptions } from '../utils/get-priority-status-options'
 
 interface IInvoiceFormProps {
   agents: { label: string; value: string }[]
@@ -40,25 +42,9 @@ export const InvoiceForm = (props: IInvoiceFormProps) => {
         {...handlers.register('description')}
       />
 
-      <Input
-        placeholder="Дней до отгрузки"
-        label="Дней до отгрузки"
-        isError={Boolean(values.errors.daysShipment)}
-        helper={values.errors.daysShipment?.message}
-        {...handlers.register('daysShipment')}
-      />
-
-      <Input
-        placeholder="Процент оплаты"
-        label="Процент оплаты"
-        isError={Boolean(values.errors.paymentPercentage)}
-        helper={values.errors.daysShipment?.message}
-        {...handlers.register('paymentPercentage')}
-      />
-
       <Text>Выберите контрагента</Text>
       <Controller
-        name="contragentId"
+        name="contractorId"
         control={values.control}
         render={({ field }) => (
           <ReactSelect
@@ -67,15 +53,63 @@ export const InvoiceForm = (props: IInvoiceFormProps) => {
             styles={{
               control: (baseStyles) => ({
                 ...baseStyles,
-                borderColor: !values.errors.contragentId ? 'grey' : '#830000',
+                borderColor: !values.errors.contractorId ? 'grey' : '#830000',
               }),
             }}
           />
         )}
       />
-      {values.errors.contragentId && (
+      {values.errors.contractorId && (
         <Text size="sm" color="error">
           Необходимо выбрать контрагента
+        </Text>
+      )}
+
+      <Text>Выберите тип оплаты</Text>
+      <Controller
+        name="paymentStatus"
+        control={values.control}
+        render={({ field }) => (
+          <ReactSelect
+            {...field}
+            options={getPaymentStatusOptions()}
+            styles={{
+              control: (baseStyles) => ({
+                ...baseStyles,
+                borderColor: !values.errors.paymentStatus ? 'grey' : '#830000',
+              }),
+            }}
+          />
+        )}
+      />
+
+      {values.errors.paymentStatus && (
+        <Text size="sm" color="error">
+          Необходимо выбрать тип оплаты
+        </Text>
+      )}
+
+      <Text>Выберите приоритет счёта</Text>
+      <Controller
+        name="priority"
+        control={values.control}
+        render={({ field }) => (
+          <ReactSelect
+            {...field}
+            options={getPriorityStatusOptions()}
+            styles={{
+              control: (baseStyles) => ({
+                ...baseStyles,
+                borderColor: !values.errors.priority ? 'grey' : '#830000',
+              }),
+            }}
+          />
+        )}
+      />
+
+      {values.errors.priority && (
+        <Text size="sm" color="error">
+          Необходимо выбрать приоритет
         </Text>
       )}
 

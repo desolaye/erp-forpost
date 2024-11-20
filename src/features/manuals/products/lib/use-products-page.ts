@@ -21,7 +21,7 @@ export const useProductsPage = () => {
     queryFn: () =>
       getProductsManual({
         ...params,
-        name: filters?.filterExpression,
+        name: filters?.filterValues,
         categoryId: currentCategory === guidEmpty ? undefined : currentCategory,
       }),
     queryKey: ['products_all', page, debouncedSearch, currentCategory],
