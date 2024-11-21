@@ -13,6 +13,7 @@ interface IWarehouseFormProps {
   staff?: StaffType[]
   isPending?: boolean
   isError?: boolean
+
   onMutate: (data: WarehouseValidatorType) => void
   onClose: () => void
   onSearch: (search: string) => void

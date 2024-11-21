@@ -17,6 +17,7 @@ interface IStaffEditorProps {
 
 export const StaffEditor = (props: IStaffEditorProps) => {
   const { staff, onClose } = props
+
   const { values, handlers } = useStaffEditor(props)
 
   if (values.isLoading) return <Loader />
@@ -29,7 +30,13 @@ export const StaffEditor = (props: IStaffEditorProps) => {
           onDelete={handlers.onDelete}
           setTab={handlers.setTab}
           tab={values.tab}
-          tabs={[{ label: 'Пароль', value: 'password', disabled: staff?.id === 'new' }]}
+          tabs={[
+            {
+              label: 'Пароль',
+              value: 'password',
+              disabled: !Boolean(staff?.id && staff?.id !== 'new'),
+            },
+          ]}
         />
       }
     >

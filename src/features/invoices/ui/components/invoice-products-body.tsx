@@ -1,10 +1,11 @@
 import { Table } from '@/shared/ui/table'
 import { Text } from '@/shared/ui/text'
+import { splitByNewline } from '@/shared/utils/split-by-newline'
+
 import { InvoiceProductResponseType, InvoiceType } from '@/entities/invoices'
 
 import { TableHead } from './table-head'
 import { TableBody } from './table-body'
-import { splitByNewline } from '@/shared/utils/split-by-newline'
 
 interface IInvoiceProductsBodyProps {
   data?: InvoiceProductResponseType[]
@@ -28,7 +29,11 @@ export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
         </Text>
 
         {invoice?.description ? (
-          splitByNewline(invoice.description).map((v) => <Text key={v}>{v}</Text>)
+          splitByNewline(invoice.description).map((v) => (
+            <Text key={v} breakAll>
+              {v}
+            </Text>
+          ))
         ) : (
           <Text>Отсутствует</Text>
         )}

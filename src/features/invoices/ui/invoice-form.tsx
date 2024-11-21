@@ -17,6 +17,8 @@ import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { getPaymentStatusOptions } from '../utils/get-payment-status-options'
 import { getPriorityStatusOptions } from '../utils/get-priority-status-options'
+import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
+import Textarea from '@mui/joy/Textarea'
 
 interface IInvoiceFormProps {
   agents: { label: string; value: string }[]
@@ -49,13 +51,23 @@ export const InvoiceForm = (props: IInvoiceFormProps) => {
         {...handlers.register('number')}
       />
 
-      <Input
-        placeholder="Описание счёта"
-        label="Описание счёта"
-        isError={Boolean(values.errors.description)}
-        helper={values.errors.description?.message}
-        {...handlers.register('description')}
-      />
+      <Text>Описание счёта</Text>
+
+      <JoyUiProvider>
+        <Textarea
+          {...handlers.register('description')}
+          placeholder="Описание счёта"
+          minRows={4}
+          variant="soft"
+          sx={{ fontFamily: 'Montserrat' }}
+        />
+      </JoyUiProvider>
+
+      {values.errors.description && (
+        <Text size="sm" color="error">
+          {values.errors.description?.message}
+        </Text>
+      )}
 
       <Text>Выберите контрагента</Text>
       <Controller

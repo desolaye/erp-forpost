@@ -11,6 +11,7 @@ import { Text } from '@/shared/ui/text'
 import { ModalEditor } from '@/shared/ui/modal-editor'
 import { FileAdd } from '@/shared/ui/file'
 import { Loader } from '@/shared/ui/loader'
+import { Button } from '@/shared/ui/button'
 
 import { ManualHeader } from '@/entities/manuals'
 import { File } from '@/entities/files'
@@ -19,7 +20,6 @@ import { useInvoiceDetailed } from '../lib/use-invoice-detailed'
 import { InvoiceProductsBody } from './components/invoice-products-body'
 
 import cls from './invoice-detailed.module.scss'
-import { Button } from '@/shared/ui/button'
 
 interface IInvoiceDetailedProps {
   invoiceId: string
@@ -33,12 +33,34 @@ export const InvoiceDetailed = (props: IInvoiceDetailedProps) => {
 
   if (values.isLoading) return <Loader />
 
+  if (values.isDeleting) {
+    return (
+      <section>
+        <Text size="lg" style={{ padding: '8px', textAlign: 'center' }} weight="semi">
+          Вы действительно хотите удалить счёт{' '}
+          <Text size="lg" color="error" weight="semi" tag="span">
+            №{values.invoice?.number}
+          </Text>
+          ?
+        </Text>
+        <div style={{ gap: 8, display: 'flex' }}>
+          <Button full onClick={() => handlers.deleteInvoice()}>
+            Подтвердить
+          </Button>
+          <Button full mode="neutral" onClick={() => handlers.setIsDeleting(false)}>
+            Отменить
+          </Button>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <ModalEditor
       header={
         <ManualHeader
           id={invoiceId}
-          onDelete={() => handlers.deleteInvoice()}
+          onDelete={() => handlers.setIsDeleting(true)}
           setTab={handlers.setTab}
           tab={values.tab}
           tabs={[{ label: 'Управление', value: 'statuses' }]}
@@ -74,6 +96,7 @@ export const InvoiceDetailed = (props: IInvoiceDetailedProps) => {
               <MenuItem value={200}>Аванс</MenuItem>
               <MenuItem value={300}>Полная оплата</MenuItem>
             </Select>
+
             {values.isPaymentError && (
               <Text color="error">Ошибка изменения статуса оплаты</Text>
             )}
@@ -93,6 +116,7 @@ export const InvoiceDetailed = (props: IInvoiceDetailedProps) => {
               <MenuItem value={200}>Средний</MenuItem>
               <MenuItem value={300}>Высокий</MenuItem>
             </Select>
+
             {values.isPriorityError && (
               <Text color="error">Ошибка изменения приоритета</Text>
             )}

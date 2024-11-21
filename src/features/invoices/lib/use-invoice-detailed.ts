@@ -22,6 +22,7 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
   const queryClient = useQueryClient()
   const [tab, setTab] = useState('data')
   const [shipmentDate, setShipmentDate] = useState<string | null>(null)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const onSuccess = () => {
     queryClient.invalidateQueries({ queryKey: ['invoice_by_id', invoiceId] })
@@ -73,9 +74,7 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
   }
 
   useEffect(() => {
-    if (invoice && !shipmentDate) {
-      setShipmentDate(invoice.dateShipment)
-    }
+    if (invoice && !shipmentDate) setShipmentDate(invoice.dateShipment)
   }, [invoice])
 
   return {
@@ -85,6 +84,7 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
       products,
       invoice,
       shipmentDate,
+      isDeleting,
       isLoading:
         isLoadingProducts ||
         isLoadingInvoice ||
@@ -99,6 +99,7 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
     },
     handlers: {
       setTab,
+      setIsDeleting,
       setShipmentDate,
       mutateFile,
       deleteInvoice: mutateDelete.mutateAsync,
