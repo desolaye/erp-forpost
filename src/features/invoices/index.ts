@@ -1,4 +1,4 @@
 export { InvoiceCreator } from './ui/invoice-creator'
-export { InvoiceProducts } from './ui/invoice-products'
+export { InvoiceDetailed } from './ui/invoice-detailed'
 
 export { useInvoicesPage } from './lib/use-invoices-page'

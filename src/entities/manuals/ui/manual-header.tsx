@@ -20,7 +20,9 @@ export const ManualHeader = (props: ManualHeaderProps) => {
       <Tabs value={tab} onChange={(_, v) => setTab(v)}>
         <Tab label="Данные" value="data" />
         <Tab disabled={id === 'new'} label="Файлы" value="files" />
-        {tabs?.map((v) => <Tab disabled={v.disabled} label={v.label} value={v.value} />)}
+        {tabs?.map((v) => (
+          <Tab key={v.value} disabled={v.disabled} label={v.label} value={v.value} />
+        ))}
       </Tabs>
 
       <Button

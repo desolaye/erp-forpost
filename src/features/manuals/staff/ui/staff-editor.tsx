@@ -6,6 +6,7 @@ import { File } from '@/entities/files'
 import { ManualHeader, StaffType } from '@/entities/manuals'
 
 import { useStaffEditor } from '../lib/use-staff-editor'
+
 import { StaffForm } from './components/staff-form'
 import { PasswordForm } from './components/password-form'
 

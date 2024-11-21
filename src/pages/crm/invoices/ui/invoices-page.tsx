@@ -3,7 +3,7 @@ import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
-import { InvoiceCreator, InvoiceProducts, useInvoicesPage } from '@/features/invoices'
+import { InvoiceCreator, InvoiceDetailed, useInvoicesPage } from '@/features/invoices'
 
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
@@ -54,7 +54,10 @@ const InvoicesPage = () => {
         isOpen={Boolean(values.invoiceId)}
         onClose={() => handlers.setInvoiceId('')}
       >
-        <InvoiceProducts invoiceId={values.invoiceId} />
+        <InvoiceDetailed
+          invoiceId={values.invoiceId}
+          onClose={() => handlers.setInvoiceId('')}
+        />
       </ModalLayout>
     </PageWrapper>
   )

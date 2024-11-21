@@ -9,8 +9,8 @@ export const invoicesTableConfig = () => {
       type: 'text',
     },
     description: {
-      width: 150,
-      maxWidth: 150,
+      width: 0,
+      maxWidth: 0,
       title: 'Описание',
       type: 'text',
     },
