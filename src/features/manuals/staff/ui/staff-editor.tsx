@@ -28,6 +28,7 @@ export const StaffEditor = (props: IStaffEditorProps) => {
           onDelete={handlers.onDelete}
           setTab={handlers.setTab}
           tab={values.tab}
+          tabs={[{ label: 'Пароль', value: 'password', disabled: staff?.id === 'new' }]}
         />
       }
     >
