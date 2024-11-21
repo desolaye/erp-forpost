@@ -5,6 +5,7 @@ export const putEditStaff = async (staff: StaffValidatorType) => {
   const response = await publicApi.put(`v1/employees/${staff.id}`, {
     ...staff,
     role: staff.role.label,
+    password: undefined,
   })
 
   if (response.status >= 400) throw new Error()

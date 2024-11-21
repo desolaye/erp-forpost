@@ -7,6 +7,7 @@ import { ManualHeader, StaffType } from '@/entities/manuals'
 
 import { useStaffEditor } from '../lib/use-staff-editor'
 import { StaffForm } from './components/staff-form'
+import { PasswordForm } from './components/password-form'
 
 interface IStaffEditorProps {
   staff?: StaffType
@@ -48,6 +49,10 @@ export const StaffEditor = (props: IStaffEditorProps) => {
             <File title={file.fileName} link={file.id} key={file.id} />
           ))}
         </>
+      )}
+
+      {values.tab === 'password' && (
+        <PasswordForm onClose={() => onClose?.()} staffId={staff?.id || 'new'} />
       )}
     </ModalEditor>
   )

@@ -24,7 +24,7 @@ type FormItemType = {
 }
 
 export const StaffForm = (props: IStaffFormProps) => {
-  const { roles, isError, isPending } = props
+  const { roles, isError, staff, isPending } = props
 
   const { register, errors, control, handleSubmit, onReset, onSubmit } =
     useStaffForm(props)
@@ -36,7 +36,6 @@ export const StaffForm = (props: IStaffFormProps) => {
     { label: 'Почта', key: 'email' },
     { label: 'Номер телефона', key: 'phoneNumber' },
     { label: 'Должность', key: 'post' },
-    { label: 'Пароль', key: 'password' },
   ]
 
   return (
@@ -57,6 +56,16 @@ export const StaffForm = (props: IStaffFormProps) => {
           {...register(v.key)}
         />
       ))}
+
+      {!Boolean(staff.id) && (
+        <Input
+          placeholder="Пароль"
+          label="Пароль"
+          isError={Boolean(errors.password)}
+          helper={errors.password?.message}
+          {...register('password')}
+        />
+      )}
 
       <Text>Выберите роль сотрудника в ERP</Text>
       <Controller

@@ -18,7 +18,7 @@ export const ZStaffValidator = ZStaff.extend({
   id: z.string(),
   firstName: z.string().min(3, 'Имя должно быть не менее 3 символов'),
   lastName: z.string().min(3, 'Фамилия должна быть не менее 3 символов'),
-  password: z.string().min(3, 'Пароль слишком короткий'),
+  password: z.string(),
   post: z.string().min(3, 'Доложность должна состоять из 3 символов минимум'),
   email: z.string().email('Неверный формат почты'),
   phoneNumber: z.string().regex(phoneRegex, 'Неверный формат телефона'),
