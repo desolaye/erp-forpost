@@ -52,6 +52,7 @@ const ZInvoice = z.object({
   contragentName: z.string(),
   description: z.string(),
   number: z.string(),
+  paymentPercentage: z.number(),
 
   invoiceStatus: z.object({
     value: z.number(),
@@ -127,9 +128,34 @@ export const ZInvoiceToBack = ZInvoiceValidator.transform((data) => ({
   })),
 }))
 
+const ZInvoiceHistory = z.object({
+  id: z.string().uuid(),
+  entityId: z.string().uuid(),
+
+  propertyName: z.string(),
+  oldValue: z.string(),
+  newValue: z.string(),
+
+  createdAt: z.string(),
+})
+
+export const ZInvoiceHistoryResponse = z
+  .object({ items: z.array(ZInvoiceHistory), totalCount: z.number() })
+  .transform((data) => ({
+    ...data,
+    items: data.items.map((inv) => ({
+      ...inv,
+      oldValue: Number(inv.oldValue),
+      newValue: Number(inv.newValue),
+      createdAt: isoToTime(inv.createdAt, true),
+    })),
+  }))
+
 export type InvoiceType = z.infer<typeof ZInvoice>
+export type InvoiceHistoryType = z.infer<typeof ZInvoiceHistory>
 
 export type InvoiceProductResponseType = z.infer<typeof ZInvoiceProductResponse>
+export type InvoiceHistoryResponseType = z.infer<typeof ZInvoiceHistoryResponse>
 export type InvoiceResponseType = z.infer<typeof ZInvoiceResponse>
 
 export type InvoiceValidatorType = z.infer<typeof ZInvoiceValidator>

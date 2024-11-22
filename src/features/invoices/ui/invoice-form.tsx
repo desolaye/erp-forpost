@@ -1,5 +1,6 @@
 import ReactSelect from 'react-select'
 import { Controller } from 'react-hook-form'
+import Textarea from '@mui/joy/Textarea'
 
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -9,16 +10,16 @@ import dayjs from 'dayjs'
 
 import { Form } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
-
-import { InvoiceValidatorType } from '@/entities/invoices'
-import { useInvoiceForm } from '../lib/use-invoice-form'
 import { Text } from '@/shared/ui/text'
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
+import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
+
+import { useInvoiceForm } from '../lib/use-invoice-form'
 import { getPaymentStatusOptions } from '../utils/get-payment-status-options'
 import { getPriorityStatusOptions } from '../utils/get-priority-status-options'
-import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
-import Textarea from '@mui/joy/Textarea'
+
+import { InvoiceValidatorType } from '@/entities/invoices'
 
 interface IInvoiceFormProps {
   agents: { label: string; value: string }[]
@@ -141,7 +142,7 @@ export const InvoiceForm = (props: IInvoiceFormProps) => {
       )}
 
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
-        <Text>Крайняя дата оплаты</Text>
+        <Text>Актуальность счёта</Text>
         <Controller
           name="paymentDeadline"
           control={values.control}

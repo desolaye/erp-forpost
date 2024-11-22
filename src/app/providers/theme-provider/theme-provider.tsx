@@ -6,6 +6,24 @@ export const MyThemeProvider = (props: PropsWithChildren) => {
 
   const theme = createTheme({
     components: {
+      MuiSlider: {
+        styleOverrides: {
+          thumb: {
+            color: '#830000',
+            ':hover': {
+              'box-shadow': '0px 0px 0px 8px rgba(131, 0, 0, 0.16)',
+            },
+            ':active': {
+              'box-shadow': '0px 0px 0px 16px rgba(131, 0, 0, 0.16)',
+            },
+          },
+          root: {
+            '&.MuiSlider-root': {
+              color: '#5d0000',
+            },
+          },
+        },
+      },
       MuiTooltip: {
         styleOverrides: {
           tooltip: {

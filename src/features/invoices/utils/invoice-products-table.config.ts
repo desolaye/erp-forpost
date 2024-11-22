@@ -1,37 +1,31 @@
+import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 import { InvoiceProductResponseType } from '@/entities/invoices'
 
 export const invoiceProductsTableConfig = () => {
-  type DisplayValues = [
-    keyof InvoiceProductResponseType,
-    {
-      size: string
-      title: string
-    },
-  ][]
-
-  const config: Record<
-    keyof InvoiceProductResponseType,
-    { size: string; title: string }
-  > = {
+  const config: TableRowRecordType<InvoiceProductResponseType> = {
     name: {
-      size: '250px',
+      width: 250,
+      type: 'text',
       title: 'Название продукта',
     },
     quantity: {
-      size: '125px',
+      width: 125,
+      type: 'text',
       title: 'Кол-во',
     },
     productId: {
-      size: '0',
+      width: 0,
+      type: 'text',
       title: '',
     },
     invoiceId: {
-      size: '0',
+      width: 0,
+      type: 'text',
       title: '',
     },
   }
 
   return Object.entries(config).filter(
-    ([_, value]) => value.size !== '0',
-  ) as DisplayValues
+    ([_, value]) => value.width > 0,
+  ) as TableConfigType<InvoiceProductResponseType>
 }

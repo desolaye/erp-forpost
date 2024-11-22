@@ -1,12 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { useFileLoader } from '@/shared/lib/use-file-loader'
 import {
   deleteInvoiceById,
   getInvoiceById,
+  getInvoiceHistoryById,
   getInvoiceProducts,
   putEditInvoicePayment,
+  putEditInvoicePercents,
   putEditInvoicePriority,
   putEditInvoiceShipment,
 } from '@/entities/invoices'
@@ -21,11 +23,11 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
 
   const queryClient = useQueryClient()
   const [tab, setTab] = useState('data')
-  const [shipmentDate, setShipmentDate] = useState<string | null>(null)
   const [isDeleting, setIsDeleting] = useState(false)
 
   const onSuccess = () => {
     queryClient.invalidateQueries({ queryKey: ['invoice_by_id', invoiceId] })
+    queryClient.invalidateQueries({ queryKey: ['invoice_history_by_id', invoiceId] })
     queryClient.invalidateQueries({ queryKey: ['invoices_all'] })
   }
 
@@ -43,6 +45,11 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
   const { data: products, isLoading: isLoadingProducts } = useQuery({
     queryFn: () => getInvoiceProducts(invoiceId),
     queryKey: ['invoice_products_all'],
+  })
+
+  const { data: history, isLoading: isLoadingHistory } = useQuery({
+    queryFn: () => getInvoiceHistoryById(invoiceId),
+    queryKey: ['invoice_history_by_id', invoiceId],
   })
 
   const mutateDelete = useMutation({
@@ -69,13 +76,10 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
     onSuccess,
   })
 
-  const editShipment = () => {
-    if (shipmentDate) mutateShipment.mutateAsync(shipmentDate)
-  }
-
-  useEffect(() => {
-    if (invoice && !shipmentDate) setShipmentDate(invoice.dateShipment)
-  }, [invoice])
+  const mutatePercent = useMutation({
+    mutationFn: (percent: number) => putEditInvoicePercents({ id: invoiceId, percent }),
+    onSuccess,
+  })
 
   return {
     values: {
@@ -83,28 +87,31 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
       files,
       products,
       invoice,
-      shipmentDate,
+      history,
       isDeleting,
       isLoading:
         isLoadingProducts ||
         isLoadingInvoice ||
         isLoadingFile ||
+        isLoadingHistory ||
         mutatePayment.isPending ||
         mutateShipment.isPending ||
         mutatePriority.isPending ||
+        mutatePercent.isPending ||
         mutateDelete.isPending,
       isPriorityError: mutatePriority.isError,
       isPaymentError: mutatePayment.isError,
       isShipmentError: mutateShipment.isError,
+      isPercentError: mutatePercent.isError,
     },
     handlers: {
       setTab,
       setIsDeleting,
-      setShipmentDate,
       mutateFile,
       deleteInvoice: mutateDelete.mutateAsync,
       editPayment: mutatePayment.mutateAsync,
-      editShipment,
+      editPercent: mutatePercent.mutateAsync,
+      editShipment: mutateShipment.mutateAsync,
       editPriority: mutatePriority.mutateAsync,
     },
   }

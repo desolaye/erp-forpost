@@ -1,11 +1,10 @@
-import { Table } from '@/shared/ui/table'
 import { Text } from '@/shared/ui/text'
 import { splitByNewline } from '@/shared/utils/split-by-newline'
+import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { InvoiceProductResponseType, InvoiceType } from '@/entities/invoices'
 
-import { TableHead } from './table-head'
-import { TableBody } from './table-body'
+import { invoiceProductsTableConfig } from '../../utils/invoice-products-table.config'
 
 interface IInvoiceProductsBodyProps {
   data?: InvoiceProductResponseType[]
@@ -14,6 +13,7 @@ interface IInvoiceProductsBodyProps {
 
 export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
   const { data, invoice } = props
+  const config = invoiceProductsTableConfig()
 
   return (
     <>
@@ -43,13 +43,17 @@ export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
         <Text size="lg" weight="semi">
           Продукты в счёте
         </Text>
-        <Table
-          header={<TableHead />}
-          body={<TableBody data={data} />}
-          page={1}
-          setPage={() => {}}
-          totalCount={0}
-        />
+        <SmartTable
+          config={config}
+          currentPage={1}
+          pageCount={0}
+          isLoading={false}
+          onPageChange={() => {}}
+        >
+          {data?.map((v) => (
+            <SmartTableRow key={v.productId + v.quantity} config={config} row={v} />
+          ))}
+        </SmartTable>
       </section>
     </>
   )
