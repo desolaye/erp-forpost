@@ -64,6 +64,11 @@ export const invoicesTableConfig = () => {
       title: '',
       type: 'text',
     },
+    paymentPercentage: {
+      width: 0,
+      title: '',
+      type: 'text',
+    },
   }
 
   return Object.entries(config).filter(
