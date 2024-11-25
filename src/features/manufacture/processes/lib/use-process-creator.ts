@@ -43,7 +43,7 @@ export const useProcessCreator = (props: IProcessCreatorProps) => {
     values: {
       error,
       isPending,
-      staff: staff?.data.employees || [],
+      staff: staff?.data?.employees || [],
       techcards: techcards?.data.techCards || [],
     },
     handlers: {

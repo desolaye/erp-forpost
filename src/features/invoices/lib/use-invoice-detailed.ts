@@ -5,7 +5,6 @@ import { useFileLoader } from '@/shared/lib/use-file-loader'
 import {
   deleteInvoiceById,
   getInvoiceById,
-  getInvoiceHistoryById,
   getInvoiceProducts,
   putEditInvoicePayment,
   putEditInvoicePercents,
@@ -47,11 +46,6 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
     queryKey: ['invoice_products_all'],
   })
 
-  const { data: history, isLoading: isLoadingHistory } = useQuery({
-    queryFn: () => getInvoiceHistoryById(invoiceId),
-    queryKey: ['invoice_history_by_id', invoiceId],
-  })
-
   const mutateDelete = useMutation({
     mutationFn: () => deleteInvoiceById(invoiceId),
     onSuccess: () => {
@@ -87,13 +81,11 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
       files,
       products,
       invoice,
-      history,
       isDeleting,
       isLoading:
         isLoadingProducts ||
         isLoadingInvoice ||
         isLoadingFile ||
-        isLoadingHistory ||
         mutatePayment.isPending ||
         mutateShipment.isPending ||
         mutatePriority.isPending ||

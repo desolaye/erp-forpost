@@ -1,10 +1,14 @@
-import { Text } from '@/shared/ui/text'
+import { useQuery } from '@tanstack/react-query'
 
-import { InvoiceHistoryResponseType } from '@/entities/invoices'
+import { Text } from '@/shared/ui/text'
+import { Loader } from '@/shared/ui/loader'
+
+import { getInvoiceHistoryById, InvoiceHistoryResponseType } from '@/entities/invoices'
 import { paymentStatusToText } from '@/entities/invoices/utils/payment-status-to-text'
+import { priorityStatusToText } from '@/entities/invoices/utils/priority-status-to-text'
 
 type InvoiceHistoryTabProps = {
-  history?: InvoiceHistoryResponseType['items']
+  invoiceId: string
 }
 
 const getHistoryString = (line: InvoiceHistoryResponseType['items'][0]) => {
@@ -12,18 +16,14 @@ const getHistoryString = (line: InvoiceHistoryResponseType['items'][0]) => {
     return (
       <>
         <Text>
-          Изменен статус оплаты с{' '}
+          Изменен статус оплаты на{' '}
           <Text tag="span" weight="semi">
-            {paymentStatusToText(line.oldValue)}
-          </Text>{' '}
-          на{' '}
-          <Text tag="span" weight="semi">
-            {paymentStatusToText(line.newValue)}
+            {paymentStatusToText(line.value)}
           </Text>{' '}
         </Text>
 
         <Text pos={'right'} style={{ padding: 2 }}>
-          {line.createdAt}
+          {line.updatedAt}
         </Text>
       </>
     )
@@ -33,29 +33,50 @@ const getHistoryString = (line: InvoiceHistoryResponseType['items'][0]) => {
     return (
       <>
         <Text>
-          Изменен процент оплаты с{' '}
+          Изменен процент оплаты на{' '}
           <Text tag="span" weight="semi">
-            {line.oldValue}%
-          </Text>{' '}
-          на{' '}
-          <Text tag="span" weight="semi">
-            {line.newValue}%
+            {line.value}%
           </Text>
         </Text>
         <Text pos="right" style={{ padding: 2 }}>
-          {line.createdAt}
+          {line.updatedAt}
         </Text>
       </>
     )
   }
+
+  if (line.propertyName === 'Priority') {
+    return (
+      <>
+        <Text>
+          Изменен приоритет счёта на{' '}
+          <Text tag="span" weight="semi">
+            {priorityStatusToText(line.value)}
+          </Text>
+        </Text>
+        <Text pos="right" style={{ padding: 2 }}>
+          {line.updatedAt}
+        </Text>
+      </>
+    )
+  }
+
+  return 'Неизвестное действие'
 }
 
-export const InvoiceHistoryTab = ({ history }: InvoiceHistoryTabProps) => {
+export const InvoiceHistoryTab = ({ invoiceId }: InvoiceHistoryTabProps) => {
+  const { data: history, isLoading: isLoadingHistory } = useQuery({
+    queryFn: () => getInvoiceHistoryById(invoiceId),
+    queryKey: ['invoice_history_by_id', invoiceId],
+  })
+
+  if (isLoadingHistory) return <Loader />
+
   return (
     <section>
       {history?.map((v) => (
         <div
-          key={v.id + v.createdAt}
+          key={v.id + v.updatedAt}
           style={{
             display: 'flex',
             justifyContent: 'space-between',

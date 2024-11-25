@@ -8,6 +8,7 @@ import { ManualHeader } from '@/entities/manuals'
 import { File } from '@/entities/files'
 
 import { useInvoiceDetailed } from '../lib/use-invoice-detailed'
+
 import { InvoiceProductsBody } from './components/invoice-products-body'
 import { InvoiceStatusesTab } from './components/invoice-statuses-tab'
 import { InvoiceHistoryTab } from './components/invoice-history-tab'
@@ -87,7 +88,7 @@ export const InvoiceDetailed = (props: IInvoiceDetailedProps) => {
         />
       )}
 
-      {values.tab === 'history' && <InvoiceHistoryTab history={values.history} />}
+      {values.tab === 'history' && <InvoiceHistoryTab invoiceId={invoiceId} />}
     </ModalEditor>
   )
 }

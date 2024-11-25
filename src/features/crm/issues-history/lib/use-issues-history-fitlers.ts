@@ -26,12 +26,12 @@ export const useIssuesHistoryFilters = (props: IIssuesHistoryProps) => {
 
   const config = selectConfig({
     executors: {
-      options: staffToOptions(executors?.data.employees),
+      options: staffToOptions(executors?.data?.employees),
       onSearch: executorSearch.setSearch,
       onChange: (opt) => onSetExecutor(opt?.value),
     },
     responsible: {
-      options: staffToOptions(responsible?.data.employees),
+      options: staffToOptions(responsible?.data?.employees),
       onSearch: responsibleSearch.setSearch,
       onChange: (opt) => onSetResponsible(opt?.value),
     },

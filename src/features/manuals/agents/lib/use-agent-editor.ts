@@ -17,7 +17,7 @@ interface IAgentEditorProps {
 }
 
 export const useAgentEditor = (props: IAgentEditorProps) => {
-  const { id = '', onClose } = props
+  const { id = 'new', onClose } = props
   const [tab, setTab] = useState('data')
 
   const queryClient = useQueryClient()

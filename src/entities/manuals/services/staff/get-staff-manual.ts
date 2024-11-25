@@ -1,7 +1,7 @@
 import { publicApi } from '@/shared/api/public-api.config'
 import { GetWithParamsType } from '@/shared/model/get-with-params.type'
 
-import { StaffResponseType } from '../../model/staff.manual'
+import { StaffResponseType, ZStaffResponse } from '../../model/staff.manual'
 
 export const getStaffManual = async (props: GetWithParamsType) => {
   const { params, filters } = props
@@ -13,6 +13,12 @@ export const getStaffManual = async (props: GetWithParamsType) => {
     },
   })
 
+  const parsed = ZStaffResponse.safeParse(response.data)
+
+  if (parsed.error) {
+    console.log(parsed.error)
+  }
+
   if (response.status >= 400) throw new Error()
-  return response
+  return parsed
 }

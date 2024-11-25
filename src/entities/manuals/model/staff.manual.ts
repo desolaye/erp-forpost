@@ -6,7 +6,7 @@ export const ZStaff = z.object({
   id: z.string().uuid(),
   firstName: z.string(),
   lastName: z.string(),
-  patronymic: z.string(),
+  patronymic: z.string().nullable(),
   post: z.string(),
   role: z.string(),
   roleId: z.string().uuid(),
@@ -33,15 +33,15 @@ export const ZStaffValidator = ZStaff.extend({
 
 export const ZStaffResponse = z
   .object({
-    employees: z.array(ZStaff),
+    items: z.array(ZStaff),
     totalCount: z.number(),
   })
   .transform((data) => ({
-    ...data,
-    employees: data.employees.map((v) => ({
+    employees: data.items.map((v) => ({
       ...v,
       patronymic: v.patronymic || 'Нет данных',
     })),
+    totalCount: data.totalCount,
   }))
 
 export type StaffType = z.infer<typeof ZStaff>

@@ -131,12 +131,12 @@ export const ZInvoiceToBack = ZInvoiceValidator.transform((data) => ({
 const ZInvoiceHistory = z.object({
   id: z.string().uuid(),
   entityId: z.string().uuid(),
+  entityName: z.string(),
 
   propertyName: z.string(),
-  oldValue: z.string(),
-  newValue: z.string(),
+  value: z.string(),
 
-  createdAt: z.string(),
+  updatedAt: z.string(),
 })
 
 export const ZInvoiceHistoryResponse = z
@@ -145,9 +145,8 @@ export const ZInvoiceHistoryResponse = z
     ...data,
     items: data.items.map((inv) => ({
       ...inv,
-      oldValue: Number(inv.oldValue),
-      newValue: Number(inv.newValue),
-      createdAt: isoToTime(inv.createdAt, true),
+      value: Number(inv.value),
+      updatedAt: isoToTime(inv.updatedAt, true),
     })),
   }))
 

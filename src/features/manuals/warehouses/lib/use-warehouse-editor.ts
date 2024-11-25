@@ -58,8 +58,6 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
   })
 
   const handleMutate = (data: WarehouseValidatorType) => {
-    console.log(data)
-
     if (warehouse?.id) return editWarehouse.mutateAsync(data)
     return createWarehouse.mutateAsync(data)
   }
@@ -72,7 +70,7 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
       isPendingMutate:
         createWarehouse.isPending || editWarehouse.isPending || deleteWarehouse.isPending,
       isLoading: isLoadingStaff,
-      staff: staff?.data.employees,
+      staff: staff?.data?.employees,
       search,
       files,
       isPendingFile,

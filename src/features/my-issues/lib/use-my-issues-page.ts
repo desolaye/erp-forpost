@@ -34,7 +34,7 @@ export const useMyIssuesPage = () => {
       issues,
       tab,
       page,
-      staff: staff?.data.employees,
+      staff: staff?.data?.employees,
       isPending: isPendingIssues || isPendingStaff,
       totalCount: getTotalCount(issues?.totalCount),
       modalData,

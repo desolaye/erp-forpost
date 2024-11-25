@@ -14,5 +14,6 @@ export const getAgentsManual = async (props: GetWithParamsType) => {
     },
   })
 
+  if (response.status >= 400) throw new Error()
   return response
 }

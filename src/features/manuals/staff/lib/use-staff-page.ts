@@ -33,10 +33,10 @@ export const useStaffPage = () => {
 
   return {
     values: {
-      data: staff?.data.employees,
+      data: staff?.data?.employees,
       staffModal,
       isLoading: isFetching,
-      totalCount: getTotalCount(staff?.data.totalCount),
+      totalCount: getTotalCount(staff?.data?.totalCount),
       page,
       user: sessionContext.session,
       id,
