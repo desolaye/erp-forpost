@@ -20,6 +20,7 @@ const getHistoryString = (line: InvoiceHistoryResponseType['items'][0]) => {
           <Text tag="span" weight="semi">
             {paymentStatusToText(line.value)}
           </Text>{' '}
+          сотрудником {line.updatedByName}
         </Text>
 
         <Text pos={'right'} style={{ padding: 2 }}>
@@ -36,8 +37,10 @@ const getHistoryString = (line: InvoiceHistoryResponseType['items'][0]) => {
           Изменен процент оплаты на{' '}
           <Text tag="span" weight="semi">
             {line.value}%
-          </Text>
+          </Text>{' '}
+          сотрудником {line.updatedByName}
         </Text>
+
         <Text pos="right" style={{ padding: 2 }}>
           {line.updatedAt}
         </Text>
@@ -52,8 +55,10 @@ const getHistoryString = (line: InvoiceHistoryResponseType['items'][0]) => {
           Изменен приоритет счёта на{' '}
           <Text tag="span" weight="semi">
             {priorityStatusToText(line.value)}
-          </Text>
+          </Text>{' '}
+          сотрудником {line.updatedByName}
         </Text>
+
         <Text pos="right" style={{ padding: 2 }}>
           {line.updatedAt}
         </Text>

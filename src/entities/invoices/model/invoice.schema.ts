@@ -137,6 +137,7 @@ const ZInvoiceHistory = z.object({
   value: z.string(),
 
   updatedAt: z.string(),
+  updatedByName: z.string(),
 })
 
 export const ZInvoiceHistoryResponse = z
