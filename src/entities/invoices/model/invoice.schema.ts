@@ -146,7 +146,7 @@ export const ZInvoiceHistoryResponse = z
     ...data,
     items: data.items.map((inv) => ({
       ...inv,
-      value: Number(inv.value),
+      value: inv.value,
       updatedAt: isoToTime(inv.updatedAt, true),
     })),
   }))

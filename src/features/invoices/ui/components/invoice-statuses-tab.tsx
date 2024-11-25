@@ -143,6 +143,10 @@ export const InvoiceStatusesTab = (props: InvoiceStatusesTabProps) => {
             </Button>
           </div>
 
+          <Text size="sm" style={{ padding: '0 4px' }}>
+            Дата отгрузки выставляется по факту совершенной отгрузки
+          </Text>
+
           {isShipmentError && <Text color="error">Ошибка изменения даты отгрузки</Text>}
         </LocalizationProvider>
       </section>

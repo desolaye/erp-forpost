@@ -6,6 +6,8 @@ import { Loader } from '@/shared/ui/loader'
 import { getInvoiceHistoryById, InvoiceHistoryResponseType } from '@/entities/invoices'
 import { paymentStatusToText } from '@/entities/invoices/utils/payment-status-to-text'
 import { priorityStatusToText } from '@/entities/invoices/utils/priority-status-to-text'
+import { isoToTime } from '@/shared/utils/iso-to-time'
+import { invoiceStatusToText } from '@/entities/invoices/utils/invoice-status-to-text'
 
 type InvoiceHistoryTabProps = {
   invoiceId: string
@@ -14,55 +16,61 @@ type InvoiceHistoryTabProps = {
 const getHistoryString = (line: InvoiceHistoryResponseType['items'][0]) => {
   if (line.propertyName === 'PaymentStatus') {
     return (
-      <>
-        <Text>
-          Изменен статус оплаты на{' '}
-          <Text tag="span" weight="semi">
-            {paymentStatusToText(line.value)}
-          </Text>{' '}
-          сотрудником {line.updatedByName}
-        </Text>
-
-        <Text pos={'right'} style={{ padding: 2 }}>
-          {line.updatedAt}
-        </Text>
-      </>
+      <Text>
+        Изменен статус оплаты на{' '}
+        <Text tag="span" weight="semi">
+          {paymentStatusToText(Number(line.value))}
+        </Text>{' '}
+        сотрудником {line.updatedByName}
+      </Text>
     )
   }
 
   if (line.propertyName === 'PaymentPercentage') {
     return (
-      <>
-        <Text>
-          Изменен процент оплаты на{' '}
-          <Text tag="span" weight="semi">
-            {line.value}%
-          </Text>{' '}
-          сотрудником {line.updatedByName}
-        </Text>
-
-        <Text pos="right" style={{ padding: 2 }}>
-          {line.updatedAt}
-        </Text>
-      </>
+      <Text>
+        Изменен процент оплаты на{' '}
+        <Text tag="span" weight="semi">
+          {line.value}%
+        </Text>{' '}
+        сотрудником {line.updatedByName}
+      </Text>
     )
   }
 
   if (line.propertyName === 'Priority') {
     return (
-      <>
-        <Text>
-          Изменен приоритет счёта на{' '}
-          <Text tag="span" weight="semi">
-            {priorityStatusToText(line.value)}
-          </Text>{' '}
-          сотрудником {line.updatedByName}
-        </Text>
+      <Text>
+        Изменен приоритет счёта на{' '}
+        <Text tag="span" weight="semi">
+          {priorityStatusToText(Number(line.value))}
+        </Text>{' '}
+        сотрудником {line.updatedByName}
+      </Text>
+    )
+  }
 
-        <Text pos="right" style={{ padding: 2 }}>
-          {line.updatedAt}
-        </Text>
-      </>
+  if (line.propertyName === 'InvoiceStatus') {
+    return (
+      <Text>
+        Изменен статус счёта на{' '}
+        <Text tag="span" weight="semi">
+          {invoiceStatusToText(Number(line.value))}
+        </Text>{' '}
+        сотрудником {line.updatedByName}
+      </Text>
+    )
+  }
+
+  if (line.propertyName === 'DateShipment') {
+    return (
+      <Text>
+        Изменена дата отгрузки на{' '}
+        <Text tag="span" weight="semi">
+          {isoToTime(line.value, true)}
+        </Text>{' '}
+        сотрудником {line.updatedByName}
+      </Text>
     )
   }
 
@@ -94,6 +102,9 @@ export const InvoiceHistoryTab = ({ invoiceId }: InvoiceHistoryTabProps) => {
           }}
         >
           {getHistoryString(v)}
+          <Text pos="right" style={{ padding: 2 }}>
+            {v.updatedAt}
+          </Text>
         </div>
       ))}
     </section>

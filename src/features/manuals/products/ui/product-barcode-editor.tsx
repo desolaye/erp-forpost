@@ -24,7 +24,7 @@ export const ProductBarcodeEditor = (props: IProductBarcodeEditorProps) => {
   })
 
   return (
-    <Card>
+    <Card style={{ padding: 0 }}>
       <ModalEditor
         body={
           <div className={cls.barcode_div}>
