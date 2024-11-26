@@ -1,6 +1,8 @@
 export * from './model/agent.schema'
 export * from './services/agents'
 export { agentsToOptions } from './utils/agents-to-options'
+export { contractTypeToOptions } from './utils/contract-type-to-options'
+export { contractTypeToText } from './utils/contract-type-to-text'
 
 export * from './model/product.schema'
 export * from './services/products'

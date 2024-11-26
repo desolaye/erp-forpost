@@ -9,6 +9,7 @@ import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { agentTableConfig } from '../utils/agent-table-config'
+import { contractTypeToText } from '@/entities/manuals'
 
 const ManualAgentsPage = () => {
   const { values, handlers } = useAgentsPage()
@@ -37,7 +38,7 @@ const ManualAgentsPage = () => {
           <SmartTableRow
             key={row.id}
             config={config}
-            row={row}
+            row={{ ...row, contractType: contractTypeToText(row.contractType.value) }}
             onClick={() => handlers.setAgentId(row.id)}
           />
         ))}

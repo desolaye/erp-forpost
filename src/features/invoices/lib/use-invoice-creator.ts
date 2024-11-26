@@ -39,7 +39,7 @@ export const useInvoiceCreator = (props: IInvoiceCreatorProps) => {
     values: {
       isError,
       isLoading: isLoadingProducts || isLoadingAgents || isPending,
-      agents: agentsToOptions(agents?.data.contractors),
+      agents: agentsToOptions(agents?.data.items),
       products: productsToOptions(products?.data.items),
     },
     handlers: {

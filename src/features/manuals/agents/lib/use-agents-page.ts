@@ -25,7 +25,7 @@ export const useAgentsPage = () => {
 
   return {
     values: {
-      agents: agents?.data.contractors,
+      agents: agents?.data.items,
       totalCount: getTotalCount(agents?.data.totalCount),
       page,
       agentId,

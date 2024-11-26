@@ -54,7 +54,7 @@ export const useInvoicesPage = () => {
   return {
     values: {
       invoices: invoices?.items,
-      contractors: contractors?.data.contractors,
+      contractors: contractors?.data.items,
       page,
       invoiceId,
       isPending: isPendingInvoices,

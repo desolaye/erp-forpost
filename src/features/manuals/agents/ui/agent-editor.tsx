@@ -7,6 +7,7 @@ import { ManualHeader } from '@/entities/manuals'
 
 import { useAgentEditor } from '../lib/use-agent-editor'
 import { AgentForm } from './agent-form'
+import { AgentRepresentativesTab } from './components/agent-representatives-tab'
 
 interface IAgentEditorProps {
   id?: string
@@ -27,6 +28,13 @@ export const AgentEditor = (props: IAgentEditorProps) => {
           onDelete={handlers.onDelete}
           setTab={handlers.setTab}
           tab={values.tab}
+          tabs={[
+            {
+              label: 'Представители',
+              value: 'representatives',
+              disabled: !id || id === 'new',
+            },
+          ]}
         />
       }
     >
@@ -34,7 +42,7 @@ export const AgentEditor = (props: IAgentEditorProps) => {
         <AgentForm
           isPending={values.isPending}
           isError={values.isError}
-          name={values.agent?.name || ''}
+          agent={values.agent}
           onClose={() => onClose?.()}
           onMutate={handlers.onMutate}
         />
@@ -48,6 +56,8 @@ export const AgentEditor = (props: IAgentEditorProps) => {
           ))}
         </>
       )}
+
+      {values.tab === 'representatives' && <AgentRepresentativesTab contractorId={id!} />}
     </ModalEditor>
   )
 }
