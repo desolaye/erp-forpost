@@ -3,13 +3,13 @@ import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
+import { contractTypeToText } from '@/entities/manuals'
 import { AgentEditor, useAgentsPage } from '@/features/manuals/agents'
 
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { agentTableConfig } from '../utils/agent-table-config'
-import { contractTypeToText } from '@/entities/manuals'
 
 const ManualAgentsPage = () => {
   const { values, handlers } = useAgentsPage()
@@ -38,7 +38,7 @@ const ManualAgentsPage = () => {
           <SmartTableRow
             key={row.id}
             config={config}
-            row={{ ...row, contractType: contractTypeToText(row.contractType.value) }}
+            row={{ ...row, contractorType: contractTypeToText(row.contractorType.value) }}
             onClick={() => handlers.setAgentId(row.id)}
           />
         ))}

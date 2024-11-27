@@ -11,6 +11,7 @@ export const useProductsPage = () => {
   const [productId, setProductId] = useState('')
   const [productBarcodeId, setProductBarcodeId] = useState('')
   const [categoriesOpen, setCategoriesOpen] = useState(false)
+  const [attributesOpen, setAttributesOpen] = useState(false)
 
   const [currentCategory, setCurrentCategory] = useState(guidEmpty)
 
@@ -40,11 +41,13 @@ export const useProductsPage = () => {
       search,
       productBarcodeId,
       categoriesOpen,
+      attributesOpen,
       currentCategory,
     },
     handlers: {
       openModal,
       setCategoriesOpen,
+      setAttributesOpen,
       setCurrentCategory,
       setPage,
       setSearch,

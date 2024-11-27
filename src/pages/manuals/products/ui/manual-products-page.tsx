@@ -9,6 +9,7 @@ import {
   useProductsPage,
 } from '@/features/manuals/products'
 import { CategoriesCrumbs, CategoriesList } from '@/features/categories'
+import { AttributesList } from '@/features/attributes'
 
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
@@ -32,6 +33,9 @@ const ManualProductsPage = () => {
         <Button onClick={() => handlers.openModal('new')}>Добавить</Button>
         <Button mode="neutral" onClick={() => handlers.setCategoriesOpen(true)}>
           Категории
+        </Button>
+        <Button mode="neutral" onClick={() => handlers.setAttributesOpen(true)}>
+          Атрибуты
         </Button>
       </Card>
 
@@ -77,11 +81,17 @@ const ManualProductsPage = () => {
       </ModalLayout>
 
       <ModalLayout
-        center
         isOpen={values.categoriesOpen}
         onClose={() => handlers.setCategoriesOpen(false)}
       >
         <CategoriesList />
+      </ModalLayout>
+
+      <ModalLayout
+        isOpen={values.attributesOpen}
+        onClose={() => handlers.setAttributesOpen(false)}
+      >
+        <AttributesList />
       </ModalLayout>
     </PageWrapper>
   )

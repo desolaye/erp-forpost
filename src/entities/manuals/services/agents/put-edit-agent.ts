@@ -2,9 +2,11 @@ import { publicApi } from '@/shared/api/public-api.config'
 import { AgentValidatorType } from '../../model/agent.schema'
 
 export const putEditAgent = async (agent: AgentValidatorType, id: string) => {
+  console.log(agent)
+
   const response = await publicApi.put(`v1/contractors/${id}`, {
     ...agent,
-    contractType: agent.contractType.value,
+    contractorType: agent.contractorType.value,
     country: agent.country.value,
   })
 

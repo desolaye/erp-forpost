@@ -1,4 +1,4 @@
-export const contractTypeToText = (type: number) => {
+export const contractTypeToText = (type?: number) => {
   if (type === 0) return 'Отсутствует'
   if (type === 100) return 'Прямой клиент'
   if (type === 200) return 'Дилер'

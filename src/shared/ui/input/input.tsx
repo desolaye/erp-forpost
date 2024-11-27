@@ -15,7 +15,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((props, ref) => {
   const { isError, label, helper, className, full, autoComplete, ...rest } = props
 
   const classes = cn(cls.input, { [cls.error]: isError }, className)
-  const helperClasses = cn(cls.input__helper, { [cls.error]: isError })
+  const helperClasses = cn(cls.input__helper, { [cls.error]: isError, [cls.full]: full })
   const wrapperClasses = cn(cls.input__wrapper, { [cls.full]: full })
 
   return (

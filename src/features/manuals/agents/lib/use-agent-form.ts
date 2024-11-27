@@ -1,7 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { AgentType, AgentValidatorType, ZAgentValidator } from '@/entities/manuals'
+import {
+  AgentType,
+  AgentValidatorType,
+  contractTypeToText,
+  ZAgentValidator,
+} from '@/entities/manuals'
 
 interface IUseAgentForm {
   agent?: AgentType
@@ -25,7 +30,10 @@ export const useAgentForm = (props: IUseAgentForm) => {
         : undefined,
       discountLevel: agent?.discountLevel || 0,
       city: agent?.city || '',
-      contractType: agent?.contractType || undefined,
+      contractorType: {
+        label: contractTypeToText(agent?.contractorType.value),
+        value: agent?.contractorType.value,
+      },
       description: agent?.description || '',
       inn: agent?.inn || '',
       logisticInfo: agent?.logisticInfo || '',

@@ -3,7 +3,7 @@ import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 
 export const agentTableConfig = () => {
   const config: TableRowRecordType<
-    Omit<AgentType, 'contractType'> & { contractType: string }
+    Omit<AgentType, 'contractorType'> & { contractorType: string }
   > = {
     name: {
       type: 'text',
@@ -15,7 +15,7 @@ export const agentTableConfig = () => {
       title: 'id',
       width: 0,
     },
-    contractType: {
+    contractorType: {
       type: 'text',
       title: 'Тип',
       width: 250,
@@ -54,5 +54,5 @@ export const agentTableConfig = () => {
 
   return Object.entries(config).filter(
     ([_, value]) => value.width > 0,
-  ) as TableConfigType<Omit<AgentType, 'contractType'> & { contractType: string }>
+  ) as TableConfigType<Omit<AgentType, 'contractorType'> & { contractorType: string }>
 }

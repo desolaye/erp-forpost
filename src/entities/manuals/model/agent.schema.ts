@@ -12,7 +12,7 @@ export const ZAgent = z.object({
 
   discountLevel: z.number(),
 
-  contractType: z.object({
+  contractorType: z.object({
     value: z.number(),
     name: z.string(),
   }),
@@ -42,7 +42,7 @@ export const ZAgentValidator = z.object({
 
   discountLevel: z.number(),
 
-  contractType: z.object({
+  contractorType: z.object({
     value: z.number(),
     label: z.string(),
   }),

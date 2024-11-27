@@ -24,8 +24,6 @@ export const AgentForm = (props: IAgentFormProps) => {
   const { isPending, isError, onClose } = props
   const { register, errors, control, handleSubmit, onSubmit } = useAgentForm(props)
 
-  console.log(errors)
-
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
@@ -52,7 +50,7 @@ export const AgentForm = (props: IAgentFormProps) => {
 
       <Text>Тип контрагента</Text>
       <Controller
-        name="contractType"
+        name="contractorType"
         control={control}
         render={({ field }) => (
           <ReactSelect
@@ -61,13 +59,13 @@ export const AgentForm = (props: IAgentFormProps) => {
             styles={{
               control: (baseStyles) => ({
                 ...baseStyles,
-                borderColor: !errors.contractType ? 'grey' : '#830000',
+                borderColor: !errors.contractorType ? 'grey' : '#830000',
               }),
             }}
           />
         )}
       />
-      {errors.contractType && (
+      {errors.contractorType && (
         <Text size="sm" color="error">
           Необходимо выбрать тип агента
         </Text>
