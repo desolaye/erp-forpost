@@ -1,5 +1,4 @@
 import { Text } from '@/shared/ui/text'
-import { splitByNewline } from '@/shared/utils/split-by-newline'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { InvoiceProductResponseType, InvoiceType } from '@/entities/invoices'
