@@ -6,6 +6,7 @@ import {
   deleteInvoiceById,
   getInvoiceById,
   getInvoiceProducts,
+  putEditInvoiceDescription,
   putEditInvoicePayment,
   putEditInvoicePercents,
   putEditInvoicePriority,
@@ -36,12 +37,12 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
     mutateFile,
   } = useFileLoader(invoiceId, 'files_all')
 
-  const { data: invoice, isLoading: isLoadingInvoice } = useQuery({
+  const { data: invoice, isFetching: isLoadingInvoice } = useQuery({
     queryFn: () => getInvoiceById(invoiceId),
     queryKey: ['invoice_by_id', invoiceId],
   })
 
-  const { data: products, isLoading: isLoadingProducts } = useQuery({
+  const { data: products, isFetching: isLoadingProducts } = useQuery({
     queryFn: () => getInvoiceProducts(invoiceId),
     queryKey: ['invoice_products_all'],
   })
@@ -75,6 +76,12 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
     onSuccess,
   })
 
+  const mutateDescription = useMutation({
+    mutationFn: (description: string) =>
+      putEditInvoiceDescription({ id: invoiceId, description }),
+    onSuccess,
+  })
+
   return {
     values: {
       tab,
@@ -90,11 +97,13 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
         mutateShipment.isPending ||
         mutatePriority.isPending ||
         mutatePercent.isPending ||
+        mutateDescription.isPending ||
         mutateDelete.isPending,
       isPriorityError: mutatePriority.isError,
       isPaymentError: mutatePayment.isError,
       isShipmentError: mutateShipment.isError,
       isPercentError: mutatePercent.isError,
+      isDescriptionError: mutateDescription.isError,
     },
     handlers: {
       setTab,
@@ -105,6 +114,7 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
       editPercent: mutatePercent.mutateAsync,
       editShipment: mutateShipment.mutateAsync,
       editPriority: mutatePriority.mutateAsync,
+      editDescription: mutateDescription.mutateAsync,
     },
   }
 }

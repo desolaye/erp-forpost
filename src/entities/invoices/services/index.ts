@@ -9,5 +9,6 @@ export { putEditInvoicePayment } from './put-edit-invoice-payment'
 export { putEditInvoicePriority } from './put-edit-invoice-priority'
 export { putEditInvoiceShipment } from './put-edit-invoice-shipment'
 export { putEditInvoicePercents } from './put-edit-invoice-percents'
+export { putEditInvoiceDescription } from './put-edit-invoice-description'
 
 export { deleteInvoiceById } from './delete-invoice-by-id'

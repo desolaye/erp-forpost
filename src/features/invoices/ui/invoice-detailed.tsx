@@ -63,7 +63,11 @@ export const InvoiceDetailed = (props: IInvoiceDetailedProps) => {
       }
     >
       {values.tab === 'data' && (
-        <InvoiceProductsBody data={values.products} invoice={values.invoice} />
+        <InvoiceProductsBody
+          data={values.products}
+          invoice={values.invoice}
+          onDescriptionChange={handlers.editDescription}
+        />
       )}
 
       {values.tab === 'files' && (
