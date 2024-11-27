@@ -28,7 +28,7 @@ export const ZAgentRepresentatives = z.object({
 
 export const ZAgentValidator = z.object({
   name: z.string().min(3, 'Имя контрагента слишком короткое'),
-  inn: z.string().regex(/^[0-9]{11,12}$/gi, 'Неверный формат ИНН. От 11 до 12 цифр'),
+  inn: z.string().regex(/^[0-9]{3,16}$/gi, 'Неверный формат ИНН. От 3 до 16 цифр'),
 
   country: z.object({
     label: z.string(),
