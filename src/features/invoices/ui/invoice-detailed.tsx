@@ -47,6 +47,40 @@ export const InvoiceDetailed = (props: IInvoiceDetailedProps) => {
     )
   }
 
+  if (values.deletingProduct) {
+    return (
+      <section style={{ padding: '8px' }}>
+        <Text style={{ padding: '8px' }}>
+          Вы действительно хотите удалить <br /> продукт{' '}
+          <Text size="lg" color="error" weight="semi" tag="span">
+            {values.deletingProduct.name}
+          </Text>
+          <br />
+          из счёта{' '}
+          <Text size="lg" color="error" weight="semi" tag="span">
+            №{values.invoice?.number}
+          </Text>
+          ?
+        </Text>
+        <div style={{ gap: 8, display: 'flex' }}>
+          <Button
+            full
+            onClick={() => handlers.deleteInvoiceProduct(values.deletingProduct!.id)}
+          >
+            Подтвердить
+          </Button>
+          <Button
+            full
+            mode="neutral"
+            onClick={() => handlers.setDeletingProduct(undefined)}
+          >
+            Отменить
+          </Button>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <ModalEditor
       header={
@@ -66,7 +100,15 @@ export const InvoiceDetailed = (props: IInvoiceDetailedProps) => {
         <InvoiceProductsBody
           data={values.products}
           invoice={values.invoice}
+          products={values.productsAll}
           onDescriptionChange={handlers.editDescription}
+          onProductCreate={(productId, quantity) =>
+            handlers.addInvoiceProduct({ invoiceId, productId, quantity })
+          }
+          onProductDelete={handlers.setDeletingProduct}
+          onProductEdit={(quantity, id) =>
+            handlers.editInvoiceProductQuantity({ id, quantity })
+          }
         />
       )}
 

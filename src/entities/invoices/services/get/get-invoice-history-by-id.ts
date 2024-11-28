@@ -3,7 +3,7 @@ import { publicApi } from '@/shared/api/public-api.config'
 import {
   InvoiceHistoryResponseType,
   ZInvoiceHistoryResponse,
-} from '../model/invoice.schema'
+} from '../../model/invoice.schema'
 
 export const getInvoiceHistoryById = async (id: string) => {
   const response = await publicApi.get<InvoiceHistoryResponseType>(

@@ -1,26 +1,37 @@
+import { useState } from 'react'
+import Textarea from '@mui/joy/Textarea'
+
 import { Text } from '@/shared/ui/text'
-import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
+import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
+import { Button } from '@/shared/ui/button'
 
 import { InvoiceProductResponseType, InvoiceType } from '@/entities/invoices'
-
-import { invoiceProductsTableConfig } from '../../utils/invoice-products-table.config'
-import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
-import Textarea from '@mui/joy/Textarea'
-import { useState } from 'react'
-import { Button } from '@/shared/ui/button'
+import { InvoiceProduct } from '@/entities/invoices/ui/invoice-product'
+import { InvoiceProductCreator } from '@/entities/invoices/ui/invoice-product-creator'
 
 interface IInvoiceProductsBodyProps {
   data?: InvoiceProductResponseType[]
   invoice?: InvoiceType
+  products: { label: string; value: string }[]
+
   onDescriptionChange?: (descr: string) => void
+  onProductCreate?: (productId: string, quantity: number) => void
+  onProductDelete?: (invoice: InvoiceProductResponseType) => void
+  onProductEdit?: (value: number, id: string) => void
 }
 
 export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
-  const { data, invoice, onDescriptionChange } = props
+  const {
+    data,
+    invoice,
+    products,
+    onDescriptionChange,
+    onProductCreate,
+    onProductDelete,
+    onProductEdit,
+  } = props
 
   const [descr, setDescr] = useState(invoice?.description || '')
-
-  const config = invoiceProductsTableConfig()
 
   return (
     <>
@@ -48,21 +59,21 @@ export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
         </Button>
       </section>
 
-      <section>
+      <section style={{ display: 'flex', gap: 8, flexDirection: 'column' }}>
         <Text size="lg" weight="semi">
           Продукты в счёте
         </Text>
-        <SmartTable
-          config={config}
-          currentPage={1}
-          pageCount={0}
-          isLoading={false}
-          onPageChange={() => {}}
-        >
-          {data?.map((v) => (
-            <SmartTableRow key={v.productId + v.quantity} config={config} row={v} />
-          ))}
-        </SmartTable>
+
+        {data?.map((v) => (
+          <InvoiceProduct
+            key={v.id}
+            invoice={v}
+            onDelete={onProductDelete}
+            onEdit={onProductEdit}
+          />
+        ))}
+
+        <InvoiceProductCreator products={products} onCreate={onProductCreate} />
       </section>
     </>
   )

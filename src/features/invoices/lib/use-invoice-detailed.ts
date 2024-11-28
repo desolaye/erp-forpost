@@ -2,16 +2,22 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 
 import { useFileLoader } from '@/shared/lib/use-file-loader'
+
 import {
   deleteInvoiceById,
+  deleteInvoiceProductById,
   getInvoiceById,
   getInvoiceProducts,
+  InvoiceProductResponseType,
+  postCreateInvoiceProduct,
   putEditInvoiceDescription,
   putEditInvoicePayment,
   putEditInvoicePercents,
   putEditInvoicePriority,
+  putEditInvoiceProductQuantity,
   putEditInvoiceShipment,
 } from '@/entities/invoices'
+import { getProductsManual, productsToOptions } from '@/entities/manuals'
 
 interface IUseInvoiceDetailed {
   invoiceId: string
@@ -24,11 +30,14 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
   const queryClient = useQueryClient()
   const [tab, setTab] = useState('data')
   const [isDeleting, setIsDeleting] = useState(false)
+  const [deletingProduct, setDeletingProduct] = useState<InvoiceProductResponseType>()
 
   const onSuccess = () => {
+    setDeletingProduct(undefined)
     queryClient.invalidateQueries({ queryKey: ['invoice_by_id', invoiceId] })
     queryClient.invalidateQueries({ queryKey: ['invoice_history_by_id', invoiceId] })
     queryClient.invalidateQueries({ queryKey: ['invoices_all'] })
+    queryClient.invalidateQueries({ queryKey: ['invoice_products_all'] })
   }
 
   const {
@@ -45,6 +54,11 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
   const { data: products, isFetching: isLoadingProducts } = useQuery({
     queryFn: () => getInvoiceProducts(invoiceId),
     queryKey: ['invoice_products_all'],
+  })
+
+  const { data: productsAll, isFetching: isLoadingProductsAll } = useQuery({
+    queryFn: () => getProductsManual({ limit: 1000, skip: 0 }),
+    queryKey: ['products_all'],
   })
 
   const mutateDelete = useMutation({
@@ -82,22 +96,43 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
     onSuccess,
   })
 
+  const mutateProductQuantity = useMutation({
+    mutationFn: putEditInvoiceProductQuantity,
+    onSuccess,
+  })
+
+  const mutateProductDelete = useMutation({
+    mutationFn: deleteInvoiceProductById,
+    onSuccess,
+  })
+
+  const mutateProductAdd = useMutation({
+    mutationFn: postCreateInvoiceProduct,
+    onSuccess,
+  })
+
   return {
     values: {
       tab,
       files,
       products,
+      productsAll: productsToOptions(productsAll?.data.items),
       invoice,
       isDeleting,
+      deletingProduct,
       isLoading:
         isLoadingProducts ||
         isLoadingInvoice ||
         isLoadingFile ||
+        isLoadingProductsAll ||
         mutatePayment.isPending ||
         mutateShipment.isPending ||
         mutatePriority.isPending ||
         mutatePercent.isPending ||
         mutateDescription.isPending ||
+        mutateProductAdd.isPending ||
+        mutateProductDelete.isPending ||
+        mutateProductQuantity.isPending ||
         mutateDelete.isPending,
       isPriorityError: mutatePriority.isError,
       isPaymentError: mutatePayment.isError,
@@ -108,9 +143,13 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
     handlers: {
       setTab,
       setIsDeleting,
+      setDeletingProduct,
       mutateFile,
       deleteInvoice: mutateDelete.mutateAsync,
+      deleteInvoiceProduct: mutateProductDelete.mutateAsync,
+      addInvoiceProduct: mutateProductAdd.mutateAsync,
       editPayment: mutatePayment.mutateAsync,
+      editInvoiceProductQuantity: mutateProductQuantity.mutateAsync,
       editPercent: mutatePercent.mutateAsync,
       editShipment: mutateShipment.mutateAsync,
       editPriority: mutatePriority.mutateAsync,

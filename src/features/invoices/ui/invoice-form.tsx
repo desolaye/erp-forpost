@@ -208,8 +208,8 @@ export const InvoiceForm = (props: IInvoiceFormProps) => {
           )}
 
           <Input
-            placeholder="Количество продуктов"
-            label="Количество продуктов"
+            placeholder="Количество"
+            label="Количество"
             isError={Boolean(values.errors.products?.[i]?.quantity)}
             {...handlers.register(`products.${i}.quantity` as const)}
           />

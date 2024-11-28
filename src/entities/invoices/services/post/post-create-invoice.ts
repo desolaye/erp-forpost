@@ -1,5 +1,5 @@
 import { publicApi } from '@/shared/api/public-api.config'
-import { InvoiceValidatorType } from '../model/invoice.schema'
+import { InvoiceValidatorType } from '../../model/invoice.schema'
 
 export const postCreateInvoice = async (invoice: InvoiceValidatorType) => {
   const response = await publicApi.post('v1/invoices', invoice)

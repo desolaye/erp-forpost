@@ -90,7 +90,9 @@ export const InvoiceStatusesTab = (props: InvoiceStatusesTabProps) => {
               onChange={(_, v) => setPercentValue(typeof v === 'number' ? v : v[0])}
             />
 
-            <Text weight="semi">{percentValue}%</Text>
+            <Text weight="semi" style={{ minWidth: 64 }} pos="right">
+              {percentValue}%
+            </Text>
 
             <Button
               style={{ padding: '10px 2px' }}
@@ -128,7 +130,7 @@ export const InvoiceStatusesTab = (props: InvoiceStatusesTabProps) => {
       >
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
           <Text size="lg" weight="semi">
-            Дата отгрузки
+            Дата совершенной отгрузки
           </Text>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>

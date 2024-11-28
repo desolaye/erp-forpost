@@ -1,15 +1,15 @@
 import { Controller } from 'react-hook-form'
 import ReactSelect from 'react-select'
+import { Slider } from '@mui/material'
+import Textarea from '@mui/joy/Textarea'
 
 import { Input } from '@/shared/ui/input'
 import { Form } from '@/shared/ui/form'
 import { Text } from '@/shared/ui/text'
+import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
 
 import { AgentType, AgentValidatorType, contractTypeToOptions } from '@/entities/manuals'
 import { useAgentForm } from '../lib/use-agent-form'
-import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
-import Textarea from '@mui/joy/Textarea'
-import { Slider } from '@mui/material'
 
 interface IAgentFormProps {
   agent?: AgentType
@@ -65,6 +65,7 @@ export const AgentForm = (props: IAgentFormProps) => {
           />
         )}
       />
+
       {errors.contractorType && (
         <Text size="sm" color="error">
           Необходимо выбрать тип агента
@@ -82,7 +83,7 @@ export const AgentForm = (props: IAgentFormProps) => {
               { label: 'Россия', value: 'Россия' },
               { label: 'Казахстан', value: 'Казахстан' },
               { label: 'Белорусь', value: 'Белорусь' },
-              { label: 'Иное', value: 'Иное' },
+              { label: 'Другая', value: 'Другая' },
             ]}
             styles={{
               control: (baseStyles) => ({
@@ -107,7 +108,7 @@ export const AgentForm = (props: IAgentFormProps) => {
         {...register('city')}
       />
 
-      <Text>Процент скидки</Text>
+      <Text>Уровень дисконта</Text>
       <Controller
         name="discountLevel"
         control={control}
@@ -131,8 +132,8 @@ export const AgentForm = (props: IAgentFormProps) => {
         <Textarea
           {...register('description')}
           placeholder="Описание агента"
-          minRows={3}
-          maxRows={3}
+          minRows={4}
+          maxRows={4}
           variant="soft"
           sx={{ fontFamily: 'Montserrat' }}
         />
@@ -148,8 +149,8 @@ export const AgentForm = (props: IAgentFormProps) => {
         <Textarea
           {...register('logisticInfo')}
           placeholder="Заметки по логистике"
-          minRows={3}
-          maxRows={3}
+          minRows={4}
+          maxRows={4}
           variant="soft"
           sx={{ fontFamily: 'Montserrat' }}
         />

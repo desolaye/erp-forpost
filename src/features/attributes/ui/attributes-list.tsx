@@ -1,5 +1,4 @@
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 
 import { Text } from '@/shared/ui/text'
 import { Button } from '@/shared/ui/button'
@@ -51,7 +50,7 @@ export const AttributesList = () => {
           <Button mode="neutral" onClick={() => handlers.setSelectedAttr(undefined)}>
             К списку
           </Button>
-          <Button full mode="secondary" onClick={handlers.onMutate}>
+          <Button full onClick={handlers.onMutate}>
             Сохранить атрибут
           </Button>
         </div>
@@ -99,28 +98,20 @@ export const AttributesList = () => {
 
       {values.attributes?.map((v) => (
         <section key={v.id} className={cls.attributes_list__line}>
-          <Text>{v.name}</Text>
+          <Button full mode="neutral" onClick={() => handlers.setSelectedAttr(v)}>
+            {v.name}
+          </Button>
 
-          <div style={{ display: 'flex', gap: 8 }}>
-            <Button
-              mode="secondary"
-              style={{ padding: '2px 4px' }}
-              onClick={() => handlers.setSelectedAttr(v)}
-            >
-              <EditOutlinedIcon />
-            </Button>
-
-            <Button
-              mode="neutral"
-              style={{ padding: '2px 4px' }}
-              onClick={() => {
-                handlers.setIsDeleting(true)
-                handlers.setSelectedAttr(v)
-              }}
-            >
-              <DeleteOutlineOutlinedIcon />
-            </Button>
-          </div>
+          <Button
+            mode="secondary"
+            style={{ padding: '2px 4px' }}
+            onClick={() => {
+              handlers.setIsDeleting(true)
+              handlers.setSelectedAttr(v)
+            }}
+          >
+            <DeleteOutlineOutlinedIcon />
+          </Button>
         </section>
       ))}
 

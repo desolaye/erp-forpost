@@ -39,6 +39,7 @@ const ZInvoiceProduct = z.object({
 })
 
 const ZInvoiceProductResponse = z.object({
+  id: z.string().uuid(),
   invoiceId: z.string().uuid(),
   productId: z.string().uuid(),
   name: z.string(),

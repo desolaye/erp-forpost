@@ -1,6 +1,6 @@
 import { publicApi } from '@/shared/api/public-api.config'
 
-import { InvoiceResponseType, ZInvoiceResponse } from '../model/invoice.schema'
+import { InvoiceResponseType, ZInvoiceResponse } from '../../model/invoice.schema'
 
 type InvoicesAllParams = {
   number?: string

@@ -1,6 +1,6 @@
 import { publicApi } from '@/shared/api/public-api.config'
 
-import { InvoiceProductResponseType } from '../model/invoice.schema'
+import { InvoiceProductResponseType } from '../../model/invoice.schema'
 
 export const getInvoiceProducts = async (id: string) => {
   const response = await publicApi.get<InvoiceProductResponseType[]>(
