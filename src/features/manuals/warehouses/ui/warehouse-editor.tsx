@@ -11,12 +11,11 @@ import { WarehouseForm } from './components/warehouse-form'
 
 interface IWarehouseEditorProps {
   warehouse?: WarehouseType
-  onSearch: (value: string) => void
   onClose?: () => void
 }
 
 export const WarehouseEditor = (props: IWarehouseEditorProps) => {
-  const { warehouse, onClose, onSearch } = props
+  const { warehouse, onClose } = props
   const { values, handlers } = useWarehouseEditor(props)
 
   if (values.isLoading) return <Loader />
@@ -25,7 +24,7 @@ export const WarehouseEditor = (props: IWarehouseEditorProps) => {
     <ModalEditor
       header={
         <ManualHeader
-          id={warehouse?.id || 'new'}
+          id={warehouse?.storageId || 'new'}
           onDelete={handlers.onDelete}
           setTab={handlers.setTab}
           tab={values.tab}
@@ -34,10 +33,10 @@ export const WarehouseEditor = (props: IWarehouseEditorProps) => {
     >
       {values.tab === 'data' && (
         <WarehouseForm
+          onSearch={handlers.setSearch}
           isError={values.isError}
           isPending={values.isPendingMutate}
           warehouse={warehouse}
-          onSearch={onSearch}
           onClose={() => onClose?.()}
           onMutate={handlers.onMutate}
           staff={values.staff}

@@ -3,20 +3,25 @@ import { WarehouseType } from '@/entities/manuals'
 
 export const warehousesTableConfig = () => {
   const config: TableRowRecordType<WarehouseType> = {
-    name: {
-      width: 200,
-      title: 'Название склада',
+    storageName: {
       type: 'text',
+      title: 'Название склада',
+      width: 200,
+    },
+    responsibleName: {
+      type: 'text',
+      title: 'Ответственный',
+      width: 200,
     },
     responsibleId: {
       type: 'text',
       title: 'id',
       width: 0,
     },
-    id: {
-      width: 0,
-      title: '',
+    storageId: {
       type: 'text',
+      title: 'id',
+      width: 0,
     },
   }
 

@@ -7,7 +7,7 @@ import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 import { warehousesTableConfig } from '../utils/warehouses-table.config'
 
 const WarehousesPage = () => {
-  const { values, handlers } = useWarehousesPage()
+  const { values } = useWarehousesPage()
   const config = warehousesTableConfig()
   const { products, root } = routesPath.erp.warehouses
 
@@ -15,16 +15,16 @@ const WarehousesPage = () => {
     <PageWrapper title="Склады">
       <SmartTable
         config={config}
-        currentPage={values.page}
-        onPageChange={handlers.setPage}
+        currentPage={0}
+        onPageChange={() => {}}
         pageCount={values.totalCount}
       >
         {values.data?.map((row) => (
           <SmartTableRow
-            key={row.id}
+            key={row.storageId}
             config={config}
             row={row}
-            to={products(root(), row.id)}
+            to={products(root(), row.storageId)}
           />
         ))}
       </SmartTable>

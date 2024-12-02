@@ -1,4 +1,4 @@
-import { InvoiceValidatorType } from '@/entities/invoices'
+import { InvoiceValidatorType } from '@/entities/crm/invoices'
 
 export const getPriorityStatusOptions = (): InvoiceValidatorType['priority'][] => {
   return [

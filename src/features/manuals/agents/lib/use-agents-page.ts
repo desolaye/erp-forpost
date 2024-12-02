@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { usePagination } from '@/shared/lib/use-pagination'
 import { useSearch } from '@/shared/lib/use-search'
+
 import { getAgentsManual } from '@/entities/manuals'
 
 export const useAgentsPage = () => {
@@ -11,13 +12,17 @@ export const useAgentsPage = () => {
   const { getTotalCount, page, params, setPage } = usePagination(50)
   const { filters, search, setSearch, debouncedSearch } = useSearch('name')
 
+  const [contractorType, setContractorType] = useState<number>()
+
   const { data: agents, isFetching } = useQuery({
     queryFn: () =>
       getAgentsManual({
-        params,
-        filters,
+        skip: params.skip,
+        limit: params.limit,
+        name: filters?.filterValues,
+        contractorType,
       }),
-    queryKey: ['agents_all', page, debouncedSearch],
+    queryKey: ['agents_all', page, debouncedSearch, contractorType],
     refetchOnWindowFocus: false,
   })
 
@@ -37,6 +42,7 @@ export const useAgentsPage = () => {
       setPage,
       setSearch,
       setAgentId,
+      setContractorType,
     },
   }
 }

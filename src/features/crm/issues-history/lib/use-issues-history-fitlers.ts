@@ -15,12 +15,14 @@ export const useIssuesHistoryFilters = (props: IIssuesHistoryProps) => {
   const executorSearch = useSearch('lastName')
 
   const { data: executors } = useQuery({
-    queryFn: () => getStaffManual({ params, filters: executorSearch.filters }),
+    queryFn: () =>
+      getStaffManual({ ...params, lastName: executorSearch.filters?.filterValues }),
     queryKey: ['executor_all', executorSearch.debouncedSearch],
   })
 
   const { data: responsible } = useQuery({
-    queryFn: () => getStaffManual({ params, filters: responsibleSearch.filters }),
+    queryFn: () =>
+      getStaffManual({ ...params, lastName: executorSearch.filters?.filterValues }),
     queryKey: ['responsible_all', responsibleSearch.debouncedSearch],
   })
 

@@ -1,13 +1,12 @@
 import { useState } from 'react'
-import Textarea from '@mui/joy/Textarea'
 
 import { Text } from '@/shared/ui/text'
-import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
 import { Button } from '@/shared/ui/button'
 
-import { InvoiceProductResponseType, InvoiceType } from '@/entities/invoices'
-import { InvoiceProduct } from '@/entities/invoices/ui/invoice-product'
-import { InvoiceProductCreator } from '@/entities/invoices/ui/invoice-product-creator'
+import { InvoiceProductResponseType, InvoiceType } from '@/entities/crm/invoices'
+import { InvoiceProduct } from '@/entities/crm/invoices/ui/invoice-product'
+import { InvoiceProductCreator } from '@/entities/crm/invoices/ui/invoice-product-creator'
+import { Textarea } from '@/shared/ui/textarea'
 
 interface IInvoiceProductsBodyProps {
   data?: InvoiceProductResponseType[]
@@ -46,14 +45,13 @@ export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
           Описание счёта
         </Text>
 
-        <JoyUiProvider>
-          <Textarea
-            value={descr}
-            onChange={(e) => setDescr(e.target.value)}
-            minRows={4}
-            maxRows={4}
-          />
-        </JoyUiProvider>
+        <Textarea
+          onChange={(e) => setDescr(e.target.value)}
+          label="Описание счёта"
+          placeholder="Описание счёта"
+          value={descr}
+        />
+
         <Button mode="secondary" full onClick={() => onDescriptionChange?.(descr)}>
           Обновить описание
         </Button>
@@ -64,16 +62,17 @@ export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
           Продукты в счёте
         </Text>
 
-        {data?.map((v) => (
+        <InvoiceProductCreator products={products} onCreate={onProductCreate} />
+
+        {data?.map((v, i) => (
           <InvoiceProduct
             key={v.id}
+            idx={i + 1}
             invoice={v}
             onDelete={onProductDelete}
             onEdit={onProductEdit}
           />
         ))}
-
-        <InvoiceProductCreator products={products} onCreate={onProductCreate} />
       </section>
     </>
   )

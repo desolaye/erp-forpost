@@ -16,7 +16,7 @@ import {
   putEditInvoicePriority,
   putEditInvoiceProductQuantity,
   putEditInvoiceShipment,
-} from '@/entities/invoices'
+} from '@/entities/crm/invoices'
 import { getProductsManual, productsToOptions } from '@/entities/manuals'
 
 interface IUseInvoiceDetailed {

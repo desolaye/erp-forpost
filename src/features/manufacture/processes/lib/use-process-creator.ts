@@ -35,7 +35,7 @@ export const useProcessCreator = (props: IProcessCreatorProps) => {
 
   const { data: staff } = useQuery({
     queryFn: () =>
-      getStaffManual({ params: { limit: 8, skip: 0 }, filters: staffSearch.filters }),
+      getStaffManual({ lastName: staffSearch.filters?.filterValues, limit: 20, skip: 0 }),
     queryKey: ['staff_all', staffSearch.debouncedSearch],
   })
 

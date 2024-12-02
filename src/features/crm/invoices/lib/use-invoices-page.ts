@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { usePagination } from '@/shared/lib/use-pagination'
 
-import { getInvoicesAll } from '@/entities/invoices'
+import { getInvoicesAll } from '@/entities/crm/invoices'
 import { useSearch } from '@/shared/lib/use-search'
 import { getAgentsManual } from '@/entities/manuals'
 
@@ -45,10 +45,11 @@ export const useInvoicesPage = () => {
   const { data: contractors } = useQuery({
     queryFn: () =>
       getAgentsManual({
-        params: { limit: 20, skip: 0 },
-        filters: contractorFilter?.filters,
+        name: contractorFilter.filters?.filterValues,
+        skip: 0,
+        limit: 20,
       }),
-    queryKey: ['contractors_all', debouncedSearch],
+    queryKey: ['contractors_all', contractorFilter.debouncedSearch],
   })
 
   return {

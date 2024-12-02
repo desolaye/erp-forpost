@@ -7,7 +7,7 @@ import {
   productsToOptions,
 } from '@/entities/manuals'
 
-import { InvoiceValidatorType, postCreateInvoice } from '@/entities/invoices'
+import { InvoiceValidatorType, postCreateInvoice } from '@/entities/crm/invoices'
 
 interface IInvoiceCreatorProps {
   onClose?: () => void
@@ -31,7 +31,7 @@ export const useInvoiceCreator = (props: IInvoiceCreatorProps) => {
   })
 
   const { data: agents, isLoading: isLoadingAgents } = useQuery({
-    queryFn: () => getAgentsManual({ params: { limit: 1000, skip: 0 } }),
+    queryFn: () => getAgentsManual({ limit: 1000, skip: 0 }),
     queryKey: ['agents_all'],
   })
 

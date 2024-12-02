@@ -7,11 +7,11 @@ import { Input } from '@/shared/ui/input'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { agentsToOptions } from '@/entities/manuals'
-import { getInvoiceStatusesOptions } from '@/entities/invoices/utils/get-invoice-statuses-options'
-import { getInvoicePriorityOptions } from '@/entities/invoices/utils/get-invoice-priority-options'
-import { getInvoicePaymentOptions } from '@/entities/invoices/utils/get-invoice-payment-options'
+import { getInvoiceStatusesOptions } from '@/entities/crm/invoices/utils/get-invoice-statuses-options'
+import { getInvoicePriorityOptions } from '@/entities/crm/invoices/utils/get-invoice-priority-options'
+import { getInvoicePaymentOptions } from '@/entities/crm/invoices/utils/get-invoice-payment-options'
 
-import { InvoiceCreator, InvoiceDetailed, useInvoicesPage } from '@/features/invoices'
+import { InvoiceCreator, InvoiceDetailed, useInvoicesPage } from '@/features/crm/invoices'
 
 import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'

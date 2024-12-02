@@ -1,16 +1,23 @@
 import { publicApi } from '@/shared/api/public-api.config'
-import { GetWithParamsType } from '@/shared/model/get-with-params.type'
 
 import { AgentResponseType } from '../../model/agent.schema'
 
-export const getAgentsManual = async (props: GetWithParamsType) => {
-  const { params, filters } = props
+type RequestProps = {
+  skip?: number
+  limit?: number
+  contractorType?: number
+  name?: string
+}
+
+export const getAgentsManual = async (props: RequestProps) => {
+  const { contractorType, limit, name, skip } = props
 
   const response = await publicApi.get<AgentResponseType>('v1/contractors', {
     params: {
-      skip: params.skip,
-      limit: params.limit,
-      ...filters,
+      Skip: skip,
+      Limit: limit,
+      Name: name,
+      ContractorTypeValue: contractorType,
     },
   })
 

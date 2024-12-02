@@ -1,9 +1,8 @@
-import ReactSelect from 'react-select'
 import { Controller } from 'react-hook-form'
 
 import { Input } from '@/shared/ui/input'
 import { Form } from '@/shared/ui/form'
-import { Text } from '@/shared/ui/text'
+import { Select } from '@/shared/ui/select'
 
 import { StaffValidatorType } from '@/entities/manuals'
 
@@ -24,7 +23,7 @@ type FormItemType = {
 }
 
 export const StaffForm = (props: IStaffFormProps) => {
-  const { roles, isError, staff, isPending } = props
+  const { roles = [], isError, staff, isPending } = props
 
   const { register, errors, control, handleSubmit, onReset, onSubmit } =
     useStaffForm(props)
@@ -67,28 +66,19 @@ export const StaffForm = (props: IStaffFormProps) => {
         />
       )}
 
-      <Text>Выберите роль сотрудника в ERP</Text>
       <Controller
         name="role"
         control={control}
         render={({ field }) => (
-          <ReactSelect
+          <Select
             {...field}
+            errorMsg={errors.role && 'Необходимо выбрать роль'}
+            label="Роль сотрудника в ERP системе"
+            placeholder="Выберите роль сотрудника в ERP"
             options={roles}
-            styles={{
-              control: (baseStyles) => ({
-                ...baseStyles,
-                borderColor: !errors.role ? 'grey' : '#830000',
-              }),
-            }}
           />
         )}
       />
-      {errors.role && (
-        <Text size="sm" color="error">
-          Необходимо выбрать роль
-        </Text>
-      )}
     </Form>
   )
 }

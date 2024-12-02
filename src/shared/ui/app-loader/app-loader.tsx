@@ -1,18 +1,11 @@
 import { Loader } from '../loader'
 import { Text } from '../text'
 
+import cls from './app-loader.module.scss'
+
 export const AppLoader = () => {
   return (
-    <div
-      style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '12px',
-      }}
-    >
+    <div className={cls.app_loader}>
       <Text>Грузим страницу...</Text>
       <Loader />
     </div>

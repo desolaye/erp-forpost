@@ -19,8 +19,9 @@ export const useStaffPage = () => {
   const { data: staff, isFetching } = useQuery({
     queryFn: () =>
       getStaffManual({
-        params,
-        filters,
+        limit: params.limit,
+        lastName: filters?.filterValues,
+        skip: params.skip,
       }),
     queryKey: ['staff_all', page, debouncedSearch],
     refetchOnWindowFocus: false,

@@ -41,7 +41,7 @@ export const PasswordForm = (props: IPasswordFormProps) => {
     >
       <Input
         placeholder="Пароль"
-        label="Пароль"
+        label="Установить новый пароль сотруднику"
         isError={Boolean(errors.password)}
         helper={errors.password?.message}
         {...register('password')}

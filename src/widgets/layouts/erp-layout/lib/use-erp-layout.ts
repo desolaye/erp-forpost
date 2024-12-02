@@ -16,6 +16,11 @@ export const useErpLayout = () => {
   const { getLocalSession, setLocalSession } = useLocalSession()
 
   const onAuthFail = () => {
+    publicApi.interceptors.request.use((config) => {
+      config.headers.Authorization = undefined
+      return config
+    })
+
     navigate({ to: routesPath.login() })
     setLocalSession(null)
   }

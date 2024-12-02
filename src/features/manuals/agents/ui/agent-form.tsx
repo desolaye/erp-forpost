@@ -1,12 +1,11 @@
 import { Controller } from 'react-hook-form'
-import ReactSelect from 'react-select'
 import { Slider } from '@mui/material'
-import Textarea from '@mui/joy/Textarea'
 
 import { Input } from '@/shared/ui/input'
 import { Form } from '@/shared/ui/form'
 import { Text } from '@/shared/ui/text'
-import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
+import { Textarea } from '@/shared/ui/textarea'
+import { Select } from '@/shared/ui/select'
 
 import { AgentType, AgentValidatorType, contractTypeToOptions } from '@/entities/manuals'
 import { useAgentForm } from '../lib/use-agent-form'
@@ -48,57 +47,38 @@ export const AgentForm = (props: IAgentFormProps) => {
         {...register('inn')}
       />
 
-      <Text>Тип контрагента</Text>
       <Controller
         name="contractorType"
         control={control}
         render={({ field }) => (
-          <ReactSelect
+          <Select
+            errorMsg={errors.contractorType && 'Выберите тип агента'}
+            label="Тип контрагента"
+            placeholder="Тип контрагента"
             {...field}
             options={contractTypeToOptions()}
-            styles={{
-              control: (baseStyles) => ({
-                ...baseStyles,
-                borderColor: !errors.contractorType ? 'grey' : '#830000',
-              }),
-            }}
           />
         )}
       />
 
-      {errors.contractorType && (
-        <Text size="sm" color="error">
-          Необходимо выбрать тип агента
-        </Text>
-      )}
-
-      <Text>Страна</Text>
       <Controller
         name="country"
         control={control}
         render={({ field }) => (
-          <ReactSelect
+          <Select
             {...field}
+            errorMsg={errors.country && 'Выберите страну'}
+            placeholder="Страна"
+            label="Страна"
             options={[
               { label: 'Россия', value: 'Россия' },
               { label: 'Казахстан', value: 'Казахстан' },
               { label: 'Белорусь', value: 'Белорусь' },
               { label: 'Другая', value: 'Другая' },
             ]}
-            styles={{
-              control: (baseStyles) => ({
-                ...baseStyles,
-                borderColor: !errors.country ? 'grey' : '#830000',
-              }),
-            }}
           />
         )}
       />
-      {errors.country && (
-        <Text size="sm" color="error">
-          Необходимо выбрать страну
-        </Text>
-      )}
 
       <Input
         placeholder="Город"
@@ -127,39 +107,31 @@ export const AgentForm = (props: IAgentFormProps) => {
         </Text>
       )}
 
-      <Text>Описание агента</Text>
-      <JoyUiProvider>
-        <Textarea
-          {...register('description')}
-          placeholder="Описание агента"
-          minRows={4}
-          maxRows={4}
-          variant="soft"
-          sx={{ fontFamily: 'Montserrat' }}
-        />
-      </JoyUiProvider>
-      {errors.description && (
-        <Text size="sm" color="error">
-          {errors.description?.message}
-        </Text>
-      )}
+      <Controller
+        name="description"
+        control={control}
+        render={({ field }) => (
+          <Textarea
+            {...field}
+            errorMsg={errors.description?.message}
+            placeholder="Описание агента"
+            label="Описание агента"
+          />
+        )}
+      />
 
-      <Text>Заметки по логистике</Text>
-      <JoyUiProvider>
-        <Textarea
-          {...register('logisticInfo')}
-          placeholder="Заметки по логистике"
-          minRows={4}
-          maxRows={4}
-          variant="soft"
-          sx={{ fontFamily: 'Montserrat' }}
-        />
-      </JoyUiProvider>
-      {errors.logisticInfo && (
-        <Text size="sm" color="error">
-          {errors.logisticInfo?.message}
-        </Text>
-      )}
+      <Controller
+        name="logisticInfo"
+        control={control}
+        render={({ field }) => (
+          <Textarea
+            {...field}
+            errorMsg={errors.logisticInfo?.message}
+            placeholder="Заметки по логистике"
+            label="Заметки по логистике"
+          />
+        )}
+      />
     </Form>
   )
 }

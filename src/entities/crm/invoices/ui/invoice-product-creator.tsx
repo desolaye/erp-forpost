@@ -36,14 +36,6 @@ export const InvoiceProductCreator = (props: InvoiceProductCreator) => {
 
   return (
     <section style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-      <Button
-        mode="secondary"
-        onClick={() => setIsCreating(false)}
-        style={{ padding: '2px 4px' }}
-      >
-        <DeleteOutlineIcon style={{ minWidth: 24, minHeight: 24 }} />
-      </Button>
-
       <ReactSelect
         className="full"
         options={products}
@@ -62,6 +54,13 @@ export const InvoiceProductCreator = (props: InvoiceProductCreator) => {
 
       <Button mode="neutral" style={{ padding: '2px 4px' }} onClick={handleCreate}>
         <DoneIcon style={{ minWidth: 24, minHeight: 24 }} />
+      </Button>
+      <Button
+        mode="secondary"
+        onClick={() => setIsCreating(false)}
+        style={{ padding: '2px 4px' }}
+      >
+        <DeleteOutlineIcon style={{ minWidth: 24, minHeight: 24 }} />
       </Button>
     </section>
   )

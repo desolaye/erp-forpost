@@ -1,5 +1,5 @@
 import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
-import { InvoiceType } from '@/entities/invoices'
+import { InvoiceType } from '@/entities/crm/invoices'
 
 export const invoicesTableConfig = () => {
   const config: TableRowRecordType<InvoiceType> = {

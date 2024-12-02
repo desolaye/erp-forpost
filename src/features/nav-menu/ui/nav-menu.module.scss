@@ -1,6 +1,5 @@
 .nav_menu {
   color: #830000;
-  padding: 4px 8px;
   border-radius: 20px;
 
   background-color: white;
@@ -27,10 +26,15 @@
 
   &__footer {
     display: flex;
-    justify-content: center;
+    padding: 4px 8px;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
 
     &__icon {
-      cursor: pointer;
+      padding-bottom: 1px;
+      width: 24px;
+      height: 24px;
     }
   }
 }

@@ -3,9 +3,14 @@ import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 
 export const warehousesTableConfig = () => {
   const config: TableRowRecordType<WarehouseType> = {
-    name: {
+    storageName: {
       type: 'text',
       title: 'Название склада',
+      width: 200,
+    },
+    responsibleName: {
+      type: 'text',
+      title: 'Ответственный',
       width: 200,
     },
     responsibleId: {
@@ -13,7 +18,7 @@ export const warehousesTableConfig = () => {
       title: 'id',
       width: 0,
     },
-    id: {
+    storageId: {
       type: 'text',
       title: 'id',
       width: 0,

@@ -6,7 +6,7 @@ import {
   StaffType,
   WarehouseType,
   WarehouseValidatorType,
-  ZWarehouseValidator,
+  ZWarehouseToBack,
 } from '@/entities/manuals'
 
 interface IUseWarehouseForm {
@@ -29,15 +29,10 @@ export const useWarehouseForm = (props: IUseWarehouseForm) => {
     formState: { errors },
     control,
   } = useForm<WarehouseValidatorType>({
-    resolver: zodResolver(
-      ZWarehouseValidator.transform((data) => ({
-        ...data,
-        responsibleId: data.responsibleId.value,
-      })),
-    ),
+    resolver: zodResolver(ZWarehouseToBack),
     defaultValues: {
-      id: warehouse?.id || '',
-      name: warehouse?.name,
+      id: warehouse?.storageId || '',
+      name: warehouse?.storageName,
       responsibleId: {
         label,
         value: defaultResponsible?.id,

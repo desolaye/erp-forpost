@@ -25,14 +25,14 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
   const queryClient = useQueryClient()
 
   const { files, isPendingFile, mutateFile } = useFileLoader(
-    warehouse?.id || '',
+    warehouse?.storageId || '',
     'files_all',
   )
 
   const { filters, search, setSearch, debouncedSearch } = useSearch('lastName')
 
   const onSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: ['warehouse_by_id', warehouse?.id] })
+    queryClient.invalidateQueries({ queryKey: ['warehouse_by_id', warehouse?.storageId] })
     queryClient.invalidateQueries({ queryKey: ['warehouses_all'] })
     if (onClose) onClose()
   }
@@ -53,12 +53,13 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
   })
 
   const { data: staff, isLoading: isLoadingStaff } = useQuery({
-    queryFn: () => getStaffManual({ params: { limit: 8, skip: 0 }, filters }),
+    queryFn: () =>
+      getStaffManual({ limit: 20, skip: 0, lastName: filters?.filterValues }),
     queryKey: ['staff_all', debouncedSearch],
   })
 
   const handleMutate = (data: WarehouseValidatorType) => {
-    if (warehouse?.id) return editWarehouse.mutateAsync(data)
+    if (warehouse?.storageId) return editWarehouse.mutateAsync(data)
     return createWarehouse.mutateAsync(data)
   }
 
@@ -77,7 +78,7 @@ export const useWarehouseEditor = (props: IWarehouseEditorProps) => {
     },
     handlers: {
       onMutate: handleMutate,
-      onDelete: () => deleteWarehouse.mutateAsync(warehouse?.id || ''),
+      onDelete: () => deleteWarehouse.mutateAsync(warehouse?.storageId || ''),
       setSearch,
       setTab,
       mutateFile,

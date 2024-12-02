@@ -11,10 +11,10 @@ export const MyThemeProvider = (props: PropsWithChildren) => {
           thumb: {
             color: '#830000',
             ':hover': {
-              'box-shadow': '0px 0px 0px 8px rgba(131, 0, 0, 0.16)',
+              boxShadow: '0px 0px 0px 8px rgba(131, 0, 0, 0.16)',
             },
             ':active': {
-              'box-shadow': '0px 0px 0px 16px rgba(131, 0, 0, 0.16)',
+              boxShadow: '0px 0px 0px 16px rgba(131, 0, 0, 0.16)',
             },
           },
           root: {

@@ -2,12 +2,15 @@ import { useQuery } from '@tanstack/react-query'
 
 import { Text } from '@/shared/ui/text'
 import { Loader } from '@/shared/ui/loader'
-
-import { getInvoiceHistoryById, InvoiceHistoryResponseType } from '@/entities/invoices'
-import { paymentStatusToText } from '@/entities/invoices/utils/payment-status-to-text'
-import { priorityStatusToText } from '@/entities/invoices/utils/priority-status-to-text'
 import { isoToTime } from '@/shared/utils/iso-to-time'
-import { invoiceStatusToText } from '@/entities/invoices/utils/invoice-status-to-text'
+
+import {
+  getInvoiceHistoryById,
+  InvoiceHistoryResponseType,
+} from '@/entities/crm/invoices'
+import { paymentStatusToText } from '@/entities/crm/invoices/utils/payment-status-to-text'
+import { priorityStatusToText } from '@/entities/crm/invoices/utils/priority-status-to-text'
+import { invoiceStatusToText } from '@/entities/crm/invoices/utils/invoice-status-to-text'
 
 type InvoiceHistoryTabProps = {
   invoiceId: string

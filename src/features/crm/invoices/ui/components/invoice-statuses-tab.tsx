@@ -10,7 +10,7 @@ import DoneIcon from '@mui/icons-material/Done'
 
 import { Text } from '@/shared/ui/text'
 import { Button } from '@/shared/ui/button'
-import { InvoiceType } from '@/entities/invoices'
+import { InvoiceType } from '@/entities/crm/invoices'
 
 import cls from '../invoice-detailed.module.scss'
 

@@ -1,5 +1,5 @@
 .file_add {
-  width: fit-content;
+  width: 100%;
 
   color: #830000;
   padding: 4px 8px;
@@ -18,5 +18,6 @@
     display: flex;
     gap: 8px;
     align-items: center;
+    justify-content: center;
   }
 }

@@ -18,7 +18,7 @@ const ManualStaffPage = () => {
       <Card style={{ flexDirection: 'row' }}>
         <Input
           full
-          placeholder="Поиск"
+          placeholder="Поиск по фамилии"
           value={values.search}
           onChange={(e) => handlers.setSearch(e.target.value)}
         />

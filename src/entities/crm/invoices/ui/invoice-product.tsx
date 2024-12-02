@@ -6,22 +6,29 @@ import EditNoteIcon from '@mui/icons-material/EditNote'
 import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
 import { Button } from '@/shared/ui/button'
-import { InvoiceProductResponseType } from '@/entities/invoices'
+
+import { InvoiceProductResponseType } from '../model/invoice.schema'
 
 type InvoiceProductProps = {
   invoice: InvoiceProductResponseType
+  idx: number
   onDelete?: (invoice: InvoiceProductResponseType) => void
   onEdit?: (value: number, id: string) => void
 }
 
 export const InvoiceProduct = (props: InvoiceProductProps) => {
-  const { invoice, onDelete, onEdit } = props
+  const { invoice, idx, onDelete, onEdit } = props
 
   const [quantity, setQuantity] = useState(invoice.quantity.toString())
 
   return (
     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-      <Text className="full">{invoice.name}</Text>
+      <Text className="full">
+        <Text tag="span" weight="semi">
+          {idx}.{' '}
+        </Text>
+        {invoice.name}
+      </Text>
 
       <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
         <Tooltip title="Сохранить количество">

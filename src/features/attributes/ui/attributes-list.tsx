@@ -67,7 +67,7 @@ export const AttributesList = () => {
 
         <Text weight="semi">Список значений</Text>
         {values.selectedAttr?.values.map((v, i) => (
-          <section key={i} className={cls.attributes_list__line_2}>
+          <section key={i} className={cls.attributes_list__line}>
             <Input
               full
               value={v}

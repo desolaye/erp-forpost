@@ -1,6 +1,6 @@
-import ReactSelect from 'react-select'
 import { Controller } from 'react-hook-form'
-import Textarea from '@mui/joy/Textarea'
+
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -13,15 +13,16 @@ import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
-import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
+import { Textarea } from '@/shared/ui/textarea'
+import { Select } from '@/shared/ui/select'
+
+import { InvoiceValidatorType } from '@/entities/crm/invoices'
 
 import { useInvoiceForm } from '../lib/use-invoice-form'
 import { getPaymentStatusOptions } from '../utils/get-payment-status-options'
 import { getPriorityStatusOptions } from '../utils/get-priority-status-options'
 
-import { InvoiceValidatorType } from '@/entities/invoices'
-
-interface IInvoiceFormProps {
+type InvoiceFormProps = {
   agents: { label: string; value: string }[]
   products: { label: string; value: string }[]
 
@@ -32,7 +33,7 @@ interface IInvoiceFormProps {
   onMutate?: (data: InvoiceValidatorType) => void
 }
 
-export const InvoiceForm = (props: IInvoiceFormProps) => {
+export const InvoiceForm = (props: InvoiceFormProps) => {
   const { agents, products, isError, isLoading, onClose } = props
   const { handlers, values } = useInvoiceForm(props)
 
@@ -52,94 +53,60 @@ export const InvoiceForm = (props: IInvoiceFormProps) => {
         {...handlers.register('number')}
       />
 
-      <Text>Описание счёта</Text>
+      <Controller
+        name="description"
+        control={values.control}
+        render={({ field }) => (
+          <Textarea
+            {...field}
+            label="Описание счёта"
+            placeholder="Описание счёта"
+            errorMsg={values.errors.description?.message}
+          />
+        )}
+      />
 
-      <JoyUiProvider>
-        <Textarea
-          {...handlers.register('description')}
-          placeholder="Описание счёта"
-          minRows={4}
-          variant="soft"
-          sx={{ fontFamily: 'Montserrat' }}
-        />
-      </JoyUiProvider>
-
-      {values.errors.description && (
-        <Text size="sm" color="error">
-          {values.errors.description?.message}
-        </Text>
-      )}
-
-      <Text>Выберите контрагента</Text>
       <Controller
         name="contractorId"
         control={values.control}
         render={({ field }) => (
-          <ReactSelect
+          <Select
             {...field}
+            placeholder="Выберите контрагента"
+            label="Выберите контрагента"
+            errorMsg={values.errors.contractorId && 'Необходимо выбрать контрагента'}
             options={agents}
-            styles={{
-              control: (baseStyles) => ({
-                ...baseStyles,
-                borderColor: !values.errors.contractorId ? 'grey' : '#830000',
-              }),
-            }}
           />
         )}
       />
-      {values.errors.contractorId && (
-        <Text size="sm" color="error">
-          Необходимо выбрать контрагента
-        </Text>
-      )}
 
-      <Text>Выберите тип оплаты</Text>
       <Controller
         name="paymentStatus"
         control={values.control}
         render={({ field }) => (
-          <ReactSelect
+          <Select
             {...field}
+            placeholder="Выберите тип оплаты"
+            label="Выберите тип оплаты"
+            errorMsg={values.errors.paymentStatus && 'Необходимо выбрать тип оплаты'}
             options={getPaymentStatusOptions()}
-            styles={{
-              control: (baseStyles) => ({
-                ...baseStyles,
-                borderColor: !values.errors.paymentStatus ? 'grey' : '#830000',
-              }),
-            }}
           />
         )}
       />
 
-      {values.errors.paymentStatus && (
-        <Text size="sm" color="error">
-          Необходимо выбрать тип оплаты
-        </Text>
-      )}
-
-      <Text>Выберите приоритет счёта</Text>
       <Controller
         name="priority"
         control={values.control}
         render={({ field }) => (
-          <ReactSelect
+          <Select
             {...field}
+            placeholder="Выберите приоритет счёта"
+            label="Выберите приоритет счёта"
+            errorMsg={values.errors.priority && 'Необходимо выбрать приоритет'}
             options={getPriorityStatusOptions()}
-            styles={{
-              control: (baseStyles) => ({
-                ...baseStyles,
-                borderColor: !values.errors.priority ? 'grey' : '#830000',
-              }),
-            }}
           />
         )}
       />
-
-      {values.errors.priority && (
-        <Text size="sm" color="error">
-          Необходимо выбрать приоритет
-        </Text>
-      )}
 
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
         <Text>Актуальность счёта</Text>
@@ -150,7 +117,7 @@ export const InvoiceForm = (props: IInvoiceFormProps) => {
             <DateTimePicker
               {...field}
               onChange={(v) => field.onChange(dayjs(v).toISOString())}
-              defaultValue={dayjs()}
+              defaultValue={null}
               value={dayjs(field.value)}
             />
           )}
@@ -177,47 +144,41 @@ export const InvoiceForm = (props: IInvoiceFormProps) => {
               mode="secondary"
               type="button"
               onClick={() => handlers.removeField(i)}
+              style={{ padding: '2px 4px' }}
             >
-              Удалить
+              <DeleteOutlinedIcon style={{ width: 24, height: 24 }} />
             </Button>
           </header>
 
-          <Text>Выбор продукта</Text>
-          <Controller
-            name={`products.${i}.productId`}
-            control={values.control}
-            render={({ field }) => (
-              <ReactSelect
-                {...field}
-                options={products}
-                styles={{
-                  control: (baseStyles) => ({
-                    ...baseStyles,
-                    borderColor: !values.errors.products?.[i]?.productId
-                      ? 'grey'
-                      : '#830000',
-                  }),
-                }}
-              />
-            )}
-          />
-          {values.errors.products?.[i]?.productId && (
-            <Text size="sm" color="error">
-              Необходимо выбрать продукт
-            </Text>
-          )}
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <Controller
+              name={`products.${i}.productId`}
+              control={values.control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  placeholder="Выбор продукта"
+                  options={products}
+                  className="full"
+                  errorMsg={
+                    values.errors.products?.[i]?.productId && 'Необходимо выбрать продукт'
+                  }
+                />
+              )}
+            />
 
-          <Input
-            placeholder="Количество"
-            label="Количество"
-            isError={Boolean(values.errors.products?.[i]?.quantity)}
-            {...handlers.register(`products.${i}.quantity` as const)}
-          />
+            <Input
+              style={{ minWidth: 150, width: 150 }}
+              placeholder="Количество"
+              isError={Boolean(values.errors.products?.[i]?.quantity)}
+              {...handlers.register(`products.${i}.quantity` as const)}
+            />
+          </div>
         </Card>
       ))}
 
       <Button type="button" mode="secondary" onClick={handlers.createField}>
-        Добавить продукт
+        + Добавить продукт
       </Button>
     </Form>
   )

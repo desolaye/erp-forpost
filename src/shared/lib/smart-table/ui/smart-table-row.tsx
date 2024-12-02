@@ -4,6 +4,8 @@ import { useNavigate } from '@tanstack/react-router'
 import cn from 'classnames'
 
 import { isRenderable } from '@/shared/utils/is-renderable'
+import { splitByNewline } from '@/shared/utils/split-by-newline'
+
 import { TableConfigType } from '../model/table-config.type'
 
 import cls from './smart-table.module.scss'
@@ -51,9 +53,10 @@ export const SmartTableRow = <T,>(props: ISmartTableRowProps<T>) => {
             <Tooltip
               onClick={(e) => e.stopPropagation()}
               title={
-                <p onClick={(e) => e.stopPropagation()}>
-                  {isRenderable(row[key]) && row[key]}
-                </p>
+                <div onClick={(e) => e.stopPropagation()}>
+                  {typeof row[key] === 'string' &&
+                    splitByNewline(row[key]).map((v, i) => <p key={i}>{v}</p>)}
+                </div>
               }
             >
               <p
@@ -64,7 +67,7 @@ export const SmartTableRow = <T,>(props: ISmartTableRowProps<T>) => {
                   textOverflow: 'ellipsis',
                 }}
               >
-                {isRenderable(row[key]) && row[key]}
+                {typeof row[key] === 'string' && splitByNewline(row[key])[0]}
               </p>
             </Tooltip>
           )}

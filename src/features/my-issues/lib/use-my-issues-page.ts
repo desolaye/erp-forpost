@@ -10,7 +10,7 @@ export const useMyIssuesPage = () => {
   const [tab, setTab] = useState<'responsible' | 'executor'>('responsible')
   const [modalData, setModalData] = useState<MyIssueType>()
 
-  const { getTotalCount, page, params, setPage } = usePagination(10)
+  const { getTotalCount, page, params, setPage } = usePagination(50)
 
   const { data: issues, isPending: isPendingIssues } = useQuery({
     queryFn: () =>
@@ -23,7 +23,8 @@ export const useMyIssuesPage = () => {
   const { data: staff, isPending: isPendingStaff } = useQuery({
     queryFn: () =>
       getStaffManual({
-        params: { limit: 1000, skip: 0 },
+        limit: 1000,
+        skip: 0,
       }),
     queryKey: ['staff_all'],
     enabled: tab === 'responsible',
