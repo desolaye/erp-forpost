@@ -43,10 +43,6 @@ export const OrderDetailedData = (props: Props) => {
 
         <Text>{order?.number || 'Отсутствует'}</Text>
 
-        <Text size="lg" weight="semi">
-          Описание счёта
-        </Text>
-
         <Textarea
           disabled
           label="Описание из счёта"
