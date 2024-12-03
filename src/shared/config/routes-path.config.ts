@@ -19,6 +19,7 @@ export const routesPath = {
       proddev: (pre = '') => `${pre}/product-develop`,
       proddevIssue: (pre = '', post = '$issueId') => `${pre}/product-develop/${post}`,
       productCompleted: (pre = '') => `${pre}/product-completed`,
+      orders: (pre = '') => `${pre}/orders`,
     },
     crm: {
       root: () => '/crm',

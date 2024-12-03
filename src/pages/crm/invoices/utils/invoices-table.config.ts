@@ -69,6 +69,11 @@ export const invoicesTableConfig = () => {
       title: '',
       type: 'text',
     },
+    isManufacturingOrderSent: {
+      width: 0,
+      title: '',
+      type: 'text',
+    },
   }
 
   return Object.entries(config).filter(

@@ -19,6 +19,7 @@ type InvoiceStatusesTabProps = {
   editPriority: (status: number) => void
   editShipment: (shipment: string) => void
   editPercent: (percent: number) => void
+  sendToManufacture: (invoiceId: string) => void
 
   invoice?: InvoiceType
   isPaymentError?: boolean
@@ -33,6 +34,7 @@ export const InvoiceStatusesTab = (props: InvoiceStatusesTabProps) => {
     editPriority,
     editShipment,
     editPercent,
+    sendToManufacture,
     invoice,
     isPaymentError,
     isPriorityError,
@@ -41,6 +43,8 @@ export const InvoiceStatusesTab = (props: InvoiceStatusesTabProps) => {
   } = props
 
   const [shipmentDate, setShipmentDate] = useState<string | null>(null)
+  const [isSendingToManufacture, setIsSendingToManufacture] = useState(false)
+
   const [percentValue, setPercentValue] = useState<number>(
     invoice?.paymentPercentage || 0,
   )
@@ -151,6 +155,40 @@ export const InvoiceStatusesTab = (props: InvoiceStatusesTabProps) => {
 
           {isShipmentError && <Text color="error">Ошибка изменения даты отгрузки</Text>}
         </LocalizationProvider>
+      </section>
+
+      <section>
+        {invoice?.isManufacturingOrderSent && (
+          <Text color="error" weight="semi">
+            Счёт отправлен в производство
+          </Text>
+        )}
+
+        {!invoice?.isManufacturingOrderSent && !isSendingToManufacture && (
+          <Button full onClick={() => setIsSendingToManufacture(true)}>
+            Передать в производство
+          </Button>
+        )}
+
+        {!invoice?.isManufacturingOrderSent && isSendingToManufacture && (
+          <>
+            <Text style={{ padding: '8px 0' }}>
+              Вы уверены, что хотите передать счёт в производство?
+            </Text>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <Button full onClick={() => sendToManufacture(invoice?.id || '')}>
+                Подтвердить
+              </Button>
+              <Button
+                mode="neutral"
+                full
+                onClick={() => setIsSendingToManufacture(false)}
+              >
+                Отменить
+              </Button>
+            </div>
+          </>
+        )}
       </section>
     </>
   )

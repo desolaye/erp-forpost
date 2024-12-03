@@ -5,17 +5,28 @@ import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
 import { Text } from '../text'
 
 type TextareaProps = {
-  onChange: (...event: any[]) => void
+  onChange?: (...event: any[]) => void
   name?: string
   value?: string
 
+  disabled?: boolean
   placeholder?: string
   errorMsg?: string
   label?: string
+  minRows?: number
+  maxRows?: number
 }
 
 export const Textarea = forwardRef<any, TextareaProps>((props, ref) => {
-  const { errorMsg, label, placeholder, value, ...rest } = props
+  const {
+    errorMsg,
+    label,
+    placeholder,
+    disabled,
+    minRows = 4,
+    maxRows = 4,
+    ...rest
+  } = props
 
   return (
     <section style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -23,12 +34,10 @@ export const Textarea = forwardRef<any, TextareaProps>((props, ref) => {
 
       <JoyUiProvider>
         <JoyTextarea.default
-          ref={ref}
           {...rest}
-          placeholder={placeholder}
-          value={value}
-          minRows={4}
-          maxRows={4}
+          ref={ref}
+          minRows={minRows}
+          maxRows={maxRows}
           variant="soft"
           sx={{ fontFamily: 'Montserrat' }}
         />

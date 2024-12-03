@@ -1,4 +1,5 @@
 import { z } from 'zod'
+
 import { isoToTime } from '@/shared/utils/iso-to-time'
 import { invoiceStatusToText } from '../utils/invoice-status-to-text'
 import { paymentStatusToText } from '../utils/payment-status-to-text'
@@ -54,6 +55,7 @@ const ZInvoice = z.object({
   description: z.string(),
   number: z.string(),
   paymentPercentage: z.number(),
+  isManufacturingOrderSent: z.boolean(),
 
   invoiceStatus: z.object({
     value: z.number(),

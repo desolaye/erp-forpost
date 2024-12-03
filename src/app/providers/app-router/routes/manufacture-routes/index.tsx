@@ -7,10 +7,11 @@ import { ManufactureProcesses } from '@/pages/manufacture/processes'
 import { ManufactureIssues } from '@/pages/manufacture/issues'
 import { ProductDevelop } from '@/pages/manufacture/product-develop'
 import { ProductCompleted } from '@/pages/manufacture/product-completed'
+import { ManufacturingOrders } from '@/pages/manufacture/orders'
 import { MyIssues } from '@/pages/my-issues'
 
-import { erpLayoutRoute } from '../private-routes'
 import { SuspenseProvider } from '@/app/providers/suspense-provider'
+import { erpLayoutRoute } from '../private-routes'
 
 const manufactureRoute = createRoute({
   path: routesPath.erp.manufacture.root(),
@@ -22,6 +23,11 @@ const manufacturePaths = [
     path: '/',
     getParentRoute: () => manufactureRoute,
     component: ManufactureRoot,
+  },
+  {
+    path: routesPath.erp.manufacture.orders(),
+    getParentRoute: () => manufactureRoute,
+    component: ManufacturingOrders,
   },
   {
     path: routesPath.erp.manufacture.processes(),

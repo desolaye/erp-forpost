@@ -9,7 +9,7 @@ type ManualHeaderProps = {
   id: string
   tabs?: { label: string; value: string; disabled?: boolean }[]
   setTab: (v: string) => void
-  onDelete: () => void
+  onDelete?: () => void
 }
 
 export const ManualHeader = (props: ManualHeaderProps) => {
@@ -26,10 +26,10 @@ export const ManualHeader = (props: ManualHeaderProps) => {
       </Tabs>
 
       <Button
-        disabled={id === 'new'}
+        disabled={id === 'new' || !onDelete}
         mode="secondary"
         style={{ padding: '2px 4px' }}
-        onClick={() => onDelete()}
+        onClick={() => onDelete?.()}
       >
         <DeleteOutlineIcon />
       </Button>

@@ -17,7 +17,9 @@ import {
   putEditInvoiceProductQuantity,
   putEditInvoiceShipment,
 } from '@/entities/crm/invoices'
+
 import { getProductsManual, productsToOptions } from '@/entities/manuals'
+import { postSendToManufacturingOrders } from '@/entities/manufacture'
 
 interface IUseInvoiceDetailed {
   invoiceId: string
@@ -29,6 +31,7 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
 
   const queryClient = useQueryClient()
   const [tab, setTab] = useState('data')
+
   const [isDeleting, setIsDeleting] = useState(false)
   const [deletingProduct, setDeletingProduct] = useState<InvoiceProductResponseType>()
 
@@ -111,6 +114,11 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
     onSuccess,
   })
 
+  const sendToManufacture = useMutation({
+    mutationFn: postSendToManufacturingOrders,
+    onSuccess,
+  })
+
   return {
     values: {
       tab,
@@ -133,6 +141,7 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
         mutateProductAdd.isPending ||
         mutateProductDelete.isPending ||
         mutateProductQuantity.isPending ||
+        sendToManufacture.isPending ||
         mutateDelete.isPending,
       isPriorityError: mutatePriority.isError,
       isPaymentError: mutatePayment.isError,
@@ -145,6 +154,7 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
       setIsDeleting,
       setDeletingProduct,
       mutateFile,
+      sendToManufacture: sendToManufacture.mutateAsync,
       deleteInvoice: mutateDelete.mutateAsync,
       deleteInvoiceProduct: mutateProductDelete.mutateAsync,
       addInvoiceProduct: mutateProductAdd.mutateAsync,

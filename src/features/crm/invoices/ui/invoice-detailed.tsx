@@ -1,8 +1,6 @@
-import { Text } from '@/shared/ui/text'
 import { ModalEditor } from '@/shared/ui/modal-editor'
 import { FileAdd } from '@/shared/ui/file'
 import { Loader } from '@/shared/ui/loader'
-import { Button } from '@/shared/ui/button'
 
 import { ManualHeader } from '@/entities/manuals'
 import { File } from '@/entities/files'
@@ -12,6 +10,9 @@ import { useInvoiceDetailed } from '../lib/use-invoice-detailed'
 import { InvoiceProductsBody } from './components/invoice-products-body'
 import { InvoiceStatusesTab } from './components/invoice-statuses-tab'
 import { InvoiceHistoryTab } from './components/invoice-history-tab'
+
+import { InvoiceDelete } from './components/detailed/invoice-delete'
+import { InvoiceProductDelete } from './components/detailed/invoice-product-delete'
 
 interface IInvoiceDetailedProps {
   invoiceId: string
@@ -27,57 +28,22 @@ export const InvoiceDetailed = (props: IInvoiceDetailedProps) => {
 
   if (values.isDeleting) {
     return (
-      <section>
-        <Text size="lg" style={{ padding: '8px', textAlign: 'center' }} weight="semi">
-          Вы действительно хотите удалить счёт{' '}
-          <Text size="lg" color="error" weight="semi" tag="span">
-            №{values.invoice?.number}
-          </Text>
-          ?
-        </Text>
-        <div style={{ gap: 8, display: 'flex' }}>
-          <Button full onClick={() => handlers.deleteInvoice()}>
-            Подтвердить
-          </Button>
-          <Button full mode="neutral" onClick={() => handlers.setIsDeleting(false)}>
-            Отменить
-          </Button>
-        </div>
-      </section>
+      <InvoiceDelete
+        invoiceNumber={values.invoice?.number}
+        onDelete={() => handlers.deleteInvoice()}
+        onReject={() => handlers.setIsDeleting(false)}
+      />
     )
   }
 
   if (values.deletingProduct) {
     return (
-      <section style={{ padding: '8px' }}>
-        <Text style={{ padding: '8px' }}>
-          Вы действительно хотите удалить <br /> продукт{' '}
-          <Text size="lg" color="error" weight="semi" tag="span">
-            {values.deletingProduct.name}
-          </Text>
-          <br />
-          из счёта{' '}
-          <Text size="lg" color="error" weight="semi" tag="span">
-            №{values.invoice?.number}
-          </Text>
-          ?
-        </Text>
-        <div style={{ gap: 8, display: 'flex' }}>
-          <Button
-            full
-            onClick={() => handlers.deleteInvoiceProduct(values.deletingProduct!.id)}
-          >
-            Подтвердить
-          </Button>
-          <Button
-            full
-            mode="neutral"
-            onClick={() => handlers.setDeletingProduct(undefined)}
-          >
-            Отменить
-          </Button>
-        </div>
-      </section>
+      <InvoiceProductDelete
+        productName={values.deletingProduct.name}
+        invoiceNumber={values.invoice?.number}
+        onDelete={() => handlers.deleteInvoiceProduct(values.deletingProduct!.id)}
+        onReject={() => handlers.setDeletingProduct(undefined)}
+      />
     )
   }
 
@@ -127,6 +93,7 @@ export const InvoiceDetailed = (props: IInvoiceDetailedProps) => {
           editPriority={handlers.editPriority}
           editShipment={handlers.editShipment}
           editPercent={handlers.editPercent}
+          sendToManufacture={handlers.sendToManufacture}
           invoice={values.invoice}
           isPaymentError={values.isPaymentError}
           isPriorityError={values.isPriorityError}
