@@ -1,8 +1,12 @@
 import { useState } from 'react'
+import { Tooltip } from '@mui/material'
+import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined'
 
 import { Button } from '@/shared/ui/button'
 import { Text } from '@/shared/ui/text'
 import { Textarea } from '@/shared/ui/textarea'
+
+import { InvoiceProductResponseType } from '@/entities/crm/invoices'
 
 import {
   ManufacturingOrderProductType,
@@ -14,6 +18,7 @@ import { ManufacturingOrderProductCreator } from '@/entities/manufacture/ui/manu
 type Props = {
   order?: ManufacturingOrderType
   products?: ManufacturingOrderProductType[]
+  productsInvoice?: InvoiceProductResponseType[]
   productsAll?: { label: string; value: string }[]
   onCommentChange?: (comment: string) => void
   onProductDelete?: (product: ManufacturingOrderProductType) => void
@@ -26,6 +31,7 @@ export const OrderDetailedData = (props: Props) => {
     order,
     products,
     productsAll,
+    productsInvoice,
     onCommentChange,
     onProductDelete,
     onProductCreate,
@@ -67,9 +73,46 @@ export const OrderDetailedData = (props: Props) => {
       </section>
 
       <section style={{ display: 'flex', gap: 8, flexDirection: 'column' }}>
-        <Text size="lg" weight="semi">
-          Продукты в заказе
-        </Text>
+        <div
+          style={{
+            display: 'flex',
+            gap: 8,
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Text size="lg" weight="semi">
+            Продукты в заказе
+          </Text>
+
+          <Tooltip
+            title={
+              <div>
+                {productsInvoice?.map((v) => (
+                  <Text key={v.id} style={{ padding: '8px 2px' }} breakAll>
+                    <Text tag="span" weight="semi" breakAll>
+                      {v.name}
+                    </Text>{' '}
+                    - {v.quantity}шт.
+                  </Text>
+                ))}
+              </div>
+            }
+          >
+            <Button
+              mode="neutral"
+              style={{
+                display: 'flex',
+                gap: 8,
+                alignItems: 'center',
+                padding: '2px 4px',
+              }}
+            >
+              <InventoryOutlinedIcon style={{ width: 24, height: 24 }} />
+              <Text>Продукты в счёте</Text>
+            </Button>
+          </Tooltip>
+        </div>
 
         <ManufacturingOrderProductCreator
           products={productsAll}

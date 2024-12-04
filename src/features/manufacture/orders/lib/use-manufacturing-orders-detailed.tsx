@@ -14,6 +14,7 @@ import {
   putEditOrderComment,
   putEditOrderProductQuantity,
 } from '@/entities/manufacture'
+import { getInvoiceProducts } from '@/entities/crm/invoices'
 
 type HookProps = {
   orderId: string
@@ -47,7 +48,13 @@ export const useManufacturingOrdersDetailed = (props: HookProps) => {
 
   const { data: products, isFetching: isLoadingProducts } = useQuery({
     queryFn: () => getOrderCompositionById(orderId),
-    queryKey: ['order_products_all'],
+    queryKey: ['order_products_all', orderId],
+  })
+
+  const { data: productsInvoice, isFetching: isLoadingInvoiceProduct } = useQuery({
+    queryFn: () => getInvoiceProducts(order?.invoiceId || ''),
+    queryKey: ['invoice_products_all', order?.invoiceId || ''],
+    enabled: Boolean(order?.invoiceId),
   })
 
   const { data: productsAll, isFetching: isLoadingProductsAll } = useQuery({
@@ -81,6 +88,7 @@ export const useManufacturingOrdersDetailed = (props: HookProps) => {
       order,
       products,
       productsAll: productsToOptions(productsAll?.data.items),
+      productsInvoice,
       deletingProduct,
       tab,
       isLoading:
@@ -88,6 +96,7 @@ export const useManufacturingOrdersDetailed = (props: HookProps) => {
         isLoadingProducts ||
         isLoadingProductsAll ||
         isLoadingOrder ||
+        isLoadingInvoiceProduct ||
         mutateProductQuantity.isPending ||
         mutateProductDelete.isPending ||
         mutateOrderComment.isPending ||

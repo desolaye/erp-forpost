@@ -66,6 +66,7 @@
   .modal_layout {
     &__body {
       width: 66vw;
+      max-width: 66vw;
     }
   }
 }

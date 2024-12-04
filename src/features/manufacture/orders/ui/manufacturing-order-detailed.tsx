@@ -38,6 +38,7 @@ export const ManufacturingOrderDetailed = (props: Props) => {
       {values.tab === 'data' && (
         <OrderDetailedData
           products={values.products}
+          productsInvoice={values.productsInvoice}
           order={values.order}
           productsAll={values.productsAll}
           onCommentChange={handlers.editComment}

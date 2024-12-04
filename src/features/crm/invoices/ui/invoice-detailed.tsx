@@ -92,12 +92,14 @@ export const InvoiceDetailed = (props: IInvoiceDetailedProps) => {
           editPayment={handlers.editPayment}
           editPriority={handlers.editPriority}
           editShipment={handlers.editShipment}
+          editClosingDate={handlers.editClosingDate}
           editPercent={handlers.editPercent}
           sendToManufacture={handlers.sendToManufacture}
           invoice={values.invoice}
           isPaymentError={values.isPaymentError}
           isPriorityError={values.isPriorityError}
           isShipmentError={values.isShipmentError}
+          isClosingDateError={values.isClosingDateError}
         />
       )}
 

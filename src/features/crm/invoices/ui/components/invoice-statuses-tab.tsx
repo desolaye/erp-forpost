@@ -15,9 +15,10 @@ import { InvoiceType } from '@/entities/crm/invoices'
 import cls from '../invoice-detailed.module.scss'
 
 type InvoiceStatusesTabProps = {
+  editShipment: (shipment: string) => void
+  editClosingDate: (date: string) => void
   editPayment: (status: number) => void
   editPriority: (status: number) => void
-  editShipment: (shipment: string) => void
   editPercent: (percent: number) => void
   sendToManufacture: (invoiceId: string) => void
 
@@ -25,6 +26,7 @@ type InvoiceStatusesTabProps = {
   isPaymentError?: boolean
   isPriorityError?: boolean
   isShipmentError?: boolean
+  isClosingDateError?: boolean
   isPercentError?: boolean
 }
 
@@ -34,15 +36,19 @@ export const InvoiceStatusesTab = (props: InvoiceStatusesTabProps) => {
     editPriority,
     editShipment,
     editPercent,
+    editClosingDate,
     sendToManufacture,
     invoice,
     isPaymentError,
     isPriorityError,
     isShipmentError,
+    isClosingDateError,
     isPercentError,
   } = props
 
   const [shipmentDate, setShipmentDate] = useState<string | null>(null)
+  const [closingDate, setClosingDate] = useState<string | null>(null)
+
   const [isSendingToManufacture, setIsSendingToManufacture] = useState(false)
 
   const [percentValue, setPercentValue] = useState<number>(
@@ -51,6 +57,10 @@ export const InvoiceStatusesTab = (props: InvoiceStatusesTabProps) => {
 
   const onShipment = () => {
     if (shipmentDate) editShipment(shipmentDate)
+  }
+
+  const onEditClosingDate = () => {
+    if (closingDate) editClosingDate(closingDate)
   }
 
   useEffect(() => {
@@ -153,7 +163,47 @@ export const InvoiceStatusesTab = (props: InvoiceStatusesTabProps) => {
             Дата отгрузки выставляется по факту совершенной отгрузки
           </Text>
 
-          {isShipmentError && <Text color="error">Ошибка изменения даты отгрузки</Text>}
+          {isShipmentError && (
+            <Text color="error" weight="semi" size="sm">
+              Ошибка изменения даты отгрузки
+            </Text>
+          )}
+        </LocalizationProvider>
+      </section>
+
+      <section
+        style={{ display: 'flex', flexDirection: 'column', gap: 4, width: '100%' }}
+      >
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
+          <Text size="lg" weight="semi">
+            Дата закрытия счёта
+          </Text>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
+            <DateTimePicker
+              onChange={(v) => setClosingDate(dayjs(v).toISOString())}
+              defaultValue={dayjs()}
+              value={dayjs(closingDate || undefined)}
+              className={cls.invoice_detailed__datetime}
+            />
+            <Button
+              style={{ padding: '10px 2px' }}
+              mode="secondary"
+              onClick={onEditClosingDate}
+            >
+              <DoneIcon />
+            </Button>
+          </div>
+
+          <Text size="sm" style={{ padding: '0 4px' }}>
+            Дата закрытия выставляется по факту закрытого счёта
+          </Text>
+
+          {isClosingDateError && (
+            <Text color="error" weight="semi" size="sm">
+              Ошибка изменения даты закрытия счёта
+            </Text>
+          )}
         </LocalizationProvider>
       </section>
 

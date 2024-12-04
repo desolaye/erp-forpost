@@ -12,6 +12,7 @@ export { putEditInvoiceShipment } from './put/put-edit-invoice-shipment'
 export { putEditInvoicePercents } from './put/put-edit-invoice-percents'
 export { putEditInvoiceDescription } from './put/put-edit-invoice-description'
 export { putEditInvoiceProductQuantity } from './put/put-edit-invoice-product-quantity'
+export { putEditInvoiceClosingDate } from './put/put-edit-invoice-closing-date'
 
 export { deleteInvoiceById } from './delete/delete-invoice-by-id'
 export { deleteInvoiceProductById } from './delete/delete-invoice-product-by-id'

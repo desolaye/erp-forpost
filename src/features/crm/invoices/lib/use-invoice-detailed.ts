@@ -10,6 +10,7 @@ import {
   getInvoiceProducts,
   InvoiceProductResponseType,
   postCreateInvoiceProduct,
+  putEditInvoiceClosingDate,
   putEditInvoiceDescription,
   putEditInvoicePayment,
   putEditInvoicePercents,
@@ -114,6 +115,11 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
     onSuccess,
   })
 
+  const mutateClosingDate = useMutation({
+    mutationFn: (date: string) => putEditInvoiceClosingDate({ id: invoiceId, date }),
+    onSuccess,
+  })
+
   const sendToManufacture = useMutation({
     mutationFn: postSendToManufacturingOrders,
     onSuccess,
@@ -141,6 +147,7 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
         mutateProductAdd.isPending ||
         mutateProductDelete.isPending ||
         mutateProductQuantity.isPending ||
+        mutateClosingDate.isPending ||
         sendToManufacture.isPending ||
         mutateDelete.isPending,
       isPriorityError: mutatePriority.isError,
@@ -148,6 +155,7 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
       isShipmentError: mutateShipment.isError,
       isPercentError: mutatePercent.isError,
       isDescriptionError: mutateDescription.isError,
+      isClosingDateError: mutateClosingDate.isError,
     },
     handlers: {
       setTab,
@@ -164,6 +172,7 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
       editShipment: mutateShipment.mutateAsync,
       editPriority: mutatePriority.mutateAsync,
       editDescription: mutateDescription.mutateAsync,
+      editClosingDate: mutateClosingDate.mutateAsync,
     },
   }
 }
