@@ -43,19 +43,63 @@ export const OrderDetailedData = (props: Props) => {
   return (
     <>
       <section style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <Text size="lg" weight="semi">
-          Номер счёта
-        </Text>
+        <section style={{ display: 'flex', gap: 8, flexDirection: 'column' }}>
+          <div
+            style={{
+              display: 'flex',
+              gap: 8,
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <Text size="lg" weight="semi">
+              Продукты в заказе
+            </Text>
 
-        <Text>{order?.number || 'Отсутствует'}</Text>
+            <Tooltip
+              title={
+                <div>
+                  {productsInvoice?.map((v) => (
+                    <Text key={v.id} style={{ padding: '8px 2px' }} breakAll>
+                      <Text tag="span" weight="semi" breakAll>
+                        {v.name}
+                      </Text>{' '}
+                      - {v.quantity}шт.
+                    </Text>
+                  ))}
+                </div>
+              }
+            >
+              <Button
+                mode="neutral"
+                style={{
+                  display: 'flex',
+                  gap: 8,
+                  alignItems: 'center',
+                  padding: '2px 4px',
+                }}
+              >
+                <InventoryOutlinedIcon style={{ width: 24, height: 24 }} />
+                <Text>Продукты в счёте</Text>
+              </Button>
+            </Tooltip>
+          </div>
 
-        <Textarea
-          disabled
-          label="Описание из счёта"
-          value={order?.description || 'Описание отсутствует'}
-          minRows={6}
-          maxRows={6}
-        />
+          <ManufacturingOrderProductCreator
+            products={productsAll}
+            onCreate={onProductCreate}
+          />
+
+          {products?.map((v, i) => (
+            <ManufacturingOrderProduct
+              key={v.id}
+              idx={i + 1}
+              product={v}
+              onDelete={onProductDelete}
+              onEdit={onProductEditQuantity}
+            />
+          ))}
+        </section>
 
         <Textarea
           onChange={(e) => setComment(e.target.value)}
@@ -70,64 +114,20 @@ export const OrderDetailedData = (props: Props) => {
         <Button mode="secondary" full onClick={() => onCommentChange?.(comment)}>
           Обновить комментарий
         </Button>
-      </section>
 
-      <section style={{ display: 'flex', gap: 8, flexDirection: 'column' }}>
-        <div
-          style={{
-            display: 'flex',
-            gap: 8,
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Text size="lg" weight="semi">
-            Продукты в заказе
-          </Text>
+        <Text size="lg" weight="semi">
+          Номер счёта
+        </Text>
 
-          <Tooltip
-            title={
-              <div>
-                {productsInvoice?.map((v) => (
-                  <Text key={v.id} style={{ padding: '8px 2px' }} breakAll>
-                    <Text tag="span" weight="semi" breakAll>
-                      {v.name}
-                    </Text>{' '}
-                    - {v.quantity}шт.
-                  </Text>
-                ))}
-              </div>
-            }
-          >
-            <Button
-              mode="neutral"
-              style={{
-                display: 'flex',
-                gap: 8,
-                alignItems: 'center',
-                padding: '2px 4px',
-              }}
-            >
-              <InventoryOutlinedIcon style={{ width: 24, height: 24 }} />
-              <Text>Продукты в счёте</Text>
-            </Button>
-          </Tooltip>
-        </div>
+        <Text>{order?.number || 'Отсутствует'}</Text>
 
-        <ManufacturingOrderProductCreator
-          products={productsAll}
-          onCreate={onProductCreate}
+        <Textarea
+          disabled
+          label="Описание из счёта"
+          value={order?.description || 'Описание отсутствует'}
+          minRows={6}
+          maxRows={6}
         />
-
-        {products?.map((v, i) => (
-          <ManufacturingOrderProduct
-            key={v.id}
-            idx={i + 1}
-            product={v}
-            onDelete={onProductDelete}
-            onEdit={onProductEditQuantity}
-          />
-        ))}
       </section>
     </>
   )
