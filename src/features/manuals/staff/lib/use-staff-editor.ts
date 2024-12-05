@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useFileLoader } from '@/shared/lib/use-file-loader'
@@ -22,6 +22,21 @@ interface IStaffEditorProps {
 export const useStaffEditor = (props: IStaffEditorProps) => {
   const { staff, onClose } = props
   const [tab, setTab] = useState('data')
+
+  const tabList = useMemo(() => {
+    return [
+      {
+        label: 'Пароль',
+        value: 'password',
+        disabled: !Boolean(staff?.id && staff?.id !== 'new'),
+      },
+      {
+        label: 'Уведомления',
+        value: 'notifications',
+        disabled: !Boolean(staff?.id && staff?.id !== 'new'),
+      },
+    ]
+  }, [])
 
   const queryClient = useQueryClient()
 
@@ -70,6 +85,7 @@ export const useStaffEditor = (props: IStaffEditorProps) => {
       roles: getRolesOptions(roles?.data),
       files,
       isPendingFile,
+      tabList,
       tab,
       employee: staffToModel(staff, roles?.data),
     },

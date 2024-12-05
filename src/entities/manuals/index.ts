@@ -34,4 +34,7 @@ export { stepsToOptions } from './utils/steps-to-options'
 export * from './model/item.schema'
 export * from './services/items'
 
+export * from './model/staff-notifications.schema'
+export * from './services/staff-notifications'
+
 export { ManualHeader } from './ui/manual-header'

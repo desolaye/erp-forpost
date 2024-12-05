@@ -9,6 +9,7 @@ import { useStaffEditor } from '../lib/use-staff-editor'
 
 import { StaffForm } from './components/staff-form'
 import { PasswordForm } from './components/password-form'
+import { UserNotificationsTab } from './components/user-notifications-tab'
 
 interface IStaffEditorProps {
   staff?: StaffType
@@ -30,13 +31,7 @@ export const StaffEditor = (props: IStaffEditorProps) => {
           onDelete={handlers.onDelete}
           setTab={handlers.setTab}
           tab={values.tab}
-          tabs={[
-            {
-              label: 'Пароль',
-              value: 'password',
-              disabled: !Boolean(staff?.id && staff?.id !== 'new'),
-            },
-          ]}
+          tabs={values.tabList}
         />
       }
     >
@@ -62,6 +57,10 @@ export const StaffEditor = (props: IStaffEditorProps) => {
 
       {values.tab === 'password' && (
         <PasswordForm onClose={() => onClose?.()} staffId={staff?.id || 'new'} />
+      )}
+
+      {values.tab === 'notifications' && (
+        <UserNotificationsTab userId={staff?.id || ''} />
       )}
     </ModalEditor>
   )

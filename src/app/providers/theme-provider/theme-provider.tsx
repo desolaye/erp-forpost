@@ -6,6 +6,13 @@ export const MyThemeProvider = (props: PropsWithChildren) => {
 
   const theme = createTheme({
     components: {
+      MuiFormControlLabel: {
+        styleOverrides: {
+          label: {
+            fontFamily: '"Montserrat", sans-serif',
+          },
+        },
+      },
       MuiSlider: {
         styleOverrides: {
           thumb: {
