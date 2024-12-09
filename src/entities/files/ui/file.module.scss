@@ -20,4 +20,57 @@
       background-color: #eee;
     }
   }
+
+  &__viewer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba($color: #000, $alpha: 0.4);
+
+    display: flex;
+    justify-content: center;
+
+    z-index: 101;
+
+    &__body {
+      background-color: white;
+
+      min-width: fit-content;
+      max-width: 100%;
+
+      padding: 16px;
+      height: 100%;
+      overflow: auto;
+
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+
+      justify-content: center;
+      align-items: center;
+
+      animation: 0.25s fadein_content;
+    }
+  }
+}
+
+@keyframes fadein {
+  from {
+    background-color: rgba($color: #000, $alpha: 0);
+  }
+
+  to {
+    background-color: rgba($color: #000, $alpha: 0.3);
+  }
+}
+
+@keyframes fadein_content {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
