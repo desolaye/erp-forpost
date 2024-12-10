@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react'
+import PersonPinCircleOutlinedIcon from '@mui/icons-material/PersonPinCircleOutlined'
 
 import { Card } from '@/shared/ui/card'
 import { Text } from '@/shared/ui/text'
@@ -20,16 +21,36 @@ export const NotificationCard = (props: INotificationCardProps) => {
 
   return (
     <Card className={className} style={{ width: '100%', ...style }} onClick={onClick}>
-      <Text size="lg" weight="semi" hideOverflow={isPreview}>
-        {notification.authorName}
-      </Text>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
+        <PersonPinCircleOutlinedIcon />
+        <Text size="lg" weight="semi" hideOverflow>
+          {notification.authorName}
+        </Text>
+      </div>
 
-      {!isPreview &&
-        notificationArticles.map((v, i) => (
-          <Text key={i} hideOverflow={isPreview} breakAll={!isPreview}>
-            {v}
-          </Text>
-        ))}
+      {!isPreview && (
+        <div
+          style={{
+            height: '100%',
+            overflow: 'auto',
+            display: 'flex',
+            gap: 8,
+            flexDirection: 'column',
+          }}
+        >
+          {notificationArticles.map((v, i) => (
+            <Text key={i} hideOverflow={isPreview} breakAll={!isPreview}>
+              {v}
+            </Text>
+          ))}
+        </div>
+      )}
 
       {isPreview && (
         <Text hideOverflow={isPreview} breakAll={!isPreview}>
