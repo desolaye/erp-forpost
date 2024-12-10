@@ -8,6 +8,7 @@ import { jwtDecode } from 'jwt-decode'
 
 import { routesPath } from '@/shared/config/routes-path.config'
 import { APP_VARS } from '@/shared/config/app-variables.config'
+import { publicApi } from '@/shared/api/public-api.config'
 
 import {
   AuthLoginType,
@@ -30,10 +31,15 @@ export const useAuthLogin = () => {
 
   const { mutateAsync, isPending, error } = useMutation({
     mutationFn: postAuthLogin,
-    onSuccess: ({ data: token }) => {
+    onSuccess: (token) => {
       if (sessionContext && sessionContext.setSession) {
         const { role, nameid }: { role: string; nameid: string } = jwtDecode(token)
         const { firstName, lastName } = getValues()
+
+        publicApi.interceptors.request.use((config) => {
+          config.headers.Authorization = `Bearer ${token}`
+          return config
+        })
 
         getRoleById(role).then(({ data }) => {
           sessionContext.setSession({ firstName, lastName, role: data.name, id: nameid })

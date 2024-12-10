@@ -13,17 +13,14 @@ export const useErpLayout = () => {
 
   const [isOpen, setIsOpen] = useState(false)
   const cookie = Cookies.get(APP_VARS.TOKEN)
+
   const sessionContext = useContext(SessionContext)
   const { getLocalSession, setLocalSession } = useLocalSession()
 
   const onAuthFail = () => {
-    publicApi.interceptors.request.use((config) => {
-      config.headers.Authorization = undefined
-      return config
-    })
-
-    navigate({ to: routesPath.login() })
+    Cookies.remove(APP_VARS.TOKEN)
     setLocalSession(null)
+    navigate({ to: routesPath.login() })
   }
 
   useEffect(() => {
@@ -49,7 +46,7 @@ export const useErpLayout = () => {
         sessionContext.setSession({ ...session })
       }
     }
-  }, [sessionContext])
+  }, [cookie, sessionContext])
 
   return {
     isOpen,

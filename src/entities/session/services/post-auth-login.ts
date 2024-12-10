@@ -1,9 +1,17 @@
-import { publicApi } from '@/shared/api/public-api.config'
 import { AuthLoginType } from '../model/auth-login.schema'
 
-type AccessTokenType = string
-
 export const postAuthLogin = async (params: AuthLoginType) => {
-  const response = await publicApi.post<AccessTokenType>('v1/accounts/login', params)
-  return response
+  const ENV_URL = import.meta.env.VITE_PUBLIC_API_URL
+
+  const response = await fetch(ENV_URL + '/v1/accounts/login', {
+    body: JSON.stringify(params),
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  })
+
+  const token = await response.json()
+  return token
 }
