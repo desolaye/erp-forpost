@@ -1,16 +1,12 @@
 import { useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { pdfjs, Document, Page } from 'react-pdf'
+import { Document, Page } from 'react-pdf'
 
 import 'react-pdf/dist/Page/TextLayer.css'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 
+import worker from '@/shared/lib/pdfjs-worker'
 import cls from './file.module.scss'
-
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url,
-).toString()
 
 type FileViewerProps = {
   file: Blob
@@ -27,7 +23,8 @@ export const FileViewer = (props: FileViewerProps) => {
 
   const options = useMemo(
     () => ({
-      cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
+      cMapUrl: '/cmaps/',
+      worker,
     }),
     [],
   )
