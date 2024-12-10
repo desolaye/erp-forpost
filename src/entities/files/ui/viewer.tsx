@@ -29,9 +29,7 @@ export const FileViewer = (props: FileViewerProps) => {
     [],
   )
 
-  const handleClose = () => {
-    onClose?.()
-  }
+  const handleClose = () => onClose?.()
 
   return createPortal(
     <article className={cls.file__viewer} onMouseDown={handleClose}>
@@ -43,7 +41,7 @@ export const FileViewer = (props: FileViewerProps) => {
           {totalPages &&
             new Array(totalPages)
               .fill(0)
-              .map((_, i) => <Page key={i} pageNumber={i + 1} />)}
+              .map((_, i) => <Page key={i} pageNumber={i + 1} scale={1.33} />)}
         </Document>
       </section>
     </article>,
