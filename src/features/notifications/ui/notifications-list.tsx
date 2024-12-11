@@ -28,9 +28,6 @@ export const NotificationsList = () => {
         </Button>
       </header>
 
-      {values.isPending && <Loader />}
-      {!values.isPending && !Boolean(values.notifications?.length) && <EmptyCard />}
-
       <section className={cls.notification_list__mails}>
         <main
           style={{
@@ -38,7 +35,7 @@ export const NotificationsList = () => {
             flexDirection: 'column',
             gap: 8,
             overflowY: 'scroll',
-            height: 'calc(100% - 84px)',
+            height: '100%',
           }}
         >
           <footer style={{ display: 'flex', justifyContent: 'center' }}>
@@ -51,6 +48,9 @@ export const NotificationsList = () => {
               />
             )}
           </footer>
+
+          {values.isPending && <Loader />}
+          {!values.isPending && !Boolean(values.notifications?.length) && <EmptyCard />}
 
           <div className={cls.notification_list}>
             {values.notifications?.map((v) => (

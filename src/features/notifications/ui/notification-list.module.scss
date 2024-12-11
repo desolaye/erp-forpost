@@ -1,6 +1,6 @@
 .notification_list {
   width: 100%;
-  height: calc(100% - 40px);
+  height: calc(100vh - 190px);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -28,10 +28,11 @@
     flex-direction: column;
     gap: 8px;
     align-items: center;
-    height: 100%;
+    height: calc(100vh - 40px);
   }
 
   &__mails {
+    flex: 1;
     display: grid;
     grid-template-columns: 25vw auto;
     gap: 8px;
