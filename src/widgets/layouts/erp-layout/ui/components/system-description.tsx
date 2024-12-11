@@ -120,7 +120,7 @@ export const SystemDescription = (props: SystemDescriptionProps) => {
       <Text>
         2.1.{' '}
         <Text tag="span" weight="semi" breakAll>
-          Производственные задачи
+          Производственные заказы
         </Text>{' '}
         - формируются из{' '}
         <Text tag="span" weight="semi">
