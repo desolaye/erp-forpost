@@ -8,7 +8,7 @@ export const useNotificationsList = () => {
   const [isCreating, setIsCreating] = useState(false)
   const [notification, setNotification] = useState<NotificationType>()
 
-  const { getTotalCount, page, params, setPage } = usePagination(8)
+  const { getTotalCount, page, params, setPage } = usePagination(15)
 
   const { data, isPending } = useQuery({
     queryFn: () =>

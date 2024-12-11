@@ -34,6 +34,24 @@ export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
 
   return (
     <>
+      <section style={{ display: 'flex', gap: 8, flexDirection: 'column' }}>
+        <Text size="lg" weight="semi">
+          Продукты в счёте
+        </Text>
+
+        <InvoiceProductCreator products={products} onCreate={onProductCreate} />
+
+        {data?.map((v, i) => (
+          <InvoiceProduct
+            key={v.id}
+            idx={i + 1}
+            invoice={v}
+            onDelete={onProductDelete}
+            onEdit={onProductEdit}
+          />
+        ))}
+      </section>
+
       <section style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <Text size="lg" weight="semi">
           Номер счёта
@@ -55,24 +73,6 @@ export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
         <Button mode="secondary" full onClick={() => onDescriptionChange?.(descr)}>
           Обновить описание
         </Button>
-      </section>
-
-      <section style={{ display: 'flex', gap: 8, flexDirection: 'column' }}>
-        <Text size="lg" weight="semi">
-          Продукты в счёте
-        </Text>
-
-        <InvoiceProductCreator products={products} onCreate={onProductCreate} />
-
-        {data?.map((v, i) => (
-          <InvoiceProduct
-            key={v.id}
-            idx={i + 1}
-            invoice={v}
-            onDelete={onProductDelete}
-            onEdit={onProductEdit}
-          />
-        ))}
       </section>
     </>
   )
