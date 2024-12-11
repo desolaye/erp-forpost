@@ -10,7 +10,7 @@ interface INotificationFullProps {
 }
 
 export const NotificationFull = (props: INotificationFullProps) => {
-  const { notification, onClose } = props
+  const { notification } = props
 
   if (!notification) {
     return (
