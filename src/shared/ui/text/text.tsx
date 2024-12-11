@@ -22,6 +22,7 @@ export const Text = (props: PropsWithChildren<ITextProps>) => {
     children,
     hideOverflow,
     breakAll,
+    noBreak,
     style,
   } = props
 
@@ -35,6 +36,7 @@ export const Text = (props: PropsWithChildren<ITextProps>) => {
       [cls.link]: link,
       [cls.hide_overflow]: hideOverflow,
       [cls.break_all]: breakAll,
+      [cls.no_break]: noBreak,
     },
     className,
   )

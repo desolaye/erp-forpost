@@ -88,7 +88,15 @@ export const NotificationCard = (props: INotificationCardProps) => {
 
       {isPreview && (
         <footer className={cls.notification_card__footer}>
-          <Text size="sm">{notification.createdAt}</Text>
+          {Boolean(files?.length) && (
+            <div className={cls.notification_card__footer__files}>
+              <FilePresentOutlinedIcon style={{ width: 20, height: 20 }} />
+              <Text size="sm">{files?.length}</Text>
+            </div>
+          )}
+          <Text size="sm" pos="right" className="full">
+            {notification.createdAt}
+          </Text>
         </footer>
       )}
     </Card>

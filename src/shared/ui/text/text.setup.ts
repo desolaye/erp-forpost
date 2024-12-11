@@ -62,6 +62,7 @@ interface ITextProps {
   style?: CSSProperties
   hideOverflow?: boolean
   breakAll?: boolean
+  noBreak?: boolean
   link?: boolean
   className?: string
 }

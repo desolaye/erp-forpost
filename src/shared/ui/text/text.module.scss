@@ -19,6 +19,10 @@
   word-break: break-all;
 }
 
+.no_break {
+  word-break: keep-all;
+}
+
 /*
  TEXT SIZES
 */
