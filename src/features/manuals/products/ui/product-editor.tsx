@@ -4,10 +4,12 @@ import { FileAdd } from '@/shared/ui/file'
 
 import { File } from '@/entities/files'
 import { ManualHeader } from '@/entities/manuals'
+
 import { useProductEditor } from '../lib/use-product-editor'
 
 import { ProductForm } from './components/product-form'
 import { ProductAttributes } from './components/product-attributes'
+import { ProductCompabilities } from './components/product-compabilities'
 
 interface IProductEditorProps {
   id: string
@@ -55,6 +57,7 @@ export const ProductEditor = (props: IProductEditorProps) => {
       )}
 
       {values.tab === 'attributes' && <ProductAttributes productId={id} />}
+      {values.tab === 'сompatibility' && <ProductCompabilities productId={id} />}
     </ModalEditor>
   )
 }

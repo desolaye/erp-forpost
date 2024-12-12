@@ -4,10 +4,12 @@ import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined'
 import { Loader } from '@/shared/ui/loader'
 import { Button } from '@/shared/ui/button'
 import { Select } from '@/shared/ui/select'
+import { Text } from '@/shared/ui/text'
 
 import { ProductAttribute } from '@/entities/manuals/ui/product-attribute'
-import { useProductAttributes } from '../../lib/use-product-attributes'
 import { attributesValuesToOptions } from '@/entities/attributes'
+
+import { useProductAttributes } from '../../lib/use-product-attributes'
 
 type ProductAttributesProps = {
   productId: string
@@ -60,6 +62,8 @@ export const ProductAttributes = (props: ProductAttributesProps) => {
           </Button>
         </div>
       )}
+
+      <Text weight="semi">Список атрибутов</Text>
 
       {values.productAttr?.map((v) => (
         <ProductAttribute
