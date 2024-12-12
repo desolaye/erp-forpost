@@ -7,6 +7,7 @@ import { ManualHeader } from '@/entities/manuals'
 import { useProductEditor } from '../lib/use-product-editor'
 
 import { ProductForm } from './components/product-form'
+import { ProductAttributes } from './components/product-attributes'
 
 interface IProductEditorProps {
   id: string
@@ -27,6 +28,10 @@ export const ProductEditor = (props: IProductEditorProps) => {
           onDelete={handlers.onDelete}
           setTab={handlers.setTab}
           tab={values.tab}
+          tabs={[
+            { label: 'Атрибуты', value: 'attributes', disabled: id === 'new' },
+            { label: 'Совместимость', value: 'сompatibility', disabled: id === 'new' },
+          ]}
         />
       }
     >
@@ -48,6 +53,8 @@ export const ProductEditor = (props: IProductEditorProps) => {
           ))}
         </>
       )}
+
+      {values.tab === 'attributes' && <ProductAttributes productId={id} />}
     </ModalEditor>
   )
 }

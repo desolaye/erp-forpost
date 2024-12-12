@@ -37,4 +37,7 @@ export * from './services/items'
 export * from './model/staff-notifications.schema'
 export * from './services/staff-notifications'
 
+export * from './model/product-attributes.schema'
+export * from './services/product-attributes'
+
 export { ManualHeader } from './ui/manual-header'
