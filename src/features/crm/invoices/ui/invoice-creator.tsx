@@ -1,4 +1,3 @@
-import { Text } from '@/shared/ui/text'
 import { ModalEditor } from '@/shared/ui/modal-editor'
 
 import { useInvoiceCreator } from '../lib/use-invoice-creator'
@@ -14,13 +13,7 @@ export const InvoiceCreator = (props: IInvoiceCreatorProps) => {
   const { values, handlers } = useInvoiceCreator(props)
 
   return (
-    <ModalEditor
-      header={
-        <Text size="lg" weight="semi">
-          Создание нового счёта
-        </Text>
-      }
-    >
+    <ModalEditor>
       <InvoiceForm
         isError={values.isError}
         isLoading={values.isLoading}

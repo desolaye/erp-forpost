@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 
 import { InvoiceValidatorType, ZInvoiceToBack } from '@/entities/crm/invoices'
+import { useState } from 'react'
 
 interface IUseInvoiceForm {
   onMutate?: (data: InvoiceValidatorType) => void
@@ -9,6 +10,8 @@ interface IUseInvoiceForm {
 
 export const useInvoiceForm = (props: IUseInvoiceForm) => {
   const { onMutate } = props
+
+  const [tab, setTab] = useState('data')
 
   const {
     register,
@@ -35,12 +38,14 @@ export const useInvoiceForm = (props: IUseInvoiceForm) => {
       errors,
       fields,
       control,
+      tab,
     },
     handlers: {
       register,
       handleSubmit,
       createField,
       removeField,
+      setTab,
       onSubmit,
     },
   }
