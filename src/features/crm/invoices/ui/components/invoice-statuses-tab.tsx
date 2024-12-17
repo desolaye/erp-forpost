@@ -13,6 +13,7 @@ import { Button } from '@/shared/ui/button'
 import { InvoiceType } from '@/entities/crm/invoices'
 
 import cls from '../invoice-detailed.module.scss'
+import { Input } from '@/shared/ui/input'
 
 type InvoiceStatusesTabProps = {
   editShipment: (shipment: string) => void
@@ -51,9 +52,7 @@ export const InvoiceStatusesTab = (props: InvoiceStatusesTabProps) => {
 
   const [isSendingToManufacture, setIsSendingToManufacture] = useState(false)
 
-  const [percentValue, setPercentValue] = useState<number>(
-    invoice?.paymentPercentage || 0,
-  )
+  const [percentValue, setPercentValue] = useState(`${invoice?.paymentPercentage || 0}`)
 
   const onShipment = () => {
     if (shipmentDate) editShipment(shipmentDate)
@@ -65,8 +64,8 @@ export const InvoiceStatusesTab = (props: InvoiceStatusesTabProps) => {
 
   useEffect(() => {
     if (invoice && !shipmentDate) setShipmentDate(invoice.dateShipment)
-    if (invoice?.paymentPercentage !== percentValue)
-      setPercentValue(invoice?.paymentPercentage || 0)
+    if (invoice?.paymentPercentage !== Number(percentValue))
+      setPercentValue(`${invoice?.paymentPercentage || 0}`)
   }, [invoice])
 
   return (
@@ -97,21 +96,26 @@ export const InvoiceStatusesTab = (props: InvoiceStatusesTabProps) => {
             Процент выплат
           </Text>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 24, width: '100%' }}>
             <Slider
               aria-label="Volume"
-              value={percentValue}
-              onChange={(_, v) => setPercentValue(typeof v === 'number' ? v : v[0])}
+              value={Number(percentValue)}
+              onChange={(_, v) => setPercentValue(`${typeof v === 'number' ? v : v[0]}`)}
             />
 
-            <Text weight="semi" style={{ minWidth: 64 }} pos="right">
-              {percentValue}%
-            </Text>
+            <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+              <Input
+                value={percentValue}
+                onChange={(e) => setPercentValue(e.target.value)}
+                style={{ minWidth: '65px', maxWidth: '65px' }}
+              />
+              <Text>%</Text>
+            </div>
 
             <Button
               style={{ padding: '10px 2px' }}
               mode="secondary"
-              onClick={() => editPercent(percentValue)}
+              onClick={() => editPercent(Number(percentValue))}
             >
               <DoneIcon />
             </Button>
