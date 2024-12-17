@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
+import { useSearch } from '@/shared/lib/use-search'
+
 import {
   agentsToOptions,
   getAgentsManual,
@@ -7,7 +9,7 @@ import {
   productsToOptions,
 } from '@/entities/manuals'
 
-import { InvoiceValidatorType, postCreateInvoice } from '@/entities/crm/invoices'
+import { postCreateInvoice } from '@/entities/crm/invoices'
 
 interface IInvoiceCreatorProps {
   onClose?: () => void
@@ -17,33 +19,44 @@ export const useInvoiceCreator = (props: IInvoiceCreatorProps) => {
   const { onClose } = props
   const queryClient = useQueryClient()
 
+  const productSearch = useSearch('name')
+  const agentSearch = useSearch('name')
+
   const { mutateAsync, isPending, isError } = useMutation({
-    mutationFn: (data: InvoiceValidatorType) => postCreateInvoice(data),
+    mutationFn: postCreateInvoice,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['invoices_all'] })
       if (onClose) onClose()
     },
   })
 
-  const { data: products, isLoading: isLoadingProducts } = useQuery({
-    queryFn: () => getProductsManual({ limit: 1000, skip: 0 }),
-    queryKey: ['products_all'],
+  const { data: products } = useQuery({
+    queryFn: () =>
+      getProductsManual({
+        limit: 100,
+        skip: 0,
+        name: productSearch.filters?.filterValues,
+      }),
+    queryKey: ['products_all', productSearch.debouncedSearch],
   })
 
-  const { data: agents, isLoading: isLoadingAgents } = useQuery({
-    queryFn: () => getAgentsManual({ limit: 1000, skip: 0 }),
-    queryKey: ['agents_all'],
+  const { data: agents } = useQuery({
+    queryFn: () =>
+      getAgentsManual({ limit: 100, skip: 0, name: agentSearch.filters?.filterValues }),
+    queryKey: ['agents_all', agentSearch.debouncedSearch],
   })
 
   return {
     values: {
       isError,
-      isLoading: isLoadingProducts || isLoadingAgents || isPending,
+      isLoading: isPending,
       agents: agentsToOptions(agents?.data.items),
       products: productsToOptions(products?.data.items),
     },
     handlers: {
       onMutate: mutateAsync,
+      onProductSearch: productSearch.setSearch,
+      onAgentSearch: agentSearch.setSearch,
     },
   }
 }

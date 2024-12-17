@@ -8,6 +8,7 @@ type SelectProps = {
   name?: string
 
   onSearch?: (val: string) => void
+
   placeholder?: string
   errorMsg?: string
   label?: string
@@ -41,10 +42,10 @@ export const Select = forwardRef<any, SelectProps>((props, ref) => {
         {...rest}
         ref={ref}
         className={className}
+        onInputChange={onSearch}
         placeholder={placeholder}
         value={value}
-        onInputChange={onSearch}
-        isClearable
+        isClearable={isClearable}
         styles={{
           control: (baseStyles) => ({
             ...baseStyles,

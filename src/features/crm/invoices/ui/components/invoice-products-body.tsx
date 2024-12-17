@@ -2,16 +2,15 @@ import { useState } from 'react'
 
 import { Text } from '@/shared/ui/text'
 import { Button } from '@/shared/ui/button'
+import { Textarea } from '@/shared/ui/textarea'
 
 import { InvoiceProductResponseType, InvoiceType } from '@/entities/crm/invoices'
 import { InvoiceProduct } from '@/entities/crm/invoices/ui/invoice-product'
 import { InvoiceProductCreator } from '@/entities/crm/invoices/ui/invoice-product-creator'
-import { Textarea } from '@/shared/ui/textarea'
 
 interface IInvoiceProductsBodyProps {
   data?: InvoiceProductResponseType[]
   invoice?: InvoiceType
-  products: { label: string; value: string }[]
 
   onDescriptionChange?: (descr: string) => void
   onProductCreate?: (productId: string, quantity: number) => void
@@ -23,7 +22,6 @@ export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
   const {
     data,
     invoice,
-    products,
     onDescriptionChange,
     onProductCreate,
     onProductDelete,
@@ -39,7 +37,7 @@ export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
           Продукты в счёте
         </Text>
 
-        <InvoiceProductCreator products={products} onCreate={onProductCreate} />
+        <InvoiceProductCreator onCreate={onProductCreate} />
 
         {data?.map((v, i) => (
           <InvoiceProduct

@@ -1,9 +1,10 @@
-import ReactSelect from 'react-select'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
+import { Select } from '@/shared/ui/select'
+
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { agentsToOptions } from '@/entities/manuals'
@@ -46,29 +47,32 @@ const InvoicesPage = () => {
 
         {values.isFiltersOpen && (
           <div style={{ zIndex: '10', display: 'flex', gap: 8 }}>
-            <ReactSelect
+            <Select
               placeholder="Фильтр по контрагенту"
               options={agentsToOptions(values.contractors)}
-              onInputChange={(val) => handlers.contractorSearch(val)}
+              onSearch={handlers.contractorSearch}
               onChange={(v) => handlers.setContractorId(v?.value)}
               className="full"
               isClearable
             />
-            <ReactSelect
+
+            <Select
               placeholder="Статус счёта"
               options={getInvoiceStatusesOptions()}
               onChange={(val) => handlers.setInvoiceStatus(val?.value)}
               className="full"
               isClearable
             />
-            <ReactSelect
+
+            <Select
               placeholder="Приоритет счёта"
               options={getInvoicePriorityOptions()}
               onChange={(val) => handlers.setPriority(val?.value)}
               isClearable
               className="full"
             />
-            <ReactSelect
+
+            <Select
               placeholder="Статус оплаты"
               options={getInvoicePaymentOptions()}
               onChange={(val) => handlers.setPaymentStatus(val?.value)}

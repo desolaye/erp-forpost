@@ -1,19 +1,31 @@
 import { useState } from 'react'
-import ReactSelect from 'react-select'
 import DoneIcon from '@mui/icons-material/Done'
+import { useQuery } from '@tanstack/react-query'
+
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 
+import { Select } from '@/shared/ui/select'
 import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'
+import { useSearch } from '@/shared/lib/use-search'
+
+import { getProductsManual, productsToOptions } from '@/entities/manuals'
 
 type InvoiceProductCreator = {
-  products: { label: string; value: string }[]
   onCreate?: (productId: string, quantity: number) => void
 }
 
 export const InvoiceProductCreator = (props: InvoiceProductCreator) => {
-  const { products, onCreate } = props
+  const { onCreate } = props
   const [isCreating, setIsCreating] = useState(false)
+
+  const { filters, setSearch, debouncedSearch } = useSearch('name')
+
+  const { data: productsAll } = useQuery({
+    queryFn: () => getProductsManual({ limit: 50, skip: 0, name: filters?.filterValues }),
+    queryKey: ['products_all', debouncedSearch],
+  })
+
   const [form, setForm] = useState({
     product: { label: 'Выберите продукт...', value: '' },
     quantity: '',
@@ -36,9 +48,10 @@ export const InvoiceProductCreator = (props: InvoiceProductCreator) => {
 
   return (
     <section style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-      <ReactSelect
+      <Select
         className="full"
-        options={products}
+        options={productsToOptions(productsAll?.data.items)}
+        onSearch={setSearch}
         value={form.product}
         onChange={(v) =>
           setForm((prev) => ({ ...prev, product: v ? v : { label: '', value: '' } }))
@@ -55,6 +68,7 @@ export const InvoiceProductCreator = (props: InvoiceProductCreator) => {
       <Button mode="neutral" style={{ padding: '2px 4px' }} onClick={handleCreate}>
         <DoneIcon style={{ minWidth: 24, minHeight: 24 }} />
       </Button>
+
       <Button
         mode="secondary"
         onClick={() => setIsCreating(false)}

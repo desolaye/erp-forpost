@@ -19,7 +19,6 @@ import {
   putEditInvoiceShipment,
 } from '@/entities/crm/invoices'
 
-import { getProductsManual, productsToOptions } from '@/entities/manuals'
 import { postSendToManufacturingOrders } from '@/entities/manufacture'
 
 interface IUseInvoiceDetailed {
@@ -58,11 +57,6 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
   const { data: products, isFetching: isLoadingProducts } = useQuery({
     queryFn: () => getInvoiceProducts(invoiceId),
     queryKey: ['invoice_products_all'],
-  })
-
-  const { data: productsAll, isFetching: isLoadingProductsAll } = useQuery({
-    queryFn: () => getProductsManual({ limit: 1000, skip: 0 }),
-    queryKey: ['products_all'],
   })
 
   const mutateDelete = useMutation({
@@ -130,7 +124,6 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
       tab,
       files,
       products,
-      productsAll: productsToOptions(productsAll?.data.items),
       invoice,
       isDeleting,
       deletingProduct,
@@ -138,7 +131,6 @@ export const useInvoiceDetailed = (props: IUseInvoiceDetailed) => {
         isLoadingProducts ||
         isLoadingInvoice ||
         isLoadingFile ||
-        isLoadingProductsAll ||
         mutatePayment.isPending ||
         mutateShipment.isPending ||
         mutatePriority.isPending ||

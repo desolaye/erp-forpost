@@ -95,9 +95,10 @@ export const AgentForm = (props: IAgentFormProps) => {
         render={({ field }) => (
           <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
             <Slider {...field} />
-            <Text color="error" weight="semi" style={{ minWidth: '42px' }}>
-              {field.value}%
-            </Text>
+            <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+              <Input {...field} style={{ minWidth: '65px', maxWidth: '65px' }} />
+              <Text>%</Text>
+            </div>
           </div>
         )}
       />

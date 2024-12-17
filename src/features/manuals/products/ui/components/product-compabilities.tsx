@@ -33,6 +33,8 @@ export const ProductCompabilities = (props: ProductCompabilitiesProps) => {
             value={values.currentCompability}
             options={productsToOptions(values.products)}
             onChange={(v) => handlers.setCurrentCompability(v)}
+            onSearch={handlers.onProductSearh}
+            isClearable
           />
           <Button
             mode="neutral"

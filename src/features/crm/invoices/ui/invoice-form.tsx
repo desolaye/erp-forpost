@@ -1,4 +1,5 @@
 import { Controller } from 'react-hook-form'
+import { Tab, Tabs } from '@mui/material'
 
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 
@@ -16,7 +17,6 @@ import { InvoiceValidatorType } from '@/entities/crm/invoices'
 import { useInvoiceForm } from '../lib/use-invoice-form'
 import { getPaymentStatusOptions } from '../utils/get-payment-status-options'
 import { getPriorityStatusOptions } from '../utils/get-priority-status-options'
-import { Tab, Tabs } from '@mui/material'
 
 type InvoiceFormProps = {
   agents: { label: string; value: string }[]
@@ -25,19 +25,31 @@ type InvoiceFormProps = {
   isLoading?: boolean
   isError?: boolean
 
+  onProductSearch?: (val: string) => void
+  onAgentSearch?: (val: string) => void
+
   onClose?: () => void
   onMutate?: (data: InvoiceValidatorType) => void
 }
 
 export const InvoiceForm = (props: InvoiceFormProps) => {
-  const { agents, products, isError, isLoading, onClose } = props
+  const {
+    agents,
+    products,
+    isError,
+    isLoading,
+    onClose,
+    onAgentSearch,
+    onProductSearch,
+  } = props
+
   const { handlers, values } = useInvoiceForm(props)
 
   return (
     <Form
       error={isError}
       pending={isLoading}
-      withButtons={values.tab === 'data'}
+      withButtons={values.tab === 'data' && values.fields.length > 0}
       onSubmit={handlers.handleSubmit(handlers.onSubmit)}
       onReset={() => onClose?.()}
     >
@@ -52,7 +64,7 @@ export const InvoiceForm = (props: InvoiceFormProps) => {
             placeholder="Номер счёта"
             label="Номер счёта"
             isError={Boolean(values.errors.number)}
-            helper={values.errors.number?.message}
+            helper={values.errors.number?.message || 'Указывать в формате XXXX, без года'}
             {...handlers.register('number')}
           />
 
@@ -75,6 +87,8 @@ export const InvoiceForm = (props: InvoiceFormProps) => {
             render={({ field }) => (
               <Select
                 {...field}
+                onSearch={onAgentSearch}
+                isClearable
                 placeholder="Выберите контрагента"
                 label="Выберите контрагента"
                 errorMsg={values.errors.contractorId && 'Необходимо выбрать контрагента'}
@@ -122,7 +136,9 @@ export const InvoiceForm = (props: InvoiceFormProps) => {
               />
             )}
           />
-          <Text size="sm">Убедитесь, что добавили все необходимые продукты</Text>
+          <Text size="sm" color={values.fields.length < 1 ? 'error' : 'primary'}>
+            Убедитесь, что добавили все необходимые продукты
+          </Text>
         </>
       )}
 
@@ -155,6 +171,8 @@ export const InvoiceForm = (props: InvoiceFormProps) => {
                 render={({ field }) => (
                   <Select
                     {...field}
+                    onSearch={onProductSearch}
+                    isClearable
                     placeholder="Выбор продукта"
                     options={products}
                     className="full"

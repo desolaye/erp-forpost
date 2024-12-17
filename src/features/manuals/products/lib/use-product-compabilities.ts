@@ -7,6 +7,7 @@ import {
   postAddProductCompabilities,
 } from '@/entities/manuals/services/product-compabitities'
 import { getProductsManual } from '@/entities/manuals'
+import { useSearch } from '@/shared/lib/use-search'
 
 type HookProps = {
   productId: string
@@ -24,6 +25,7 @@ export const useProductCompabilities = (props: HookProps) => {
 
   const [isAddingCompability, setIsAddingCompability] = useState(false)
   const [currentCompability, setCurrentCompability] = useState(baseOption)
+  const productSearch = useSearch('name')
 
   const onSuccess = () => {
     queryClient.invalidateQueries({ queryKey: ['product_compabilities', productId] })
@@ -32,9 +34,14 @@ export const useProductCompabilities = (props: HookProps) => {
     setCurrentCompability(baseOption)
   }
 
-  const { data: products, isFetching: isFetchingProducts } = useQuery({
-    queryFn: () => getProductsManual({ skip: 0, limit: 1000 }),
-    queryKey: ['products_all'],
+  const { data: products } = useQuery({
+    queryFn: () =>
+      getProductsManual({
+        skip: 0,
+        limit: 50,
+        name: productSearch.filters?.filterValues,
+      }),
+    queryKey: ['products_all', productSearch.debouncedSearch],
     refetchOnWindowFocus: false,
   })
 
@@ -62,7 +69,6 @@ export const useProductCompabilities = (props: HookProps) => {
       products: products?.data.items,
       compabilities,
       isLoading:
-        isFetchingProducts ||
         isFetchingCompabilities ||
         mutateAddCompability.isPending ||
         mutateDeleteCompability.isPending,
@@ -70,6 +76,7 @@ export const useProductCompabilities = (props: HookProps) => {
     handlers: {
       onAddCompability: mutateAddCompability.mutateAsync,
       onDeleteCompability: mutateDeleteCompability.mutateAsync,
+      onProductSearh: productSearch.setSearch,
       setIsAddingCompability,
       setCurrentCompability,
     },

@@ -47,7 +47,7 @@ export const useInvoicesPage = () => {
       getAgentsManual({
         name: contractorFilter.filters?.filterValues,
         skip: 0,
-        limit: 20,
+        limit: 50,
       }),
     queryKey: ['contractors_all', contractorFilter.debouncedSearch],
   })

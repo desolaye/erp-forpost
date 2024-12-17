@@ -21,6 +21,8 @@ export const InvoiceCreator = (props: IInvoiceCreatorProps) => {
         products={values.products}
         onClose={onClose}
         onMutate={handlers.onMutate}
+        onAgentSearch={handlers.onAgentSearch}
+        onProductSearch={handlers.onProductSearch}
       />
     </ModalEditor>
   )

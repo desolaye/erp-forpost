@@ -66,7 +66,6 @@ export const InvoiceDetailed = (props: IInvoiceDetailedProps) => {
         <InvoiceProductsBody
           data={values.products}
           invoice={values.invoice}
-          products={values.productsAll}
           onDescriptionChange={handlers.editDescription}
           onProductCreate={(productId, quantity) =>
             handlers.addInvoiceProduct({ invoiceId, productId, quantity })
