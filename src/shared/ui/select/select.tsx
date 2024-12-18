@@ -4,6 +4,7 @@ import { Text } from '../text'
 
 type SelectProps = {
   options: { value: string | number; label: string }[]
+  defaultValue?: { value: string | number; label: string }[]
   onChange: (...event: any[]) => void
   name?: string
 
@@ -16,6 +17,7 @@ type SelectProps = {
   value?: { value: string | number; label: string }
   disabled?: boolean
   isClearable?: boolean
+  isMulti?: boolean
   className?: string
 }
 

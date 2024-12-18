@@ -8,10 +8,10 @@ type RequestProps = {
 export const postAddProductAttribute = async (props: RequestProps) => {
   const { attributeId, productId } = props
 
-  const response = await publicApi.post('v1/product-attributes', {
+  const response = await publicApi.post<string>('v1/product-attributes', {
     productId,
     attributeId,
   })
 
-  return response
+  return response.data
 }
