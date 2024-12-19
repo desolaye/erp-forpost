@@ -7,7 +7,7 @@ import { erpManufactures } from './routes/manufacture-routes'
 import { erpCrm } from './routes/crm-routes'
 import { erpWarehouse } from './routes/warehouse-routes'
 
-import { landingRoute, loginRoute, rootRoute } from './routes/public-routes'
+import { publucRoutes, rootRoute } from './routes/public-routes'
 
 const erpRouteTree = erpLayoutRoute.addChildren([
   erpHomeRoute,
@@ -17,7 +17,7 @@ const erpRouteTree = erpLayoutRoute.addChildren([
   erpWarehouse,
 ])
 
-const routeTree = rootRoute.addChildren([landingRoute, loginRoute, erpRouteTree])
+const routeTree = rootRoute.addChildren([...publucRoutes, erpRouteTree])
 
 const router = createRouter({ routeTree })
 

@@ -30,8 +30,8 @@ export const useAgentsPage = () => {
 
   return {
     values: {
-      agents: agents?.data.items,
-      totalCount: getTotalCount(agents?.data.totalCount),
+      agents: agents?.data?.items,
+      totalCount: getTotalCount(agents?.data?.totalCount),
       page,
       agentId,
       isLoading: isFetching,

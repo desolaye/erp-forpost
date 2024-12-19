@@ -33,8 +33,8 @@ export const useProductsPage = () => {
 
   return {
     values: {
-      products: products?.data.items,
-      totalCount: getTotalCount(products?.data.totalCount),
+      products: products?.data?.items,
+      totalCount: getTotalCount(products?.data?.totalCount),
       page,
       productId,
       isLoading: isFetching,

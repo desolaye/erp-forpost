@@ -50,8 +50,8 @@ export const useInvoiceCreator = (props: IInvoiceCreatorProps) => {
     values: {
       isError,
       isLoading: isPending,
-      agents: agentsToOptions(agents?.data.items),
-      products: productsToOptions(products?.data.items),
+      agents: agentsToOptions(agents?.data?.items),
+      products: productsToOptions(products?.data?.items),
     },
     handlers: {
       onMutate: mutateAsync,

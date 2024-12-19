@@ -11,6 +11,7 @@ export const getManufacturingOrderById = async (orderId: string) => {
   )
 
   const parsed = ZManufacturingOrderByIdParser.safeParse(response.data)
+
   if (response.status >= 400 || !parsed.success) throw new Error()
   return parsed.data
 }

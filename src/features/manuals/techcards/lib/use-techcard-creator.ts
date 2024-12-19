@@ -39,7 +39,7 @@ export const useTechcardCreator = (props: IUseTechcardCreator) => {
   return {
     values: {
       isError,
-      items: items?.data.items,
+      items: items?.data?.items,
       isPendingItems,
       isPendingCreation,
     },

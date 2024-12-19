@@ -44,22 +44,26 @@ export const useManufacturingOrdersDetailed = (props: HookProps) => {
   const { data: order, isFetching: isLoadingOrder } = useQuery({
     queryFn: () => getManufacturingOrderById(orderId),
     queryKey: ['order_by_id', orderId],
+    refetchOnWindowFocus: false,
   })
 
   const { data: products, isFetching: isLoadingProducts } = useQuery({
     queryFn: () => getOrderCompositionById(orderId),
     queryKey: ['order_products_all', orderId],
+    refetchOnWindowFocus: false,
   })
 
   const { data: productsInvoice, isFetching: isLoadingInvoiceProduct } = useQuery({
     queryFn: () => getInvoiceProducts(order?.invoiceId || ''),
     queryKey: ['invoice_products_all', order?.invoiceId || ''],
     enabled: Boolean(order?.invoiceId),
+    refetchOnWindowFocus: false,
   })
 
   const { data: productsAll, isFetching: isLoadingProductsAll } = useQuery({
     queryFn: () => getProductsManual({ limit: 1000, skip: 0 }),
     queryKey: ['products_all'],
+    refetchOnWindowFocus: false,
   })
 
   const mutateOrderComment = useMutation({

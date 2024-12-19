@@ -36,8 +36,8 @@ export const useTechcardsPage = () => {
 
   return {
     values: {
-      data: techcards?.data.techCards,
-      count: getTotalCount(techcards?.data.totalCount),
+      data: techcards?.data?.techCards,
+      count: getTotalCount(techcards?.data?.totalCount),
       id,
       isPending: isPending || isPendingDelete,
       isModalOpen,

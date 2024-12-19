@@ -17,31 +17,27 @@ const warehouseRoute = createRoute({
 const warehousePaths = [
   {
     path: '/',
-    getParentRoute: () => warehouseRoute,
     component: () => <div>Root warehouse</div>,
   },
   {
     path: '/all',
-    getParentRoute: () => warehouseRoute,
     component: WarehousesPage,
   },
   {
     path: routesPath.erp.warehouses.history(),
-    getParentRoute: () => warehouseRoute,
     component: PurchaseHistoryPage,
   },
   {
     path: routesPath.erp.warehouses.products(),
-    getParentRoute: () => warehouseRoute,
     component: WarehouseProductsPage,
   },
 ]
 
 export const erpWarehouse = warehouseRoute.addChildren(
-  warehousePaths.map(({ component: Component, getParentRoute, path }) =>
+  warehousePaths.map(({ component: Component, path }) =>
     createRoute({
-      getParentRoute,
       path,
+      getParentRoute: () => warehouseRoute,
       component: () => (
         <SuspenseProvider>
           <Component />

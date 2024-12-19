@@ -17,30 +17,26 @@ const crmRoute = createRoute({
 const crmPaths = [
   {
     path: '/',
-    getParentRoute: () => crmRoute,
     component: () => <div>Root crm</div>,
   },
   {
     path: routesPath.erp.crm.invoices(),
-    getParentRoute: () => crmRoute,
     component: InvoicesPage,
   },
   {
     path: routesPath.erp.crm.issuesHistory(),
-    getParentRoute: () => crmRoute,
     component: IssuesHistoryPage,
   },
   {
     path: routesPath.erp.crm.priceLists(),
-    getParentRoute: () => crmRoute,
     component: PriceListPage,
   },
 ]
 
 export const erpCrm = crmRoute.addChildren(
-  crmPaths.map(({ component: Component, getParentRoute, path }) =>
+  crmPaths.map(({ component: Component, path }) =>
     createRoute({
-      getParentRoute,
+      getParentRoute: () => crmRoute,
       path,
       component: () => (
         <SuspenseProvider>
