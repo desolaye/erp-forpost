@@ -1,7 +1,7 @@
-import { createTheme, ThemeProvider } from '@mui/material'
+import { createTheme, ThemeProvider as MuiTheme } from '@mui/material'
 import { PropsWithChildren } from 'react'
 
-export const MyThemeProvider = (props: PropsWithChildren) => {
+export const ThemeProvider = (props: PropsWithChildren) => {
   const { children } = props
 
   const theme = createTheme({
@@ -75,5 +75,5 @@ export const MyThemeProvider = (props: PropsWithChildren) => {
     },
   })
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  return <MuiTheme theme={theme}>{children}</MuiTheme>
 }

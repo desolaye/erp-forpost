@@ -1,9 +1,9 @@
 import { SessionContextProvider } from '@/entities/session'
 
-import { AppRouter } from './providers/app-router/app-router'
-import { QueryProvider } from './providers/query-provider'
-import { MyThemeProvider } from './providers/theme-provider'
 import { ErrorBoundary } from './providers/error-boundary'
+import { QueryProvider } from './providers/query-provider'
+import { ThemeProvider } from './providers/theme-provider'
+import { AppRouter } from './providers/app-router'
 
 import './styles/index.scss'
 
@@ -12,9 +12,9 @@ export const App = () => {
     <ErrorBoundary>
       <QueryProvider>
         <SessionContextProvider>
-          <MyThemeProvider>
+          <ThemeProvider>
             <AppRouter />
-          </MyThemeProvider>
+          </ThemeProvider>
         </SessionContextProvider>
       </QueryProvider>
     </ErrorBoundary>
