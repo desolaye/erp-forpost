@@ -1,8 +1,9 @@
 import { CSSProperties, PropsWithChildren } from 'react'
+import cn from 'classnames'
 
 import { Text } from '@/shared/ui/text'
+
 import cls from './page-wrapper.module.scss'
-import cn from 'classnames'
 
 interface IPageWrapperProps {
   style?: CSSProperties

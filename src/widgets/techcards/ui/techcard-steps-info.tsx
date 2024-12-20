@@ -4,7 +4,7 @@ import { Button } from '@/shared/ui/button'
 import { TechcardFullType } from '@/entities/manuals'
 
 import { StepsEditor } from '@/features/manuals/techcards'
-import { ModalLayout } from '@/widgets/layouts/modal'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 
 import { getDisplayValuesSteps } from '../utils/get-display-values-steps'
 import { useStepsInfo } from '../lib/use-steps-info'

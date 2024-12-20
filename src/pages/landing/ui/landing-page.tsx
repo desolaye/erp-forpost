@@ -1,10 +1,10 @@
 import { Link } from '@tanstack/react-router'
 
 import { routesPath } from '@/shared/config/routes-path.config'
-
-import cls from './landing-page.module.scss'
 import { Button } from '@/shared/ui/button'
 import { Text } from '@/shared/ui/text'
+
+import cls from './landing-page.module.scss'
 
 const LandingPage = () => {
   return (

@@ -5,6 +5,7 @@ import { Text } from '@/shared/ui/text'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 
 import {
   ProductStructureCompose,
@@ -18,7 +19,6 @@ import { productDevelopTableConfig } from '../utils/product-develop-table.config
 import { ProductDevelopTooltip } from './components/product-develop-tooltip'
 
 import cls from './product-develop.module.scss'
-import { ModalLayout } from '@/widgets/layouts/modal'
 
 const ProductDevelop = () => {
   const { handlers, values } = useProductDevelopPage()

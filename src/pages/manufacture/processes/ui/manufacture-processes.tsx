@@ -3,10 +3,10 @@ import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { ToolMenu } from '@/shared/ui/tool-menu'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 import { routesPath } from '@/shared/config/routes-path.config'
 
 import { ProcessCreator, useProcessesPage } from '@/features/manufacture/processes'
-import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { processesToolMenu } from '../utils/processes-tool-menu'

@@ -1,1 +1,1 @@
-export { PageWrapper } from './page-wrapper'
+export { PageWrapper } from './ui/page-wrapper'

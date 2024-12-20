@@ -1,9 +1,9 @@
 import { Button } from '@/shared/ui/button'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 import { Text } from '@/shared/ui/text'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 
 import { WarehouseEditor, useWarehousesPage } from '@/features/manuals/warehouses'
-import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { warehousesTableConfig } from '../utils/warehouses-table-config'

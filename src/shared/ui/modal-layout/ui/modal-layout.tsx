@@ -1,8 +1,9 @@
 import { PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
+import cn from 'classnames'
 
 import cls from './modal-layout.module.scss'
-import cn from 'classnames'
+import { ModalLayoutContext } from '../lib/use-modal-layout'
 
 interface IModalLayoutProps {
   onClose?: () => void
@@ -24,11 +25,13 @@ export const ModalLayout = (props: PropsWithChildren<IModalLayoutProps>) => {
   if (!isOpen) return null
 
   return createPortal(
-    <article className={classes} onMouseDown={handleClose}>
-      <section onMouseDown={(e) => e.stopPropagation()} className={classesBody}>
-        {children}
-      </section>
-    </article>,
+    <ModalLayoutContext.Provider value={{ onClose }}>
+      <article className={classes} onMouseDown={handleClose}>
+        <section onMouseDown={(e) => e.stopPropagation()} className={classesBody}>
+          {children}
+        </section>
+      </article>
+    </ModalLayoutContext.Provider>,
     document.body,
   )
 }

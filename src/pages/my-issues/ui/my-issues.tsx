@@ -2,11 +2,11 @@ import { Tab, Tabs } from '@mui/material'
 
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 import { Card } from '@/shared/ui/card'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 import { routesPath } from '@/shared/config/routes-path.config'
 
 import { SelectExecutor, useMyIssuesPage } from '@/features/my-issues'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
-import { ModalLayout } from '@/widgets/layouts/modal'
 
 import { myIssuesTableConfig } from '../utils/my-issues-table.config'
 

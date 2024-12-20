@@ -2,12 +2,12 @@ import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { Select } from '@/shared/ui/select'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { contractTypeToOptions, contractTypeToText } from '@/entities/manuals'
 import { AgentEditor, useAgentsPage } from '@/features/manuals/agents'
 
-import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { agentTableConfig } from '../utils/agent-table-config'

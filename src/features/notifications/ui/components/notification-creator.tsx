@@ -4,7 +4,7 @@ import { Form } from '@/shared/ui/form'
 import { ModalEditor } from '@/shared/ui/modal-editor'
 import { Text } from '@/shared/ui/text'
 
-import { ModalLayout } from '@/widgets/layouts/modal'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 import { useNotificationCreator } from '../../lib/use-notification-creator'
 import { JoyUiProvider } from '@/shared/lib/joy-ui-provider'
 

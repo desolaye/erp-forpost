@@ -29,7 +29,7 @@ export const useAuthLogin = () => {
   const sessionContext = useContext(SessionContext)
   const navigate = useNavigate()
 
-  const { mutateAsync, isPending, error } = useMutation({
+  const { mutateAsync, isPending, isError } = useMutation({
     mutationFn: postAuthLogin,
     onSuccess: (token) => {
       if (sessionContext && sessionContext.setSession) {
@@ -52,5 +52,13 @@ export const useAuthLogin = () => {
 
   const onSubmit: SubmitHandler<AuthLoginType> = (data) => mutateAsync(data)
 
-  return { errors, register, handleSubmit, onSubmit, mutateAsync, isPending, error }
+  return {
+    errors,
+    register,
+    handleSubmit,
+    onSubmit,
+    mutateAsync,
+    isPending,
+    isSubmitError: isError,
+  }
 }

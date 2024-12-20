@@ -1,11 +1,11 @@
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
+import { ModalLayout } from '@/shared/ui/modal-layout'
+import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { PriceListDetailed, usePriceListPage } from '@/features/crm/price-list'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
-import { ModalLayout } from '@/widgets/layouts/modal'
-import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 import { priceListTableConfig } from '../utils/price-list-table-config'
 
 const PriceListPage = () => {

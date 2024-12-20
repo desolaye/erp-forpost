@@ -2,6 +2,7 @@ import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 
 import {
   ProductEditor,
@@ -11,7 +12,6 @@ import {
 import { CategoriesCrumbs, CategoriesList } from '@/features/categories'
 import { AttributesList } from '@/features/attributes'
 
-import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { productsTableConfig } from '../utils/products-table-config'

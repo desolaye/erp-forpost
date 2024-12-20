@@ -5,6 +5,7 @@ import { Card } from '@/shared/ui/card'
 import { Button } from '@/shared/ui/button'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 import { Text } from '@/shared/ui/text'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 
 import { useWarehouseProductsPage } from '@/features/manuals/warehouses'
 import {
@@ -13,7 +14,6 @@ import {
 } from '@/features/warehouse-products'
 
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
-import { ModalLayout } from '@/widgets/layouts/modal'
 
 import { warehouseProductsTableConfig } from '../utils/warehouses-table.config'
 

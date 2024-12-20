@@ -5,6 +5,7 @@ import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 
 import { getManufacturingOrderOptions } from '@/entities/manufacture/utils/get-manufacturing-order-statuses-options'
 import { getManufacturePriorityOptions } from '@/entities/manufacture/utils/get-manufacture-priority-options'
@@ -16,7 +17,6 @@ import {
   useManufacturingOrdersPage,
 } from '@/features/manufacture/orders'
 
-import { ModalLayout } from '@/widgets/layouts/modal'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { manufacturingOrdersTableConfig } from '../utils/manifacturing-orders-table.config'

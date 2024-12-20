@@ -7,11 +7,11 @@ import { Button } from '@/shared/ui/button'
 import { Loader } from '@/shared/ui/loader'
 import { EmptyCard } from '@/shared/ui/empty-card'
 import { ModalEditor } from '@/shared/ui/modal-editor'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 
 import { useTechcardsPage } from '@/features/manuals/techcards'
 import { TechcardCreator } from '@/features/manuals/techcards'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
-import { ModalLayout } from '@/widgets/layouts/modal'
 
 import { SingleTechcard } from './components/single-techcard'
 import cls from './manual-techcards-page.module.scss'

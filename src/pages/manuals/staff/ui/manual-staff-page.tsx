@@ -1,11 +1,11 @@
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 
 import { StaffEditor, useStaffPage } from '@/features/manuals/staff'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
-import { ModalLayout } from '@/widgets/layouts/modal'
 
 import { staffTableConfig } from '../utils/staff-table-config'
 

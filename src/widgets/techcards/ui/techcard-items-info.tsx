@@ -3,7 +3,7 @@ import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 import { Button } from '@/shared/ui/button'
 
 import { ItemsEditor } from '@/features/manuals/techcards'
-import { ModalLayout } from '@/widgets/layouts/modal'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 
 import { getDisplayValuesItems } from '../utils/get-display-values-items'
 import { useItemsInfo } from '../lib/use-items-info'
