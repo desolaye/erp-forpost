@@ -3,21 +3,16 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
-import { Select } from '@/shared/ui/select'
 import { ModalLayout } from '@/shared/ui/modal-layout'
 
 import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
-
-import { agentsToOptions } from '@/entities/manuals'
-import { getInvoiceStatusesOptions } from '@/entities/crm/invoices/utils/get-invoice-statuses-options'
-import { getInvoicePriorityOptions } from '@/entities/crm/invoices/utils/get-invoice-priority-options'
-import { getInvoicePaymentOptions } from '@/entities/crm/invoices/utils/get-invoice-payment-options'
 
 import { InvoiceCreator, InvoiceDetailed, useInvoicesPage } from '@/features/crm/invoices'
 
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 import { invoicesTableConfig } from '../utils/invoices-table.config'
+import { InvoicesFilters } from './components/invoices-filters'
 
 const InvoicesPage = () => {
   const { handlers, values } = useInvoicesPage()
@@ -46,40 +41,14 @@ const InvoicesPage = () => {
         </div>
 
         {values.isFiltersOpen && (
-          <div style={{ zIndex: '10', display: 'flex', gap: 8 }}>
-            <Select
-              placeholder="Фильтр по контрагенту"
-              options={agentsToOptions(values.contractors)}
-              onSearch={handlers.contractorSearch}
-              onChange={(v) => handlers.setContractorId(v?.value)}
-              className="full"
-              isClearable
-            />
-
-            <Select
-              placeholder="Статус счёта"
-              options={getInvoiceStatusesOptions()}
-              onChange={(val) => handlers.setInvoiceStatus(val?.value)}
-              className="full"
-              isClearable
-            />
-
-            <Select
-              placeholder="Приоритет счёта"
-              options={getInvoicePriorityOptions()}
-              onChange={(val) => handlers.setPriority(val?.value)}
-              isClearable
-              className="full"
-            />
-
-            <Select
-              placeholder="Статус оплаты"
-              options={getInvoicePaymentOptions()}
-              onChange={(val) => handlers.setPaymentStatus(val?.value)}
-              className="full"
-              isClearable
-            />
-          </div>
+          <InvoicesFilters
+            contractors={values.contractors}
+            onContractorSearch={handlers.contractorSearch}
+            onSelectContractor={handlers.setContractorId}
+            onSelectInvoiceStatus={handlers.setInvoiceStatus}
+            onSelectPaymentStatus={handlers.setPaymentStatus}
+            onSelectPriority={handlers.setPriority}
+          />
         )}
       </Card>
 
@@ -93,7 +62,6 @@ const InvoicesPage = () => {
           <SmartTableRow
             key={row.id}
             config={config}
-            // @ts-ignore
             row={row}
             onClick={() => handlers.setInvoiceId(row.id)}
           />

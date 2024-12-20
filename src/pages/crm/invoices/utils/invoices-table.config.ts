@@ -1,8 +1,8 @@
 import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
-import { InvoiceType } from '@/entities/crm/invoices'
+import { InvoiceResponseType } from '@/entities/crm/invoices'
 
 export const invoicesTableConfig = () => {
-  const config: TableRowRecordType<InvoiceType> = {
+  const config: TableRowRecordType<InvoiceResponseType['items'][0]> = {
     number: {
       width: 200,
       title: 'Номер счёта',
@@ -78,5 +78,5 @@ export const invoicesTableConfig = () => {
 
   return Object.entries(config).filter(
     ([_, value]) => value.width > 0,
-  ) as TableConfigType<InvoiceType>
+  ) as TableConfigType<InvoiceResponseType['items'][0]>
 }
