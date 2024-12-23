@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSearch } from '@/shared/lib/use-search'
 
-import { getStaffManual, getTechcardsManual } from '@/entities/manuals'
+import { getStaffManual } from '@/entities/manuals'
 import { postCreateProcess, ProcessValidatorType } from '@/entities/manufacture'
+import { getTechcardsAll } from '@/entities/manuals/techcards'
 
 interface IProcessCreatorProps {
   onClose?: () => void
@@ -26,9 +27,10 @@ export const useProcessCreator = (props: IProcessCreatorProps) => {
 
   const { data: techcards } = useQuery({
     queryFn: () =>
-      getTechcardsManual({
-        params: { limit: 8, skip: 0 },
-        filters: techcardSearch.filters,
+      getTechcardsAll({
+        limit: 8,
+        skip: 0,
+        number: techcardSearch.filters?.filterValues,
       }),
     queryKey: ['techcard_all', techcardSearch.debouncedSearch],
   })
@@ -44,7 +46,7 @@ export const useProcessCreator = (props: IProcessCreatorProps) => {
       error,
       isPending,
       staff: staff?.data?.employees || [],
-      techcards: techcards?.data.techCards || [],
+      techcards,
     },
     handlers: {
       onMutate: mutateAsync,

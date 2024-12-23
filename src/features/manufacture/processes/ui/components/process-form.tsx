@@ -13,14 +13,15 @@ import { Input } from '@/shared/ui/input'
 import { Text } from '@/shared/ui/text'
 import { Card } from '@/shared/ui/card'
 
-import { StaffType, TechcardType } from '@/entities/manuals'
+import { StaffType } from '@/entities/manuals'
 import { ProcessValidatorType } from '@/entities/manufacture'
+import { TechcardsAllResponseType } from '@/entities/manuals/techcards'
 
 import { useProcessForm } from '../../lib/use-process-form'
 
 interface IProcessFormProps {
   staff: StaffType[]
-  techcards: TechcardType[]
+  techcards?: TechcardsAllResponseType
   onClose?: () => void
   onMutate?: (data: ProcessValidatorType) => void
   onTechcardSearch: (value: string) => void

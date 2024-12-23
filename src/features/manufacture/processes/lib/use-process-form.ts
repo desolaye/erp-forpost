@@ -3,19 +3,17 @@ import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
-import {
-  getTechcardFull,
-  staffToOptions,
-  StaffType,
-  techcardsToOptions,
-  TechcardType,
-} from '@/entities/manuals'
+import { staffToOptions, StaffType } from '@/entities/manuals'
 
 import { ProcessValidatorType, ZProcessValidator } from '@/entities/manufacture'
+import {
+  getTechcardCompositionById,
+  TechcardsAllResponseType,
+} from '@/entities/manuals/techcards'
 
 interface IUseProcessForm {
   staff: StaffType[]
-  techcards: TechcardType[]
+  techcards?: TechcardsAllResponseType
   onMutate?: (data: ProcessValidatorType) => void
 }
 
@@ -42,7 +40,7 @@ export const useProcessForm = (props: IUseProcessForm) => {
     ),
   })
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, remove } = useFieldArray({
     control,
     name: 'issues',
   })
@@ -50,7 +48,7 @@ export const useProcessForm = (props: IUseProcessForm) => {
   const id = watch('technologicalCardId')
 
   const { refetch } = useQuery({
-    queryFn: () => getTechcardFull(id?.value),
+    queryFn: () => getTechcardCompositionById(id?.value),
     queryKey: ['techcard_full', id?.value],
     enabled: false,
   })
@@ -59,20 +57,8 @@ export const useProcessForm = (props: IUseProcessForm) => {
 
   useEffect(() => {
     if (id) {
-      refetch().then(({ data }) => {
+      refetch().then(() => {
         remove()
-
-        data?.data.steps.forEach((v) =>
-          append({
-            description: v.description || '',
-            responsibleId: { label: '', value: '' },
-            productCompositionSettingFlag: false,
-            stepId: {
-              label: `${v.operationName} (${v.description || 'без описания'}) - ${v.duration}`,
-              value: v.id,
-            },
-          }),
-        )
       })
     }
   }, [id])
@@ -82,7 +68,7 @@ export const useProcessForm = (props: IUseProcessForm) => {
       errors,
       control,
       staff: staffToOptions(staff),
-      techcards: techcardsToOptions(techcards),
+      techcards: techcards?.items.map((v) => ({ label: v.number, value: v.id })),
       fields,
     },
     handlers: {

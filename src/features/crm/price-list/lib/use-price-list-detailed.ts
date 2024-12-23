@@ -2,13 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 
 import { useSearch } from '@/shared/lib/use-search'
 
-import {
-  getOperationsAll,
-  getProductsManual,
-  operationsToOptions,
-  productsToOptions,
-} from '@/entities/manuals'
+import { getProductsManual, productsToOptions } from '@/entities/manuals'
 import { PriceListType } from '@/entities/crm/price-list'
+import { getOperationsAll } from '@/entities/manuals/operations'
 
 interface IUsePriceListDetailed {
   priceList?: PriceListType
@@ -30,7 +26,7 @@ export const usePriceListDetailed = (props: IUsePriceListDetailed) => {
   })
 
   const productOptions = productsToOptions(products?.data.items)
-  const operationOptions = operationsToOptions(operations?.data)
+  const operationOptions = operations?.map((v) => ({ label: v.name, value: v.id })) || []
 
   return {
     values: {
