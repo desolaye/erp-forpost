@@ -7,6 +7,8 @@ import { Textarea } from '@/shared/ui/textarea'
 import { InvoiceProductResponseType, InvoiceType } from '@/entities/crm/invoices'
 import { InvoiceProduct } from '@/entities/crm/invoices/ui/invoice-product'
 import { InvoiceProductCreator } from '@/entities/crm/invoices/ui/invoice-product-creator'
+import { invoiceStatusToText } from '@/entities/crm/invoices/utils/invoice-status-to-text'
+import { paymentStatusToText } from '@/entities/crm/invoices/utils/payment-status-to-text'
 
 interface IInvoiceProductsBodyProps {
   data?: InvoiceProductResponseType[]
@@ -54,8 +56,17 @@ export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
         <Text size="lg" weight="semi">
           Номер счёта
         </Text>
-
         <Text>{invoice?.number || 'Отсутствует'}</Text>
+
+        <Text size="lg" weight="semi">
+          Статус счёта
+        </Text>
+        <Text>{invoiceStatusToText(invoice?.invoiceStatus.value || 0)}</Text>
+
+        <Text size="lg" weight="semi">
+          Статус оплаты счёта
+        </Text>
+        <Text>{paymentStatusToText(invoice?.paymentStatus.value || 0)}</Text>
 
         <Text size="lg" weight="semi">
           Описание счёта
@@ -63,7 +74,6 @@ export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
 
         <Textarea
           onChange={(e) => setDescr(e.target.value)}
-          label="Описание счёта"
           placeholder="Описание счёта"
           value={descr}
         />

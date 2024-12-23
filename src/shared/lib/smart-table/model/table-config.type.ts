@@ -4,6 +4,10 @@ type TableCellBaseType = {
   maxWidth?: number
 }
 
+type TableCellTagType = {
+  type: 'tag'
+}
+
 type TableCellTextType = {
   type: 'text'
 }
@@ -18,7 +22,13 @@ type TableCellTooltipType = {
 }
 
 export type TableCellConfigType = TableCellBaseType &
-  (TableCellTextType | TableCellButtonType | TableCellTooltipType)
+  (
+    | TableCellTextType
+    | TableCellButtonType
+    | TableCellTooltipType
+    | TableCellTagType
+    | TableCellTagType
+  )
 
 export type TableRowRecordType<T> = Record<keyof T, TableCellConfigType>
 export type TableRowConfigType<T> = [keyof T, TableCellConfigType]

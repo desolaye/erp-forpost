@@ -11,9 +11,10 @@ import { TableConfigType } from '../model/table-config.type'
 import cls from './smart-table.module.scss'
 
 interface ISmartTableRowProps<T> {
-  actions?: ReactNode
   config: TableConfigType<T>
   row: T
+  tagColors?: { [key: string]: string }
+  actions?: ReactNode
   to?: string
   onClick?: () => void
   check?: {
@@ -23,7 +24,7 @@ interface ISmartTableRowProps<T> {
 }
 
 export const SmartTableRow = <T,>(props: ISmartTableRowProps<T>) => {
-  const { config, row, check, actions, to, onClick } = props
+  const { config, row, check, actions, to, tagColors, onClick } = props
   const navigate = useNavigate()
 
   const classes = cn({ [cls.smart_table__table__link]: to || onClick })
@@ -47,7 +48,15 @@ export const SmartTableRow = <T,>(props: ISmartTableRowProps<T>) => {
           key={String(key)}
           style={{ maxWidth: cell.maxWidth }}
         >
-          {cell.type !== 'tooltip' && isRenderable(row[key]) && row[key]}
+          {cell.type === 'text' && isRenderable(row[key]) && row[key]}
+          {cell.type === 'tag' && isRenderable(row[key]) && (
+            <div
+              className={cls.smart_table__table__tag}
+              style={{ backgroundColor: tagColors?.[`${row[key]}`] || '#333' }}
+            >
+              {row[key]}
+            </div>
+          )}
 
           {cell.type === 'tooltip' && (
             <Tooltip

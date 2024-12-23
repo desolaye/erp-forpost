@@ -16,7 +16,7 @@ import { InvoicesFilters } from './components/invoices-filters'
 
 const InvoicesPage = () => {
   const { handlers, values } = useInvoicesPage()
-  const config = invoicesTableConfig()
+  const { config, tagColors } = invoicesTableConfig()
 
   return (
     <PageWrapper title="Счета">
@@ -62,6 +62,7 @@ const InvoicesPage = () => {
           <SmartTableRow
             key={row.id}
             config={config}
+            tagColors={tagColors}
             row={row}
             onClick={() => handlers.setInvoiceId(row.id)}
           />
