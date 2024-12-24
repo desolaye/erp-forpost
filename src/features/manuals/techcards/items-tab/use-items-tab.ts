@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useSearch } from '@/shared/lib/use-search'
@@ -28,6 +28,10 @@ export const useItemsTab = (props: ItemsTabProps) => {
 
   const { debouncedSearch, filters, setSearch } = useSearch('name')
 
+  const onSuccess = useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: ['techcard_composition_by_id', cardId] })
+  }, [cardId])
+
   const { data } = useQuery({
     queryFn: () => getProductsManual({ skip: 0, limit: 20, name: filters?.filterValues }),
     queryKey: ['products_all', debouncedSearch],
@@ -40,8 +44,7 @@ export const useItemsTab = (props: ItemsTabProps) => {
         quantity: Number(props.quantity),
         productId: props.productId,
       }),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ['techcard_composition_by_id', cardId] }),
+    onSuccess,
   })
 
   const mutateEdit = useMutation({
@@ -51,19 +54,16 @@ export const useItemsTab = (props: ItemsTabProps) => {
         ...props,
         quantity: Number(props.quantity),
       }),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ['techcard_composition_by_id', cardId] }),
+    onSuccess,
   })
 
   const mutateDelete = useMutation({
     mutationFn: deleteItemTechcard,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ['techcard_composition_by_id', cardId] }),
+    onSuccess,
   })
 
   const onAdd = () => {
     setEditItems((prev) => [
-      ...prev,
       {
         id: `${new Date().toISOString()}`,
         productId: '',
@@ -71,6 +71,7 @@ export const useItemsTab = (props: ItemsTabProps) => {
         quantity: '0',
         techCardId: cardId || '',
       },
+      ...prev,
     ])
   }
 

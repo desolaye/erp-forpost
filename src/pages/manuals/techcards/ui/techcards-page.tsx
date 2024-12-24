@@ -2,16 +2,19 @@ import PrecisionManufacturingOutlinedIcon from '@mui/icons-material/PrecisionMan
 
 import { Card } from '@/shared/ui/card'
 import { Text } from '@/shared/ui/text'
+import { Button } from '@/shared/ui/button'
+import { ModalLayout } from '@/shared/ui/modal-layout'
 
-import { SelectedTechcard, TechcardsList } from '@/widgets/techcards'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
+
+import { SelectedTechcard } from '@/widgets/techcards/selected-techcard'
+import { TechcardsList } from '@/widgets/techcards/techcards-list'
+import { TechcardCreator } from '@/widgets/techcards/techcard-creator'
+import { OperationsEditor } from '@/widgets/operations/operations-editor'
 
 import { useTechcardsPage } from '../lib/use-techcards-page'
 
 import cls from './techcards-page.module.scss'
-import { Button } from '@/shared/ui/button'
-import { ModalLayout } from '@/shared/ui/modal-layout'
-import { TechcardCreator } from '@/widgets/techcards/techcard-creator'
 
 const TechcardsPage = () => {
   const { values, handlers } = useTechcardsPage()
@@ -29,8 +32,8 @@ const TechcardsPage = () => {
         <Text size="xl" weight="semi">
           Технологические карты
         </Text>
-        <Button mode="neutral" onClick={() => handlers.setIsStepsOpen(true)}>
-          Редактор этапов
+        <Button mode="neutral" onClick={() => handlers.setIsOperationsOpen(true)}>
+          Редактор операций
         </Button>
       </header>
 
@@ -74,9 +77,11 @@ const TechcardsPage = () => {
       </ModalLayout>
 
       <ModalLayout
-        isOpen={values.isStepsOpen}
-        onClose={() => handlers.setIsStepsOpen(false)}
-      ></ModalLayout>
+        isOpen={values.isOperationsOpen}
+        onClose={() => handlers.setIsOperationsOpen(false)}
+      >
+        <OperationsEditor />
+      </ModalLayout>
     </PageWrapper>
   )
 }

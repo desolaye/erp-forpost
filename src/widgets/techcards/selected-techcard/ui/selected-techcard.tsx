@@ -7,6 +7,7 @@ import { Loader } from '@/shared/ui/loader'
 
 import { GeneralInfoTab } from '@/features/manuals/techcards/general-info-tab'
 import { ItemsTab } from '@/features/manuals/techcards/items-tab'
+import { OperationsTab } from '@/features/manuals/techcards/operations-tab'
 
 import { useSelectedTechcard } from '../lib/use-selected-techcard'
 import { DeleteTechcardConfirm } from './components/delete-techcard-confirm'
@@ -47,7 +48,7 @@ export const SelectedTechcard = (props: SelectedTechcardProps) => {
           onChange={(_, tab) => handlers.setSelectedTab(tab)}
         >
           <Tab label="Данные" value="general" />
-          <Tab label="Этапы" value="steps" />
+          <Tab label="Операции" value="operations" />
           <Tab label="Компоненты" value="items" />
         </Tabs>
 
@@ -72,6 +73,10 @@ export const SelectedTechcard = (props: SelectedTechcardProps) => {
             value: values.data?.productId || '',
           }}
         />
+      )}
+
+      {values.selectedTab === 'operations' && (
+        <OperationsTab cardId={values.data?.id} operations={values.data?.operations} />
       )}
 
       {values.selectedTab === 'items' && (

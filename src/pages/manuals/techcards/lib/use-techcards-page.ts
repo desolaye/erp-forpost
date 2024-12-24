@@ -9,7 +9,7 @@ export const useTechcardsPage = () => {
   const [selectedCard, setSelectedCard] = useState('')
 
   const [isCreateOpen, setIsCreateOpen] = useState(false)
-  const [isStepsOpen, setIsStepsOpen] = useState(false)
+  const [isOperationsOpen, setIsOperationsOpen] = useState(false)
 
   const { debouncedSearch, filters, search, setSearch } = useSearch('number')
 
@@ -30,13 +30,13 @@ export const useTechcardsPage = () => {
       count: getTotalCount(techcardsAll.data?.totalCount),
       isLoadingAll: techcardsAll.isFetching,
       isCreateOpen,
-      isStepsOpen,
+      isOperationsOpen,
     },
     handlers: {
       onSelect: setSelectedCard,
       onPageChange: setPage,
       setIsCreateOpen,
-      setIsStepsOpen,
+      setIsOperationsOpen,
       setSearch,
     },
   }
