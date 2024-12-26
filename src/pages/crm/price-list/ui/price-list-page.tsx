@@ -30,9 +30,7 @@ const PriceListPage = () => {
         onPageChange={handlers.setPage}
         pageCount={values.totalPages}
       >
-        {values.data?.map((row) => (
-          <SmartTableRow key={row.id} config={config} row={row} />
-        ))}
+        {values.data?.map((row) => <SmartTableRow key={row.id} row={row} />)}
       </SmartTable>
 
       <ModalLayout isOpen={values.isModalOpen} onClose={handlers.setModal}>

@@ -13,24 +13,7 @@ export const warehouseProductsTableConfig = () => {
       title: 'Кол-во',
       type: 'text',
     },
-    storageId: {
-      width: 0,
-      title: '',
-      type: 'text',
-    },
-    productId: {
-      width: 0,
-      title: '',
-      type: 'text',
-    },
-    storageName: {
-      width: 0,
-      title: '',
-      type: 'text',
-    },
   }
 
-  return Object.entries(config).filter(
-    ([_, value]) => value.width > 0,
-  ) as TableConfigType<ProductByWarehouseType>
+  return Object.entries(config) as TableConfigType<ProductByWarehouseType>
 }

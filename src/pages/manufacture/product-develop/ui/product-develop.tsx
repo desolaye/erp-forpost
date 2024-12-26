@@ -69,7 +69,6 @@ const ProductDevelop = () => {
         {values.products?.map((row) => (
           <SmartTableRow
             key={row.id}
-            config={config}
             // @ts-ignore
             row={row}
             check={

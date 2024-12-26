@@ -35,12 +35,7 @@ const ManualStaffPage = () => {
         isLoading={values.isLoading}
       >
         {values.data?.map((row) => (
-          <SmartTableRow
-            key={row.id}
-            config={config}
-            row={row}
-            onClick={() => handlers.openModal(row)}
-          />
+          <SmartTableRow key={row.id} row={row} onClick={() => handlers.openModal(row)} />
         ))}
       </SmartTable>
 

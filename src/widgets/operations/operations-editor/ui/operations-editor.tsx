@@ -8,6 +8,8 @@ import { useOperationsEditor } from '../lib/use-operations-editor'
 
 import { OperationsForm } from './components/operations-form'
 
+import cls from './operations-editor.module.scss'
+
 export const OperationsEditor = () => {
   const { values, handlers } = useOperationsEditor()
   const config = operationsTableConfig()
@@ -25,16 +27,7 @@ export const OperationsEditor = () => {
   }
 
   return (
-    <section
-      style={{
-        display: 'flex',
-        gap: 8,
-        flexDirection: 'column',
-        padding: 16,
-        height: '100%',
-        overflow: 'hidden',
-      }}
-    >
+    <section className={cls.operations_editor}>
       <Text size="lg" weight="semi">
         Редактор операций
       </Text>
@@ -52,9 +45,9 @@ export const OperationsEditor = () => {
       >
         {values.operations?.map((v) => (
           <SmartTableRow
-            onClick={() => handlers.selectOperation(v.id)}
-            config={config}
+            key={v.id}
             row={v}
+            onClick={() => handlers.selectOperation(v.id)}
           />
         ))}
       </SmartTable>

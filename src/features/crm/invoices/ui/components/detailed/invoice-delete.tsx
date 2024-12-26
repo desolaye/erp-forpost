@@ -11,7 +11,17 @@ export const InvoiceDelete = (props: InvoiceDeleteProps) => {
   const { invoiceNumber, onDelete, onReject } = props
 
   return (
-    <section>
+    <section
+      style={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <Text size="lg" style={{ padding: '8px', textAlign: 'center' }} weight="semi">
         Вы действительно хотите удалить счёт{' '}
         <Text size="lg" color="error" weight="semi" tag="span">

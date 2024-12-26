@@ -16,17 +16,18 @@ interface IAgentFormProps {
   isError?: boolean
 
   onMutate: (data: AgentValidatorType) => void
-  onClose: () => void
 }
 
 export const AgentForm = (props: IAgentFormProps) => {
-  const { isPending, isError, onClose } = props
-  const { register, errors, control, handleSubmit, onSubmit } = useAgentForm(props)
+  const { isPending, isError } = props
+
+  const { register, errors, control, handleSubmit, onSubmit, onClose } =
+    useAgentForm(props)
 
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      onReset={() => onClose()}
+      onReset={() => onClose?.()}
       withButtons
       saveDisabled={isPending}
       pending={isPending}

@@ -49,7 +49,6 @@ const ManufactureProcesses = () => {
         {values.processes?.map((row) => (
           <SmartTableRow
             key={row.id}
-            config={config}
             row={row}
             check={{
               isChecked: values.selectedIds.includes(row.id),

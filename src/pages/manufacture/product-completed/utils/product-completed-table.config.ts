@@ -6,26 +6,12 @@ export const productCompletedTableConfig = () => {
     name: {
       type: 'text',
       title: 'Название продукта',
-      width: 200,
     },
     serialNumber: {
       type: 'text',
       title: 'Серийный номер',
-      width: 200,
-    },
-    productDevelopmentId: {
-      type: 'text',
-      title: 'id',
-      width: 0,
-    },
-    id: {
-      type: 'text',
-      title: 'id',
-      width: 0,
     },
   }
 
-  return Object.entries(config).filter(
-    ([_, value]) => value.width > 0,
-  ) as TableConfigType<CompletedProductType>
+  return Object.entries(config) as TableConfigType<CompletedProductType>
 }

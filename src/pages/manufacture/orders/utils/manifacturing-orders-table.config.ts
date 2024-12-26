@@ -23,30 +23,7 @@ export const manufacturingOrdersTableConfig = () => {
       title: 'Дата поступления',
       type: 'text',
     },
-    description: {
-      width: 0,
-      maxWidth: 0,
-      title: 'Описание',
-      type: 'text',
-    },
-    comment: {
-      width: 0,
-      title: '',
-      type: 'text',
-    },
-    invoiceId: {
-      width: 0,
-      title: '',
-      type: 'text',
-    },
-    id: {
-      width: 0,
-      title: '',
-      type: 'text',
-    },
   }
 
-  return Object.entries(config).filter(
-    ([_, value]) => value.width > 0,
-  ) as TableConfigType<ManufacturingOrderType>
+  return Object.entries(config) as TableConfigType<ManufacturingOrderType>
 }

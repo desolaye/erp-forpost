@@ -61,7 +61,6 @@ const InvoicesPage = () => {
         {values.invoices?.map((row) => (
           <SmartTableRow
             key={row.id}
-            config={config}
             tagColors={tagColors}
             row={row}
             onClick={() => handlers.setInvoiceId(row.id)}

@@ -27,7 +27,6 @@ const IssuesHistoryPage = () => {
         {values.issues?.map((row) => (
           <SmartTableRow
             key={row.issueId + row.responsibleId + row.completionDate}
-            config={config}
             row={row}
           />
         ))}

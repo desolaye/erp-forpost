@@ -40,7 +40,6 @@ const ManualWarehousesPage = () => {
         {values.data?.map((row) => (
           <SmartTableRow
             key={row.storageId}
-            config={config}
             row={row}
             onClick={() => handlers.openModal(row)}
           />

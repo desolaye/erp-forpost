@@ -81,7 +81,6 @@ export const AgentRepresentativesTab = (props: AgentRepresentativesTabProps) => 
         {values.representatives?.map((v) => (
           <SmartTableRow
             key={v.id}
-            config={config}
             row={v}
             actions={
               <AgentRepresentativesTooltip

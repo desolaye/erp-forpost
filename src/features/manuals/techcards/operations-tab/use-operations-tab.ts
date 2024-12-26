@@ -83,6 +83,7 @@ export const useOperationsTab = (props: OperationsTabProps) => {
         ...newArray[idx],
         operationId: op.value,
         operationName: op.label,
+        description: data?.find((v) => v.id === op.value)?.description || '',
       }
       return newArray
     })

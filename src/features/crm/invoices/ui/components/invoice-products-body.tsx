@@ -53,20 +53,32 @@ export const InvoiceProductsBody = (props: IInvoiceProductsBodyProps) => {
       </section>
 
       <section style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <Text size="lg" weight="semi">
-          Номер счёта
-        </Text>
-        <Text>{invoice?.number || 'Отсутствует'}</Text>
-
-        <Text size="lg" weight="semi">
-          Статус счёта
-        </Text>
-        <Text>{invoiceStatusToText(invoice?.invoiceStatus.value || 0)}</Text>
-
-        <Text size="lg" weight="semi">
-          Статус оплаты счёта
-        </Text>
-        <Text>{paymentStatusToText(invoice?.paymentStatus.value || 0)}</Text>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%' }}
+          >
+            <Text size="lg" weight="semi">
+              Номер счёта
+            </Text>
+            <Text>{invoice?.number || 'Отсутствует'}</Text>
+          </div>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%' }}
+          >
+            <Text size="lg" weight="semi">
+              Статус счёта
+            </Text>
+            <Text>{invoiceStatusToText(invoice?.invoiceStatus.value || 0)}</Text>
+          </div>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%' }}
+          >
+            <Text size="lg" weight="semi">
+              Статус оплаты счёта
+            </Text>
+            <Text>{paymentStatusToText(invoice?.paymentStatus.value || 0)}</Text>
+          </div>
+        </div>
 
         <Text size="lg" weight="semi">
           Описание счёта

@@ -81,49 +81,57 @@ export const InvoiceForm = (props: InvoiceFormProps) => {
             )}
           />
 
-          <Controller
-            name="contractorId"
-            control={values.control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                onSearch={onAgentSearch}
-                isClearable
-                placeholder="Выберите контрагента"
-                label="Выберите контрагента"
-                errorMsg={values.errors.contractorId && 'Необходимо выбрать контрагента'}
-                options={agents}
-              />
-            )}
-          />
+          <div style={{ display: 'flex', gap: 8 }}>
+            <Controller
+              name="contractorId"
+              control={values.control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  onSearch={onAgentSearch}
+                  className="full"
+                  placeholder="Выберите контрагента"
+                  label="Выберите контрагента"
+                  errorMsg={
+                    values.errors.contractorId && 'Необходимо выбрать контрагента'
+                  }
+                  options={agents}
+                />
+              )}
+            />
 
-          <Controller
-            name="paymentStatus"
-            control={values.control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                placeholder="Выберите тип оплаты"
-                label="Выберите тип оплаты"
-                errorMsg={values.errors.paymentStatus && 'Необходимо выбрать тип оплаты'}
-                options={getPaymentStatusOptions()}
-              />
-            )}
-          />
+            <Controller
+              name="paymentStatus"
+              control={values.control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  className="full"
+                  placeholder="Выберите тип оплаты"
+                  label="Выберите тип оплаты"
+                  errorMsg={
+                    values.errors.paymentStatus && 'Необходимо выбрать тип оплаты'
+                  }
+                  options={getPaymentStatusOptions()}
+                />
+              )}
+            />
 
-          <Controller
-            name="priority"
-            control={values.control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                placeholder="Выберите приоритет счёта"
-                label="Выберите приоритет счёта"
-                errorMsg={values.errors.priority && 'Необходимо выбрать приоритет'}
-                options={getPriorityStatusOptions()}
-              />
-            )}
-          />
+            <Controller
+              name="priority"
+              control={values.control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  className="full"
+                  placeholder="Выберите приоритет счёта"
+                  label="Выберите приоритет счёта"
+                  errorMsg={values.errors.priority && 'Необходимо выбрать приоритет'}
+                  options={getPriorityStatusOptions()}
+                />
+              )}
+            />
+          </div>
 
           <Controller
             name="paymentDeadline"

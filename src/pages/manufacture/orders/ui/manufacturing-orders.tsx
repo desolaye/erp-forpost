@@ -73,7 +73,6 @@ const ManufacturingOrdersPage = () => {
         {values.orders?.map((row) => (
           <SmartTableRow
             key={row.id}
-            config={config}
             row={{
               ...row,
               manufacturingOrderStatus: manufacturingOrderStatusToText(

@@ -52,7 +52,6 @@ const ManualProductsPage = () => {
         {values.products?.map((row) => (
           <SmartTableRow
             key={row.id}
-            config={config}
             row={row}
             onClick={() => handlers.openModal(row.id)}
             actions={

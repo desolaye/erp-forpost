@@ -1,17 +1,17 @@
 import { Checkbox, Tooltip } from '@mui/material'
-import { ReactNode } from 'react'
+import { ReactNode, useContext } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import cn from 'classnames'
 
 import { isRenderable } from '@/shared/utils/is-renderable'
 import { splitByNewline } from '@/shared/utils/split-by-newline'
+import { renderTableItem } from '@/shared/utils/render-table-item'
 
-import { TableConfigType } from '../model/table-config.type'
+import { SmartTableContext } from '../lib/smart-table-context'
 
 import cls from './smart-table.module.scss'
 
 interface ISmartTableRowProps<T> {
-  config: TableConfigType<T>
   row: T
   tagColors?: { [key: string]: string }
   actions?: ReactNode
@@ -24,9 +24,10 @@ interface ISmartTableRowProps<T> {
 }
 
 export const SmartTableRow = <T,>(props: ISmartTableRowProps<T>) => {
-  const { config, row, check, actions, to, tagColors, onClick } = props
+  const { row, check, actions, to, tagColors, onClick } = props
   const navigate = useNavigate()
 
+  const { config } = useContext(SmartTableContext)
   const classes = cn({ [cls.smart_table__table__link]: to || onClick })
 
   const handleClick = () => {
@@ -42,19 +43,19 @@ export const SmartTableRow = <T,>(props: ISmartTableRowProps<T>) => {
         </td>
       )}
 
-      {config.map(([key, cell]) => (
+      {config?.map(([key, cell]) => (
         <td
           className={cls.smart_table__table__td}
           key={String(key)}
           style={{ maxWidth: cell.maxWidth }}
         >
-          {cell.type === 'text' && isRenderable(row[key]) && row[key]}
-          {cell.type === 'tag' && isRenderable(row[key]) && (
+          {cell.type === 'text' && renderTableItem(row[key as keyof T])}
+          {cell.type === 'tag' && isRenderable(row[key as keyof T]) && (
             <div
               className={cls.smart_table__table__tag}
-              style={{ backgroundColor: tagColors?.[`${row[key]}`] || '#333' }}
+              style={{ backgroundColor: tagColors?.[`${row[key as keyof T]}`] || '#333' }}
             >
-              {row[key]}
+              {renderTableItem(row[key as keyof T])}
             </div>
           )}
 
@@ -63,8 +64,10 @@ export const SmartTableRow = <T,>(props: ISmartTableRowProps<T>) => {
               onClick={(e) => e.stopPropagation()}
               title={
                 <div onClick={(e) => e.stopPropagation()}>
-                  {typeof row[key] === 'string' &&
-                    splitByNewline(row[key]).map((v, i) => <p key={i}>{v}</p>)}
+                  {typeof row[key as keyof T] === 'string' &&
+                    splitByNewline(row[key as keyof T] as string).map((v, i) => (
+                      <p key={i}>{v}</p>
+                    ))}
                 </div>
               }
             >
@@ -76,7 +79,8 @@ export const SmartTableRow = <T,>(props: ISmartTableRowProps<T>) => {
                   textOverflow: 'ellipsis',
                 }}
               >
-                {typeof row[key] === 'string' && splitByNewline(row[key])[0]}
+                {typeof row[key as keyof T] === 'string' &&
+                  splitByNewline(row[key as keyof T] as string)[0]}
               </p>
             </Tooltip>
           )}

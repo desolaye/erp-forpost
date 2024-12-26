@@ -1,6 +1,6 @@
 type TableCellBaseType = {
   title: string
-  width: number
+  width?: number
   maxWidth?: number
 }
 
@@ -30,6 +30,6 @@ export type TableCellConfigType = TableCellBaseType &
     | TableCellTagType
   )
 
-export type TableRowRecordType<T> = Record<keyof T, TableCellConfigType>
+export type TableRowRecordType<T> = Partial<Record<keyof T, TableCellConfigType>>
 export type TableRowConfigType<T> = [keyof T, TableCellConfigType]
 export type TableConfigType<T> = TableRowConfigType<T>[]

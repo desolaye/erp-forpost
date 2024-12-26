@@ -39,9 +39,7 @@ const ProductCompletedPage = () => {
         onPageChange={handlers.setPage}
         pageCount={values.totalCount}
       >
-        {values.products?.map((row) => (
-          <SmartTableRow key={row.id} config={config} row={row} />
-        ))}
+        {values.products?.map((row) => <SmartTableRow key={row.id} row={row} />)}
       </SmartTable>
     </PageWrapper>
   )

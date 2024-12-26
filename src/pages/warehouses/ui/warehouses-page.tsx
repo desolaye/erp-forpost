@@ -22,7 +22,6 @@ const WarehousesPage = () => {
         {values.data?.map((row) => (
           <SmartTableRow
             key={row.storageId}
-            config={config}
             row={row}
             to={products(root(), row.storageId)}
           />

@@ -13,9 +13,19 @@ export const InvoiceProductDelete = (props: InvoiceProductDeleteProps) => {
   const { invoiceNumber, productName, onDelete, onReject } = props
 
   return (
-    <section style={{ padding: '8px' }}>
+    <section
+      style={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <Text style={{ padding: '8px' }}>
-        Вы действительно хотите удалить <br /> продукт{' '}
+        Вы действительно хотите удалить продукт{' '}
         <Text size="lg" color="error" weight="semi" tag="span">
           {productName}
         </Text>

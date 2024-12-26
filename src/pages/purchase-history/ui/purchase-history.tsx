@@ -28,10 +28,7 @@ const PurchaseHistoryPage = () => {
         onPageChange={handlers.setPage}
         pageCount={values.totalCount}
       >
-        {values.purchases?.map((row) => (
-          // @ts-ignore
-          <SmartTableRow key={row.id} config={config} row={row} />
-        ))}
+        {values.purchases?.map((row) => <SmartTableRow key={row.id} row={row} />)}
       </SmartTable>
     </PageWrapper>
   )

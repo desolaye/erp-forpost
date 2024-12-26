@@ -10,12 +10,11 @@ import { AgentForm } from './agent-form'
 import { AgentRepresentativesTab } from './components/agent-representatives-tab'
 
 interface IAgentEditorProps {
-  id?: string
-  onClose?: () => void
+  id: string
 }
 
 export const AgentEditor = (props: IAgentEditorProps) => {
-  const { id, onClose } = props
+  const { id } = props
   const { values, handlers } = useAgentEditor(props)
 
   if (values.isLoading) return <Loader />
@@ -43,7 +42,6 @@ export const AgentEditor = (props: IAgentEditorProps) => {
           isPending={values.isPending}
           isError={values.isError}
           agent={values.agent}
-          onClose={() => onClose?.()}
           onMutate={handlers.onMutate}
         />
       )}
@@ -57,7 +55,9 @@ export const AgentEditor = (props: IAgentEditorProps) => {
         </>
       )}
 
-      {values.tab === 'representatives' && <AgentRepresentativesTab contractorId={id!} />}
+      {values.tab === 'representatives' && (
+        <AgentRepresentativesTab contractorId={id || ''} />
+      )}
     </ModalEditor>
   )
 }

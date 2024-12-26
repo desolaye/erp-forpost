@@ -47,7 +47,7 @@ const WarehouseProductsPage = () => {
         pageCount={values.totalCount}
       >
         {values.products?.map((row) => (
-          <SmartTableRow key={row.productId + row.quantity} config={config} row={row} />
+          <SmartTableRow key={row.productId + row.quantity} row={row} />
         ))}
       </SmartTable>
 

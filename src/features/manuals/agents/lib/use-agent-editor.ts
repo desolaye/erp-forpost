@@ -1,7 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { useFileLoader } from '@/shared/lib/use-file-loader'
+import { ModalLayoutContext } from '@/shared/ui/modal-layout'
 
 import {
   AgentValidatorType,
@@ -13,13 +14,13 @@ import {
 
 interface IAgentEditorProps {
   id?: string
-  onClose?: () => void
 }
 
 export const useAgentEditor = (props: IAgentEditorProps) => {
-  const { id = 'new', onClose } = props
+  const { id = 'new' } = props
   const [tab, setTab] = useState('data')
 
+  const { onClose } = useContext(ModalLayoutContext)
   const queryClient = useQueryClient()
 
   const {

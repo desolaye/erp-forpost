@@ -7,6 +7,8 @@ import {
   contractTypeToText,
   ZAgentValidator,
 } from '@/entities/manuals'
+import { useContext } from 'react'
+import { ModalLayoutContext } from '@/shared/ui/modal-layout'
 
 interface IUseAgentForm {
   agent?: AgentType
@@ -15,6 +17,8 @@ interface IUseAgentForm {
 
 export const useAgentForm = (props: IUseAgentForm) => {
   const { agent, onMutate } = props
+
+  const { onClose } = useContext(ModalLayoutContext)
 
   const {
     register,
@@ -46,6 +50,7 @@ export const useAgentForm = (props: IUseAgentForm) => {
     register,
     handleSubmit,
     onSubmit,
+    onClose,
     errors,
     control,
   }

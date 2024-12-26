@@ -47,7 +47,6 @@ const ManualAgentsPage = () => {
         {values.agents?.map((row) => (
           <SmartTableRow
             key={row.id}
-            config={config}
             row={{ ...row, contractorType: contractTypeToText(row.contractorType.value) }}
             onClick={() => handlers.setAgentId(row.id)}
           />
@@ -55,7 +54,7 @@ const ManualAgentsPage = () => {
       </SmartTable>
 
       <ModalLayout isOpen={Boolean(values.agentId)} onClose={handlers.openModal}>
-        <AgentEditor id={values.agentId} onClose={handlers.openModal} />
+        <AgentEditor id={values.agentId || ''} />
       </ModalLayout>
     </PageWrapper>
   )

@@ -39,7 +39,7 @@ export const ThemeProvider = (props: PropsWithChildren) => {
             boxShadow:
               '0 4px 6px -1px rgb(0 0 0 / 0.15), 0 2px 4px -2px rgb(0 0 0 / 0.15)',
             color: 'black',
-            fontSize: '16px',
+            fontSize: '14px',
             fontFamily: '"Montserrat", sans-serif',
           },
         },

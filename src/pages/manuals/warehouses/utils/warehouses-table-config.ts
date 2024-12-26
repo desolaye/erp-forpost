@@ -6,26 +6,12 @@ export const warehousesTableConfig = () => {
     storageName: {
       type: 'text',
       title: 'Название склада',
-      width: 200,
     },
     responsibleName: {
       type: 'text',
       title: 'Ответственный',
-      width: 200,
-    },
-    responsibleId: {
-      type: 'text',
-      title: 'id',
-      width: 0,
-    },
-    storageId: {
-      type: 'text',
-      title: 'id',
-      width: 0,
     },
   }
 
-  return Object.entries(config).filter(
-    ([_, value]) => value.width > 0,
-  ) as TableConfigType<WarehouseType>
+  return Object.entries(config) as TableConfigType<WarehouseType>
 }

@@ -21,14 +21,7 @@ export const operationsTableConfig = () => {
       width: 200,
       maxWidth: 200,
     },
-    id: {
-      type: 'text',
-      title: '',
-      width: 0,
-    },
   }
 
-  return Object.entries(config).filter(
-    ([_, value]) => value.width > 0,
-  ) as TableConfigType<OperationTableType>
+  return Object.entries(config) as TableConfigType<OperationTableType>
 }

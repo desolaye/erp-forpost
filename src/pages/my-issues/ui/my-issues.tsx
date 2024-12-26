@@ -34,7 +34,6 @@ const MyIssues = () => {
         {values.issues?.issues.map((row) => (
           <SmartTableRow
             key={row.id}
-            config={config}
             row={row}
             to={proddevIssue(root(), row.id)}
             actions={
