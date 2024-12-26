@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useReducer, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import { usePagination } from '@/shared/lib/use-pagination'
-
-import { getInvoicesAll } from '@/entities/crm/invoices'
 import { useSearch } from '@/shared/lib/use-search'
+
 import { getAgentsManual } from '@/entities/manuals'
+import { getInvoicesAll } from '@/entities/crm/invoices'
+
+import { invoiceFiltersReducer } from '../utils/invoice-filters-reducer'
 
 export const useInvoicesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -16,29 +18,23 @@ export const useInvoicesPage = () => {
   const { filters, search, setSearch, debouncedSearch } = useSearch('number')
   const contractorFilter = useSearch('name')
 
-  const [paymentStatus, setPaymentStatus] = useState<number>()
-  const [priority, setPriority] = useState<number>()
-  const [invoiceStatus, setInvoiceStatus] = useState<number>()
-  const [contractorId, setContractorId] = useState<string>()
+  const [filter, dispatch] = useReducer(invoiceFiltersReducer, {})
 
-  const { data: invoices, isPending: isPendingInvoices } = useQuery({
+  const { data: invoices, isFetching: isPendingInvoices } = useQuery({
     queryFn: () =>
       getInvoicesAll({
         ...params,
+        ...filter,
         number: filters?.filterValues,
-        paymentStatus,
-        invoiceStatus,
-        priority,
-        contractorId,
       }),
     queryKey: [
       'invoices_all',
       page,
       debouncedSearch,
-      paymentStatus,
-      priority,
-      invoiceStatus,
-      contractorId,
+      filter.contractorId,
+      filter.paymentStatus,
+      filter.priority,
+      filter.invoiceStatus,
     ],
   })
 
@@ -63,8 +59,6 @@ export const useInvoicesPage = () => {
       isModalOpen,
       isFiltersOpen,
       search,
-      contractorId,
-      paymentStatus,
     },
     handlers: {
       setPage,
@@ -73,10 +67,7 @@ export const useInvoicesPage = () => {
       setIsFiltersOpen,
       setSearch,
       contractorSearch: contractorFilter.setSearch,
-      setPriority,
-      setInvoiceStatus,
-      setPaymentStatus,
-      setContractorId,
+      dispatch,
     },
   }
 }

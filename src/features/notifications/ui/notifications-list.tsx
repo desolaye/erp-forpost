@@ -29,15 +29,7 @@ export const NotificationsList = () => {
       </header>
 
       <section className={cls.notification_list__mails}>
-        <main
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-            overflowY: 'scroll',
-            height: '100%',
-          }}
-        >
+        <main className={cls.notification_list__main}>
           <footer style={{ display: 'flex', justifyContent: 'center' }}>
             {Boolean(values.notifications?.length) && (
               <Pagination

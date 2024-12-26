@@ -1,28 +1,29 @@
-import { Table } from '@/shared/ui/table'
+import { SmartTable, SmartTableRow } from '@/shared/lib/smart-table'
 import { Text } from '@/shared/ui/text'
 
 import { useIssuesPage } from '@/features/manufacture/issues'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
-import { IssuesTableHead } from './components/issues-table-head'
-import { IssuesTableBody } from './components/issues-table-body'
+import { issuesTableConfig } from '../utils/issues-table.config'
 
 const ManufactureIssues = () => {
   const { handlers, values } = useIssuesPage()
+  const config = issuesTableConfig()
 
   return (
     <PageWrapper title="Производственные задачи">
       <Text size="lg">Продукт: {values.productName}</Text>
       <Text size="lg">Номер партии: {values.batchNumber}</Text>
 
-      <Table
-        body={<IssuesTableBody data={values.issues} />}
-        header={<IssuesTableHead />}
-        isPending={values.isPending}
-        page={values.page}
-        setPage={handlers.setPage}
-        totalCount={values.totalCount}
-      />
+      <SmartTable
+        config={config}
+        currentPage={values.page}
+        onPageChange={handlers.setPage}
+        pageCount={values.totalCount}
+        isLoading={values.isPending}
+      >
+        {values.issues?.map((v) => <SmartTableRow key={v.id} row={v} />)}
+      </SmartTable>
     </PageWrapper>
   )
 }

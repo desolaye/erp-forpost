@@ -42,17 +42,15 @@ const InvoicesPage = () => {
 
         {values.isFiltersOpen && (
           <InvoicesFilters
+            dispatch={handlers.dispatch}
             contractors={values.contractors}
             onContractorSearch={handlers.contractorSearch}
-            onSelectContractor={handlers.setContractorId}
-            onSelectInvoiceStatus={handlers.setInvoiceStatus}
-            onSelectPaymentStatus={handlers.setPaymentStatus}
-            onSelectPriority={handlers.setPriority}
           />
         )}
       </Card>
 
       <SmartTable
+        isLoading={values.isPending}
         config={config}
         currentPage={values.page}
         onPageChange={handlers.setPage}

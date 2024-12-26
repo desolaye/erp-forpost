@@ -4,25 +4,16 @@ import { AgentResponseType, agentsToOptions } from '@/entities/manuals'
 import { getInvoicePaymentOptions } from '@/entities/crm/invoices/utils/get-invoice-payment-options'
 import { getInvoicePriorityOptions } from '@/entities/crm/invoices/utils/get-invoice-priority-options'
 import { getInvoiceStatusesOptions } from '@/entities/crm/invoices/utils/get-invoice-statuses-options'
+import { ActionType } from '@/features/crm/invoices'
 
 type InvoiceFilersProps = {
   contractors?: AgentResponseType['items']
+  dispatch: (action: ActionType) => void
   onContractorSearch: (val: string) => void
-  onSelectContractor: (val?: string) => void
-  onSelectInvoiceStatus: (val?: number) => void
-  onSelectPriority: (val?: number) => void
-  onSelectPaymentStatus: (val?: number) => void
 }
 
 export const InvoicesFilters = (props: InvoiceFilersProps) => {
-  const {
-    onContractorSearch,
-    onSelectContractor,
-    onSelectInvoiceStatus,
-    onSelectPaymentStatus,
-    onSelectPriority,
-    contractors,
-  } = props
+  const { onContractorSearch, dispatch, contractors } = props
 
   return (
     <div style={{ zIndex: '10', display: 'flex', gap: 8 }}>
@@ -30,7 +21,9 @@ export const InvoicesFilters = (props: InvoiceFilersProps) => {
         placeholder="Фильтр по контрагенту"
         options={agentsToOptions(contractors)}
         onSearch={onContractorSearch}
-        onChange={(v) => onSelectContractor(v !== null ? v.value : undefined)}
+        onChange={(v) =>
+          dispatch({ type: 'contractor', value: v !== null ? v.value : undefined })
+        }
         className="full"
         isClearable
       />
@@ -38,7 +31,9 @@ export const InvoicesFilters = (props: InvoiceFilersProps) => {
       <Select
         placeholder="Статус счёта"
         options={getInvoiceStatusesOptions()}
-        onChange={(v) => onSelectInvoiceStatus(v !== null ? v.value : undefined)}
+        onChange={(v) =>
+          dispatch({ type: 'invoice', value: v !== null ? v.value : undefined })
+        }
         className="full"
         isClearable
       />
@@ -46,7 +41,9 @@ export const InvoicesFilters = (props: InvoiceFilersProps) => {
       <Select
         placeholder="Приоритет счёта"
         options={getInvoicePriorityOptions()}
-        onChange={(v) => onSelectPriority(v !== null ? v.value : undefined)}
+        onChange={(v) =>
+          dispatch({ type: 'priority', value: v !== null ? v.value : undefined })
+        }
         isClearable
         className="full"
       />
@@ -54,7 +51,9 @@ export const InvoicesFilters = (props: InvoiceFilersProps) => {
       <Select
         placeholder="Статус оплаты"
         options={getInvoicePaymentOptions()}
-        onChange={(v) => onSelectPaymentStatus(v !== null ? v.value : undefined)}
+        onChange={(v) =>
+          dispatch({ type: 'payment', value: v !== null ? v.value : undefined })
+        }
         className="full"
         isClearable
       />

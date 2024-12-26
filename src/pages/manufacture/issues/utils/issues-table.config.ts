@@ -1,62 +1,38 @@
+import { TableConfigType, TableRowRecordType } from '@/shared/lib/smart-table'
 import { IssueInProcessType } from '@/entities/manufacture'
 
 export const issuesTableConfig = () => {
-  type DisplayValues = [
-    keyof IssueInProcessType,
-    {
-      size: string
-      title: string
-    },
-  ][]
-
-  const config: Record<keyof IssueInProcessType, { size: string; title: string }> = {
+  const config: TableRowRecordType<IssueInProcessType> = {
     operationName: {
-      size: '250px',
       title: 'Название операции',
+      type: 'text',
     },
     description: {
-      size: '250px',
       title: 'Описание',
+      type: 'text',
+      maxWidth: 200,
     },
     issueNumber: {
-      size: '100px',
       title: 'Номер',
+      type: 'text',
     },
     currentQuantity: {
-      size: '125px',
       title: 'Выполнено',
+      type: 'text',
     },
     startTime: {
-      size: '175px',
       title: 'Время начала',
+      type: 'text',
     },
     endTime: {
-      size: '175px',
       title: 'Время окончания',
+      type: 'text',
     },
     status: {
-      size: '175px',
       title: 'Статус процесса',
-    },
-    executorId: {
-      size: '0',
-      title: '',
-    },
-    responsibleId: {
-      size: '0',
-      title: '',
-    },
-    id: {
-      size: '0',
-      title: '',
-    },
-    productCompositionFlag: {
-      size: '0',
-      title: '',
+      type: 'text',
     },
   }
 
-  return Object.entries(config).filter(
-    ([_, value]) => value.size !== '0',
-  ) as DisplayValues
+  return Object.entries(config) as TableConfigType<IssueInProcessType>
 }
