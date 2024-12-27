@@ -4,7 +4,7 @@ import { Text } from '@/shared/ui/text'
 import { ModalLayout } from '@/shared/ui/modal-layout'
 import { Textarea } from '@/shared/ui/textarea'
 
-import { useNotificationCreator } from '../../lib/use-notification-creator'
+import { useNotificationCreator } from '../lib/use-notification-creator'
 
 interface INotificationCreatorProps {
   isOpen?: boolean
@@ -28,8 +28,9 @@ export const NotificationCreator = (props: INotificationCreatorProps) => {
             {...handlers.register('message')}
             errorMsg={values.errors.message && 'Введите текст сообщения'}
             placeholder="Ваше сообщение"
-            minRows={4}
-            maxRows={4}
+            label="Введите текст сообщения"
+            minRows={5}
+            maxRows={5}
           />
         </Form>
       </ModalEditor>

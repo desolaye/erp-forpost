@@ -17,25 +17,11 @@ interface IStaffFormProps {
   onClose: () => void
 }
 
-type FormItemType = {
-  label: string
-  key: keyof StaffValidatorType
-}
-
 export const StaffForm = (props: IStaffFormProps) => {
   const { roles = [], isError, staff, isPending } = props
 
   const { register, errors, control, handleSubmit, onReset, onSubmit } =
     useStaffForm(props)
-
-  const formItems: FormItemType[] = [
-    { label: 'Фамилия', key: 'lastName' },
-    { label: 'Имя', key: 'firstName' },
-    { label: 'Отчество', key: 'patronymic' },
-    { label: 'Почта', key: 'email' },
-    { label: 'Номер телефона', key: 'phoneNumber' },
-    { label: 'Должность', key: 'post' },
-  ]
 
   return (
     <Form
@@ -45,16 +31,64 @@ export const StaffForm = (props: IStaffFormProps) => {
       pending={isPending}
       error={isError}
     >
-      {formItems.map((v) => (
+      <div style={{ display: 'flex', gap: 8 }}>
         <Input
-          key={v.key}
-          placeholder={v.label}
-          label={v.label}
-          isError={Boolean(errors[v.key])}
-          helper={errors[v.key]?.message}
-          {...register(v.key)}
+          placeholder="Фамилия"
+          label="Фамилия"
+          isError={Boolean(errors.lastName)}
+          helper={errors.lastName?.message}
+          style={{ minWidth: 0 }}
+          full
+          {...register('lastName')}
         />
-      ))}
+        <Input
+          placeholder="Имя"
+          label="Имя"
+          isError={Boolean(errors.firstName)}
+          helper={errors.firstName?.message}
+          style={{ minWidth: 0 }}
+          full
+          {...register('firstName')}
+        />
+        <Input
+          placeholder="Отчество"
+          label="Отчество"
+          isError={Boolean(errors.patronymic)}
+          helper={errors.patronymic?.message}
+          style={{ minWidth: 0 }}
+          full
+          {...register('patronymic')}
+        />
+      </div>
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Input
+          placeholder="Почта"
+          label="Почта"
+          isError={Boolean(errors.email)}
+          helper={errors.email?.message}
+          style={{ minWidth: 0 }}
+          full
+          {...register('email')}
+        />
+        <Input
+          placeholder="Номер телефона"
+          label="Номер телефона"
+          isError={Boolean(errors.phoneNumber)}
+          helper={errors.phoneNumber?.message}
+          style={{ minWidth: 0 }}
+          full
+          {...register('phoneNumber')}
+        />
+      </div>
+
+      <Input
+        placeholder="Должность"
+        label="Должность"
+        isError={Boolean(errors.post)}
+        helper={errors.post?.message}
+        {...register('post')}
+      />
 
       {!Boolean(staff.id) && (
         <Input

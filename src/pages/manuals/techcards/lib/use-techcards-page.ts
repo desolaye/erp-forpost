@@ -17,7 +17,7 @@ export const useTechcardsPage = () => {
 
   const techcardsAll = useQuery({
     queryFn: () => getTechcardsAll({ ...params, number: filters?.filterValues }),
-    queryKey: ['techcards_all', debouncedSearch],
+    queryKey: ['techcards_all', debouncedSearch, page],
     refetchOnWindowFocus: false,
   })
 
@@ -27,14 +27,17 @@ export const useTechcardsPage = () => {
       selectedCard,
       page,
       search,
-      count: getTotalCount(techcardsAll.data?.totalCount),
       isLoadingAll: techcardsAll.isFetching,
       isCreateOpen,
       isOperationsOpen,
     },
+    pagination: {
+      page,
+      count: getTotalCount(techcardsAll.data?.totalCount),
+      onSetPage: setPage,
+    },
     handlers: {
       onSelect: setSelectedCard,
-      onPageChange: setPage,
       setIsCreateOpen,
       setIsOperationsOpen,
       setSearch,

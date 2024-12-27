@@ -33,61 +33,68 @@ export const AgentForm = (props: IAgentFormProps) => {
       pending={isPending}
       error={isError}
     >
-      <Input
-        placeholder="Имя агента"
-        label="Имя агента"
-        isError={Boolean(errors.name)}
-        helper={errors.name?.message}
-        {...register('name')}
-      />
-      <Input
-        placeholder="ИНН"
-        label="ИНН"
-        isError={Boolean(errors.inn)}
-        helper={errors.inn?.message}
-        {...register('inn')}
-      />
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Input
+          placeholder="Имя агента"
+          label="Имя агента"
+          isError={Boolean(errors.name)}
+          helper={errors.name?.message}
+          style={{ minWidth: 0 }}
+          {...register('name')}
+        />
+        <Input
+          placeholder="ИНН"
+          label="ИНН"
+          isError={Boolean(errors.inn)}
+          helper={errors.inn?.message}
+          style={{ minWidth: 0 }}
+          {...register('inn')}
+        />
+        <Controller
+          name="contractorType"
+          control={control}
+          render={({ field }) => (
+            <Select
+              errorMsg={errors.contractorType && 'Выберите тип агента'}
+              label="Тип контрагента"
+              placeholder="Тип контрагента"
+              className="full"
+              {...field}
+              options={contractTypeToOptions()}
+            />
+          )}
+        />
+      </div>
 
-      <Controller
-        name="contractorType"
-        control={control}
-        render={({ field }) => (
-          <Select
-            errorMsg={errors.contractorType && 'Выберите тип агента'}
-            label="Тип контрагента"
-            placeholder="Тип контрагента"
-            {...field}
-            options={contractTypeToOptions()}
-          />
-        )}
-      />
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <Controller
+          name="country"
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              errorMsg={errors.country && 'Выберите страну'}
+              placeholder="Страна"
+              label="Страна"
+              className="full"
+              options={[
+                { label: 'Россия', value: 'Россия' },
+                { label: 'Казахстан', value: 'Казахстан' },
+                { label: 'Белорусь', value: 'Белорусь' },
+                { label: 'Другая', value: 'Другая' },
+              ]}
+            />
+          )}
+        />
 
-      <Controller
-        name="country"
-        control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            errorMsg={errors.country && 'Выберите страну'}
-            placeholder="Страна"
-            label="Страна"
-            options={[
-              { label: 'Россия', value: 'Россия' },
-              { label: 'Казахстан', value: 'Казахстан' },
-              { label: 'Белорусь', value: 'Белорусь' },
-              { label: 'Другая', value: 'Другая' },
-            ]}
-          />
-        )}
-      />
-
-      <Input
-        placeholder="Город"
-        label="Город"
-        isError={Boolean(errors.city)}
-        helper={errors.city?.message}
-        {...register('city')}
-      />
+        <Input
+          placeholder="Город"
+          label="Город"
+          isError={Boolean(errors.city)}
+          helper={errors.city?.message}
+          {...register('city')}
+        />
+      </div>
 
       <Text>Уровень дисконта</Text>
       <Controller

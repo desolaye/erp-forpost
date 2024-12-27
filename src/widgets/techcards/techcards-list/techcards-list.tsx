@@ -13,7 +13,11 @@ import { TechcardsAllResponseType } from '@/entities/manuals/techcards'
 import cls from './techcards-list.module.scss'
 
 type TechcardsListProps = {
-  count?: number
+  pagination?: {
+    count: number
+    page: number
+    onSetPage: (page: number) => void
+  }
   isLoading?: boolean
   techcards?: TechcardsAllResponseType['items']
   search?: string
@@ -23,7 +27,8 @@ type TechcardsListProps = {
 }
 
 export const TechcardsList = (props: TechcardsListProps) => {
-  const { count, isLoading, techcards, search, onSearch, onCardSelect, onCreate } = props
+  const { pagination, isLoading, techcards, search, onSearch, onCardSelect, onCreate } =
+    props
 
   return (
     <nav className={cls.techcards_list__nav}>
@@ -63,7 +68,14 @@ export const TechcardsList = (props: TechcardsListProps) => {
           ))}
       </div>
 
-      <Pagination count={count} variant="outlined" shape="rounded" color="primary" />
+      <Pagination
+        page={pagination?.page}
+        onChange={(_, p) => pagination?.onSetPage(p)}
+        count={pagination?.count}
+        variant="outlined"
+        shape="rounded"
+        color="primary"
+      />
     </nav>
   )
 }

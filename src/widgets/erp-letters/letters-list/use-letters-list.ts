@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { usePagination } from '@/shared/lib/use-pagination'
 import { getNotificationsAll, NotificationType } from '@/entities/notifications'
 
-export const useNotificationsList = () => {
+export const useLettersList = () => {
   const [isCreating, setIsCreating] = useState(false)
   const [notification, setNotification] = useState<NotificationType>()
 
@@ -13,7 +13,7 @@ export const useNotificationsList = () => {
   const { data, isPending } = useQuery({
     queryFn: () =>
       getNotificationsAll({
-        params,
+        ...params,
       }),
     queryKey: ['notifications_all', page],
   })
@@ -24,14 +24,16 @@ export const useNotificationsList = () => {
     values: {
       notifications: data?.notifications,
       notification,
-      totalCount: getTotalCount(data?.totalCount),
-      page,
       isPending,
       isCreating,
     },
+    pagination: {
+      page,
+      totalCount: getTotalCount(data?.totalCount),
+      setPage,
+    },
     handlers: {
       open,
-      setPage,
       setIsCreating,
       setNotification,
     },

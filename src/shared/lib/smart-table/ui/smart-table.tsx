@@ -71,9 +71,11 @@ export const SmartTable = <T,>(props: ISmartTableProps<T>) => {
         {pageCount > 0 && (
           <Pagination
             count={pageCount}
-            size="large"
             page={currentPage}
             onChange={(_, p) => onPageChange(p)}
+            variant="outlined"
+            shape="rounded"
+            color="primary"
           />
         )}
       </footer>

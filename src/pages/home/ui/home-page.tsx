@@ -1,10 +1,10 @@
-import { NotificationsList } from '@/features/notifications'
+import { LettersList } from '@/widgets/erp-letters/letters-list'
 import { PageWrapper } from '@/widgets/layouts/page-wrapper'
 
 const HomePage = () => {
   return (
     <PageWrapper>
-      <NotificationsList />
+      <LettersList />
     </PageWrapper>
   )
 }

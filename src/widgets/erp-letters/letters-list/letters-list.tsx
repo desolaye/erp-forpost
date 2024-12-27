@@ -7,19 +7,17 @@ import { Button } from '@/shared/ui/button'
 
 import { NotificationCard } from '@/entities/notifications'
 
-import { useNotificationsList } from '../lib/use-notifications-list'
+import { NotificationCreator, NotificationFull } from '@/features/notifications'
 
-import { NotificationCreator } from './components/notification-creator'
-import { NotificationFull } from './components/notification-full'
+import { useLettersList } from './use-letters-list'
+import cls from './letters-list.module.scss'
 
-import cls from './notification-list.module.scss'
-
-export const NotificationsList = () => {
-  const { handlers, values } = useNotificationsList()
+export const LettersList = () => {
+  const { handlers, values, pagination } = useLettersList()
 
   return (
-    <section className={cls.notification_list__wrapper}>
-      <header className={cls.notification_list__header}>
+    <section className={cls.letters_list__wrapper}>
+      <header className={cls.letters_list__header}>
         <Text size="xl" weight="semi">
           Уведомления для пользователей
         </Text>
@@ -28,33 +26,32 @@ export const NotificationsList = () => {
         </Button>
       </header>
 
-      <section className={cls.notification_list__mails}>
-        <main className={cls.notification_list__main}>
-          <footer style={{ display: 'flex', justifyContent: 'center' }}>
-            {Boolean(values.notifications?.length) && (
-              <Pagination
-                count={values.totalCount}
-                size="large"
-                page={values.page}
-                onChange={(_, p) => handlers.setPage(p)}
-              />
-            )}
-          </footer>
-
+      <section className={cls.letters_list__mails}>
+        <main className={cls.letters_list__main}>
           {values.isPending && <Loader />}
           {!values.isPending && !Boolean(values.notifications?.length) && <EmptyCard />}
 
-          <div className={cls.notification_list}>
+          <div className={cls.letters_list}>
             {values.notifications?.map((v) => (
               <NotificationCard
                 key={v.id}
-                className={cls.notification_list__item}
+                className={cls.letters_list__item}
                 notification={v}
                 isPreview
                 onClick={() => handlers.setNotification(v)}
               />
             ))}
           </div>
+
+          <footer style={{ display: 'flex', justifyContent: 'center' }}>
+            <Pagination
+              {...pagination}
+              onChange={(_, p) => pagination.setPage(p)}
+              variant="outlined"
+              shape="rounded"
+              color="primary"
+            />
+          </footer>
         </main>
 
         <NotificationFull

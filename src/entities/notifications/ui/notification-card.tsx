@@ -5,14 +5,15 @@ import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined'
 
 import { Card } from '@/shared/ui/card'
 import { Text } from '@/shared/ui/text'
+import { useFileLoader } from '@/shared/lib/use-file-loader'
+import { Loader } from '@/shared/ui/loader'
+import { Button } from '@/shared/ui/button'
+import { FileAdd } from '@/shared/ui/file'
+
+import { File } from '@/entities/files'
 
 import { NotificationType } from '../model/notification.schema'
 import cls from './notification-card.module.scss'
-import { Button } from '@/shared/ui/button'
-import { FileAdd } from '@/shared/ui/file'
-import { File } from '@/entities/files'
-import { useFileLoader } from '@/shared/lib/use-file-loader'
-import { Loader } from '@/shared/ui/loader'
 
 interface INotificationCardProps {
   notification: NotificationType

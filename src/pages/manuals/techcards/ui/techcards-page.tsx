@@ -17,18 +17,11 @@ import { useTechcardsPage } from '../lib/use-techcards-page'
 import cls from './techcards-page.module.scss'
 
 const TechcardsPage = () => {
-  const { values, handlers } = useTechcardsPage()
+  const { values, pagination, handlers } = useTechcardsPage()
 
   return (
     <PageWrapper>
-      <header
-        style={{
-          display: 'flex',
-          gap: 8,
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
+      <header className={cls.techcards_page__header}>
         <Text size="xl" weight="semi">
           Технологические карты
         </Text>
@@ -39,7 +32,7 @@ const TechcardsPage = () => {
 
       <section className={cls.techcards_page__layout}>
         <TechcardsList
-          count={values.count}
+          pagination={pagination}
           isLoading={values.isLoadingAll}
           onCardSelect={(id) => handlers.onSelect(id)}
           onCreate={() => handlers.setIsCreateOpen(true)}

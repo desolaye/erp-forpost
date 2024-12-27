@@ -32,7 +32,7 @@ export const NotificationFull = (props: INotificationFullProps) => {
   return (
     <NotificationCard
       notification={notification}
-      style={{ overflow: 'hidden', height: 'calc(100vh - 100px)' }}
+      style={{ overflow: 'hidden', height: '100%' }}
     />
   )
 }
